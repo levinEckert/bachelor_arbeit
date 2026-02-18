@@ -1,0 +1,112 @@
+%%
+%% BpersonalMacros für Technik -- Abschlussarbeit
+%%
+%% Hauptdokument
+%%
+%% 23.01.09 Tschirley V.01 Beuth Hochschule
+%% 26.08.21 Tschirley V2.0 Umbenennung zur Berliner Hochschule für Technik
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt, a4paper]{book}
+%\usepackage[ngerman]{babel} %TODO anpassen alls english aus Style nicht passt
+%\documentclass[11pt, a4paper, oneside]{book}
+%% Übersetzen als Entwurf
+\usepackage[entwurf]{../style/bhtThesis}
+%% Übersetzen für die Abgabe
+%\usepackage[abgabe]{bhtThesis}
+
+%%
+%% Pfad zu den Bildern
+%%
+\graphicspath{
+    {pictures/},
+    {../style/},
+    {einleitung/pictures},
+    {kapitel1/pictures/},
+    {kapitel2/pictures/},
+    {pictures/best_routes/},
+    {pictures/distances/}
+}
+
+%%
+%% Einbinden persönlicher macros 
+%%
+\input{personalMacros}
+
+%% Message
+\typeout{-----------------------------------------------------------}
+\typeout{----> main.tex ---- Zentrales Dokument---------------------}
+\typeout{-----------------------------------------------------------}
+
+\version{0.1$\alpha$}    % word im Entwurf auf der Titelseite vermerkt
+\datum{\today}
+%%
+%% Titel, Autor und Betreuer
+%%
+\fachbereich{VI -- Informatik -- Medien} 
+%\thethesistyp{Bachelors Thesis}
+\studiengang{Technische Informatik - Embedded Systems (B.Eng.)}
+\autor{Tim Hebel}
+\edvnr{100769}
+\titel{Entwurf eines Condition Monitoring Systems für Motor und Getriebe einer Trubinenläufer Wuchtanlage}
+%\untertitel{Nötig?}
+\betreuerFeld{
+  \begin{tabular}{l|r}
+    \multicolumn{2}{l}{\textbf{Betreuer/innen:}}\\
+            Prof. Dr. Peter Gregorius & Berliner Hochschule für Technik\\
+            Felix Naeth & Siemens Energy AG\\
+  \end{tabular}
+}
+
+\input{acronyms}
+\makenoidxglossaries
+
+
+
+\pagenumbering{Roman}
+
+\begin{document}
+\pagestyle{fancy}
+
+\input{titelseiten}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\glsaddall
+\glsaddallunused
+\setcounter{page}{-1}
+\printnoidxglossaries
+\setcounter{page}{2}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Die Kapitel der Arbeit
+\pretocmd{\chapter}{\clearpage}{}{} % ist das Formatierungstechnisch richtig so?
+\pagenumbering{arabic}
+\input{chapter/ch1}
+\input{chapter/ch2}
+\input{chapter/ch3}
+\input{chapter/ch4}
+\input{chapter/ch5}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Literaturverzeichnis
+
+\clearpage\newpage
+
+\pagenumbering{Roman}
+\addcontentsline{toc}{chapter}{Bibliographie und Quellen}
+\setcounter{page}{3}
+\bibliographystyle{apalike}
+\bibliography{sources}
+
+
+
+
+
+
+
+\end{document}
