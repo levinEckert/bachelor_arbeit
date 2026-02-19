@@ -7,8 +7,7 @@
 \section{Aufbau der Hardware und Sensorik}
 \label{sec:hardware_aufbau}
 \begin{itemize}
-    \item Installation und Positionierung der Sensorik an der Maschine
-    \item Konfiguration der Hardware-Schnittstellen
+    \item Wenn nötig: Installation und Positionierung der Sensorik an der Maschine
 \end{itemize}
 
 %================================================================================================
@@ -17,8 +16,7 @@
 \section{Implementierung der Datenerfassung}
 \label{sec:datenerfassung_impl}
 \begin{itemize}
-    \item Realisierung der Datenanbindung (Data Ingestion)
-    \item Programmierung der Schnittstellen zum Datenzugriff
+    \item Realisierung der Datenanbindung
 \end{itemize}
 
 %================================================================================================
@@ -29,22 +27,23 @@
 
 \subsection{Transformation und Filterung}
 \begin{itemize}
-    \item Code-seitige Umsetzung der FFT und digitaler Filter
-    \item Anwendung der gewählten Fensterfunktionen
+    \item Anwendung der FFT, irgenwelcher Filter oder ähnliches...
 \end{itemize}
 
 \subsection{Berechnung der Kennwerte}
 \begin{itemize}
-    \item Algorithmische Umsetzung der statistischen Merkmale (z. B. RMS, Kurtosis)
-    \item Darstellung relevanter Code-Ausschnitte
+    \item Umsetzung der Kennwerte (Code für Berechnung der RMS, Kurtosis...)
 \end{itemize}
 
-%================================================================================================
-%       5.4 Zustandsüberwachung
-%================================================================================================
+\section{Realisierung des ML-Modells}
+\label{sec:ml_impl}
+\begin{itemize}
+    \item Daten vorverarbeitung, Training, Parametereinstellung usw.
+    \item evtl hybrid ansatz aus ML und Schwellwert ?
+\end{itemize}
+
 \section{Realisierung der Zustandsüberwachung}
 \label{sec:zustandswarnung_impl}
 \begin{itemize}
-    \item Implementierung der Alarmierungslogik
-    \item Verknüpfung der Kennwerte mit den definierten Schwellwerten
+    \item Implementierung der Vorhersage des Ausfalls ggf. Alarmierungslogik
 \end{itemize}

@@ -7,8 +7,8 @@
 \section{Systemarchitektur}
 \label{sec:architektur}
 \begin{itemize}
-    \item Gesamtüberblick der Datenkette (Sensor $\rightarrow$ Edge $\rightarrow$ Verarbeitung $\rightarrow$ Ausgabe)
-    \item Definition der Schnittstellen zwischen den Teilsystemen
+    \item Beschreibung der Datenkette (Sensor $\rightarrow$ Edge $\rightarrow$ Verarbeitung $\rightarrow$ Ausgabe)
+    \item Schnittstellen zwischen den Systemen beschreiben
 \end{itemize}
 
 %================================================================================================
@@ -19,14 +19,8 @@
 
 \subsection{Data Cleaning und Pre-Processing}
 \begin{itemize}
-    \item Verfahren zur Bereinigung und Filterung der in Kap. 3.2 beschriebenen Rohdaten
+    \item Bereinigung und Filterung von Rohdaten
     \item Umgang mit Ausreißern und Signalrauschen
-\end{itemize}
-
-\subsection{Transformation und Signalaufbereitung}
-\begin{itemize}
-    \item Strategie zur Fensterung (Windowing) zur Reduktion von Artefakten
-    \item Konzeption der Transformation in den Frequenzbereich (FFT)
 \end{itemize}
 
 %================================================================================================
@@ -35,8 +29,8 @@
 \section{Auswahl der Algorithmen und Kennwerte}
 \label{sec:algorithmen_wahl}
 \begin{itemize}
-    \item Begründung der gewählten mathematischen Methoden für diese spezifische Maschine
-    \item Definition und Logik zur Festlegung der Schwellwerte (Thresholding)
+    \item Begründung der Auswahl der Kennwerte (ggf. Sensortypen) für spezifische Maschine
+    \item Begründung ML-Algorithmus
 \end{itemize}
 
 %================================================================================================
@@ -45,6 +39,5 @@
 \section{Entwurf der Softwarestruktur}
 \label{sec:softwarestruktur}
 \begin{itemize}
-    \item Modularisierung der Software (Klassen- und Moduldiagramme)
-    \item Ablaufpläne des Algorithmus (Programmablaufpläne)
+    \item Softwareaufbau erklären (Klassendiagramme etc.)
 \end{itemize}
