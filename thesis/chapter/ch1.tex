@@ -1,57 +1,138 @@
 \chapter{Einleitung}
 \label{ch:einleitung}
 
-% Einleitungstext: Hier kurz das Thema anreißen (Predictive Maintenance an Wuchtanlage)
-% und den Leser abholen, bevor es in die Details geht.
-
-
 %================================================================================================
 %       1.1 Umfeld
 %================================================================================================
 \section{Umfeld}
 \label{sec:umfeld}
 
-Dieses Kapitel beschreibt den organisatorischen und technischen Kontext der Arbeit. Es stellt das Unternehmen \gls{SE}, den spezifischen Standort sowie das zu untersuchende Produkt und die Abteilung vor.
+Dieses Kapitel beschreibt den organisatorischen und fachlichen Kontext der Arbeit.
+Dazu werden zunächst das Unternehmen \gls{SE}, sein Wettbewerbsumfeld,
+der Standort Berlin-Huttenstraße und die Abteilung Maschineninstandhaltung eingeordnet.
+Anschließend werden Motivation, Problemstellung, Zielsetzung und Abgrenzung der Arbeit erläutert.
 
-%------------------------------------------------------------------------------------------------
-\subsection{Siemens Energy}
-\label{subsec:siemens-energy}
-%------------------------------------------------------------------------------------------------
-\subsubsection{Standort Huttenstraße}
-\label{subsubsec:standort-huttenstrae}
-%------------------------------------------------------------------------------------------------
-\subsubsection{Abteilung Maschinen Instandhaltung}
-\label{subsubsec:abteilung-maschinen-instandhaltung}
-%------------------------------------------------------------------------------------------------
-\subsection{Gasturbinen (Produkt)}
-\label{subsec:gasturbinen}
+\paragraphheading{Siemens Energy}
+
+Die Siemens Energy AG ist ein weltweit tätiges Energietechnikunternehmen.
+Das Unternehmen ist in mehr als 90 Ländern vertreten.
+Sein Portfolio umfasst Technologien für die konventionelle und erneuerbare Energieerzeugung,
+Netztechnik und Energiespeicherung sowie die Elektrifizierung industrieller Prozesse
+\cite{SiemensEnergy}.
+Es basieren rund ein Sechstel der weltweiten Stromerzeugung
+auf Technologien des Unternehmens.
+Zum 30. September 2025 beschäftigte Siemens Energy etwa 103.000 Mitarbeitende
+und erzielte im Geschäftsjahr 2025 Umsatzerlöse von 39,1 Milliarden Euro
+\cite[5]{se_presentation}.
+
+\paragraphheading{Wettbewerbsumfeld}
+
+Aufgrund des breiten Portfolios ist das Wettbewerbsumfeld von Siemens Energy segmentspezifisch.
+Relevant sind insbesondere Anbieter von Windenergietechnik, Gas- und Dampfturbinen,
+Netztechnik sowie industriellen Energie- und Digitalisierungslösungen.
+Eine belastbare Einordnung konkreter Wettbewerber erfordert daher eine segmentbezogene Betrachtung
+und unabhängige Marktquellen;
+die unternehmenseigenen Angaben zu Marktpositionen reichen dafür allein nicht aus.
+
+\paragraphheading{Standort Berlin-Huttenstraße}
+
+Der betriebliche Ausgangspunkt der Arbeit ist der Standort Berlin-Huttenstraße.
+Die Darstellung des Standorts dient der Einordnung des organisatorischen Entstehungskontexts;
+eine konkrete Produktionsmaschine des Standorts ist nicht Gegenstand der Untersuchung.
+
+\paragraphheading{Abteilung Maschineninstandhaltung}
+
+Die Arbeit ist organisatorisch im Umfeld der Maschineninstandhaltung angesiedelt.
+Aus dem Interesse an datenbasierten Zustandsinformationen für eine stärker bedarfsgerechte
+Instandhaltungsplanung entstand die ursprüngliche Aufgabenstellung.
+Aufgrund der verfügbaren Daten und des zeitlichen Rahmens erfolgt jedoch keine Implementierung
+an einer konkreten Industriemaschine.
+
 %================================================================================================
-%       1.2 Motivation
+%       1.2 Motivation und Ausgangslage
 %================================================================================================
-\section{Motivation}
+\section{Motivation und Ausgangslage}
 \label{sec:motivation}
-In der industriellen Instandhaltung stellt der zuverlässige und wirtschaftliche Betrieb technischer Anlagen eine zentrale Anforderung dar.
-Insbesondere bei Energieerzeugungsanlagen, wie z.B. Gasturbinen, führen ungeplante Ausfälle zu erheblichen Beeinträchtigungen der Produktionsprozesse sowie zu signifikanten Kosten- und Sicherheitsrisiken. Herkömmliche Wartungsstrategien basieren überwiegend auf festen Zeitintervallen, ohne den tatsächlichen Verschleißzustand der Komponenten zu berücksichtigen.
+% Fachquelle zur Einordnung der Instandhaltungsstrategien ergänzen.
+In der industriellen Instandhaltung stellt der zuverlässige und wirtschaftliche Betrieb
+technischer Anlagen eine zentrale Anforderung dar.
+Reaktive und ausschließlich intervallorientierte Maßnahmen berücksichtigen den individuell
+beobachteten Zustand einer Komponente nur eingeschränkt.
+Dadurch können Komponenten entweder vor dem Ende ihrer technisch nutzbaren Betriebsdauer
+ausgetauscht werden oder Schäden zwischen zwei Wartungszeitpunkten unbemerkt fortschreiten.
 
-    Diese intervallorientierte Vorgehensweise bringt zwei wesentliche Probleme mit sich: Einerseits werden Wartungen an technisch intakten Anlagen durchgeführt, was zu unnötigen Stillstandzeiten und Ressourcenverschwendung führt.
-    Andererseits können sich kritische Schäden zwischen den Wartungsintervallen unbemerkt entwickeln, was im schlimmsten Fall zu ungeplanten Ausfällen führt.
-    Beide Szenarien verursachen erhebliche wirtschaftliche Verluste und beeinträchtigen die Effizienz der Instandhaltungsorganisation.
+% Fachquelle zur zustandsorientierten Instandhaltung und Schwingungsdiagnose ergänzen.
+Zustandsorientierte Instandhaltungsstrategien nutzen Mess- und Zustandsdaten,
+um Wartungsentscheidungen durch Informationen über den tatsächlichen Anlagenzustand zu unterstützen.
+Bei rotierenden Maschinen stellen Schwingungssignale eine wesentliche Informationsquelle dar,
+weil sich mechanische Zustandsänderungen in charakteristischen Signalanteilen abbilden können.
+Eine automatisierte Auswertung solcher Messdaten kann somit die Grundlage
+für eine bedarfsgerechtere Instandhaltungsplanung bilden.
 
-    Predictive Maintenance optimiert diesen Ablauf durch kontinuierliche Zustandsüberwachung anhand von Sensorik.
-    Physikalische Messgrößen wie Schwingungen, Temperaturen oder elektrische Parameter werden kontinuierlich erfasst, verarbeitet und ausgewertet, um Abweichungen vom Normalzustand frühzeitig zu erkennen.
-    Dieser datengetriebene Ansatz ermöglicht eine bedarfsgerechte Planung von Wartungsmaßnahmen und verschiebt den Fokus von reaktiver zu proaktiver Instandhaltung.
-
-    Trotz des erkennbaren Potenzials ist die Implementierung von Predictive-Maintenance-Systemen in der Praxis noch begrenzt.
-    Die notwendige Sensorinfrastruktur ist kostenintensiv und wird erst seit kurzer Zeit in den Anlagen integriert.
-    Zudem fehlen häufig Fachkräfte mit spezifischen Kompetenzen in Instandhaltungstechnik, Sensorik und Datenanalyse.
-
-
-
-    Die Arbeit entwickelt einen funktionsfähigen Ansatz zur datenbasierten Zustandsüberwachung und Ausfallvorhersage.
-    Im Fokus steht die praktische Implementierung eines Algorithmus, der aus Sensordaten belastbare Prognosen über den Maschinenzustand und potenzielle Ausfallzeitpunkte berechnet.
 %================================================================================================
-%       1.3 Anforderungen
+%       1.3 Problemstellung
 %================================================================================================
-\section{Anforderungen}
-\label{sec:anforderungen}
+\section{Problemstellung}
+\label{sec:problemstellung}
 
+% Fachquelle zur Signalüberlagerung und Lagerdiagnose ergänzen.
+Die Erfassung von Schwingungsdaten allein erlaubt noch keine belastbare Zustandsbewertung.
+Fehlerbezogene Signalanteile können durch Betriebsgeräusche, Resonanzen,
+wechselnde Last- und Drehzahlzustände sowie weitere Störeinflüsse überlagert werden.
+Für die Diagnose von Wälzlagerschäden müssen daher geeignete Verfahren zur Signalaufbereitung,
+Merkmalsextraktion und Bewertung zu einer nachvollziehbaren Verarbeitungskette kombiniert werden.
+
+Da im Rahmen dieser Arbeit keine ausreichend geeignete Datenbasis einer konkreten Industriemaschine
+zur Verfügung steht, werden Entwicklung und Evaluation anhand öffentlicher Referenzdatensätze durchgeführt.
+Im Mittelpunkt steht der Lagerdatensatz der Universität Paderborn;
+Daten der Case Western Reserve University werden ergänzend betrachtet
+\cite{smithRollingElementBearing2015}.
+Daraus ergibt sich zugleich die Notwendigkeit, die Aussagekraft der Ergebnisse
+und ihre Übertragbarkeit auf industrielle Anwendungen kritisch zu begrenzen.
+
+%================================================================================================
+%       1.4 Zielsetzung, Forschungsfragen und Abgrenzung
+%================================================================================================
+\section{Zielsetzung, Forschungsfragen und Abgrenzung}
+\label{sec:zielsetzung}
+
+\paragraphheading{Zielsetzung}
+
+Ziel der Arbeit ist die Konzeption, Implementierung und Evaluation einer modularen Pipeline
+zur schwingungsbasierten Erkennung von Wälzlagerschäden.
+Die Pipeline soll Schwingungsdaten aufbereiten,
+diagnostisch relevante Signalanteile hervorheben und daraus eine nachvollziehbare
+Zustands- beziehungsweise Fehlerindikation ableiten.
+Die Implementierung und Untersuchung erfolgen schwerpunktmäßig anhand des Paderborner Lagerdatensatzes
+und ergänzend anhand des CWRU-Datensatzes.
+
+\paragraphheading{Forschungsfragen}
+
+Die konkrete Formulierung der Haupt- und Unterforschungsfragen wird auf Grundlage
+der endgültig festgelegten Programmausgabe und Evaluationskriterien vorgenommen.
+
+\paragraphheading{Abgrenzung}
+
+Nicht Gegenstand der Arbeit sind die Vorhersage eines Ausfallzeitpunkts,
+die Bestimmung der verbleibenden Nutzungsdauer oder die automatische Festlegung eines Wartungstermins.
+Ebenso erfolgen keine Implementierung an einer konkreten Industriemaschine
+und keine industrielle Echtzeitvalidierung.
+Die Ergebnisse dienen damit der diagnostischen Zustandsbewertung auf Basis von Referenzdatensätzen
+und können eine spätere zustandsorientierte Instandhaltung methodisch vorbereiten,
+aber noch keine betriebliche Wartungsentscheidung ersetzen.
+
+%================================================================================================
+%       1.5 Aufbau der Arbeit
+%================================================================================================
+\section{Aufbau der Arbeit}
+\label{sec:aufbau}
+
+Kapitel~\ref{ch:grundlagen} beschreibt die fachlichen Grundlagen der Instandhaltung,
+Schwingungsanalyse und digitalen Signalverarbeitung.
+Kapitel~\ref{ch:analyse} analysiert die verwendeten Datensätze
+und leitet die Anforderungen an die Verarbeitungspipeline ab.
+Darauf aufbauend stellt Kapitel~\ref{ch:konzept} das methodische und softwaretechnische Konzept vor,
+dessen Implementierung in Kapitel~\ref{ch:implementierung} beschrieben wird.
+Kapitel~\ref{ch:evaluation} evaluiert die Pipeline und diskutiert die erzielten Ergebnisse.
+Kapitel~\ref{ch:schlussbetrachtung} fasst die Arbeit abschließend zusammen
+und zeigt Grenzen sowie mögliche Weiterentwicklungen auf.
