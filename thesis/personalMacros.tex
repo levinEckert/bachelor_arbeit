@@ -10,3 +10,12 @@
 
 \newcommand{\OPV}{Operations\-ver\-stär\-ker}
 
+% Unnummerierte Absatzüberschrift unterhalb der Section-Ebene.
+% Die folgende Textzeile beginnt als eigener Absatz ohne Einzug.
+\newcommand{\paragraphheading}[1]{%
+    \par
+    \addvspace{0.8\baselineskip}%
+    \noindent\textbf{#1}\par\nobreak
+    \addvspace{0.2\baselineskip}%
+    \noindent\ignorespaces
+}
