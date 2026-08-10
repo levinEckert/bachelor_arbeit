@@ -33,6 +33,14 @@
 %%
 \input{personalMacros}
 
+%% Literaturverwaltung: Zotero-/BibLaTeX-Export mit Biber und IEEE-Zitierstil
+\usepackage[
+    backend=biber,
+    style=ieee,
+    sorting=none
+]{biblatex}
+\addbibresource{sources.bib}
+
 %% Message
 \typeout{-----------------------------------------------------------}
 \typeout{----> main.tex ---- Zentrales Dokument---------------------}
@@ -98,10 +106,8 @@
 \clearpage\newpage
 
 \pagenumbering{Roman}
-\addcontentsline{toc}{chapter}{Bibliographie und Quellen}
 \setcounter{page}{3}
-\bibliographystyle{apalike}
-\bibliography{sources}
+\printbibliography[heading=bibintoc,title={Bibliographie und Quellen}]
 
 
 

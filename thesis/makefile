@@ -2,7 +2,7 @@
 ## macrodefinitions 
 ##
 LATEX        = pdflatex
-BIBTEX       = bibtex
+BIBER        = biber
 SRC          = main
 REMOVE       = *.tex~ *.aux *.glo *.gls *.cb *.dvi *.log *.toc *.lof *.bbl *.blg *.ilg *.cb? *.idx *.out
 
@@ -11,7 +11,7 @@ REMOVE       = *.tex~ *.aux *.glo *.gls *.cb *.dvi *.log *.toc *.lof *.bbl *.blg
 ##
 all : 
 	$(LATEX)  $(SRC)
-	$(BIBTEX) $(SRC)
+	$(BIBER)  $(SRC)
 	$(LATEX)  $(SRC) 
 	$(LATEX)  $(SRC)
 
