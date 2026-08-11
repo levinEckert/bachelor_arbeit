@@ -9,59 +9,76 @@
 
 \paragraphheading{Siemens Energy}
 
-Die Siemens Energy AG ist ein weltweit tätiges Energietechnikunternehmen und in mehr als 90 Ländern vertreten.
-Das Portfolio umfasst Technologien für die konventionelle und erneuerbare Energieerzeugung,
-Netztechnik und Energiespeicherung sowie Lösungen zur Elektrifizierung industrieller Prozesse \cite{SiemensEnergy}.
-Technologien von Siemens Energy sind nach Unternehmensangaben an rund einem Sechstel der weltweiten Stromerzeugung beteiligt.
-Zum 30. September 2025 beschäftigte der Konzern etwa 103.000 Mitarbeitende und erzielte im Geschäftsjahr 2025 Umsatzerlöse von 39,1 Milliarden Euro \cite[5]{se_presentation}.
+Die Siemens Energy AG ist ein weltweit tätiges Energietechnikunternehmen
+und in mehr als 90 Ländern vertreten.
+Das Unternehmen entwickelt Technologien und Lösungen für die konventionelle
+und erneuerbare Energieerzeugung, die Netztechnik und Energiespeicherung
+sowie die Elektrifizierung industrieller Prozesse
+\cite{SiemensEnergy}.
+Nach Unternehmensangaben tragen Technologien von Siemens Energy
+zu rund einem Sechstel der weltweiten Stromerzeugung bei.
+Zum 30. September 2025 beschäftigte der Konzern etwa 103.000 Mitarbeitende
+und erzielte im Geschäftsjahr 2025 Umsatzerlöse von 39,1 Milliarden Euro
+\cite[5]{se_presentation}.
 
-Aufgrund des breiten Portfolios ist das Wettbewerbsumfeld von Siemens Energy segmentspezifisch.
-Ein Wettbewerber mit breiter Portfolioüberschneidung ist GE Vernova.
-Dessen Angebot umfasst die Bereiche Power, Wind und Electrification.
+Aufgrund dieser Tätigkeitsfelder ist das Wettbewerbsumfeld von Siemens Energy segmentspezifisch.
+Ein Wettbewerber in mehreren dieser Tätigkeitsfelder ist GE Vernova.
+Dessen Geschäftstätigkeit umfasst Technologien für die Energieerzeugung,
+die Windenergie sowie die Elektrifizierung und Energieübertragung.
 Hierzu zählen unter anderem Gas-, Wasser-, Kern- und Dampfkrafttechnologien,
-Onshore- und Offshore-Windenergie sowie Netz-, Energieumwandlungs- und Speicherlösungen
+Onshore- und Offshore-Windenergie sowie Netztechnik, Energieumwandlung und Energiespeicherung
 \cite{MissionStatementGE}.
 In einer bei der US-Börsenaufsicht SEC eingereichten Registrierungserklärung
-führt GE Vernova für Gasturbinen und Kraftwerke mit kombiniertem Gas- und Dampfkreislauf
-Siemens Energy, Mitsubishi Power, Ansaldo Energia und Doosan sowie in ausgewählten Märkten
+führt GE Vernova für Gasturbinen und Kraftwerke mit kombiniertem Gas- und Dampfkreislauf neben
+Siemens Energy noch Mitsubishi Power, Ansaldo Energia und Doosan sowie in ausgewählten Märkten
 DongFang und Shanghai Electric als Wettbewerber an \cite{S1}.
 
 \paragraphheading{Standort Berlin-Huttenstraße}
 
 Der Siemens-Energy-Standort in der Huttenstraße befindet sich in Berlin-Moabit.
-Am dortigen Standort werden vor allem Gasturbinen gefertigt
+Das dortige Gasturbinenwerk dient vor allem der Fertigung von Gasturbinen
 \cite{SiemensEnergySiedelt}.
-% Todo: mehr Text zum Standort Huttenstraße
 
 \paragraphheading{Abteilung Maschineninstandhaltung}
 
-Die Arbeit ist organisatorisch im Umfeld der Maschineninstandhaltung angesiedelt.
-Aus dem Interesse an datenbasierten Zustandsinformationen für eine stärker bedarfsgerechte
-Instandhaltungsplanung entstand die ursprüngliche Aufgabenstellung.
-Aufgrund der verfügbaren Daten und des zeitlichen Rahmens erfolgt jedoch keine Implementierung
-an einer konkreten Industriemaschine.
+Die Arbeit ist organisatorisch im Bereich der Maschineninstandhaltung am Standort angesiedelt.
+Die dortige Instandhaltungsplanung bildet den betrieblichen Bezugspunkt
+für die Untersuchung einer automatisierten Auswertung von Zustandsdaten.
 
 %================================================================================================
 %       1.2 Motivation und Ausgangslage
 %================================================================================================
 \section{Motivation und Ausgangslage}
 \label{sec:motivation}
-% Fachquellen zur Einordnung der Instandhaltungsstrategien ergänzen.
-Eine hohe technische Verfügbarkeit industrieller Anlagen setzt eine Instandhaltung voraus,
-die sowohl ungeplante Ausfälle reduziert als auch personelle und materielle Ressourcen
-wirtschaftlich einsetzt.
-Bei einer rein korrektiven Strategie werden Maßnahmen erst nach Eintritt eines Fehlers durchgeführt.
-Eine ausschließlich nach festen Zeit- oder Nutzungsintervallen geplante Instandhaltung
-kann dagegen dazu führen, dass noch funktionsfähige Komponenten vorsorglich überprüft oder ersetzt werden.
-Beide Ansätze berücksichtigen den individuellen Zustandsverlauf einer Maschine nur eingeschränkt.
 
-% Fachquelle zur zustandsorientierten Instandhaltung und Schwingungsdiagnose ergänzen.
-Die zunehmende Verfügbarkeit digital erfasster Betriebs- und Zustandsdaten eröffnet die Möglichkeit,
+Eine hohe Verfügbarkeit industrieller Anlagen setzt eine Instandhaltung voraus,
+die ungeplante Ausfälle reduziert und zugleich einen wirtschaftlich effizienten Einsatz
+personeller und materieller Ressourcen ermöglicht.
+Bei einer korrektiven Instandhaltung werden Maßnahmen nach der Erkennung eines Fehlers durchgeführt.
+Eine vorausbestimmte Instandhaltung folgt dagegen festgelegten Zeit- oder Nutzungsintervallen,
+ohne dass zuvor zwingend eine Zustandsermittlung erfolgt
+\cite[Abschn. 7.2 und 7.9]{zotero-item-24}.
+Dadurch können noch funktionsfähige Komponenten vorsorglich überprüft oder ersetzt werden.
+Obwohl beide Vorgehensweisen abhängig vom jeweiligen Anwendungsfall berechtigt sein können,
+beziehen sie den individuellen Zustand einer Maschine nicht
+oder erst nach einer Fehlererkennung ein.
+
+Die zunehmende Verfügbarkeit sensorisch erfasster Betriebs- und Zustandsdaten eröffnet die Möglichkeit,
 Instandhaltungsentscheidungen stärker am beobachteten Zustand technischer Anlagen auszurichten.
-Bei rotierenden Maschinen bilden Schwingungssignale eine geeignete Informationsquelle,
-da sich mechanische Veränderungen und Fehler in charakteristischen Signalanteilen widerspiegeln können.
-Eine automatisierte Verarbeitung dieser Messdaten kann solche Veränderungen reproduzierbar erfassen
-und damit eine bedarfsgerechtere Instandhaltungsplanung unterstützen.
+Diese Daten können Informationen über Veränderungen des Maschinenzustands liefern.
+Durch ihre automatisierte Verarbeitung können relevante Abweichungen ausgewertet
+und als Informationsgrundlage für eine bedarfsgerechtere Instandhaltungsplanung bereitgestellt werden.
+
+Dieses Optimierungspotential wird im betrachteten Bereich der Maschineninstandhaltung
+bislang nicht genutzt.
+Zum Zeitpunkt der Bearbeitung erfolgt die Instandhaltungsplanung dort überwiegend
+anhand von Herstellervorgaben zu festgelegten Zeit- oder Nutzungsintervallen.
+Ergänzend werden Maßnahmen reaktiv nach dem Auftreten eines Schadens veranlasst.
+Ein durchgängiges System, das sensorisch erfasste Zustandsdaten automatisiert auswertet
+und die daraus gewonnenen Informationen in die Instandhaltungsplanung einbezieht,
+wird derzeit nicht eingesetzt.
+Die Diskrepanz zwischen den Möglichkeiten einer zustandsorientierten Auswertung
+und der gegenwärtigen Instandhaltungspraxis bildet damit den betrieblichen Ausgangspunkt der Arbeit.
 
 %================================================================================================
 %       1.3 Problemstellung
@@ -69,20 +86,28 @@ und damit eine bedarfsgerechtere Instandhaltungsplanung unterstützen.
 \section{Problemstellung}
 \label{sec:problemstellung}
 
-% Fachquelle zur Signalüberlagerung und Lagerdiagnose ergänzen.
-Die Erfassung von Schwingungsdaten allein erlaubt noch keine belastbare Zustandsbewertung.
+Aufgrund der Breite und Komplexität dieses Themenfeldes beschränkt sich die vorliegende Arbeit
+auf die schwingungsbasierte Zustandsbewertung von Wälzlagern.
+Schwingungssignale können Hinweise auf mechanische Zustandsänderungen enthalten,
+erlauben in ihrer Rohform jedoch noch keine unmittelbare und belastbare Fehlerbewertung.
 Fehlerbezogene Signalanteile können durch Betriebsgeräusche, Resonanzen,
 wechselnde Last- und Drehzahlzustände sowie weitere Störeinflüsse überlagert werden.
-Für die Diagnose von Wälzlagerschäden müssen daher geeignete Verfahren zur Signalaufbereitung,
-Merkmalsextraktion und Bewertung zu einer nachvollziehbaren Verarbeitungskette kombiniert werden.
+Für die Diagnose von Wälzlagerschäden müssen daher geeignete Verfahren zur Signalaufbereitung- und Verarbeitung,
+Merkmalsextraktion und Bewertung zu einer sinnvollen Verarbeitungspipeline kombiniert werden.
+Die zentrale technische Herausforderung besteht darin,
+aus den Messsignalen eine reproduzierbare Fehlerindikation abzuleiten,
+ohne die Einflüsse der jeweiligen Mess- und Betriebsbedingungen zu vernachlässigen.
 
-Da im Rahmen dieser Arbeit keine ausreichend geeignete Datenbasis einer konkreten Industriemaschine
-zur Verfügung steht, werden Entwicklung und Evaluation anhand öffentlicher Referenzdatensätze durchgeführt.
-Im Mittelpunkt steht der Lagerdatensatz der Universität Paderborn;
-Daten der Case Western Reserve University werden ergänzend betrachtet
-\cite{smithRollingElementBearing2015}.
-Daraus ergibt sich zugleich die Notwendigkeit, die Aussagekraft der Ergebnisse
-und ihre Übertragbarkeit auf industrielle Anwendungen kritisch zu begrenzen.
+Für eine konkrete Industriemaschine steht im Rahmen der Arbeit
+keine für Entwicklung und Evaluation geeignete Datenbasis zur Verfügung.
+Die Untersuchung erfolgt deshalb anhand öffentlicher Referenzdatensätze.
+Im Mittelpunkt steht der Wälzlagerdatensatz der Universität Paderborn;
+der Datensatz der Case Western Reserve University wird ergänzend betrachtet.
+Da beide Datensätze unter kontrollierten Versuchsbedingungen erhoben wurden,
+müssen die Aussagekraft der Ergebnisse und ihre Übertragbarkeit
+auf industrielle Anwendungen kritisch bewertet werden.
+
+% hinzufügen von Download-Links von Paderborn und CWRU
 
 %================================================================================================
 %       1.4 Zielsetzung, Forschungsfragen und Abgrenzung
@@ -92,28 +117,54 @@ und ihre Übertragbarkeit auf industrielle Anwendungen kritisch zu begrenzen.
 
 \paragraphheading{Zielsetzung}
 
-Ziel der Arbeit ist die Konzeption, Implementierung und Evaluation einer modularen Pipeline
-zur schwingungsbasierten Erkennung von Wälzlagerschäden.
-Die Pipeline soll Schwingungsdaten aufbereiten,
-diagnostisch relevante Signalanteile hervorheben und daraus eine nachvollziehbare
-Zustands- beziehungsweise Fehlerindikation ableiten.
-Die Implementierung und Untersuchung erfolgen schwerpunktmäßig anhand des Paderborner Lagerdatensatzes
-und ergänzend anhand des CWRU-Datensatzes.
+Ziel der Arbeit ist es, eine modulare Softwarepipeline zur schwingungsbasierten Erkennung
+von Wälzlagerschäden zu konzipieren, zu implementieren und zu evaluieren.
+Die Pipeline soll den Verarbeitungsweg vom Einlesen und Aufbereiten der Schwingungsdaten
+über die Bestimmung diagnostisch relevanter Merkmale bis zur Ableitung
+einer nachvollziehbaren Zustands- beziehungsweise Fehlerindikation abbilden.
+Die Evaluation soll zeigen, in welchem Umfang sich die betrachteten Lagerzustände
+unter den Bedingungen der Referenzdatensätze unterscheiden lassen.
 
 \paragraphheading{Forschungsfragen}
 
-Die konkrete Formulierung der Haupt- und Unterforschungsfragen wird auf Grundlage
-der endgültig festgelegten Programmausgabe und Evaluationskriterien vorgenommen.
+Aus der Problemstellung und Zielsetzung ergibt sich folgende Hauptforschungsfrage:
+
+\begin{quote}
+    Wie lässt sich eine modulare Verarbeitungspipeline konzipieren, implementieren und evaluieren,
+    die aus Schwingungsdaten öffentlicher Wälzlagerdatensätze
+    eine nachvollziehbare Fehlerindikation ableitet?
+\end{quote}
+
+Zur Beantwortung der Hauptforschungsfrage werden folgende Teilfragen untersucht:
+
+\begin{enumerate}
+    \item Welche Schritte der Signalaufbereitung und Merkmalsextraktion eignen sich,
+          um Unterschiede zwischen den betrachteten Lagerzuständen hervorzuheben?
+    \item In welchem Umfang kann die entwickelte Pipeline die in den Referenzdatensätzen
+          gekennzeichneten fehlerfreien und geschädigten Lagerzustände unterscheiden?
+    \item Welche Einschränkungen ergeben sich aus der verwendeten Datenbasis und Methodik
+          für eine spätere Übertragung auf industrielle Maschinen?
+\end{enumerate}
 
 \paragraphheading{Abgrenzung}
 
 Nicht Gegenstand der Arbeit sind die Vorhersage eines Ausfallzeitpunkts,
-die Bestimmung der verbleibenden Nutzungsdauer oder die automatische Festlegung eines Wartungstermins.
-Ebenso erfolgen keine Implementierung an einer konkreten Industriemaschine
-und keine industrielle Echtzeitvalidierung.
-Die Ergebnisse dienen damit der diagnostischen Zustandsbewertung auf Basis von Referenzdatensätzen
-und können eine spätere zustandsorientierte Instandhaltung methodisch vorbereiten,
-aber noch keine betriebliche Wartungsentscheidung ersetzen.
+die Bestimmung der verbleibenden Nutzungsdauer
+oder die automatische Festlegung eines Wartungstermins.
+Eine voraussagende Instandhaltung im engeren Sinne,
+die eine Prognose des fortschreitenden Abbaus eines Objekts voraussetzt,
+wird damit nicht umgesetzt \cite[Abschn. 7.4]{zotero-item-24}.
+
+Ebenso erfolgen weder eine Installation eigener Sensorik
+noch eine Implementierung an einer konkreten Industriemaschine.
+Eine Einbindung in die betriebliche Dateninfrastruktur,
+eine industrielle Echtzeitvalidierung und eine automatisierte Auslösung von Instandhaltungsmaßnahmen
+sind nicht Bestandteil der Untersuchung.
+Die Ergebnisse beschränken sich somit auf die diagnostische Zustands- und Fehlerindikation
+von Wälzlagern im in Abschnitt~\ref{sec:problemstellung} beschriebenen Untersuchungsrahmen
+und unter den Bedingungen der verwendeten Referenzdatensätze.
+Sie können eine spätere zustandsorientierte Instandhaltung methodisch vorbereiten,
+ersetzen jedoch keine betriebliche Instandhaltungsentscheidung.
 
 %================================================================================================
 %       1.5 Aufbau der Arbeit
@@ -121,12 +172,17 @@ aber noch keine betriebliche Wartungsentscheidung ersetzen.
 \section{Aufbau der Arbeit}
 \label{sec:aufbau}
 
-Kapitel~\ref{ch:grundlagen} beschreibt die fachlichen Grundlagen der Instandhaltung,
-Schwingungsanalyse und digitalen Signalverarbeitung.
-Kapitel~\ref{ch:analyse} analysiert die verwendeten Datensätze
-und leitet die Anforderungen an die Verarbeitungspipeline ab.
-Darauf aufbauend stellt Kapitel~\ref{ch:konzept} das methodische und softwaretechnische Konzept vor,
-dessen Implementierung in Kapitel~\ref{ch:implementierung} beschrieben wird.
-Kapitel~\ref{ch:evaluation} evaluiert die Pipeline und diskutiert die erzielten Ergebnisse.
+Kapitel~\ref{ch:grundlagen} behandelt die fachlichen Grundlagen der Instandhaltung,
+Zustandsüberwachung, Schwingungsanalyse und digitalen Signalverarbeitung.
+Kapitel~\ref{ch:analyse} beschreibt die verwendeten Referenzdatensätze
+und leitet daraus die Anforderungen an die Verarbeitungspipeline ab.
+Darauf aufbauend stellt Kapitel~\ref{ch:konzept}
+das methodische und softwaretechnische Konzept der Pipeline vor.
+Kapitel~\ref{ch:implementierung} erläutert dessen Implementierung
+von der Datenaufbereitung über die Merkmalsextraktion bis zur Fehlerindikation.
+Kapitel~\ref{ch:evaluation} evaluiert die Pipeline
+und diskutiert die erzielten Ergebnisse sowie deren Grenzen.
 Kapitel~\ref{ch:schlussbetrachtung} fasst die Arbeit abschließend zusammen
-und zeigt Grenzen sowie mögliche Weiterentwicklungen auf.
+und zeigt mögliche Weiterentwicklungen und Schritte
+für eine spätere industrielle Übertragung auf.
+% am Ende prüfen, ob dies so noch stimmt
