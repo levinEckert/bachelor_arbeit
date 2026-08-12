@@ -1,40 +1,244 @@
-\chapter{Stand der Technik/theoretische Grundlagen/Literaturstudium}
+\chapter{Theoretische Grundlagen und Stand der Technik}
 \label{ch:grundlagen}
 
 %================================================================================================
-%       2.1 Instandhaltungsstrategien
+%       2.1 Instandhaltung und Zustandsüberwachung
 %================================================================================================
-\section{Instandhaltungsstrategien}
+\section{Instandhaltung und Zustandsüberwachung}
 \label{sec:instandhaltung}
-\begin{itemize}
-    \item Abgrenzung: Reaktiv, Präventiv, Predictive Maintenance
-\end{itemize}
+
+\paragraphheading{Instandhaltungsstrategien}
+
+Die DIN EN 13306 definiert Instandhaltung als Gesamtheit der technischen und administrativen
+Maßnahmen sowie der Maßnahmen des Managements, die während des Lebenszyklus eines Objekts
+dem Erhalt oder der Wiederherstellung seines funktionsfähigen Zustands dienen
+\cite[S.~8, Abschn.~2.1]{zotero-item-24}.
+Zur Einordnung der in dieser Arbeit betrachteten Zustandsbewertung ist insbesondere der
+Zeitpunkt einer Instandhaltungsmaßnahme sowie die dabei verwendete Informationsgrundlage
+relevant. Grundsätzlich wird zwischen korrektiver und präventiver Instandhaltung unterschieden.
+
+Korrektive Instandhaltung wird nach der Erkennung eines Fehlers durchgeführt und verfolgt das
+Ziel, ein Objekt wieder in einen Zustand zu versetzen, in dem es seine geforderte Funktion
+erfüllen kann. Abhängig von den möglichen Folgen kann die Maßnahme unmittelbar erfolgen oder
+nach vorgegebenen Instandhaltungsregeln aufgeschoben werden
+\cite[S.~38, Abschn.~7.9--7.11]{zotero-item-24}.
+Die Instandhaltungsmaßnahme reagiert damit auf einen bereits erkannten Fehler und setzt keine
+vorherige Bewertung des fortschreitenden Zustandsabbaus voraus.
+
+Präventive Instandhaltung erfolgt demgegenüber mit dem Ziel, einen Abbau zu beurteilen oder zu
+vermindern und dadurch die Ausfallwahrscheinlichkeit eines Objekts zu reduzieren. Sie bildet
+den Oberbegriff für die vorausbestimmte und die zustandsorientierte Instandhaltung
+\cite[S.~34--35, Abschn.~7.1--7.3]{zotero-item-24}.
+Bei der vorausbestimmten Instandhaltung werden Maßnahmen in festgelegten Zeitabständen oder
+nach einer festgelegten Anzahl von Nutzungseinheiten durchgeführt. Die Intervalle können auf
+Kenntnissen über die Ausfallmechanismen beruhen, eine vorherige Ermittlung des tatsächlichen
+Objektzustands findet jedoch nicht statt \cite[S.~35, Abschn.~7.2]{zotero-item-24}.
+
+Die zustandsorientierte Instandhaltung bezieht dagegen die Beurteilung des physischen Zustands,
+dessen Analyse und die daraus möglicherweise resultierenden Instandhaltungsmaßnahmen ein.
+Die Zustandsermittlung kann planmäßig, auf Anforderung oder kontinuierlich erfolgen und unter
+anderem auf einer Überwachung geeigneter Systemparameter beruhen
+\cite[S.~35, Abschn.~7.3]{zotero-item-24}.
+Eine Unterform stellt die voraussagende Instandhaltung dar. Bei ihr wird eine Maßnahme auf
+Grundlage einer Prognose durchgeführt, die aus wiederholten Analysen oder aus bekannten
+Eigenschaften und aussagekräftigen Parametern des Zustandsabbaus abgeleitet wird
+\cite[S.~35, Abschn.~7.4]{zotero-item-24}.
+
+Aus dieser Hierarchie folgt, dass eine automatisierte Erkennung oder diagnostische Zuordnung
+eines Wälzlagerschadens allein noch keine voraussagende Instandhaltung darstellt. Die in dieser
+Arbeit untersuchte Verarbeitung von Schwingungssignalen kann Zustandsinformationen für eine
+zustandsorientierte Instandhaltung bereitstellen. Erst eine darauf aufbauende Prognose des
+weiteren Zustandsabbaus würde die normative Einordnung als voraussagende Instandhaltung
+begründen. Voraussetzung für die zustandsbezogene Bewertung ist zunächst die systematische
+Erfassung geeigneter Zustandsparameter, die im Folgenden unter dem Begriff der
+Zustandsüberwachung eingeordnet wird.
+
+\paragraphheading{Condition Monitoring}
+
+\paragraphheading{Zustandsdiagnose und Abgrenzung zur Prognose}
 
 %================================================================================================
-%       2.2 Schwingungsanalyse
+%       2.2 Grundlagen der schwingungsbasierten Wälzlagerdiagnose
 %================================================================================================
-\section{Grundlagen der Schwingungsanalyse}
-\label{sec:schwingungsanalyse}
-\begin{itemize}
-    \item Physikalische Größen (Beschleunigung, Frequenz)
-    \item Typische Fehlermuster (Unwucht, Lager- und Ausrichtfehler) für Bauteile
-\end{itemize}
+\section{Grundlagen der schwingungsbasierten Wälzlagerdiagnose}
+\label{sec:waelzlagerdiagnose}
+
+\paragraphheading{Aufbau und Schadensarten von Wälzlagern}
+
+% Quellenbasis: Randall und Antoni (2011), S. 486--487, insbesondere Abb. 1:
+% vereinfachter Lageraufbau sowie Zuordnung von Innenring, Außenring, Wälzkörpern und Käfig.
+Für die schwingungsdiagnostische Betrachtung lässt sich ein Wälzlager auf die zentralen
+Komponenten Innenring, Außenring, Wälzkörper und Käfig zurückführen. Die Wälzkörper bewegen
+sich zwischen den Laufbahnen der beiden Lagerringe; der Käfig begrenzt ihre Abweichung von
+der mittleren Umfangsposition. Abhängig von der Lagerbauart werden Kugeln oder Rollen als
+Wälzkörper eingesetzt. Diese Komponenten bilden zugleich die wesentlichen Orte, an denen
+diagnostisch relevante Schäden auftreten können
+\cite[S.~486--487, Abb.~1]{randallRollingElementBearing2011}.
+
+% Quellenbasis: ISO 15243:2017, S. 2, Abschn. 3.2--3.5:
+% normative Unterscheidung zwischen Schaden, Ausfall und Schadensart.
+Bei der Beschreibung des Lagerzustands ist zwischen einem Schaden und einem Ausfall zu
+unterscheiden. Die ISO~15243:2017 bezeichnet als Schaden eine sichtbare Beeinträchtigung der
+Funktionsflächen oder der Struktur eines Lagers. Ein Ausfall liegt demgegenüber erst dann vor,
+wenn das Lager seine vorgesehene Funktion nicht mehr erfüllen kann. Ein vorhandener Schaden
+ist folglich nicht mit einem bereits eingetretenen Ausfall gleichzusetzen
+\cite[S.~2, Abschn.~3.2--3.5]{zotero-item-30}. Diese Abgrenzung ist für die vorliegende
+Arbeit wesentlich, da eine schwingungsbasierte Fehlerindikation keine Aussage über den
+Zeitpunkt eines zukünftigen Ausfalls erlaubt.
+
+% Quellenbasis: ISO 15243:2017, S. 2--3, Abschn. 4 und Abb. 2 sowie S. 3--19,
+% Abschn. 5.1--5.6: Einteilung und Kurzcharakterisierung der sechs Hauptgruppen.
+Die ISO~15243:2017 klassifiziert im Betrieb auftretende Wälzlagerschäden anhand ihres sichtbaren
+Erscheinungsbilds in sechs Hauptgruppen: Wälzkontaktermüdung, Verschleiß, Korrosion,
+Elektroerosion, plastische Verformung sowie Rissbildung und Bruch
+\cite[S.~2--3, Abschn.~4, Abb.~2]{zotero-item-30}. Wälzkontaktermüdung entsteht durch
+wiederholte Beanspruchungen zwischen Wälzkörpern und Laufbahnen und kann zu Rissen sowie
+zum Ablösen von Oberflächenmaterial führen. Verschleiß umfasst den fortschreitenden
+Materialabtrag, während Korrosion auf chemischen Reaktionen an metallischen Oberflächen
+beruht. Elektroerosion wird durch schädigende elektrische Ströme über die Wälzkontakte
+verursacht. Plastische Verformungen entstehen bei Überschreitung der Streckgrenze, etwa
+durch Überlastung, Stoßbeanspruchung oder überrollte Fremdpartikel. Risse und Brüche
+können schließlich aus lokaler Überbeanspruchung, Ermüdung oder hoher Reibungswärme
+resultieren \cite[S.~3--19, Abschn.~5.1--5.6]{zotero-item-30}.
+
+% Quellenbasis: ISO 15243:2017, Einleitung S. v und S. 2, Abschn. 4:
+% Klassifikation nach Erscheinungsbild; mehrere Mechanismen und Sekundärschäden sind möglich.
+Die genannten Schadensarten sind nicht mit jeweils eindeutigen Schadensursachen gleichzusetzen.
+Mehrere Mechanismen können gleichzeitig wirken, und fortschreitende Sekundärschäden können
+das ursprüngliche Schadensbild überlagern. Die visuelle Klassifikation der Norm erlaubt daher
+keine eindeutige Zuordnung einer Schadensursache und beschreibt insbesondere keine
+charakteristischen Schwingungssignaturen
+\cite[S.~v und S.~2, Abschn.~4]{zotero-item-30}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 486 sowie S. 489--491, Abschn. 2--2.2:
+% Schadensorte und methodisch relevante Unterscheidung lokaler Fehler und ausgedehnter Spalls.
+Für die nachfolgende Schwingungsanalyse ist deshalb eine zusätzliche Einteilung nach
+Schadensort und Schadensausdehnung erforderlich. Lokale Schäden können am Außenring, am
+Innenring oder an einem Wälzkörper auftreten. Randall und Antoni unterscheiden zudem
+zwischen kleinen, lokal begrenzten Schäden und ausgedehnten Abplatzungen
+(\emph{extended spalls}). Durch fortschreitenden Verschleiß können die Kanten einer
+ausgedehnten Abplatzung geglättet werden, sodass die beim Überrollen entstehenden Stöße
+schwächer ausfallen als bei einem kleinen, scharf begrenzten Schaden
+\cite[S.~486 und S.~489--491, Abschn.~2--2.2]{randallRollingElementBearing2011}.
+Die in dieser Arbeit betrachtete Fehlerindikation richtet sich primär auf solche lokal
+begrenzten Schäden. Andere in der Norm klassifizierte Schadensarten sowie ausgedehnte,
+geglättete Abplatzungen werden durch diesen Ansatz nicht notwendigerweise erfasst.
+
+\paragraphheading{Entstehung und Übertragung der Schwingungssignale}
+
+% Quellenbasis: Randall und Antoni (2011), S. 486 sowie S. 489, Abschn. 1--2:
+% Stoßentstehung beim Überrollen lokaler Schäden und Einfluss der Schadensgeometrie
+% auf die spektrale Breite der Anregung.
+Das für die schwingungsbasierte Diagnose relevante Signal entsteht beim mechanischen Kontakt
+eines Wälzkörpers mit einer lokalen Schadstelle. Überrollt ein Wälzkörper einen Schaden auf
+der Innen- oder Außenringlaufbahn, bewirkt die abrupte Änderung der Kontaktkraft einen kurzen
+Stoß. Entsprechend tritt ein Stoß auf, wenn eine Schadstelle auf einem Wälzkörper mit einer
+der Laufbahnen in Kontakt kommt. Kleine, scharf begrenzte Vertiefungen oder Abplatzungen
+erzeugen dabei eine breitbandige Anregung. Bei flacheren plastischen Eindrückungen oder
+geglätteten Schadstellen verlaufen Ein- und Austritt weniger abrupt, wodurch ein kleinerer
+Frequenzbereich angeregt wird
+\cite[S.~486 und S.~489, Abschn.~1--2]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 486--488, Abb. 1--2:
+% Anregung hochfrequenter Resonanzen der Gesamtstruktur und Modellierung der
+% einzelnen Schwingungsstöße als Impulsantworten.
+Der Stoß wird am Messpunkt nicht unmittelbar in seiner ursprünglichen Form erfasst. Er regt
+Eigenfrequenzen der mechanischen Struktur zwischen Schadensort und Schwingungsaufnehmer an.
+Auf jeden Kontaktstoß folgt daher ein kurzzeitiger, gedämpfter Ausschwingvorgang, dessen Form
+durch die Impulsantwort des Übertragungswegs bestimmt wird. Die angeregten Resonanzen sind
+somit nicht ausschließlich Eigenschaften des Wälzlagers, sondern der gekoppelten Struktur aus
+Lager, Lagergehäuse, angrenzenden Bauteilen, Sensorankopplung und Messposition
+\cite[S.~486--488, Abb.~1--2]{randallRollingElementBearing2011}. Das gemessene
+Beschleunigungssignal stellt folglich eine durch den mechanischen Übertragungsweg geformte
+Folge resonanter Schwingungsimpulse dar.
+
+% Quellenbasis: Randall und Antoni (2011), S. 487--488, insbesondere Abb. 2:
+% großer Frequenzabstand zwischen Wiederholungsfrequenz und Resonanzband sowie
+% Maskierung der niedrigen Harmonischen im Rohspektrum.
+Die Frequenzen der angeregten Strukturresonanzen liegen häufig deutlich oberhalb der
+Wiederholungsfrequenz der Stöße. Randall und Antoni veranschaulichen diesen Zusammenhang mit
+einem Modell, in dem die Resonanzfrequenz etwa zwei Größenordnungen über der
+Stoßwiederholungsfrequenz liegt. Die niedrigen Harmonischen der Wiederholungsfrequenz weisen
+im Beschleunigungsspektrum deshalb nur geringe Amplituden auf und können durch andere
+Maschinenschwingungen verdeckt werden. Die fehlerbedingte Energie ist dagegen als Folge
+resonanter Ausschwingvorgänge in einem höheren Frequenzband enthalten
+\cite[S.~487--488, Abb.~2]{randallRollingElementBearing2011}. Die Bezeichnung als
+hochfrequentes Rauschen wäre daher ungenau: Das Signal besitzt zwar stochastische Anteile,
+enthält aber eine durch die wiederkehrenden Kontaktstöße verursachte diagnostische Struktur.
+
+% Quellenbasis: Randall und Antoni (2011), S. 486, Abschn. 1:
+% Amplitudeneinfluss von Lastzone und veränderlichem Übertragungsweg bei bewegtem Schaden.
+Die Amplitude der einzelnen Ausschwingvorgänge ist zudem nicht konstant. Sie hängt von der
+Last ab, die der jeweilige Wälzkörper beim Überrollen der Schadstelle trägt. Bewegt sich die
+Schadstelle relativ zum fest montierten Aufnehmer, verändert sich außerdem der wirksame
+Übertragungsweg. Beide Einflüsse verändern die Amplituden der gemessenen
+Schwingungsantworten \cite[S.~486, Abschn.~1]{randallRollingElementBearing2011}.
+Die zeitliche Wiederholung der Stöße wird durch die Lagerkinematik bestimmt und bildet die
+Grundlage der im folgenden Abschnitt eingeführten charakteristischen
+Lagerschadensfrequenzen; die Amplitudenmodulation wird anschließend gesondert betrachtet.
+
+\paragraphheading{Charakteristische Lagerschadensfrequenzen}
+
+\paragraphheading{Modulation und zyklostationäres Signalverhalten}
 
 %================================================================================================
-%       2.3 Digitale Signalverarbeitung
+%       2.3 Signalverarbeitung für die Wälzlagerdiagnose
 %================================================================================================
-\section{Digitale Signalverarbeitung}
+\section{Signalverarbeitung für die Wälzlagerdiagnose}
 \label{sec:signalverarbeitung}
-\begin{itemize}
-    \item Abtasttheorem und Aliasing
-    \item Fast Fourier Transformation (FFT)
-\end{itemize}
+
+\paragraphheading{Abtastung, Aliasing und Fensterung}
+
+\paragraphheading{Fourier-Transformation und Spektraldarstellung}
+
+\paragraphheading{Drehzahleinfluss und Ordnungsanalyse}
 
 %================================================================================================
-%       2.4 Kennwertanalyse
+%       2.4 Trennung überlagerter Signalanteile
 %================================================================================================
-\section{Merkmalsextraktion und Kennwerte}
-\label{sec:kennwerte}
-\begin{itemize}
-    \item RMS, Crest-Faktor, Kurtosis
-\end{itemize}
+\section{Trennung überlagerter Signalanteile}
+\label{sec:signalseparation}
+
+\paragraphheading{Deterministische und zufällige Signalanteile}
+
+\paragraphheading{Alternative Verfahren zur Signaltrennung}
+
+\paragraphheading{Discrete and Random Signal Separation}
+
+\paragraphheading{Vergleich und Einordnung der Verfahren}
+
+%================================================================================================
+%       2.5 Impulsivitätsbasierte Auswahl des Analysebandes
+%================================================================================================
+\section{Impulsivitätsbasierte Auswahl des Analysebandes}
+\label{sec:bandauswahl}
+
+\paragraphheading{Kurtosis und spektrale Kurtosis}
+
+\paragraphheading{Kurtogramm und Fast Kurtogram}
+
+\paragraphheading{Bandauswahl und methodische Grenzen}
+
+%================================================================================================
+%       2.6 Hüllkurvenbasierte Fehlerindikation
+%================================================================================================
+\section{Hüllkurvenbasierte Fehlerindikation}
+\label{sec:huellkurvenanalyse}
+
+\paragraphheading{Bandpassfilterung und Amplitudendemodulation}
+
+\paragraphheading{Hilbert-Transformation und analytisches Signal}
+
+\paragraphheading{Squared Envelope Spectrum}
+
+\paragraphheading{Regelbasierte Auswertung der Lagerschadensfrequenzen}
+
+%================================================================================================
+%       2.7 Ansätze zur automatisierten Zustandsbewertung
+%================================================================================================
+\section{Ansätze zur automatisierten Zustandsbewertung}
+\label{sec:zustandsbewertung}
+
+\paragraphheading{Regelbasierte und datengetriebene Verfahren}
+
+\paragraphheading{Einordnung des gewählten Diagnoseansatzes}
