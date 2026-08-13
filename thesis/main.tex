@@ -39,6 +39,10 @@
     style=ieee,
     sorting=none
 ]{biblatex}
+% Better BibTeX exports standards as @standard. The IEEE style does not
+% provide a dedicated driver for this entry type, so standards are formatted
+% with the report driver while the automatically exported .bib file remains untouched.
+\DeclareBibliographyAlias{standard}{report}
 \addbibresource{sources.bib}
 
 %% Message
