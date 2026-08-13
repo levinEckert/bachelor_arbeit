@@ -44,16 +44,48 @@ Grundlage einer Prognose durchgeführt, die aus wiederholten Analysen oder aus b
 Eigenschaften und aussagekräftigen Parametern des Zustandsabbaus abgeleitet wird
 \cite[S.~35, Abschn.~7.4]{zotero-item-24}.
 
-Aus dieser Hierarchie folgt, dass eine automatisierte Erkennung oder diagnostische Zuordnung
-eines Wälzlagerschadens allein noch keine voraussagende Instandhaltung darstellt. Die in dieser
-Arbeit untersuchte Verarbeitung von Schwingungssignalen kann Zustandsinformationen für eine
-zustandsorientierte Instandhaltung bereitstellen. Erst eine darauf aufbauende Prognose des
-weiteren Zustandsabbaus würde die normative Einordnung als voraussagende Instandhaltung
-begründen. Voraussetzung für die zustandsbezogene Bewertung ist zunächst die systematische
-Erfassung geeigneter Zustandsparameter, die im Folgenden unter dem Begriff der
-Zustandsüberwachung eingeordnet wird.
+% Eigene Ableitung aus DIN EN 13306 (2018), S. 35, Abschn. 7.3--7.4: Beide Strategien
+% setzen eine Zustandsbeurteilung beziehungsweise eine daraus abgeleitete Prognose voraus.
+Die zustandsorientierte und die voraussagende Instandhaltung setzen somit Informationen über
+den physischen Zustand eines Objekts voraus. Die dafür erforderliche Erfassung geeigneter
+Zustandsparameter wird im Folgenden unter dem Begriff der Zustandsüberwachung eingeordnet.
 
 \paragraphheading{Condition Monitoring}
+
+% Quellenbasis: DIN EN 13306 (2018), S. 41--42, Abschn. 8.2: Definition, zeitliche
+% Durchführung und Abgrenzung der Zustandsüberwachung von der Inspektion.
+Die DIN EN 13306 definiert die Zustandsüberwachung (engl. \emph{Condition Monitoring}) als
+manuell oder automatisch ausgeführte Erfassung von Merkmalen und Parametern, die den
+physischen Ist-Zustand eines Objekts beschreiben. Von der Inspektion unterscheidet sie sich
+insbesondere dadurch, dass sie zeitliche Veränderungen dieser Parameter beurteilt. Die
+Erfassung kann kontinuierlich, in festgelegten Zeitabständen oder nach einer
+bestimmten Anzahl von Betriebseinsätzen erfolgen und wird üblicherweise im Betriebszustand
+durchgeführt \cite[S.~41--42, Abschn.~8.2]{zotero-item-24}.
+
+% Quellenbasis: DIN ISO 17359 (2018), S. 8, Einleitung, sowie S. 13, Abschn. 8.1:
+% typische Zustandsparameter und erforderliche Auswertungsverfahren bei Schwingungen.
+Als Zustandsparameter kommen unter anderem Schwingungen, Temperaturen, Drehzahlen,
+Leistungsgrößen und Ergebnisse tribologischer Analysen infrage. Welche Messgröße geeignet
+ist, hängt davon ab, ob ihre Veränderung ein relevantes Schadenssymptom abbildet. Bei
+Schwingungen reichen einfache Gesamtwerte oder zeitlich gemittelte Werte nicht in jedem Fall
+für eine Fehlerindikation aus. Abhängig vom zu erkennenden Fehler können deshalb weitergehende
+Auswertungen im Zeit- oder Frequenzbereich sowie die Berücksichtigung von Phasenbeziehungen
+erforderlich sein \cite[S.~8 und S.~13, Abschn.~8.1]{zotero-item-32}.
+
+% Quellenbasis: DIN ISO 17359 (2018), S. 14, Abschn. 8.4, S. 16, Abschn. 8.9--8.10,
+% und S. 17, Abschn. 9.1--9.3: Betriebsbedingungen, Bezugswerte, Trendanalyse und
+% Vergleich mit Warn- und Alarmkriterien.
+Für die Beurteilung der Messwerte sind die Betriebsbedingungen zu berücksichtigen, da
+Änderungen beispielsweise durch wechselnde Drehzahlen oder Lasten und nicht zwangsläufig
+durch einen Schaden verursacht werden können. Messungen werden daher möglichst unter
+vergleichbaren Betriebsbedingungen durchgeführt. Ihre Auswertung kann durch die zeitliche
+Verfolgung der Messwerte oder durch den Vergleich mit einem Bezugswert sowie mit festgelegten
+Warn- und Alarmkriterien erfolgen. Bezugswerte beschreiben dabei einen als einwandfrei und
+stabil eingeschätzten Betriebszustand; bei unterschiedlichen Betriebszuständen können jeweils
+eigene Bezugswerte erforderlich sein. Nicht akzeptable Abweichungen von den festgelegten
+Kriterien bilden den Ausgangspunkt für eine weiterführende Zustandsdiagnose
+\cite[S.~14, Abschn.~8.4; S.~16, Abschn.~8.9--8.10; S.~17,
+Abschn.~9.1--9.3]{zotero-item-32}.
 
 \paragraphheading{Zustandsdiagnose und Abgrenzung zur Prognose}
 
@@ -179,7 +211,130 @@ Lagerschadensfrequenzen; die Amplitudenmodulation wird anschließend gesondert b
 
 \paragraphheading{Charakteristische Lagerschadensfrequenzen}
 
+% Quellenbasis: Randall und Antoni (2011), S. 486--487, Abb. 1 und Gl. (1)--(4):
+% kinematisch bestimmte Wiederholungsraten der Kontakte mit Außenring, Innenring,
+% Wälzkörper und Käfig sowie Bedeutung der verwendeten Lagerparameter.
+Die Kontaktstöße eines lokalen Schadens wiederholen sich mit Frequenzen, die durch die
+Relativbewegungen der Lagerkomponenten bestimmt werden. Diese charakteristischen Frequenzen
+bezeichnen somit die Wiederholungsraten der schadensbedingten Kontakte und nicht die im
+vorherigen Abschnitt beschriebenen, wesentlich höher liegenden Strukturresonanzen. Für eine
+Wellenrotationsfrequenz $f_r$, die Anzahl der Wälzkörper $n$, den Wälzkörperdurchmesser $d$,
+den Teilkreisdurchmesser $D$ und den Kontaktwinkel $\varphi$ ergeben sich die vier
+grundlegenden kinematischen Frequenzen
+\cite[S.~486--487, Abb.~1 und Gl.~(1)--(4)]{randallRollingElementBearing2011}
+\cite[S.~17, Abschn.~9]{maisSpectrumAnalysis2002}:
+% Quellenprüfung zu Gl. (4): In Randall und Antoni (2011), S. 487, ist der Faktor f_r
+% in der gedruckten BSF-Gleichung offenbar ausgelassen. Die hier verwendete dimensionsrichtige
+% Form wurde mit Mais (2002), "Spectrum Analysis", SKF USA Inc., S. 17, Abschn. 9
+% "Rolling element bearing defects", Gleichung für F_bd = 2*BSF, abgeglichen.
+\begin{align}
+    f_{\mathrm{BPFO}}
+        &= \frac{n f_r}{2}
+           \left(1-\frac{d}{D}\cos\varphi\right),
+           \label{eq:bpfo}\\
+    f_{\mathrm{BPFI}}
+        &= \frac{n f_r}{2}
+           \left(1+\frac{d}{D}\cos\varphi\right),
+           \label{eq:bpfi}\\
+    f_{\mathrm{FTF}}
+        &= \frac{f_r}{2}
+           \left(1-\frac{d}{D}\cos\varphi\right),
+           \label{eq:ftf}\\
+    f_{\mathrm{BSF}}
+        &= \frac{D f_r}{2d}
+           \left[1-\left(\frac{d}{D}\cos\varphi\right)^2\right].
+           \label{eq:bsf}
+\end{align}
+
+% Quellenbasis: Randall und Antoni (2011), S. 486--487, Abb. 1 sowie Benennung der
+% Gleichungen (1)--(4): Zuordnung von BPFO, BPFI, FTF und BSF zu den Lagerkomponenten.
+Die \emph{Ball Pass Frequency Outer Race} (BPFO) beschreibt die Überrollrate einer lokalen
+Schadstelle auf dem Außenring, die \emph{Ball Pass Frequency Inner Race} (BPFI) entsprechend
+die Überrollrate einer Schadstelle auf dem Innenring. Die \emph{Fundamental Train Frequency}
+(FTF) entspricht der Käfigrotationsfrequenz. Die \emph{Ball Spin Frequency} (BSF) beschreibt
+die Rotationsfrequenz eines Wälzkörpers und ist für die Einordnung eines lokalen
+Wälzkörperschadens relevant
+\cite[S.~486--487, Abb.~1 und Gl.~(1)--(4)]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 487, Absatz unmittelbar nach Gl. (4):
+% zwei Kontakte eines Wälzkörperschadens mit Innen- und Außenring je Grundperiode und
+% daraus folgende Dominanz geradzahliger BSF-Harmonischer im Hüllkurvenspektrum.
+Bei einem Wälzkörperschaden ist zu beachten, dass die Schadstelle während einer
+Wälzkörperumdrehung sowohl den Innen- als auch den Außenring kontaktieren kann. Dadurch können
+zwei Stöße je Grundperiode auftreten, weshalb im Hüllkurvenspektrum insbesondere geradzahlige
+Harmonische der BSF dominant sein können
+\cite[S.~487, Absatz nach Gl.~(4)]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 487, Absätze zum Schlupf nach Gl. (4):
+% Gültigkeit der Gleichungen für schlupffreie Kinematik sowie typische mittlere und
+% zufällige Frequenzabweichungen in der Größenordnung von 1--2 Prozent.
+Die Gleichungen~\eqref{eq:bpfo}--\eqref{eq:bsf} liefern ideale kinematische Werte unter der
+Annahme schlupffreier Abrollbewegungen. Im realen Betrieb unterscheiden sich die wirksamen
+Abrolldurchmesser der einzelnen Wälzkörper geringfügig, während der Käfig ihre Abweichung von
+der mittleren Position begrenzt. Der daraus entstehende Schlupf führt sowohl zu einer
+Abweichung des Mittelwerts von der berechneten Frequenz als auch zu einer zufälligen
+Schwankung um diesen Mittelwert. Randall und Antoni geben für beide Effekte eine typische
+Größenordnung von ein bis zwei Prozent an
+\cite[S.~487, Absätze zum Schlupf]{randallRollingElementBearing2011}. Die berechneten
+Frequenzen sind daher als theoretische Bezugswerte für die spektrale Auswertung und nicht als
+unter allen Betriebsbedingungen exakt einzuhaltende Spektrallinien zu verstehen.
+
 \paragraphheading{Modulation und zyklostationäres Signalverhalten}
+
+% Quellenbasis: Randall und Antoni (2011), S. 486, Abschn. 1 und Abb. 1:
+% Amplitudenmodulation der resonanten Schwingungsstöße durch Lastzone und veränderlichen
+% Übertragungsweg; typische Modulation bei Wellendrehzahl bzw. Käfigfrequenz.
+Neben den zeitlichen Abständen der Kontaktstöße verändert sich auch die Amplitude der
+angeregten Schwingungsantworten. Durchläuft eine Schadstelle die Lastzone des Lagers, hängt die
+Stoßstärke von der jeweils übertragenen Last ab. Bei einer relativ zum Aufnehmer bewegten
+Schadstelle verändert sich zusätzlich der mechanische Übertragungsweg. Die Folge der
+hochfrequenten Ausschwingvorgänge wird dadurch amplitudenmoduliert. Randall und Antoni zeigen
+als typische Fälle eine Modulation mit der Wellendrehzahl bei einem Innenringschaden und mit
+der Käfigfrequenz bei einem Wälzkörperschaden
+\cite[S.~486, Abschn.~1 und Abb.~1]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 490, Abschn. 2:
+% Definition der Zyklostationarität n-ter Ordnung sowie Unterscheidung von CS1 und CS2.
+Eine periodische Wiederholung der statistischen Eigenschaften eines Signals wird als
+Zyklostationarität bezeichnet. Ein Signal ist zyklostationär $n$-ter Ordnung, wenn seine
+statistischen Kenngrößen $n$-ter Ordnung periodisch sind. Bei einem zyklostationären Signal erster
+Ordnung (CS1) wiederholt sich der Mittelwert periodisch; ein periodisches Signal mit
+überlagertem Rauschen ist hierfür ein Beispiel. Bei einem zyklostationären Signal zweiter
+Ordnung (CS2) verändert sich dagegen die Varianz periodisch, wie dies bei
+amplitudenmoduliertem weißen Rauschen der Fall ist
+\cite[S.~490, Abschn.~2]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 490--491, Abschn. 2.1 und Abb. 4--5:
+% zufälliger Impulsabstand lokaler Schäden, fehlendes Gedächtnis des Schlupfprozesses und
+% daraus folgende Einordnung als pseudo-zyklostationäres Signal.
+Für lokale Wälzlagerschäden ist die Einordnung als streng zyklostationär jedoch nur eine
+Näherung. Aufgrund des Schlupfs schwankt nicht lediglich die Lage jedes Stoßes um ein festes
+periodisches Raster; vielmehr ist der Abstand zwischen aufeinanderfolgenden Stößen selbst eine
+Zufallsgröße. Da der Schlupfprozess kein Gedächtnis besitzt, wächst die Unsicherheit über den
+Zeitpunkt eines zukünftigen Stoßes mit der Anzahl der betrachteten Perioden. Randall und
+Antoni bezeichnen Signale lokaler Wälzlagerschäden deshalb genauer als
+pseudo-zyklostationär
+\cite[S.~490--491, Abschn.~2.1 und Abb.~4--5]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 491, Abschn. 2.1 und Abb. 5--6:
+% geringe praktische Differenz zwischen zyklostationärem und pseudo-zyklostationärem Modell
+% bei niedrigen Harmonischen sowie diagnostischer Inhalt des quadrierten Hüllkurvenspektrums.
+Für die Interpretation der niedrigen Harmonischen im Hüllkurvenspektrum ist der praktische
+Unterschied zwischen dem zyklostationären und dem pseudo-zyklostationären Modell meist gering.
+Das Spektrum der quadrierten Hüllkurve enthält die zyklischen Wiederholungsanteile des
+Lagerschadens. Im von Randall und Antoni dargestellten Innenringschaden treten darin die
+Harmonischen der BPFI sowie Seitenbänder mit Abständen der Wellendrehfrequenz auf
+\cite[S.~491, Abschn.~2.1 und Abb.~5--6]{randallRollingElementBearing2011}.
+
+% Eigene Ableitung auf Grundlage von Randall und Antoni (2011), S. 486--491:
+% Zusammenführung von kinematischer Wiederholungsrate, Amplitudenmodulation und zufälligem
+% Schlupf als theoretische Grundlage der späteren Hüllkurvenauswertung.
+Ein lokaler Wälzlagerschaden erzeugt damit weder eine vollständig periodische Impulsfolge noch
+unstrukturiertes Rauschen. Die charakteristischen Frequenzen beschreiben die mittlere zyklische
+Wiederholung der Schadenskontakte. Lastverteilung, Übertragungsweg und Schlupf verändern
+dagegen die Amplituden und Zeitabstände der einzelnen Schwingungsantworten. Diese
+Signalstruktur bildet die physikalische Grundlage dafür, die hochfrequente Resonanzantwort zu
+demodulieren und anschließend ihre niederfrequenten Wiederholungsanteile auszuwerten.
 
 %================================================================================================
 %       2.3 Signalverarbeitung für die Wälzlagerdiagnose
