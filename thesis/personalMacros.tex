@@ -11,10 +11,14 @@
 \newcommand{\OPV}{Operations\-ver\-stär\-ker}
 
 % Unnummerierte Absatzüberschrift unterhalb der Section-Ebene.
-% Die folgende Textzeile beginnt als eigener Absatz ohne Einzug.
+% Der Titel erscheint ohne Gliederungsnummer auf der Subsection-Ebene
+% des Inhaltsverzeichnisses. Die folgende Textzeile beginnt als eigener
+% Absatz ohne Einzug.
 \newcommand{\paragraphheading}[1]{%
     \par
     \addvspace{0.8\baselineskip}%
+    \phantomsection
+    \addcontentsline{toc}{subsection}{\protect\numberline{}#1}%
     \noindent\textbf{#1}\par\nobreak
     \addvspace{0.2\baselineskip}%
     \noindent\ignorespaces
