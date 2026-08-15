@@ -400,20 +400,22 @@ Randall \cite[S.~71, Abschn.~3.2.3]{randallVibrationbasedConditionMonitoring2011
     t_n=n\Delta t=\frac{n}{f_s}\,.
     \label{eq:sampling_times}
 \end{equation}
-Dabei bezeichnet $f_s$ die Abtastfrequenz. Randall gibt für das abgetastete Zeitsignal
-$g(t_n)$ folgende Frequenzdarstellung an
+Dabei bezeichnet $n\in\mathbb{Z}$ den Abtastindex, $\Delta t=1/f_s$ das Abtastintervall
+und $f_s$ die Abtastfrequenz. Randall gibt für das abgetastete Zeitsignal $g(t_n)$ folgende
+Frequenzdarstellung an
 \cite[S.~69--71, Abschn.~3.2.3, Gl.~(3.20), Abb.~3.6(c)]
 {randallVibrationbasedConditionMonitoring2011}:
 \begin{equation}
     G(f)=\sum_{n=-\infty}^{\infty}g(t_n)\exp(-\mathrm{j}2\pi f t_n)\,.
     \label{eq:sampled_time_transform}
 \end{equation}
-% Quellenbasis: Randall (2011), S. 69--71, Abschn. 3.2.3 und
-% Abb. 3.6(c): Das abgetastete Zeitsignal ist zeitdiskret, während seine
-% Frequenzdarstellung mit der Abtastfrequenz f_s periodisch ist.
-Das abgetastete Zeitsignal muss dadurch nicht periodisch sein; periodisch mit dem Abstand
-$f_s$ ist seine Frequenzdarstellung $G(f)$
-\cite[S.~69--71, Abschn.~3.2.3, Abb.~3.6(c)]
+% Quellenbasis: Randall (2011), S. 70--71, Abschn. 3.2.3 und Abb. 3.6(c), sowie
+% S. 86, Abschn. 3.2.8.1 und Abb. 3.19(a)--(c): Zeitdiskretes Signal und periodische
+% Wiederholung seiner Frequenzdarstellung mit der Periode f_s.
+Die Abtastung erzeugt eine Folge diskreter Zeitwerte. Deren Frequenzdarstellung $G(f)$
+wiederholt sich jeweils nach einer Verschiebung um $f_s$
+\cite[S.~70--71, Abschn.~3.2.3, Abb.~3.6(c); S.~86, Abschn.~3.2.8.1,
+Abb.~3.19(a)--(c)]
 {randallVibrationbasedConditionMonitoring2011}.
 
 % Quellenbasis: Randall (2011), S. 70--71, Abschn. 3.2.3 und Abb. 3.6(c):
