@@ -9,85 +9,102 @@
 
 \paragraphheading{Instandhaltungsstrategien}
 
+% Quellenbasis: DIN EN 13306 (2018), S. 8, Abschn. 2.1: Definition der Instandhaltung.
 Die DIN EN 13306 definiert Instandhaltung als Gesamtheit der technischen und administrativen
 Maßnahmen sowie der Maßnahmen des Managements, die während des Lebenszyklus eines Objekts
-dem Erhalt oder der Wiederherstellung seines funktionsfähigen Zustands dienen
+dem Erhalt oder der Wiederherstellung seines funktionsfähigen Zustands dienen, sodass es seine geforderte Funktion erfüllen kann
 \cite[S.~8, Abschn.~2.1]{zotero-item-24}.
-Zur Einordnung der in dieser Arbeit betrachteten Zustandsbewertung ist insbesondere der
-Zeitpunkt einer Instandhaltungsmaßnahme sowie die dabei verwendete Informationsgrundlage
-relevant. Grundsätzlich wird zwischen korrektiver und präventiver Instandhaltung unterschieden.
 
+% Quellenbasis: DIN EN 13306 (2018), S. 62, Anhang A, Abb. A.1: Gesamtübersicht
+% und Hierarchie der Instandhaltungsarten.
+Aus der Gesamtübersicht der Instandhaltungsarten in Anhang A der DIN EN 13306 geht hervor,
+dass die präventive und die korrektive Instandhaltung einander gegenübergestellt und jeweils
+in weitere Formen untergliedert werden \cite[S.~62, Abb.~A.1]{zotero-item-24}.
+
+% Quellenbasis: DIN EN 13306 (2018), S. 38, Abschn. 7.9--7.11: Definition und
+% Unterteilung der korrektiven Instandhaltung.
 Korrektive Instandhaltung wird nach der Erkennung eines Fehlers durchgeführt und verfolgt das
 Ziel, ein Objekt wieder in einen Zustand zu versetzen, in dem es seine geforderte Funktion
-erfüllen kann. Abhängig von den möglichen Folgen kann die Maßnahme unmittelbar erfolgen oder
-nach vorgegebenen Instandhaltungsregeln aufgeschoben werden
+erfüllen kann. Sie wird weiter in die sofortige und die aufgeschobene korrektive
+Instandhaltung unterteilt. Die sofortige korrektive Instandhaltung erfolgt ohne Aufschub, um
+unannehmbare Folgen zu vermeiden. Die aufgeschobene korrektive Instandhaltung wird dagegen
+nach vorgegebenen Instandhaltungsregeln zurückgestellt
 \cite[S.~38, Abschn.~7.9--7.11]{zotero-item-24}.
-Die Instandhaltungsmaßnahme reagiert damit auf einen bereits erkannten Fehler und setzt keine
-vorherige Bewertung des fortschreitenden Zustandsabbaus voraus.
 
-Präventive Instandhaltung erfolgt demgegenüber mit dem Ziel, einen Abbau zu beurteilen oder zu
+% Quellenbasis: DIN EN 13306 (2018), S. 34--35, Abschn. 7.1--7.3: Definition
+% und Unterteilung der präventiven Instandhaltung.
+Präventive Instandhaltung erfolgt hingegen mit dem Ziel, einen Abbau zu beurteilen oder zu
 vermindern und dadurch die Ausfallwahrscheinlichkeit eines Objekts zu reduzieren. Sie bildet
 den Oberbegriff für die vorausbestimmte und die zustandsorientierte Instandhaltung
 \cite[S.~34--35, Abschn.~7.1--7.3]{zotero-item-24}.
+
+% Quellenbasis: DIN EN 13306 (2018), S. 35, Abschn. 7.2: Definition und
+% Bemessungsgrundlage der vorausbestimmten Instandhaltung.
 Bei der vorausbestimmten Instandhaltung werden Maßnahmen in festgelegten Zeitabständen oder
 nach einer festgelegten Anzahl von Nutzungseinheiten durchgeführt. Die Intervalle können auf
 Kenntnissen über die Ausfallmechanismen beruhen, eine vorherige Ermittlung des tatsächlichen
 Objektzustands findet jedoch nicht statt \cite[S.~35, Abschn.~7.2]{zotero-item-24}.
 
+% Quellenbasis: DIN EN 13306 (2018), S. 35, Abschn. 7.3--7.4: Definitionen der
+% zustandsorientierten und der voraussagenden Instandhaltung.
 Die zustandsorientierte Instandhaltung bezieht dagegen die Beurteilung des physischen Zustands,
 dessen Analyse und die daraus möglicherweise resultierenden Instandhaltungsmaßnahmen ein.
-Die Zustandsermittlung kann planmäßig, auf Anforderung oder kontinuierlich erfolgen und unter
-anderem auf einer Überwachung geeigneter Systemparameter beruhen
-\cite[S.~35, Abschn.~7.3]{zotero-item-24}.
 Eine Unterform stellt die voraussagende Instandhaltung dar. Bei ihr wird eine Maßnahme auf
 Grundlage einer Prognose durchgeführt, die aus wiederholten Analysen oder aus bekannten
 Eigenschaften und aussagekräftigen Parametern des Zustandsabbaus abgeleitet wird
 \cite[S.~35, Abschn.~7.4]{zotero-item-24}.
 
-% Eigene Ableitung aus DIN EN 13306 (2018), S. 35, Abschn. 7.3--7.4: Beide Strategien
-% setzen eine Zustandsbeurteilung beziehungsweise eine daraus abgeleitete Prognose voraus.
-Die zustandsorientierte und die voraussagende Instandhaltung setzen somit Informationen über
-den physischen Zustand eines Objekts voraus. Die dafür erforderliche Erfassung geeigneter
-Zustandsparameter wird im Folgenden unter dem Begriff der Zustandsüberwachung eingeordnet.
+% Quellenbasis: DIN EN 13306 (2018), S. 35, Abschn. 7.3: zeitliche Durchführung
+% der Zustandsbeurteilung und Zustandsüberwachung von Systemparametern als eine
+% mögliche Grundlage.
+Die Zustandsbeurteilung kann planmäßig, auf Anforderung oder kontinuierlich erfolgen. Eine
+mögliche Grundlage bildet dabei die Überwachung geeigneter Systemparameter, die im folgenden
+Abschnitt näher erläutert wird
+\cite[S.~35, Abschn.~7.3]{zotero-item-24}.
 
 \paragraphheading{Condition Monitoring}
 
-% Quellenbasis: DIN EN 13306 (2018), S. 41--42, Abschn. 8.2: Definition, zeitliche
-% Durchführung und Abgrenzung der Zustandsüberwachung von der Inspektion.
+% Quellenbasis: DIN EN 13306 (2018), S. 41--42, Abschn. 8.2: Definition, Zweck
+% und zeitliche Durchführung der Zustandsüberwachung.
 Die DIN EN 13306 definiert die Zustandsüberwachung (engl. \emph{Condition Monitoring}) als
-manuell oder automatisch ausgeführte Erfassung von Merkmalen und Parametern, die den
-physischen Ist-Zustand eines Objekts beschreiben. Von der Inspektion unterscheidet sie sich
-insbesondere dadurch, dass sie zeitliche Veränderungen dieser Parameter beurteilt. Die
-Erfassung kann kontinuierlich, in festgelegten Zeitabständen oder nach einer
-bestimmten Anzahl von Betriebseinsätzen erfolgen und wird üblicherweise im Betriebszustand
-durchgeführt \cite[S.~41--42, Abschn.~8.2]{zotero-item-24}.
+manuell oder automatisch ausgeführte Tätigkeit zur Messung von Merkmalen und Parametern des
+physischen Ist-Zustands eines Objekts. Sie dient dazu, Veränderungen dieser Parameter über
+die Zeit zu bestimmen. Die Überwachung kann kontinuierlich, in festgelegten Zeitabständen
+oder nach einer bestimmten Anzahl von Betriebseinsätzen erfolgen und wird üblicherweise im
+Betriebszustand durchgeführt \cite[S.~41--42, Abschn.~8.2]{zotero-item-24}.
 
-% Quellenbasis: DIN ISO 17359 (2018), S. 8, Einleitung, sowie S. 13, Abschn. 8.1:
-% typische Zustandsparameter und erforderliche Auswertungsverfahren bei Schwingungen.
+% Quellenbasis: DIN ISO 17359 (2018), S. 8, Einleitung, sowie S. 13,
+% Abschn. 7.3 und 8.1: typische Zustandsparameter, Zuordnung zu Schadenssymptomen
+% und erforderliche Auswertungsverfahren bei Strom, Spannung und Schwingungen.
 Als Zustandsparameter kommen unter anderem Schwingungen, Temperaturen, Drehzahlen,
-Leistungsgrößen und Ergebnisse tribologischer Analysen infrage. Welche Messgröße geeignet
-ist, hängt davon ab, ob ihre Veränderung ein relevantes Schadenssymptom abbildet. Bei
-Schwingungen reichen einfache Gesamtwerte oder zeitlich gemittelte Werte nicht in jedem Fall
-für eine Fehlerindikation aus. Abhängig vom zu erkennenden Fehler können deshalb weitergehende
-Auswertungen im Zeit- oder Frequenzbereich sowie die Berücksichtigung von Phasenbeziehungen
-erforderlich sein \cite[S.~8 und S.~13, Abschn.~8.1]{zotero-item-32}.
+Leistungsgrößen und Ergebnisse tribologischer Analysen infrage. Zu erwartenden Schäden
+können messbare Symptome und Messparameter zugeordnet werden, die auf ihr Vorliegen oder
+Entstehen hinweisen. Bei einigen Parametern, beispielsweise elektrischem Strom, Spannung oder
+Schwingungen, können einfache Gesamtwerte oder zeitlich gemittelte Werte für eine
+Fehlerindikation unzureichend sein. Um fehlerbedingte Veränderungen sichtbar zu machen,
+können daher weiterführende Auswertungen im Zeit- oder Frequenzbereich erforderlich sein
+\cite[S.~8 und S.~13, Abschn.~7.3 und 8.1]{zotero-item-32}.
 
-% Quellenbasis: DIN ISO 17359 (2018), S. 14, Abschn. 8.4, S. 16, Abschn. 8.9--8.10,
-% und S. 17, Abschn. 9.1--9.3: Betriebsbedingungen, Bezugswerte, Trendanalyse und
-% Vergleich mit Warn- und Alarmkriterien.
-Für die Beurteilung der Messwerte sind die Betriebsbedingungen zu berücksichtigen, da
-Änderungen beispielsweise durch wechselnde Drehzahlen oder Lasten und nicht zwangsläufig
-durch einen Schaden verursacht werden können. Messungen werden daher möglichst unter
-vergleichbaren Betriebsbedingungen durchgeführt. Ihre Auswertung kann durch die zeitliche
-Verfolgung der Messwerte oder durch den Vergleich mit einem Bezugswert sowie mit festgelegten
-Warn- und Alarmkriterien erfolgen. Bezugswerte beschreiben dabei einen als einwandfrei und
-stabil eingeschätzten Betriebszustand; bei unterschiedlichen Betriebszuständen können jeweils
-eigene Bezugswerte erforderlich sein. Nicht akzeptable Abweichungen von den festgelegten
-Kriterien bilden den Ausgangspunkt für eine weiterführende Zustandsdiagnose
-\cite[S.~14, Abschn.~8.4; S.~16, Abschn.~8.9--8.10; S.~17,
-Abschn.~9.1--9.3]{zotero-item-32}.
+% Quellenbasis: DIN ISO 17359 (2018), S. 14, Abschn. 8.4: Einfluss wechselnder
+% Betriebsbedingungen und Anforderungen an die Vergleichbarkeit von Messungen.
+Messwerte sind im Kontext des jeweiligen Betriebszustands zu beurteilen, da Veränderungen
+auch durch wechselnde Drehzahlen, Lasten oder andere Betriebsparameter verursacht werden
+können. Für Vergleiche sollten Messungen daher nach Möglichkeit bei festgelegten und
+vergleichbaren Betriebszuständen durchgeführt werden
+\cite[S.~14, Abschn.~8.4]{zotero-item-32}.
 
-\paragraphheading{Zustandsdiagnose und Abgrenzung zur Prognose}
+% Quellenbasis: DIN ISO 17359 (2018), S. 16, Abschn. 8.9--8.10, und S. 17,
+% Abschn. 9.1--9.3: Bezugswerte, Trendanalyse sowie Vergleich mit Warn- und
+% Alarmkriterien als Grundlagen der Zustandsbeurteilung.
+Zur Beurteilung können aktuelle Messwerte mit dem Verlauf früherer Messungen, festgelegten
+Bezugswerten oder repräsentativen Daten vergleichbarer Maschinen sowie mit Warn- und
+Alarmkriterien verglichen werden. Bezugswerte beschreiben einen als einwandfrei und stabil
+eingeschätzten Betriebszustand; bei unterschiedlichen Betriebszuständen können jeweils eigene
+Bezugswerte erforderlich sein. Sind die Messergebnisse im Vergleich mit den Warn- und
+Alarmkriterien nicht akzeptabel, sollte mit dem Diagnoseprozess begonnen werden
+\cite[S.~16, Abschn.~8.9--8.10; S.~17, Abschn.~9.1--9.3]{zotero-item-32}.
+
+\paragraphheading{Zustandsdiagnose und Prognose}
 
 %================================================================================================
 %       2.2 Grundlagen der schwingungsbasierten Wälzlagerdiagnose
@@ -342,11 +359,294 @@ demodulieren und anschließend ihre niederfrequenten Wiederholungsanteile auszuw
 \section{Signalverarbeitung für die Wälzlagerdiagnose}
 \label{sec:signalverarbeitung}
 
-\paragraphheading{Abtastung, Aliasing und Fensterung}
+\paragraphheading{Fourier-Analyse und Fourier-Transformation}
 
-\paragraphheading{Fourier-Transformation und Spektraldarstellung}
+% Quellenbasis: Randall (2011), S. 66, Abschn. 3.2--3.2.1: Grundgedanke der
+% Fourier-Analyse als Zerlegung in sinusförmige Komponenten sowie Anwendung der
+% Fourier-Reihe auf periodische Maschinenschwingungen bei konstanter Drehzahl.
+Die Fourier-Analyse beschreibt Signale als Summe sinusförmiger Komponenten. In der
+Maschinenschwingungsanalyse wird die Fourier-Reihe nach Randall vor allem für periodische
+Signale eingesetzt, wie sie bei Maschinen mit konstanter Drehzahl auftreten
+\cite[S.~66, Abschn.~3.2--3.2.1]{randallVibrationbasedConditionMonitoring2011}.
+
+% Quellenbasis: Randall (2011), S. 69, Abschn. 3.2.2: Herleitung der
+% Fourier-Transformation aus der Fourier-Reihe durch den Grenzübergang T gegen unendlich,
+% Entfall der Division durch T aufgrund der endlichen Energie transienter Signale sowie
+% Definition der kontinuierlichen Fourier-Transformation in Gl. (3.17).
+Für nichtperiodische Signale, insbesondere transiente Signale, wird die
+Fourier-Transformation verwendet. Sie kann nach Randall aus der Fourier-Reihe hergeleitet
+werden, indem die Periodendauer $T$ gegen unendlich geführt und zugleich die Division durch
+$T$ aufgehoben wird. Randall begründet dies damit, dass bei transienten Signalen die endliche
+Signalenergie und nicht wie bei periodischen Signalen die endliche mittlere Signalleistung
+maßgeblich ist. Für ein zeitabhängiges Signal $g(t)$ lautet die kontinuierliche
+Fourier-Transformation
+\cite[S.~69, Abschn.~3.2.2, Gl.~(3.17)]
+{randallVibrationbasedConditionMonitoring2011}:
+\begin{equation}
+    G(f)=\int_{-\infty}^{\infty}g(t)\exp(-\mathrm{j}2\pi ft)\,\mathrm{d}t\,.
+    \label{eq:continuous_fourier_transform}
+\end{equation}
+Dabei bezeichnet $G(f)$ die Fourier-Transformierte und $f$ die Frequenz in Hertz.
+
+\paragraphheading{Abtastung und Aliasing}
+
+% Quellenbasis: Randall (2011), S. 69--71, Abschn. 3.2.3
+% Sampled Time Signals, Gl. (3.20), Abb. 3.6(c) und die Angabe
+% t_n=n*Delta t=n/f_s auf S. 71: diskrete Zeitabtastung, zugehörige
+% Frequenzdarstellung und deren Periodizität mit der Abtastfrequenz f_s.
+Für eine digitale Verarbeitung wird $g(t)$ diskret abgetastet. Die Abtastzeitpunkte sind nach
+Randall \cite[S.~71, Abschn.~3.2.3]{randallVibrationbasedConditionMonitoring2011}:
+\begin{equation}
+    t_n=n\Delta t=\frac{n}{f_s}\,.
+    \label{eq:sampling_times}
+\end{equation}
+Dabei bezeichnet $f_s$ die Abtastfrequenz. Randall gibt für das abgetastete Zeitsignal
+$g(t_n)$ folgende Frequenzdarstellung an
+\cite[S.~69--71, Abschn.~3.2.3, Gl.~(3.20), Abb.~3.6(c)]
+{randallVibrationbasedConditionMonitoring2011}:
+\begin{equation}
+    G(f)=\sum_{n=-\infty}^{\infty}g(t_n)\exp(-\mathrm{j}2\pi f t_n)\,.
+    \label{eq:sampled_time_transform}
+\end{equation}
+% Quellenbasis: Randall (2011), S. 69--71, Abschn. 3.2.3 und
+% Abb. 3.6(c): Das abgetastete Zeitsignal ist zeitdiskret, während seine
+% Frequenzdarstellung mit der Abtastfrequenz f_s periodisch ist.
+Das abgetastete Zeitsignal muss dadurch nicht periodisch sein; periodisch mit dem Abstand
+$f_s$ ist seine Frequenzdarstellung $G(f)$
+\cite[S.~69--71, Abschn.~3.2.3, Abb.~3.6(c)]
+{randallVibrationbasedConditionMonitoring2011}.
+
+% Quellenbasis: Randall (2011), S. 70--71, Abschn. 3.2.3 und Abb. 3.6(c):
+% periodische Spektrumswiederholung mit der Abtastfrequenz f_s.
+% Quellenbasis: Randall (2011), S. 86, Abschn. 3.2.8.1
+% Pitfalls of the FFT Process: Nyquist-Frequenz, Überlappung von
+% Spektrumswiederholungen, Irreversibilität von Aliasing und erforderliche
+% analoge Tiefpassfilterung vor der Digitalisierung.
+Die Nyquist-Frequenz beträgt $f_N=f_s/2$. Enthält das ursprüngliche Signal Komponenten
+außerhalb des Bereichs $-f_N$ bis $+f_N$, überlagern sich die periodischen Spektren. Höhere
+Frequenzen werden dadurch als niedrigere Frequenzen dargestellt. Dieser als Aliasing
+bezeichnete Effekt lässt sich nach der Digitalisierung nicht mehr entfernen. Deshalb müssen
+die betreffenden Frequenzanteile bereits vor der Analog-Digital-Umsetzung durch einen
+geeigneten analogen Tiefpassfilter ausreichend gedämpft werden
+\cite[S.~70--71, Abschn.~3.2.3, Abb.~3.6(c);
+S.~86, Abschn.~3.2.8.1, Abb.~3.19--3.20]
+{randallVibrationbasedConditionMonitoring2011}.
+
+\paragraphheading{Diskrete Fourier-Transformation und Fast Fourier-Transformation}
+
+% Quellenbasis: Randall (2011), S. 70--71, Abschn. 3.2.4,
+% Abb. 3.6(d) und Gl. (3.22)--(3.23): Übergang vom grundsätzlich
+% unendlich langen abgetasteten Signal zum endlichen Messblock, diskretes
+% Spektrum, implizite Periodizität und Randalls Skalierung der DFT.
+Die in Abschnitt~3.2.3 von Randall betrachteten abgetasteten Zeitsignale sind grundsätzlich
+unendlich lang. Wird dagegen nur ein Messblock aus $N$ Werten verarbeitet, ist auch das
+Spektrum diskret und der endliche Zeitverlauf wird implizit als periodisch behandelt. Randall
+definiert die DFT mit \cite[S.~71, Abschn.~3.2.4, Gl.~(3.22)]
+{randallVibrationbasedConditionMonitoring2011}:
+\begin{equation}
+    G(k)=\frac{1}{N}\sum_{n=0}^{N-1}g(n)
+    \exp\!\left(-\mathrm{j}\frac{2\pi kn}{N}\right)\,.
+    \label{eq:dft}
+\end{equation}
+% Quellenbasis: Randall (2011), S. 71, Abschn. 3.2.4, Absatz nach
+% Gl. (3.23): Der Faktor 1/N steht in Randalls Definition in der
+% Vorwärtstransformation; MATLAB verwendet ihn in der Rücktransformation.
+Der Faktor $1/N$ steht dabei entsprechend
+Randalls Konvention in der Vorwärtstransformation; seine Position kann sich je nach verwendeter
+Softwarekonvention unterscheiden \cite[S.~71, Abschn.~3.2.4]
+{randallVibrationbasedConditionMonitoring2011}. Die DFT liefert $N$ Frequenzkomponenten.
+Abbildung~3.6(d) stellt sowohl den endlichen Zeitverlauf als auch das diskrete Spektrum
+periodisch dar \cite[S.~70--71, Abschn.~3.2.4, Abb.~3.6(d)]
+{randallVibrationbasedConditionMonitoring2011}.
+% Eigene begriffliche Klarstellung auf Grundlage von Randalls Aussage zur
+% impliziten Periodizität des endlichen Messblocks, S. 71, Abschn. 3.2.4.
+Diese Periodizität ist eine mathematische Eigenschaft der DFT und bedeutet nicht, dass sich das
+gemessene Signal physikalisch wiederholt.
+
+% Quellenbasis: Randall (2011), S. 72, Abschn. 3.2.4:
+% k=0 als Gleichanteil, k=N/2 als Nyquist-Frequenz und negative
+% Frequenzkomponenten in der zweiten DFT-Hälfte.
+% Quellenbasis: Randall (2011), S. 84, Abschn. 3.2.7 Zoom FFT:
+% Frequenzauflösung Delta f als Quotient aus Abtastfrequenz f_s und
+% Anzahl der Abtastwerte N.
+% Quellenbasis: Randall (2011), S. 86--89, Abschn. 3.2.8.1--3.2.8.2,
+% Abb. 3.19--3.21 und Tab. 3.1: Einfluss endlicher Beobachtungsdauer,
+% Spektralabtastung und Fensterfunktion auf die Darstellung einer Linie.
+Für die einseitige Darstellung eines reellwertigen Signals werden die Komponenten von $k=0$
+bis $k=N/2$ verwendet. Dabei entspricht $k=0$ dem Gleichanteil und $k=N/2$ der
+Nyquist-Frequenz; die zweite Hälfte der DFT enthält die negativen Frequenzkomponenten. Der
+Abstand benachbarter Frequenzstellen beträgt nach Randall
+\cite[S.~72, Abschn.~3.2.4; S.~84, Abschn.~3.2.7]
+{randallVibrationbasedConditionMonitoring2011}:
+\begin{equation}
+    \Delta f = \frac{f_s}{N}\,.
+    \label{eq:dft_frequency_grid}
+\end{equation}
+Dieser Abstand ist nicht mit einer beliebig genauen Frequenzbestimmung gleichzusetzen: Eine
+tatsächliche Signalkomponente kann zwischen zwei Frequenzstellen liegen, und ihre spektrale
+Darstellung wird zusätzlich durch die endliche Beobachtungsdauer und die verwendete
+Fensterfunktion beeinflusst
+\cite[S.~86--89, Abschn.~3.2.8.1--3.2.8.2, Abb.~3.19--3.21, Tab.~3.1]
+{randallVibrationbasedConditionMonitoring2011}. Diese Effekte werden im folgenden Abschnitt
+näher betrachtet.
+
+% Quellenbasis: Randall (2011), S. 72--73, Abschn. 3.2.5: FFT als effizienter
+% Algorithmus zur Berechnung der DFT und Reduktion der Rechenkomplexität von
+% N^2 auf N log_2(N) bei der beschriebenen Radix-2-Zerlegung.
+Die schnelle Fourier-Transformation (engl. \emph{Fast Fourier Transform}, FFT) ist keine
+weitere Transformationsart, sondern ein effizienter Algorithmus zur Berechnung der DFT. Bei
+direkter Auswertung wächst der Rechenaufwand quadratisch mit der Blocklänge $N$. Die von
+Randall beschriebene Radix-2-FFT reduziert ihn auf eine Größenordnung von
+$N\log_2(N)$
+\cite[S.~72--73, Abschn.~3.2.5]{randallVibrationbasedConditionMonitoring2011}.
+Sie berechnet dieselben Spektralwerte an denselben Frequenzstellen wie die direkte DFT.
+
+\paragraphheading{Spektraldarstellung und Fensterung}
+
+% Quellenbasis: Randall (2011), S. 67--68, Abschn. 3.2.1
+% Fourier Series, Gl. (3.12)--(3.16) und Abb. 3.4--3.5:
+% Betrag und Phase komplexer Fourier-Koeffizienten sowie konjugiert
+% komplexe positive und negative Frequenzkomponenten.
+% Quellenbasis: Randall (2011), S. 71--72, Abschn. 3.2.4
+% The Discrete Fourier Transform und Abb. 3.7: Übertragung dieser
+% Darstellung auf die komplexen DFT-Koeffizienten und zweite DFT-Hälfte.
+Die komplexen DFT-Koeffizienten $G(k)$ enthalten zu jeder Frequenzstützstelle
+einen Betrag und eine Phase. Für die übersichtliche Darstellung eines reellwertigen
+Schwingungssignals wird häufig das einseitige Betragsspektrum $\lvert G(k)\rvert$
+verwendet, da der negative Frequenzbereich keine unabhängige Information enthält.
+Die Lage ausgeprägter Spektrallinien macht dadurch dominante Frequenzanteile und
+regelmäßige Linienabstände sichtbar; für Untersuchungen von Phasenbeziehungen muss
+hingegen zusätzlich $\arg\{G(k)\}$ erhalten bleiben
+\cite[S.~67--68, Abschn.~3.2.1, Gl.~(3.12)--(3.16), Abb.~3.4--3.5;
+S.~71--72, Abschn.~3.2.4, Abb.~3.7]
+{randallVibrationbasedConditionMonitoring2011}.
+
+% Quellenbasis: Harris (1978), S. 52, Abschn. III und Abb. 4:
+% Leakage als Folge der Verarbeitung eines endlichen Datensatzes; bei einer
+% nicht zur Beobachtungsdauer passenden Signalfrequenz entstehen Sprünge an den
+% Grenzen der impliziten periodischen Fortsetzung. Leakage ist nicht Aliasing.
+Die Beschränkung auf einen endlichen Messblock entspricht zunächst einer rechteckigen
+Gewichtung des Signals. Enthält der Block keine ganzzahlige Anzahl der betrachteten
+Schwingungsperioden, stimmen Anfang und Ende der durch die DFT vorausgesetzten
+periodischen Fortsetzung nicht überein. Die dabei entstehende Sprungstelle verteilt
+die Energie einer einzelnen Komponente über mehrere DFT-Stützstellen. Dieser Effekt
+wird als spektrale Leakage bezeichnet. Er entsteht durch die endliche
+Beobachtungsdauer und ist daher vom zuvor beschriebenen Aliasing zu unterscheiden
+\cite[S.~52, Abschn.~III und Abb.~4]{harrisUseWindowsHarmonic1978}.
+
+% Quellenbasis: Harris (1978), S. 52--53, Abschn. III--IV und Gl. (5)--(6):
+% Fenster als multiplikative Gewichtung im Zeitbereich, Faltung im
+% Frequenzbereich und Reduktion der Randsprünge.
+% Quellenbasis: Harris (1978), S. 60--61, Abschn. V-C, Gl. (27a)--(27b) und
+% Abb. 16--20: Hann-Fenster als angehobenes Kosinusfenster sowie Zielkonflikt
+% zwischen sinkenden Nebenkeulen und wachsender Hauptkeulenbreite.
+Zur Verringerung dieser Randsprünge werden die Abtastwerte vor der DFT mit einer
+Fensterfolge $w(n)$ multipliziert, sodass $g_w(n)=g(n)w(n)$ gilt. Die Multiplikation
+im Zeitbereich entspricht einer Faltung der Spektren von Signal und Fenster.
+Fensterung beseitigt Leakage deshalb nicht vollständig, sondern verändert ihre
+Verteilung. Ein häufig eingesetzter Vertreter ist das Hann-Fenster, das verbreitet
+auch als Hanning-Fenster bezeichnet wird. Seine
+kosinusförmige Gewichtung senkt die Werte zu den Blockgrenzen hin ab und reduziert
+dadurch die Nebenkeulen. Dem steht eine breitere Hauptkeule gegenüber, wodurch eng
+benachbarte Spektrallinien schlechter getrennt werden können
+\cite[S.~52--53, Abschn.~III--IV, Gl.~(5)--(6);
+S.~60--61, Abschn.~V-C, Gl.~(27a)--(27b), Abb.~16--20]
+{harrisUseWindowsHarmonic1978}.
+
+% Quellenbasis: Harris (1978), S. 54--56, Abschn. IV-A--IV-B,
+% Gl. (10) und (13) sowie Tab. I: Fensterkennwerte, kohärente Verstärkung
+% und Verringerung der gemessenen Linienamplitude durch die Gewichtung.
+Die Fensterwahl hängt somit vom Analyseziel ab: Eine geringe Nebenkeulenhöhe
+verbessert die Erkennbarkeit schwacher Linien neben starken Komponenten, während
+eine schmale Hauptkeule die Frequenztrennung begünstigt. Da ein Fenster außerdem
+die gemessene Linienamplitude um seine kohärente Verstärkung verändert, müssen
+Spektralamplituden für quantitative Vergleiche konsistent auf die Summe der
+Fensterkoeffizienten normiert werden
+\cite[S.~54--56, Abschn.~IV-A--IV-B, Gl.~(10), (13), Tab.~I]
+{harrisUseWindowsHarmonic1978}.
 
 \paragraphheading{Drehzahleinfluss und Ordnungsanalyse}
+
+% Quellenbasis: Fyfe und Munck (1997), S. 187, Zusammenfassung und Abschn. 1:
+% Ordnungsanalyse verwendet Vielfache der Drehfrequenz anstelle absoluter
+% Frequenzen und macht drehzahlproportionale Schwingungsanteile identifizierbar.
+% Eigene Definitionsgleichung auf dieser Grundlage.
+Bei rotierenden Maschinen sind zahlreiche Schwingungsanteile an die momentane
+Drehfrequenz $f_r(t)$ gekoppelt. Ändert sich die Drehzahl während einer Messung,
+ändert sich daher auch ihre Lage auf einer Frequenzachse in Hertz. Die
+Ordnungsdarstellung normiert eine Komponentenfrequenz $f(t)$ auf die
+Drehfrequenz:
+\begin{equation}
+    o(t) = \frac{f(t)}{f_r(t)}.
+    \label{eq:order_definition}
+\end{equation}
+Die erste Ordnung entspricht einem Ereignis pro Wellenumdrehung, die zweite
+Ordnung zwei Ereignissen pro Umdrehung. Drehzahlsynchrone Komponenten bleiben
+damit idealerweise bei einer festen Ordnung, auch wenn sich ihre absolute
+Frequenz verändert
+\cite[S.~187, Zusammenfassung und Abschn.~1]{fyfeANALYSISCOMPUTEDORDER1997}.
+
+% Quellenbasis: Fyfe und Munck (1997), S. 188--191, Abschn. 1.1--1.2,
+% Abb. 1--3 und Gl. (1)--(8): zeitbasierte Erfassung von Schwingungs- und
+% Referenzsignal, Bestimmung der Winkel-Zeit-Beziehung, Interpolation auf
+% konstante Winkelabstände und anschließende FFT zum Ordnungsspektrum.
+Für die Fourier-Analyse im Ordnungsbereich muss das Signal nicht in konstanten
+Zeit-, sondern in konstanten Winkelabständen vorliegen. Beim
+\emph{Computed Order Tracking} (COT) werden Schwingungs- und
+Drehzahlreferenzsignal zunächst zeitlich äquidistant erfasst. Aus den Zeitpunkten
+der Referenzimpulse wird die Winkel-Zeit-Beziehung geschätzt. Anschließend werden
+die Schwingungsamplituden durch Interpolation an äquidistanten Winkelpositionen
+bestimmt. Eine FFT dieser winkeldiskreten Folge liefert schließlich ein
+Ordnungsspektrum
+\cite[S.~188--191, Abschn.~1.1--1.2, Abb.~1--3, Gl.~(1)--(8)]
+{fyfeANALYSISCOMPUTEDORDER1997}.
+
+% Quellenbasis: Fyfe und Munck (1997), S. 187, Zusammenfassung, sowie
+% S. 198--202, Abschn. 3.4--4: Einfluss der zeitlichen Genauigkeit des
+% Drehzahlreferenzsignals und der Interpolationsordnung auf die spektrale
+% Genauigkeit des Computed Order Tracking.
+Die Winkeltransformation führt selbst neue Fehlerquellen ein. Insbesondere die
+zeitliche Genauigkeit der Referenzimpulse bestimmt die berechneten
+Winkelpositionen; zusätzlich beeinflusst das Interpolationsverfahren die
+Amplituden und den Rauschboden des Ordnungsspektrums. Fyfe und Munck zeigen, dass
+eine genauere Impulserfassung und höherwertige Interpolation die spektrale
+Genauigkeit deutlich verbessern
+\cite[S.~187, Zusammenfassung; S.~198--202, Abschn.~3.4--4]
+{fyfeANALYSISCOMPUTEDORDER1997}.
+
+% Quellenbasis: Borghesani et al. (2012), S. 1--2, Zusammenfassung,
+% Abschn. 1--2 und Abb. 1: drehzahlabhängige Amplituden- und Phasenverzerrung
+% durch den mechanischen Übertragungsweg, Energieverteilung um die ideale
+% Ordnung und Beeinträchtigung der synchronen Mittelung beziehungsweise DRS.
+Auch bei korrekter Winkelabtastung wird nicht jede Komponente zu einer scharfen
+Ordnungslinie. Der mechanische Übertragungsweg verändert Amplitude und Phase der
+Anregung. Bei variabler Drehzahl wird seine Übertragungsfunktion zu
+unterschiedlichen Zeitpunkten bei unterschiedlichen Frequenzen angeregt. Dadurch
+kann Energie von der idealen Anregungsordnung in ein benachbartes Ordnungsband
+verschoben werden. Bei einer nachfolgenden synchronen Mittelung beziehungsweise
+Deterministic-Random Separation kann deshalb ein Teil der eigentlich
+deterministischen Energie im Residuum verbleiben
+\cite[S.~1--2, Zusammenfassung, Abschn.~1--2 und Abb.~1]
+{borghesaniOrderTrackingDiscreterandom2012}.
+
+% Quellenbasis: Borghesani et al. (2013), S. 24--26, Abschn. 2--4 und
+% Abb. 1--2: Grenzen der traditionellen Reihenfolge COT vor Hüllkurvenanalyse
+% bei starken Drehzahltransienten; zeitlich konstante Resonanz wird im
+% Winkelbereich drehzahlabhängig. Vorgeschlagene Umkehr der Verarbeitung:
+% Demodulation im Zeitbereich, danach COT der Hüllkurve.
+Diese Einschränkung ist für die Wälzlagerdiagnose besonders relevant. Bei starken
+Drehzahltransienten bleibt die angeregte Strukturresonanz im Zeitbereich zwar
+frequenzstabil, ihre Lage im Ordnungsbereich verändert sich jedoch mit der
+Drehzahl. Wird das Rohsignal vor der Hüllkurvenbildung winkelresampelt, kann daher
+kein einheitliches schmales Demodulationsband mehr existieren. Borghesani et al.
+schlagen für diesen Fall die umgekehrte Reihenfolge vor: Zuerst erfolgt die
+Demodulation im Zeitbereich, anschließend wird die Hüllkurve winkelresampelt und
+in den Ordnungsbereich transformiert
+\cite[S.~24--26, Abschn.~2--4 und Abb.~1--2]
+{borghesaniNewProcedureUsing2013}. Die Ordnungsanalyse bildet damit den
+Referenzansatz für Messungen mit veränderlicher Drehzahl; die geeignete
+Verarbeitungsdomäne und die Reihenfolge der Schritte müssen jedoch an
+Drehzahlverlauf, Übertragungsweg und Auswerteverfahren angepasst werden.
 
 %================================================================================================
 %       2.4 Trennung überlagerter Signalanteile
@@ -356,11 +656,295 @@ demodulieren und anschließend ihre niederfrequenten Wiederholungsanteile auszuw
 
 \paragraphheading{Deterministische und zufällige Signalanteile}
 
+% Quellenbasis: Randall, Sawalhi und Coats (2011), S. 11, Abschn. 1:
+% Messsignal als Überlagerung verschiedener Quellen und Übertragungswege sowie
+% grundlegende Einteilung in deterministische und zufällige Komponenten.
+Das an einer Maschine gemessene Schwingungssignal enthält Beiträge unterschiedlicher
+Anregungsquellen, die jeweils durch den mechanischen Übertragungsweg bis zum Messpunkt
+geformt werden. Eine für die Zustandsdiagnose grundlegende Einteilung unterscheidet zwischen
+deterministischen und zufälligen Signalanteilen
+\cite[S.~11, Abschn.~1]{randallComparisonMethodsSeparation2011}.
+
+% Eigene Modellnotation auf Grundlage von Randall, Sawalhi und Coats (2011),
+% S. 11--12, Abschn. 1--2: additive Aufteilung in extrahierten deterministischen
+% Anteil und das nach der Subtraktion verbleibende Residuum.
+Für die weitere Betrachtung wird das gemessene Signal daher zunächst als additive Überlagerung
+\begin{equation}
+    x(n) = d(n) + r(n)
+    \label{eq:deterministic_random_model}
+\end{equation}
+modelliert. Dabei bezeichnet $d(n)$ den deterministischen Anteil und $r(n)$ das verbleibende
+zufällige Residuum. Diese Zerlegung ordnet die Komponenten nach ihrer zeitlichen
+Vorhersagbarkeit und nicht danach, ob sie diagnostisch nützlich oder störend sind.
+
+% Quellenbasis: Randall, Sawalhi und Coats (2011), S. 11, Einleitung und
+% Abschn. 1: deterministisch als vorhersagbar; diskrete Frequenzkomponenten bei
+% stationärem Betrieb; periodischer Charakter von Getriebesignalen.
+Ein deterministischer Signalanteil ist durch einen vorhersagbaren zeitlichen Verlauf
+gekennzeichnet. Wiederholt er sich nach einer festen Periodendauer $N_0$, gilt
+$d(n+N_0)=d(n)$. Bei stationären Betriebsbedingungen konzentrieren sich solche periodischen
+Komponenten im Spektrum auf diskrete Frequenzlinien. Typische Beispiele in rotierenden
+Maschinen sind Wellenharmonische und Zahneingriffsfrequenzen einschließlich ihrer
+Harmonischen. Getriebesignale können näherungsweise als deterministisch betrachtet werden,
+solange die Zahnflanken in jeder Grundperiode in gleicher Weise ineinandergreifen, der
+Zahnkontakt erhalten bleibt und die Last hinreichend konstant ist
+\cite[S.~11, Abschn.~1]{randallComparisonMethodsSeparation2011}.
+
+% Quellenbasis: Randall, Sawalhi und Coats (2011), S. 11, Abschn. 1:
+% zufällige Komponenten umfassen stationäre und zyklostationäre Signale;
+% Definition von CS1 und CS2 sowie Einordnung der Wälzlagersignale.
+Zufällige Signalanteile sind demgegenüber nicht vollständig aus ihrem bisherigen Verlauf
+vorhersagbar und werden durch statistische Größen beschrieben. Zu dieser Klasse gehört nicht
+nur stationäres Hintergrund- oder Messrauschen. Sie umfasst ebenso zyklostationäre Signale,
+bei denen sich statistische Eigenschaften periodisch verändern. Wie in
+Abschnitt~\ref{sec:waelzlagerdiagnose} erläutert, besitzt ein zyklostationäres Signal erster
+Ordnung einen periodischen Mittelwert, während bei einem zyklostationären Signal zweiter
+Ordnung insbesondere die Varianz periodisch ist. Wälzlagersignale werden näherungsweise der
+zweiten Ordnung zugeordnet, weil ihre einzelnen hochfrequenten Schwingungsantworten zufällig
+variieren können, ihre Intensität jedoch durch die wiederkehrenden Schadenskontakte moduliert
+wird \cite[S.~11, Abschn.~1]{randallComparisonMethodsSeparation2011}.
+
+% Quellenbasis: Randall, Sawalhi und Coats (2011), S. 11, Abschn. 1, sowie
+% Randall und Antoni (2011), S. 490--491, Abschn. 2.1 und Abb. 4--5:
+% fehlende exakte Periodizität lokaler Lagerstöße infolge Käfigspiel und Schlupf;
+% Einordnung als pseudo-zyklostationär.
+Für lokale Wälzlagerschäden gilt diese Periodizität der statistischen Eigenschaften nur
+näherungsweise. Das Käfigspiel und der Schlupf der Wälzkörper bewirken zufällige
+Abweichungen der Stoßzeitpunkte von den idealen kinematischen Perioden. Da sich diese
+Abweichungen über mehrere Kontakte fortpflanzen, ist das Signal langfristig nicht streng
+zyklostationär und wird genauer als pseudo-zyklostationär bezeichnet
+\cites[S.~11, Abschn.~1]{randallComparisonMethodsSeparation2011}
+[S.~490--491, Abschn.~2.1, Abb.~4--5]{randallRollingElementBearing2011}.
+Die Bezeichnung als zufälliger Anteil bedeutet folglich nicht, dass das Residuum ausschließlich
+unstrukturiertes Rauschen enthält. Es kann gerade die statistisch wiederkehrenden und damit
+diagnostisch relevanten Lagerimpulse umfassen.
+
+% Quellenbasis: Randall und Antoni (2011), S. 493, Abschn. 3, sowie Randall,
+% Sawalhi und Coats (2011), S. 11, Zusammenfassung und Abschn. 1: relativ schwache
+% Lagersignale, starke diskrete Getriebekomponenten und daraus folgende Maskierung.
+Die Trennung ist erforderlich, weil die Amplituden der überlagerten Komponenten stark
+voneinander abweichen können. Zahneingriffsfrequenzen und andere diskrete Komponenten eines
+Getriebes sind häufig bereits im fehlerfreien Zustand ausgeprägt und können die vergleichsweise
+schwachen Lagersignale in den für die Diagnose relevanten Frequenzbereichen überdecken
+\cites[S.~493, Abschn.~3]{randallRollingElementBearing2011}
+[S.~11]{randallComparisonMethodsSeparation2011}.
+
+% Eigene Einordnung auf Grundlage von Randall, Sawalhi und Coats (2011), S. 11:
+% Die Quelle belegt die Dominanz und Maskierung qualitativ, nennt jedoch kein universelles
+% Amplitudenverhältnis; zudem verweist sie auf verschiedene Quellen und Übertragungswege.
+Ein allgemeingültiges Amplitudenverhältnis von Getriebe- zu Lagersignal lässt sich daraus
+nicht ableiten. Entscheidend ist vielmehr, dass dominante diskrete Linien die
+lagerbedingten Signalanteile im Rohsignal maskieren können.
+
+% Quellenbasis: Randall, Sawalhi und Coats (2011), S. 11--12, Abschn. 1--2:
+% Separation als früher Diagnoseschritt, Trennung von Getriebe- und Lageranteilen
+% sowie Bildung des Residuums durch Subtraktion des periodischen Anteils.
+Ziel der Signaltrennung ist deshalb, den geschätzten deterministischen Anteil $\hat d(n)$ aus
+dem Messsignal zu bestimmen und durch
+\begin{equation}
+    \hat r(n) = x(n) - \hat d(n)
+    \label{eq:separation_residual}
+\end{equation}
+ein Residuum zu bilden, in dem die diskret-spektrale Maskierung vermindert ist. In
+Getriebesignalen kann diese Zerlegung zumindest in geeigneten Frequenzbereichen die
+überwiegend deterministischen Getriebeanteile von den zufälligen oder
+pseudo-zyklostationären Lageranteilen trennen
+\cite[S.~11--12, Abschn.~1--2]{randallComparisonMethodsSeparation2011}. Wie die
+Referenz für die Schätzung von $\hat d(n)$ gewonnen wird, unterscheidet die im Folgenden
+betrachteten Trennverfahren.
+
 \paragraphheading{Alternative Verfahren zur Signaltrennung}
+
+% Quellenbasis: Randall (2011), S. 120--122, Abschn. 3.6.2, sowie Randall,
+% Sawalhi und Coats (2011), S. 11--13, Abschn. 2: Prinzip der synchronen
+% Mittelung, Kammfilterwirkung, Anforderungen an die Phasenreferenz und Grenzen.
+Beim \gls{TSA} werden mehrere Signalabschnitte gleicher Periodendauer auf eine gemeinsame
+Phasenlage ausgerichtet und gemittelt. Komponenten, die synchron zur gewählten Periode
+auftreten, bleiben dabei erhalten, während nicht synchrone und zufällige Anteile mit wachsender
+Zahl der Mittelungen abgeschwächt werden. Das Verfahren wirkt dadurch wie ein Kammfilter für
+die Harmonischen der Referenzfrequenz. Es setzt die Periodendauer und Phasenlage der zu
+extrahierenden Komponente voraus; bei Drehzahlschwankungen ist vor der Mittelung eine
+winkeläquidistante Neuabtastung erforderlich. Da jede Familie synchroner Komponenten eine
+eigene Grundperiode besitzt, muss die Verarbeitung für jede dieser Familien getrennt erfolgen.
+Modulationsseitenbänder werden durch TSA nicht grundsätzlich mit den zugehörigen Harmonischen
+entfernt
+\cites[S.~120--122, Abschn.~3.6.2]{randallVibrationbasedConditionMonitoring2011}
+[S.~11--13, Abschn.~2]{randallComparisonMethodsSeparation2011}.
+
+% Quellenbasis: Randall (2011), S. 122--125, Abschn. 3.6.3, sowie Randall,
+% Sawalhi und Coats (2011), S. 13--14, Abschn. 3: AR-Modell, Vorhersage des
+% deterministischen Anteils, Prädiktionsfehler und Vorweißung des Residuums.
+Die lineare Prädiktion bildet den vorhersagbaren Signalanteil durch ein autoregressives Modell
+aus einer endlichen Anzahl vorausgegangener Abtastwerte nach. Die Differenz zwischen dem
+tatsächlichen und dem vorhergesagten Wert ist der Prädiktionsfehler. Er enthält die vom Modell
+nicht erfassten zufälligen und impulsiven Anteile und weist ein vorgeweißtes Spektrum auf. Welche
+diskreten Komponenten unterdrückt werden, hängt insbesondere von der Ordnung des
+autoregressiven Modells ab
+\cites[S.~122--125, Abschn.~3.6.3]{randallVibrationbasedConditionMonitoring2011}
+[S.~13--14, Abschn.~3]{randallComparisonMethodsSeparation2011}.
+
+% Quellenbasis: Randall (2011), S. 125, Abschn. 3.6.4, sowie Randall, Sawalhi
+% und Coats (2011), S. 14, Abschn. 4: externe Referenz, adaptive Schätzung des
+% linearen Übertragungswegs und Minimierung der Residualvarianz bei ANC.
+Bei der \gls{ANC} wird neben dem primären Mischsignal ein Referenzsignal benötigt, das mit einer
+der zu trennenden Komponenten kohärent ist. Ein adaptives Filter schätzt den linearen
+Übertragungsweg zwischen Referenz und entsprechendem Anteil des Primärsignals. Das gefilterte
+Referenzsignal wird anschließend vom Primärsignal subtrahiert, wobei die Filterparameter so
+angepasst werden, dass die Varianz des Fehlersignals minimiert wird
+\cites[S.~125, Abschn.~3.6.4]{randallVibrationbasedConditionMonitoring2011}
+[S.~14, Abschn.~4]{randallComparisonMethodsSeparation2011}.
+
+% Quellenbasis: Randall (2011), S. 125--128, Abschn. 3.6.5, sowie Randall,
+% Sawalhi und Coats (2011), S. 14--15, Abschn. 4: verzögerte Eigenreferenz,
+% unterschiedliche Korrelationslängen und rekursive Filteranpassung bei SANC.
+Die \gls{SANC} ersetzt diese externe Referenz durch eine zeitlich verzögerte Kopie des
+Primärsignals. Die Verzögerung wird so gewählt, dass der zufällige Anteil weitgehend
+dekorreliert ist, während die deterministischen Komponenten zwischen Original und verzögerter
+Kopie kohärent bleiben. Ein rekursiv angepasstes Filter bildet den kohärenten Anteil nach; das
+Fehlersignal enthält entsprechend den nicht vorhersagbaren Anteil. Die adaptive Struktur kann
+langsame Signaländerungen nachführen, erfordert jedoch die Wahl von Verzögerung, Filterordnung
+und Konvergenzfaktor
+\cites[S.~125--128, Abschn.~3.6.5]{randallVibrationbasedConditionMonitoring2011}
+[S.~14--15, Abschn.~4]{randallComparisonMethodsSeparation2011}.
+
+% Quellenbasis: Randall, Sawalhi und Coats (2011), S. 16--18, Abschn. 6:
+% selektive Entfernung periodischer Harmonischen- und Seitenbandfamilien durch
+% Editieren des reellen Cepstrums und Rücktransformation mit erhaltener Phase.
+Eine weitere Möglichkeit ist das cepstrale Editieren. Periodische Strukturen im Logarithmus des
+Amplitudenspektrums erscheinen im reellen Cepstrum an den zugehörigen Quefrenzen. Durch
+gezieltes Verändern dieser Cepstrumanteile und die Rücktransformation unter Beibehaltung der
+ursprünglichen Phase lassen sich ausgewählte Harmonischen- und Seitenbandfamilien aus dem
+Zeitsignal entfernen, ohne sämtliche diskreten Komponenten gleichermaßen zu unterdrücken
+\cite[S.~16--18, Abschn.~6]{randallComparisonMethodsSeparation2011}.
 
 \paragraphheading{Discrete and Random Signal Separation}
 
+% Quellenbasis: Antoni und Randall (2004), S. 103--104, Abschn. 1--2, sowie
+% Randall (2011), S. 128--129, Abschn. 3.6.6: DRS als nicht iteratives
+% Frequenzbereichsverfahren auf Grundlage der Wiener-Prädiktion und des H1-Schätzers.
+Die \gls{DRS} verwendet dasselbe Korrelationsprinzip wie SANC, bestimmt den Trennfilter jedoch
+nicht durch eine iterative Anpassung im Zeitbereich. Stattdessen wird die optimale lineare
+Vorhersagebeziehung unmittelbar aus gemittelten Kurzzeit-Fourier-Transformationen im
+Frequenzbereich geschätzt. Antoni und Randall leiten das Verfahren aus den
+Wiener--Hopf-Gleichungen ab und orientieren die Schätzung an der aus der experimentellen
+Modalanalyse bekannten $H_1$-Frequenzgangschätzung
+\cites[S.~103--104, Abschn.~1--2]{antoniUnsupervisedNoiseCancellation2004}
+[S.~128--129, Abschn.~3.6.6]{randallVibrationbasedConditionMonitoring2011}.
+
+% Quellenbasis: Antoni und Randall (2004), S. 104, Abschn. 2, Gl. (1) und
+% Abb. 1: Bildung eines aktuellen und eines um N+Delta Samples zurückliegenden,
+% gefensterten Signalblocks; Vorhersagbarkeit des deterministischen Anteils.
+Dazu werden Paare gefensterter Blöcke der Länge $N$ betrachtet. Der aktuelle Block und der
+durch einen freien Abstand $\Delta$ getrennte frühere Block lassen sich als
+\begin{equation}
+    \begin{aligned}
+        x_k(n) &= x(n+kT)\,w_N(n), \\
+        x_k^{(d)}(n) &= x(n+kT-N-\Delta)\,w_N(n),
+        \qquad 0 \leq n < N
+    \end{aligned}
+    \label{eq:drs_blocks}
+\end{equation}
+schreiben. Dabei bezeichnet $T$ den Versatz aufeinanderfolgender Blockpaare und $w_N(n)$ die
+Fensterfunktion. Der frühere Block ist gegenüber dem aktuellen Block nicht nur um $\Delta$,
+sondern insgesamt um $N+\Delta$ Abtastwerte verschoben. Dabei bezeichnet $\Delta$
+ausschließlich die freie Lücke zwischen dem Ende des früheren und dem Beginn des aktuellen
+Blocks. Die deterministischen Komponenten bleiben zwischen den beiden Blöcken vorhersagbar.
+Der zufällige Anteil soll dagegen so weit dekorreliert sein, dass er nicht zur Vorhersage des
+aktuellen Blocks beiträgt
+\cite[S.~104, Abschn.~2, Gl.~(1), Abb.~1]{antoniUnsupervisedNoiseCancellation2004}.
+
+% Quellenbasis: Antoni und Randall (2004), S. 104--105, Abschn. 2, Gl. (1)--(2),
+% sowie Randall (2011), S. 128, Gl. (3.75): Schätzung des optimalen Filters aus
+% Kreuz- und Autospektrum durch Mittelung über mehrere Blockpaare.
+Mit $A_k(f)$ als Spektrum des früheren Blocks und $B_k(f)$ als Spektrum des aktuellen Blocks
+wird der Frequenzgang des linearen Prädiktors durch
+\begin{equation}
+    \hat H_1(f)
+    = \frac{\displaystyle\sum_{k=1}^{K} B_k(f)A_k^*(f)}
+           {\displaystyle\sum_{k=1}^{K} A_k(f)A_k^*(f)}
+    = \frac{\hat G_{BA}(f)}{\hat G_{AA}(f)}
+    \label{eq:drs_h1_estimator}
+\end{equation}
+geschätzt. Das Sternchen bezeichnet die komplexe Konjugation. Der Zähler ist das über $K$
+Blockpaare gemittelte Kreuzleistungsspektrum zwischen aktuellem und früherem Block, der Nenner
+das entsprechende Autoleistungsspektrum des früheren Blocks. Der Quotient beschreibt damit für
+jede Frequenz, welcher Anteil des aktuellen Blocks linear aus dem zeitlich getrennten Block
+vorhergesagt werden kann
+\cites[S.~104--105, Abschn.~2, Gl.~(1)--(2)]{antoniUnsupervisedNoiseCancellation2004}
+[S.~128, Gl.~(3.75)]{randallVibrationbasedConditionMonitoring2011}.
+
+% Quellenbasis: Antoni und Randall (2004), S. 106, Abschn. 3 und Gl. (4):
+% SNR-abhängiger Betrag des Frequenzgangs für eine diskrete Komponente in
+% additivem weißem Rauschen und Einfluss der Fensterfunktion.
+Für den vereinfachten Fall einer einzelnen diskreten Komponente in additivem weißem Rauschen
+ergibt sich für den Betrag des Filterfrequenzgangs
+\begin{equation}
+    \lvert H(f) \rvert
+    = \frac{\tfrac{1}{2}\rho N\lvert W(f)\rvert^2}
+           {\tfrac{1}{2}\rho N\lvert W(f)\rvert^2+1},
+    \label{eq:drs_filter_gain}
+\end{equation}
+wobei $\rho$ das Signal-Rausch-Verhältnis der diskreten Komponente und $W(f)$ die auf eins
+normierte Fourier-Transformierte der Fensterfunktion bezeichnet. Im Frequenzbereich einer
+ausgeprägten diskreten Komponente nähert sich der Filterbetrag eins; bei einem überwiegend
+zufälligen Anteil nähert er sich null. Die Fensterfunktion und die Blocklänge bestimmen dabei
+die Bandbreite, Nebenkeulen und Frequenzauflösung der Trennung
+\cite[S.~106, Abschn.~3, Gl.~(4)]{antoniUnsupervisedNoiseCancellation2004}.
+
+% Quellenbasis: Antoni und Randall (2004), S. 105, Abschn. 2, sowie Randall
+% (2011), S. 128--129, Abschn. 3.6.6: Phasenkorrektur, Anwendung des Filters,
+% schnelle Faltung und Bildung von deterministischem und zufälligem Anteil.
+Nach der Schätzung wird die durch den Blockabstand verursachte Phase korrigiert. Die inverse
+Fourier-Transformation liefert die Impulsantwort des Filters; dessen Anwendung auf das
+Messsignal kann als schnelle Faltung im Frequenzbereich erfolgen. Dazu ist eine blockweise
+Verarbeitung, beispielsweise mit dem Overlap-Add-Verfahren, erforderlich, um die zirkuläre
+Faltung der diskreten Fourier-Transformation zu vermeiden. Das Filterausgangssignal schätzt den
+kohärenten deterministischen Anteil; durch dessen Subtraktion nach
+Gleichung~\eqref{eq:separation_residual} entsteht das zufällige Residuum
+\cites[S.~105, Abschn.~2]{antoniUnsupervisedNoiseCancellation2004}
+[S.~128--129, Abschn.~3.6.6]{randallVibrationbasedConditionMonitoring2011}.
+
+% Quellenbasis: Antoni und Randall (2004), S. 114--117, Abschn. 5--6 und
+% Abb. 12--14, sowie Randall, Sawalhi und Coats (2011), S. 15--16, Abschn. 5:
+% Trennung von Getriebe- und Lagersignalen, erforderliche Frequenzstabilität
+% und Nutzen einer vorgelagerten Ordnungsverfolgung bei Drehzahlschwankungen.
+Die Trennung setzt voraus, dass die diskreten Komponenten innerhalb der ausgewerteten Daten
+hinreichend frequenzstabil bleiben. Drehzahlschwankungen verbreitern diese Komponenten und
+verringern ihre Kohärenz zwischen den Blöcken. Antoni und Randall empfehlen deshalb eine
+vorgelagerte Ordnungsverfolgung, wenn die deterministischen Komponenten nicht bereits
+periodisch vorliegen. In ihren Getriebeversuchen konnten nach der Trennung im zufälligen Anteil
+zuvor maskierte Lagerimpulse beziehungsweise die Innenringüberrollfrequenz im quadrierten
+Hüllkurvenspektrum sichtbar gemacht werden
+\cites[S.~114--117, Abschn.~5--6, Abb.~12--14]{antoniUnsupervisedNoiseCancellation2004}
+[S.~15--16, Abschn.~5]{randallComparisonMethodsSeparation2011}.
+
 \paragraphheading{Vergleich und Einordnung der Verfahren}
+
+% Quellenbasis: Randall, Sawalhi und Coats (2011), S. 11, Zusammenfassung,
+% S. 14, Abschn. 4, und S. 18, Abschn. 7: vergleichende Eigenschaften von TSA,
+% linearer Prädiktion, ANC, SANC, DRS und cepstralem Editieren.
+Die Verfahren unterscheiden sich vor allem durch die benötigte Referenz und die Art der
+Filterbestimmung. TSA nutzt eine bekannte periodische Referenz und greift vergleichsweise wenig
+in das Residuum ein, muss jedoch für jede Familie synchroner Komponenten gesondert ausgeführt
+werden. Lineare Prädiktion benötigt keine externe Referenz und bewirkt zugleich eine Vorweißung,
+hängt aber von einer geeigneten Modellordnung ab. ANC setzt ein kohärentes externes
+Referenzsignal voraus, während SANC und DRS dieses durch eine verzögerte Eigenreferenz ersetzen.
+SANC kann langsame Änderungen adaptiv nachführen; DRS vermeidet die iterative Konvergenz und
+bestimmt den Filter recheneffizient im Frequenzbereich, reagiert jedoch empfindlich auf
+Frequenzschwankungen der diskreten Komponenten. Cepstrales Editieren ermöglicht demgegenüber
+die gezielte Auswahl einzelner Harmonischen- und Seitenbandfamilien
+\cite[S.~11, Zusammenfassung; S.~14, Abschn.~4; S.~18, Abschn.~7]
+{randallComparisonMethodsSeparation2011}.
+
+% Eigene Ableitung auf Grundlage von Randall, Sawalhi und Coats (2011), S. 11
+% und 18: Die Eignung folgt aus Referenzverfügbarkeit, Stationarität und dem
+% gewünschten Umfang der Entfernung, nicht aus einer universellen Rangfolge.
+Eine allgemeingültige Rangfolge lässt sich daraus nicht ableiten. Maßgeblich sind die
+verfügbare Referenzinformation, die zeitliche Stabilität der diskreten Komponenten und die
+Frage, ob sämtliche deterministischen Anteile oder nur ausgewählte Familien entfernt werden
+sollen. Die Auswahl des innerhalb der eigenen Verarbeitungspipeline eingesetzten Verfahrens
+wird daher erst im Methodik- und Konzeptionskapitel aus den dort formulierten Anforderungen
+abgeleitet.
 
 %================================================================================================
 %       2.5 Impulsivitätsbasierte Auswahl des Analysebandes
@@ -370,23 +954,503 @@ demodulieren und anschließend ihre niederfrequenten Wiederholungsanteile auszuw
 
 \paragraphheading{Kurtosis und spektrale Kurtosis}
 
+% Quellenbasis: Randall und Antoni (2011), S. 486--488, Abschn. 1 und Abb. 1--2:
+% Stoßanregung hochfrequenter Strukturresonanzen, spektrale Maskierung der niedrigen
+% Lagerschadensharmonischen und Suche nach einem vom Lagersignal dominierten Frequenzband.
+Lokale Wälzlagerschäden regen durch wiederkehrende Stöße hochfrequente Resonanzen des
+mechanischen Übertragungswegs an. Die niedrigen Harmonischen der Stoßwiederholungsfrequenz
+können im Rohspektrum durch andere Schwingungsanteile maskiert sein. Randall und Antoni
+leiten daraus die Suche nach einem höheren Frequenzbereich ab, in dem der lagerbedingte
+Signalanteil dominiert \cite[S.~486--488, Abschn.~1, Abb.~1--2]
+{randallRollingElementBearing2011}.
+
+% Quellenbasis: Antoni (2007), S. 117--119, Abschn. 4.1--4.2 und Abb. 8--10:
+% Auswahl eines Bandes anhand maximaler Kurtosis, anschließende Demodulation und
+% Fehlerzuordnung erst anhand des Hüllkurvenspektrums.
+Vor der Hüllkurvenanalyse ist daher ein Frequenzband auszuwählen, in dem die transienten
+Anteile hervortreten. Das Kurtogramm liefert einen Kandidaten für dieses Trägerband; die
+Beispiele von Antoni
+ordnen den Lagerschaden erst anhand des anschließend berechneten Hüllkurvenspektrums zu
+\cite[S.~117--119, Abschn.~4.1--4.2, Abb.~8--10]
+{antoniFastComputationKurtogram2007}.
+
+% Quellenbasis: Antoni (2006), S. 303, Beweis zu Eigenschaft 1: klassische Kurtosis
+% eines mittelwertfreien Prozesses als normiertes viertes Moment abzüglich drei. Die
+% Formel wird mit der dort verwendeten Prozessnotation $Y(t)$ wiedergegeben.
+Für den mittelwertfreien reellen Prozess $Y(t)$ mit $\operatorname{E}[Y(t)]=0$ lautet
+die Exzess-Kurtosis nach Antoni
+\cite[S.~303, Beweis zu Eigenschaft~1]{antoniSpectralKurtosisUseful2006}:
+\begin{equation}
+    \kappa_Y =
+    \frac{\operatorname{E}\!\left[Y(t)^4\right]}
+         {\operatorname{E}\!\left[Y(t)^2\right]^2}
+    - 3.
+    \label{eq:kurtosis}
+\end{equation}
+
+% Eigene Ableitung aus der Gleichung mit dem Label \texttt{eq:kurtosis}: Bei einer
+% Skalierung $Y'(t)=aY(t)$
+% kürzt sich $a^4$ zwischen Zähler und Nenner; einzelne große Abweichungen gehen durch
+% die vierte Potenz mit hohem Gewicht ein.
+Die Normierung macht $\kappa_Y$ gegenüber einer reinen Skalierung des Signals invariant.
+Seltene große Abweichungen können den Kennwert stark erhöhen, weil sie in der vierten
+Potenz in den Zähler eingehen.
+
+% Quellenbasis: Antoni (2006), S. 303, Beweis zu Eigenschaft 2: Kurtosis eines
+% Gaußschen Prozesses gleich null.
+Durch die Subtraktion von drei besitzt ein Gaußscher Prozess den Referenzwert null
+\cite[S.~303, Beweis zu Eigenschaft~2]{antoniSpectralKurtosisUseful2006}.
+
+% Eigene Ableitung aus der Gleichung mit dem Label \texttt{eq:kurtosis}: Der
+% resultierende Skalar enthält keinen Frequenzindex und erlaubt daher keine
+% Frequenzlokalisierung.
+Als globaler Skalar bestimmt die Kurtosis nicht, in welchem Frequenzbereich die für ihren
+Wert maßgeblichen Signalanteile auftreten.
+
+% Quellenbasis: Antoni (2006), S. 294--296, Abschn. 5.1--5.2 und Gl. (39)--(40):
+% Definition der empirischen spektralen Momente und des STFT-basierten SK-Schätzers.
+% Die Formeln werden in Antonis Notation wiedergegeben.
+Für die praktische Schätzung der spektralen Kurtosis leitet Antoni einen
+STFT-basierten Schätzer her. Mit dem STFT-Koeffizienten $Y_w(kP,f)$, der Fensterlänge $N_w$
+und dem zeitlichen Versatz $P$ lauten das empirische spektrale Moment und der daraus gebildete
+Schätzer
+\begin{equation}
+    \begin{aligned}
+        \widehat{S}_{2nY}(f)
+            &= \left\langle \left|Y_w(kP,f)\right|^{2n} \right\rangle_k, \\
+        \widehat{K}_Y(f)
+            &= \frac{\widehat{S}_{4Y}(f)}{\widehat{S}_{2Y}^{\,2}(f)}-2.
+    \end{aligned}
+    \label{eq:spectral_kurtosis}
+\end{equation}
+Die Klammer $\langle\,\cdot\,\rangle_k$ bezeichnet die Mittelung über die Zeitfenster
+\cite[S.~294--296, Abschn.~5.1--5.2, Gl.~(39)--(40)]
+{antoniSpectralKurtosisUseful2006}.
+
+% Quellenbasis: Antoni (2006), S. 290, Gl. (21)--(22), Fußnote 3, sowie
+% S. 295--296, Gl. (40)--(41): Faktor zwei bei komplexen Spektralgrößen und Ausschluss
+% der durch Leckeffekte beeinflussten Umgebung von Gleich- und Nyquistanteil.
+Der Faktor zwei tritt an die Stelle des Faktors drei der klassischen Kurtosis, weil die
+betrachtete Spektralgröße als zirkuläre komplexe Zufallsvariable modelliert wird. Antoni
+beschränkt den Schätzer zudem auf
+normierte Frequenzen außerhalb eines Abstands von $1/N_w$ zu
+$f=0\;\operatorname{mod}(1/2)$, da sich dort Leckeffekte um den Gleich- beziehungsweise
+Nyquistanteil ausbreiten
+\cite[S.~290, Gl.~(21)--(22), Fußnote~3; S.~295--296, Gl.~(40)--(41)]
+{antoniSpectralKurtosisUseful2006}.
+
+% Quellenbasis: Antoni (2006), S. 290--291, Abschn. 3.2.2 und Abb. 3, sowie
+% S. 295--296, Abschn. 5.2.2 und Abb. 5: Leistungsdichte als Zeitmittel und
+% spektrale Kurtosis als zeitliche Streuung der Bandenergie.
+Während die spektrale Leistungsdichte den zeitlichen Mittelwert der Energie bei einer
+Frequenz beschreibt, erfasst die spektrale Kurtosis deren zeitliche Streuung. Ein hoher Wert
+bedeutet daher nicht zwangsläufig eine hohe mittlere Leistung, sondern starke zeitliche
+Schwankungen der Bandenergie. Antoni leitet daraus die Empfindlichkeit gegenüber transienten
+Mustern und deren Lokalisierung im Frequenzbereich ab
+\cite[S.~290--291, Abschn.~3.2.2, Abb.~3; S.~295--296, Abschn.~5.2.2, Abb.~5]
+{antoniSpectralKurtosisUseful2006}.
+
 \paragraphheading{Kurtogramm und Fast Kurtogram}
+
+% Quellenbasis: Antoni (2006), S. 298--299, Abschn. 5.2.5, sowie S. 302:
+% zu kurze Fenster verursachen Leckeffekte, zu lange Fenster führen zum Abfall der SK
+% gegen null; keine allgemeine A-priori-Regel und Auswertung mehrerer Fensterlängen.
+Die Länge des Analysefensters bestimmt die Zeit-Frequenz-Auflösung und beeinflusst damit
+die spektrale Kurtosis. Ein zu kurzes Fenster verstärkt Leckeffekte, während bei einem zu
+langen Fenster kurzzeitige Anteile ausgemittelt werden und die spektrale Kurtosis gegen null
+tendieren kann. Eine allgemein gültige Regel zur vorherigen Wahl der Fensterlänge besteht
+nicht. Antoni schlägt deshalb vor, mehrere Fensterlängen auszuwerten und die spektrale
+Kurtosis gemeinsam über Frequenz und Frequenzauflösung zu betrachten
+\cite[S.~298--299, Abschn.~5.2.5; S.~302]{antoniSpectralKurtosisUseful2006}.
+
+% Quellenbasis: Antoni (2007), S. 108--109, Abschn. 1.2: Kurtogramm als
+% Darstellung der SK in der (Frequenz/Frequenzauflösung)-Ebene, Maximierung
+% über ein Frequenz-Auflösungs-Paar und hoher Aufwand der vollständigen Exploration.
+Diese zweidimensionale Darstellung wird als Kurtogramm bezeichnet. Jeder Wert ist einem Paar
+aus Mittenfrequenz $f_c$ und Frequenzauflösung beziehungsweise Bandbreite $\Delta f$
+zugeordnet. Das Maximum kennzeichnet diejenige untersuchte Kombination, welche die
+spektrale Kurtosis maximiert. Eine vollständige Exploration der $(f_c,\Delta f)$-Ebene ist
+rechenaufwendig \cite[S.~108--109, Abschn.~1.2]{antoniFastComputationKurtogram2007}.
+
+% Quellenbasis: Antoni (2007), S. 110--111, Abschn. 2.1--2.3, Gl. (5)--(7):
+% quasi-analytische Filterbank, Binärbaum, kritische Unterabtastung sowie normierte
+% Mittenfrequenzen und Bandbreiten. S. 110, Fußnote 2: Normierung mit $f_s$.
+Das Fast Kurtogram reduziert diesen Aufwand durch eine rekursive Filterbank. Auf jeder Ebene
+$k$ wird das positive Frequenzintervall in $2^k$ Bänder zerlegt. Für ein Signal mit der
+Abtastfrequenz $f_s$ gibt Antoni die Mittenfrequenzen und Bandbreiten zunächst normiert auf
+$f_s$ an:
+\begin{equation}
+    \begin{aligned}
+        f_i &= \left(i+\frac{1}{2}\right)2^{-k-1},
+        & i &= 0,\ldots,2^k-1, \\
+        (\Delta f)_k &= 2^{-k-1}.
+    \end{aligned}
+    \label{eq:fast_kurtogram_bands}
+\end{equation}
+Quasi-analytische Tief- und Hochpassfilter erzeugen die komplexen Bandkoeffizienten. Nach
+kritischer Unterabtastung der Filterausgänge wird deren Kurtosis berechnet
+\cite[S.~110--111, Abschn.~2.1--2.3, Gl.~(5)--(7)]
+{antoniFastComputationKurtogram2007}.
+
+% Eigene Einheitenumrechnung aus den normierten Größen der Gleichung mit dem Label
+% \texttt{eq:fast_kurtogram_bands}:
+% Multiplikation mit der Abtastfrequenz ergibt Werte in Hertz.
+In physikalischen Einheiten ergeben sich die Mittenfrequenz und die Bandbreite durch
+$f_{c,k,i}=f_s f_i$ beziehungsweise $\Delta f_{k,\mathrm{Hz}}=f_s(\Delta f)_k$.
+
+% Quellenbasis: Antoni (2007), S. 111, Abschn. 2.3, sowie S. 114, Abschn. 2.5
+% und Abb. 5: Komplexität $\mathcal{O}(LN\log N)$ sowie Verfeinerung des
+% dyadischen Rasters durch den 1/3-Binärbaum bei vernachlässigbarem Zusatzaufwand.
+Die rein binäre Zerlegung tastet die möglichen Bandbreiten nur dyadisch ab. Beim
+1/3-Binärbaum werden deshalb zwischen zwei binären Ebenen zusätzliche Dreifachzerlegungen
+eingefügt. Dadurch entsteht ein feineres Raster, ohne die gesamte kontinuierliche
+Parameterfläche durchsuchen zu müssen. Für die vollständige Zerlegung gibt Antoni
+$\mathcal{O}(LN\log N)$ an. Dabei ist $L$ die Länge des FIR-Prototypfilters und $N$ die
+Signallänge. Bei festem $L$ entspricht die Abhängigkeit von
+$N$ damit der Größenordnung der FFT
+\cite[S.~111, Abschn.~2.3; S.~114, Abschn.~2.5, Abb.~5]
+{antoniFastComputationKurtogram2007}.
 
 \paragraphheading{Bandauswahl und methodische Grenzen}
 
+% Quellenbasis: Antoni (2007), S. 117--119, Abschn. 4.1--4.2 und Abb. 8--10:
+% Maximum als Frequenz-Auflösungs-Paar, daraus abgeleitetes Band sowie dessen
+% Verwendung zur Filterung und Demodulation.
+Für die Bandauswahl wird ein Maximum des Kurtogramms mit den Koordinaten $f_c$ und
+$\Delta f$ ausgewählt. Dieses Paar legt das Band für die anschließende Filterung und
+Demodulation fest. Die Filterbank liefert zugleich die zugehörige komplexe Hüllkurve
+\cite[S.~117--119, Abschn.~4.1--4.2, Abb.~8--10]
+{antoniFastComputationKurtogram2007}.
+
+% Eigene Ableitung aus Antoni (2007), S. 108--111 und S. 114: Der Algorithmus
+% wertet ausschließlich ein diskretes Filterbankraster aus; das Maximum ist daher auf
+% dieses Raster und das Kriterium der maximalen Kurtosis beschränkt.
+Der Begriff des \glqq optimalen\grqq{} Bandes ist dabei einzugrenzen. Das Fast Kurtogram
+ermittelt nicht das allgemein beste Diagnoseband, sondern das impulsivste der auf dem gewählten
+Filterbankraster untersuchten Bänder. Lage und Breite des Ergebnisses hängen deshalb von der
+Zerlegungstiefe und vom verwendeten Raster ab
+\cite[S.~108--111; S.~114]{antoniFastComputationKurtogram2007}.
+
+% Quellenbasis: Smith und Randall (2015), S. 123, letzter Absatz von Abschn. 6.6:
+% Definition des impulsiven Störrauschens als nicht zum vorgegebenen Lagerschaden
+% gehörender impulsiver Inhalt sowie Anfälligkeit der spektralen Kurtosis.
+Hohe Impulsivität ist zudem nicht eindeutig einem Wälzlagerschaden zuzuordnen.
+Smith und Randall bezeichnen nicht zum untersuchten Lagerschaden gehörende impulsive
+Signalanteile als impulsives Störrauschen. Sie stellen fest, dass die spektrale Kurtosis
+gegenüber solchen Anteilen anfällig ist und einzelne Impulse gegenüber der bei einem
+Lagerschaden auftretenden Folge von Transienten hervorheben kann
+\cite[S.~123, letzter Absatz von Abschn.~6.6]{smithRollingElementBearing2015}.
+
+% Quellenbasis: Antoni (2007), S. 117--119, Abschn. 4.2: Das Kurtogramm lokalisiert
+% Transienten; in den Lagerbeispielen erfolgt die Zuordnung zu BPFI, BSF und BPFO anhand
+% des Hüllkurvenspektrums. Smith und Randall (2015), S. 104, Abschn. 5 und 5.3:
+% spektrale Kurtosis zur Bandauswahl, SES als abschließendes Diagnosewerkzeug.
+% Eigene methodische Schlussfolgerung: Das Kurtogrammmaximum wird deshalb nur als
+% Kandidat für das Analyseband und nicht als lagerspezifischer Schadensnachweis behandelt.
+Das Maximum des Kurtogramms ist daher als Kandidat für das Analyseband zu interpretieren.
+Im nachfolgenden Verarbeitungsschritt ist zu prüfen, ob das Hüllkurvenspektrum Komponenten
+bei den erwarteten Lagerschadensfrequenzen und ihrer Modulationsstruktur enthält. Erst diese
+Auswertung verknüpft die zuvor festgestellte Impulsivität mit einem bestimmten Schadensort
+\cite[S.~117--119, Abschn.~4.2]{antoniFastComputationKurtogram2007}
+\cite[S.~104, Abschn.~5 und 5.3]{smithRollingElementBearing2015}. Die dafür erforderliche
+Hüllkurvenanalyse wird im folgenden Abschnitt behandelt.
+
 %================================================================================================
-%       2.6 Hüllkurvenbasierte Fehlerindikation
+%       2.6 Hüllkurvenanalyse
 %================================================================================================
-\section{Hüllkurvenbasierte Fehlerindikation}
+\section{Hüllkurvenanalyse}
 \label{sec:huellkurvenanalyse}
 
 \paragraphheading{Bandpassfilterung und Amplitudendemodulation}
 
-\paragraphheading{Hilbert-Transformation und analytisches Signal}
+% Quellenbasis: Randall und Antoni (2011), S. 506, Abschn. 5: Bandpassfilterung
+% eines hochfrequenten Resonanzbandes, Verstärkung der Schadensimpulse durch
+% Strukturresonanzen und anschließende Amplitudendemodulation.
+Das in Abschnitt~\ref{sec:bandauswahl} bestimmte Frequenzband legt fest, welcher Anteil des
+Signals für die Hüllkurvenanalyse verwendet wird. Es soll einen Frequenzbereich erfassen, in
+dem die Schadensimpulse durch angeregte Strukturresonanzen hervortreten, und wird vor der
+Demodulation durch einen Bandpass isoliert. Randall und Antoni beschreiben diese Filterung
+eines hochfrequenten Resonanzbandes als ersten Schritt der Hüllkurvenanalyse
+\cite[S.~506, Abschn.~5]{randallRollingElementBearing2011}.
+
+% Eigene Modellnotation auf Grundlage von Randall und Antoni (2011), S. 506,
+% Abschn. 5: Bandpassfilterung des zu demodulierenden Resonanzbandes. Das Eingangssignal
+% wird mit dem in Abschnitt 2.4 definierten Residuum \hat r(n) bezeichnet.
+Mit der Impulsantwort $h_{\mathrm{BP}}(n)$ des Bandpassfilters kann dessen Ausgang als
+\begin{equation}
+    y(n) = \bigl(h_{\mathrm{BP}} * \hat r\bigr)(n)
+    \label{eq:bandpass_envelope_analysis}
+\end{equation}
+geschrieben werden, wobei $*$ die diskrete Faltung bezeichnet. Der Bandpass vermindert
+Signalanteile außerhalb des ausgewählten Resonanzbandes. Er entfernt jedoch nicht dessen
+hochfrequente Schwingung, sondern erhält die dort enthaltenen Folgen gedämpfter
+Ausschwingvorgänge
+\cite[S.~506, Abschn.~5]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 506, Abschn. 5: Bildung der Hüllkurve
+% durch Amplitudendemodulation sowie diagnostischer Inhalt ihres Spektrums in Form von
+% Stoßwiederholungsfrequenzen und lastzonen- beziehungsweise messpunktabhängiger Modulation.
+Die Amplitudendemodulation gewinnt die zeitlich veränderliche Amplitude aus dieser
+hochfrequenten Schwingung. Die resultierende Hüllkurve beschreibt damit, wie sich die
+Intensität der resonanten Schwingungsantworten über der Zeit verändert. Ihr Spektrum enthält die
+Wiederholungsfrequenzen der Schadenskontakte sowie Modulationsanteile, die beispielsweise
+durch das Durchlaufen der Lastzone oder eine Bewegung der Schadstelle relativ zum Messpunkt
+entstehen können \cite[S.~506, Abschn.~5]{randallRollingElementBearing2011}.
+
+% Eigene Einordnung auf Grundlage von Randall und Antoni (2011), S. 506,
+% Abschn. 5: funktionale Trennung zwischen Auswahl des Trägerbandes und Gewinnung
+% der niederfrequenten Wiederholungs- und Modulationsinformation.
+Bandpassfilterung und Demodulation erfüllen folglich unterschiedliche Aufgaben. Die
+Bandpassfilterung begrenzt die Analyse auf ein geeignetes Resonanzband, während die
+Demodulation die darin enthaltene niederfrequente Amplitudenstruktur zugänglich macht. Wie
+diese Demodulation mithilfe der Hilbert-Transformation erfolgt, wird im folgenden Abschnitt
+erläutert.
+
+\paragraphheading{Hilbert-Transformation}
+
+% Quellenbasis: Feldman (2011), S. 739, Abschn. 2.2, Gl. (1): Definition der
+% Hilbert-Transformation als Cauchy-Hauptwertintegral und reellwertiges Ergebnis
+% für reellwertige Eingangssignale. Eigene Modellnotation: Der Bandpassausgang aus
+% Gl. \eqref{eq:bandpass_envelope_analysis} wird hier kontinuierlich als y(t) bezeichnet.
+Für die theoretische Beschreibung wird der Ausgang des Bandpassfilters als kontinuierliches
+Signal $y(t)$ betrachtet. Seine Hilbert-Transformierte $\widetilde{y}(t)$ ist durch das
+Cauchy-Hauptwertintegral
+\begin{equation}
+    \widetilde{y}(t)
+    = \mathcal{H}\{y\}(t)
+    = \frac{1}{\pi}\operatorname{p.v.}
+      \int_{-\infty}^{\infty}\frac{y(\tau)}{t-\tau}\,\mathrm{d}\tau
+    \label{eq:hilbert_transform}
+\end{equation}
+definiert \cite[S.~739, Abschn.~2.2, Gl.~(1)]{feldmanHilbertTransformVibration2011}.
+
+% Quellenbasis: Feldman (2011), S. 747, Abschn. 6: Frequenzgang der idealen
+% Hilbert-Transformation; unveränderte Beträge der Spektralkomponenten und
+% Phasenverschiebung um -90 Grad für positive beziehungsweise +90 Grad für negative Frequenzen.
+Im Frequenzbereich entspricht die Hilbert-Transformation einem idealen Phasenschieber mit
+dem Frequenzgang $-\mathrm{j}\operatorname{sgn}(\omega)$. Für die Fourier-Transformierten
+$Y(\omega)$ und $\widetilde{Y}(\omega)$ gilt somit
+\begin{equation}
+    \widetilde{Y}(\omega)
+    = -\mathrm{j}\operatorname{sgn}(\omega)Y(\omega).
+    \label{eq:hilbert_frequency_response}
+\end{equation}
+Die Beträge der Spektralkomponenten bleiben erhalten, während ihre Phasen für positive
+Frequenzen um $-\pi/2$ und für negative Frequenzen um $+\pi/2$ verschoben werden
+\cite[S.~747, Abschn.~6]{feldmanHilbertTransformVibration2011}.
+
+% Quellenbasis: Feldman (2011), S. 740, Abschn. 3, Gl. (4): Konstruktion des
+% analytischen Signals aus Originalsignal und Hilbert-Transformierter sowie dessen
+% einseitiges Spektrum. Eigene Modellnotation: z(t) anstelle von X(t).
+Aus dem reellen Signal und seiner Hilbert-Transformierten wird das komplexe analytische
+Signal
+\begin{equation}
+    z(t) = y(t) + \mathrm{j}\widetilde{y}(t)
+    \label{eq:analytic_signal}
+\end{equation}
+gebildet. Dabei ist $y(t)$ der Realteil und $\widetilde{y}(t)$ die um $90^\circ$
+verschobene Quadraturkomponente. Das analytische Signal besitzt ein einseitiges Spektrum
+mit positiven Frequenzanteilen
+\cite[S.~740, Abschn.~3, Gl.~(4)]{feldmanHilbertTransformVibration2011}.
+
+% Quellenbasis: Feldman (2011), S. 741, Abschn. 3.1, Gl. (5)--(6), sowie
+% S. 746, Abschn. 5.1: Betrag des analytischen Signals als momentane Amplitude
+% beziehungsweise Hüllkurve einer amplitudenmodulierten Schwingung.
+Der Betrag des analytischen Signals liefert die Hüllkurve
+\begin{equation}
+    a(t) = \lvert z(t) \rvert
+         = \sqrt{y^2(t) + \widetilde{y}^{\,2}(t)}.
+    \label{eq:envelope}
+\end{equation}
+Durch die Betragsbildung wird die schnelle Vorzeichenänderung der Schwingung entfernt,
+während ihre zeitlich veränderliche Amplitude erhalten bleibt. Damit wird die zeitabhängige
+Amplitude demoduliert
+\cite[S.~741, Abschn.~3.1, Gl.~(5)--(6); S.~746, Abschn.~5.1]{feldmanHilbertTransformVibration2011}.
+
+% Quellenbasis: Feldman (2011), S. 746, Abschn. 5.1: Sinnvolle Interpretation der
+% Hilbert-basierten Momentanamplitude vor allem für schmalbandige Signale mit langsam
+% veränderlichen Eigenschaften; problematische Ergebnisse bei breitbandigen oder
+% mehrkomponentigen Signalen.
+Die Interpretation von $a(t)$ als langsam veränderliche Amplitude ist insbesondere für
+schmalbandige Signale mit einer dominierenden Schwingungskomponente sinnvoll. Bei
+breitbandigen oder aus mehreren Komponenten zusammengesetzten Signalen kann die so
+bestimmte Hüllkurve dagegen selbst schnelle und schwer interpretierbare Schwankungen
+enthalten. Diese Voraussetzung erklärt die im vorherigen Abschnitt beschriebene
+Bandpassfilterung vor der Hilbert-Transformation
+\cite[S.~746, Abschn.~5.1]{feldmanHilbertTransformVibration2011}.
+
+% Quellenbasis: Feldman (2011), S. 748, Abschn. 6.1: Frequenzbereichsverfahren zur
+% digitalen Bildung des analytischen Signals durch FFT, Gewichtung des Spektrums und IFFT.
+Bei diskreten Messsignalen kann das analytische Signal effizient im Frequenzbereich gebildet
+werden. Dazu wird das Spektrum mittels diskreter Fourier-Transformation berechnet, der
+negative Frequenzbereich unterdrückt und der positive Frequenzbereich entsprechend gewichtet;
+die inverse Transformation liefert anschließend das komplexe analytische Signal
+\cite[S.~748, Abschn.~6.1]{feldmanHilbertTransformVibration2011}. Im folgenden Schritt wird
+nicht die Hüllkurve selbst, sondern ihr Quadrat spektral ausgewertet.
 
 \paragraphheading{Squared Envelope Spectrum}
 
-\paragraphheading{Regelbasierte Auswertung der Lagerschadensfrequenzen}
+% Quellenbasis: Randall und Antoni (2011), S. 507--508, Abschn. 5:
+% quadrierte Hüllkurve als Produkt des analytischen Signals mit seinem komplex
+% Konjugierten und Abgrenzung von der nicht quadrierten Hüllkurve.
+% Eigene Modellnotation: a_2(t) auf Grundlage des zuvor definierten z(t).
+Die quadrierte Hüllkurve und das \emph{Squared Envelope Spectrum} (SES) bezeichnen
+unterschiedliche Darstellungsbereiche. Die quadrierte Hüllkurve ist zunächst das Zeitsignal
+\begin{equation}
+    a_2(t)
+    = a^2(t)
+    = \lvert z(t) \rvert^2
+    = z(t)z^*(t)
+    = y^2(t) + \widetilde{y}^{\,2}(t),
+    \label{eq:squared_envelope}
+\end{equation}
+wobei $z^*(t)$ das komplex konjugierte analytische Signal bezeichnet. Das SES entsteht erst
+durch die spektrale Auswertung dieses Zeitsignals
+\cite[S.~507--508, Abschn.~5]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 507, Abschn. 5 und Abb. 26:
+% Bevorzugung der quadrierten Hüllkurve gegenüber der Hüllkurve, da die
+% Quadratwurzeloperation zusätzliche Spektralkomponenten erzeugen und dadurch
+% diagnostisch relevante Anteile maskieren kann.
+Da $a(t)=\sqrt{a_2(t)}$ gilt, enthält die Bildung der nicht quadrierten Hüllkurve eine
+zusätzliche nichtlineare Quadratwurzeloperation. Randall und Antoni weisen darauf hin, dass
+diese Operation zusätzliche Spektralkomponenten erzeugen kann, die nicht im Spektrum der
+quadrierten Hüllkurve enthalten sind und relevante Komponenten maskieren können. Für die
+spektrale Auswertung wird deshalb die quadrierte Hüllkurve bevorzugt
+\cite[S.~507, Abschn.~5, Abb.~26]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Antoni (2007), S. 120, Abschn. 4.2 und Abb. 11(c): Bildung des
+% Hüllkurvenspektrums durch Fourier-Transformation des Betragsquadrats der komplexen
+% Hüllkurve. Eigene Modell- und Darstellungskonvention: Entfernung des zeitlichen
+% Mittelwerts und leistungsorientierte Darstellung durch den quadrierten Betrag.
+Für eine Darstellung ohne Gleichanteil kann zunächst der zeitliche Mittelwert
+$\overline{a_2}$ abgezogen werden. Unter dem SES wird im Folgenden die
+leistungsorientierte Darstellung
+\begin{equation}
+    S_{\mathrm{SE}}(f)
+    =
+    \left|
+        \mathcal{F}\left\{a_2(t)-\overline{a_2}\right\}
+    \right|^2
+    \label{eq:squared_envelope_spectrum}
+\end{equation}
+verstanden. Der Mittelwertabzug entfernt lediglich die Komponente bei $f=0$; Lage und
+Abstand der Spektrallinien bei positiven Frequenzen bleiben unverändert. Antoni bildet das
+Hüllkurvenspektrum entsprechend durch die Fourier-Transformation des Betragsquadrats der
+komplexen Hüllkurve
+\cite[S.~120, Abschn.~4.2, Abb.~11(c)]{antoniFastComputationKurtogram2007}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 508, Abschn. 5, Gl. (25) und
+% Abb. 27(a): Spektrum der quadrierten Hüllkurve als Faltung des Spektrums des
+% analytischen Signals mit dem gespiegelten komplex konjugierten Spektrum;
+% Entstehung von Differenzfrequenzen mit Modulationsinformation.
+Mit $Z(f)=\mathcal{F}\{z(t)\}$ lässt sich das Spektrum der quadrierten Hüllkurve auch als
+\begin{equation}
+    \mathcal{F}\left\{z(t)z^*(t)\right\}
+    =
+    Z(f) * Z^*(-f)
+    \label{eq:ses_convolution}
+\end{equation}
+schreiben, wobei $*$ hier die Faltung im Frequenzbereich bezeichnet. Da das analytische
+Signal nur positive Frequenzanteile enthält, entstehen bei dieser Faltung
+Differenzfrequenzen. Dazu gehören insbesondere die Abstände zwischen Spektralkomponenten,
+in denen die niederfrequente Modulationsinformation des ausgewählten Resonanzbandes
+enthalten ist
+\cite[S.~508, Abschn.~5, Gl.~(25), Abb.~27(a)]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 507--508, Abschn. 5 und Abb. 26:
+% Verdopplung des Frequenzumfangs durch Quadrierung und daraus folgende
+% Anforderung an Abtastrate beziehungsweise digitale Signalaufbereitung.
+Die Quadrierung kann den von einem Signal belegten Frequenzumfang verdoppeln. Bei der
+digitalen Berechnung muss daher eine ausreichende Abtastrate beziehungsweise
+Frequenzbereichsreserve sichergestellt werden, damit keine Aliasanteile in den
+Auswertebereich zurückgefaltet werden
+\cite[S.~507--508, Abschn.~5, Abb.~26]{randallRollingElementBearing2011}.
+Welche Linien des SES den charakteristischen Lagerschadensfrequenzen, ihren Harmonischen
+oder ihren Seitenbändern zuzuordnen sind, wird im folgenden Abschnitt erläutert.
+
+\paragraphheading{Interpretation charakteristischer Frequenzen, Harmonischer und Seitenbänder}
+
+% Eigene Einordnung auf Grundlage von Smith und Randall (2015), S. 103, Tab. 1,
+% sowie S. 107, Tab. 4: Zuordnung anhand zusammengehöriger Spektralkomponenten
+% und Abstufung der Diagnose bei nicht dominanten oder verschmierten Komponenten.
+Die Interpretation des SES stützt sich nicht allein auf eine einzelne ausgeprägte
+Spektrallinie. Entscheidend ist vielmehr, ob mehrere Komponenten ein mit der
+Lagerkinematik konsistentes Muster bilden. Dazu werden die Linienlagen mit den in
+Abschnitt~\ref{sec:waelzlagerdiagnose} eingeführten Schadensfrequenzen verglichen und
+gemeinsam mit ihren ganzzahligen Vielfachen und möglichen Seitenbändern betrachtet
+\cite[S.~103, Tab.~1; S.~107, Tab.~4]{smithRollingElementBearing2015}.
+
+% Eigene Modellnotation auf Grundlage von Smith und Randall (2015), S. 103, Tab. 1:
+% Harmonische der Schadensfrequenzen sowie Seitenbänder mit Abständen der Wellenrotations-
+% beziehungsweise Käfigfrequenz.
+Für eine charakteristische Lagerschadensfrequenz $f_\mathrm{L}$ liegen die zugehörigen
+Harmonischen bei ganzzahligen Vielfachen. Eine Amplitudenmodulation mit der Frequenz
+$f_\mathrm{mod}$ erzeugt zusätzliche Linien in entsprechenden Abständen um diese
+Harmonischen. Die beiden Linienfamilien lassen sich als
+\begin{equation}
+    f_k = k f_\mathrm{L},
+    \qquad
+    f_{k,m}^{\pm} = k f_\mathrm{L} \pm m f_\mathrm{mod},
+    \qquad k,m \in \mathbb{N}_{>0}
+    \label{eq:ses_fault_patterns}
+\end{equation}
+beschreiben, wobei im einseitigen SES nur nichtnegative Frequenzen betrachtet werden. Der
+Abstand eines Seitenbands erster Ordnung von der zugehörigen Harmonischen entspricht damit
+der Modulationsfrequenz
+\cite[S.~103, Tab.~1]{smithRollingElementBearing2015}.
+
+% Quellenbasis: Smith und Randall (2015), S. 103, Tab. 1: idealtypische Muster
+% für Außenring-, Innenring- und Wälzkörperschäden im Hüllkurvenspektrum.
+Für einen Außenringschaden werden idealtypisch die BPFO und ihre Harmonischen ohne
+ausgeprägte Seitenbänder erwartet. Ein Innenringschaden zeigt dagegen BPFI-Harmonische mit
+Seitenbandabständen entsprechend der Wellenrotationsfrequenz $f_r$; zusätzlich können
+Harmonische von $f_r$ auftreten. Bei einem Wälzkörperschaden bilden die BSF und ihre
+Harmonischen die Bezugsfamilie, wobei geradzahlige Harmonische häufig dominant sind.
+Seitenbänder im Abstand der Käfigfrequenz FTF und deren Harmonische ergänzen dieses Muster
+\cite[S.~103, Tab.~1]{smithRollingElementBearing2015}.
+
+% Quellenbasis: Smith und Randall (2015), S. 107--108, Abschn. 6.3.1--6.3.2 und
+% Abb. 5--7: klassische und nicht klassische Spektren mit dominanter zweiter
+% Wellenharmonischer beziehungsweise dominanten zweiten und vierten BSF-Harmonischen.
+Die Fallbeispiele zeigen, dass die Amplituden innerhalb einer solchen Familie nicht zwingend
+monoton mit der Ordnung abnehmen und die Grundlinie nicht in jedem Fall die stärkste
+Komponente ist. In den von Smith und Randall untersuchten Fällen dominiert bei einzelnen
+Innenringschäden beispielsweise die zweite Harmonische der Wellenrotationsfrequenz; bei einem
+Wälzkörperschaden treten die zweite und vierte BSF-Harmonische besonders deutlich hervor.
+Die Zuordnung sollte deshalb
+die gesamte Linienfamilie und nicht nur die Amplitude der Grundkomponente berücksichtigen
+\cite[S.~107--108, Abschn.~6.3.1--6.3.2, Abb.~5--7]{smithRollingElementBearing2015}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 487--488, Absätze nach Gl. (4) und
+% Abb. 2: mittlere und zufällige Frequenzabweichungen durch Schlupf sowie zunehmende
+% Verschmierung höherer Harmonischer bereits bei geringer zufälliger Schwankung.
+Die theoretischen Linienlagen sind dabei nicht als exakte Suchpositionen zu verstehen. Der
+bereits in Abschnitt~\ref{sec:waelzlagerdiagnose} erläuterte Schlupf kann die mittlere
+Schadensfrequenz verschieben und eine zufällige Streuung um diesen Wert verursachen. Da sich
+die Abweichung mit der Harmonischenordnung auswirkt, können insbesondere höhere
+Harmonische verbreitert oder verschmiert erscheinen
+\cite[S.~487--488, Absätze nach Gl.~(4), Abb.~2]{randallRollingElementBearing2011}.
+
+% Quellenbasis: Randall und Antoni (2011), S. 511, Abschn. 6.1 und Abb. 31:
+% Käfigfrequenzharmonische als Hinweis auf eine je Käfigumlauf wiederkehrende Variation,
+% die sowohl durch einen Käfigfehler als auch durch Unterschiede der Wälzkörper entstehen kann.
+Auch eine Linienfamilie bei der FTF ist nicht eindeutig mit einem Käfigschaden gleichzusetzen.
+Sie zeigt zunächst, dass sich die Signalintensität mit jedem Käfigumlauf verändert. Als
+Ursache kommt ein Käfigfehler infrage; häufig kann das Muster jedoch auch aus Unterschieden
+zwischen den einzelnen Wälzkörpern entstehen
+\cite[S.~511, Abschn.~6.1, Abb.~31]{randallRollingElementBearing2011}.
+
+% Eigene methodische Schlussfolgerung auf Grundlage von Smith und Randall (2015),
+% S. 107, Tab. 4, sowie S. 107--108, Abschn. 6.3.1--6.3.2: Abstufung zwischen
+% klassischen, nicht klassischen, nicht dominanten und verschmierten Befunden.
+Die Theorie liefert somit erwartete Frequenzbeziehungen, jedoch keinen universell gültigen
+Amplitudenschwellwert für eine automatische Entscheidung. Eine belastbare Zuordnung ergibt
+sich aus dem gemeinsamen Auftreten passender Schadensfrequenzen, Harmonischer und
+Seitenbandabstände unter Berücksichtigung zulässiger Frequenzabweichungen. Die konkrete
+Überführung dieser Merkmale in numerische Entscheidungsregeln ist Gegenstand der späteren
+Methodik und Validierung
+\cite[S.~107, Tab.~4; S.~107--108, Abschn.~6.3.1--6.3.2]{smithRollingElementBearing2015}.
 
 %================================================================================================
 %       2.7 Ansätze zur automatisierten Zustandsbewertung
