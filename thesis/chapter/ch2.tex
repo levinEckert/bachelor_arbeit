@@ -539,88 +539,45 @@ wird, hängt jedoch vom jeweiligen Analyseziel ab
 \cite[S.~86--89, Abschn.~3.2.8.1--3.2.8.2, Abb.~3.21, Tab.~3.1]
 {randallVibrationbasedConditionMonitoring2011}.
 
-\paragraphheading{Drehzahleinfluss und Ordnungsanalyse}
+\paragraphheading{Computed Order Tracking}
 
-% Quellenbasis: Fyfe und Munck (1997), S. 187, Zusammenfassung und Abschn. 1:
+% Quellenbasis: Fyfe und Munck (1997), S. 187, Abstract und Abschn. 1:
 % Ordnungsanalyse verwendet Vielfache der Drehfrequenz anstelle absoluter
 % Frequenzen und macht drehzahlproportionale Schwingungsanteile identifizierbar.
-% Eigene Definitionsgleichung auf dieser Grundlage.
-Bei rotierenden Maschinen sind zahlreiche Schwingungsanteile an die momentane
-Drehfrequenz $f_r(t)$ gekoppelt. Ändert sich die Drehzahl während einer Messung,
-ändert sich daher auch ihre Lage auf einer Frequenzachse in Hertz. Die
-Ordnungsdarstellung normiert eine Komponentenfrequenz $f(t)$ auf die
-Drehfrequenz:
-\begin{equation}
-    o(t) = \frac{f(t)}{f_r(t)}.
-    \label{eq:order_definition}
-\end{equation}
-Die erste Ordnung entspricht einem Ereignis pro Wellenumdrehung, die zweite
-Ordnung zwei Ereignissen pro Umdrehung. Drehzahlsynchrone Komponenten bleiben
-damit idealerweise bei einer festen Ordnung, auch wenn sich ihre absolute
-Frequenz verändert
-\cite[S.~187, Zusammenfassung und Abschn.~1]{fyfeANALYSISCOMPUTEDORDER1997}.
+Bei rotierenden Maschinen können Schwingungskomponenten proportional zur
+Drehzahl auftreten. Bei veränderlicher Drehzahl verschieben sich solche
+Komponenten daher auf einer Frequenzachse in Hertz. Die Ordnungsanalyse
+beschreibt ihre Frequenz stattdessen als Vielfaches der Drehfrequenz. Die erste
+Ordnung entspricht der Drehfrequenz der Welle, die zweite Ordnung ihrem
+Zweifachen
+\cite[S.~187, Abstract und Abschn.~1]{fyfeANALYSISCOMPUTEDORDER1997}.
 
-% Quellenbasis: Fyfe und Munck (1997), S. 188--191, Abschn. 1.1--1.2,
-% Abb. 1--3 und Gl. (1)--(8): zeitbasierte Erfassung von Schwingungs- und
-% Referenzsignal, Bestimmung der Winkel-Zeit-Beziehung, Interpolation auf
-% konstante Winkelabstände und anschließende FFT zum Ordnungsspektrum.
-Für die Fourier-Analyse im Ordnungsbereich muss das Signal nicht in konstanten
-Zeit-, sondern in konstanten Winkelabständen vorliegen. Beim
-\emph{Computed Order Tracking} (COT) werden Schwingungs- und
-Drehzahlreferenzsignal zunächst zeitlich äquidistant erfasst. Aus den Zeitpunkten
-der Referenzimpulse wird die Winkel-Zeit-Beziehung geschätzt. Anschließend werden
-die Schwingungsamplituden durch Interpolation an äquidistanten Winkelpositionen
-bestimmt. Eine FFT dieser winkeldiskreten Folge liefert schließlich ein
-Ordnungsspektrum
-\cite[S.~188--191, Abschn.~1.1--1.2, Abb.~1--3, Gl.~(1)--(8)]
+% Quellenbasis: Fyfe und Munck (1997), S. 188--191, Abschn. 1.2,
+% Abb. 2--3 und Gl. (1)--(8): zeitäquidistante Erfassung von Schwingungs- und
+% Referenzsignal, Bestimmung der Winkel-Zeit-Beziehung, Berechnung konstanter
+% Winkelabstände, Interpolation der Amplituden und FFT zum Ordnungsspektrum.
+Beim \emph{Computed Order Tracking} (COT) werden Schwingungs- und
+Drehzahlreferenzsignal zunächst in konstanten Zeitabständen erfasst. Aus den
+Zeitpunkten der Referenzimpulse wird die Winkel-Zeit-Beziehung bestimmt.
+Anschließend werden die Zeitpunkte berechnet, die konstanten Winkelabständen
+entsprechen, und die dortigen Schwingungsamplituden interpoliert. Eine FFT der
+winkeläquidistanten Folge liefert das Ordnungsspektrum
+\cite[S.~188--191, Abschn.~1.2, Abb.~2--3, Gl.~(1)--(8)]
 {fyfeANALYSISCOMPUTEDORDER1997}.
 
-% Quellenbasis: Fyfe und Munck (1997), S. 187, Zusammenfassung, sowie
-% S. 198--202, Abschn. 3.4--4: Einfluss der zeitlichen Genauigkeit des
-% Drehzahlreferenzsignals und der Interpolationsordnung auf die spektrale
-% Genauigkeit des Computed Order Tracking.
-Die Winkeltransformation führt selbst neue Fehlerquellen ein. Insbesondere die
-zeitliche Genauigkeit der Referenzimpulse bestimmt die berechneten
-Winkelpositionen; zusätzlich beeinflusst das Interpolationsverfahren die
-Amplituden und den Rauschboden des Ordnungsspektrums. Fyfe und Munck zeigen, dass
-eine genauere Impulserfassung und höherwertige Interpolation die spektrale
-Genauigkeit deutlich verbessern
-\cite[S.~187, Zusammenfassung; S.~198--202, Abschn.~3.4--4]
+% Quellenbasis: Fyfe und Munck (1997), S. 193--194, Abschn. 3.1 und Abb. 5--7,
+% sowie S. 196--201, Abschn. 3.4--3.5 und 4, Abb. 8--13: Einfluss der zeitlichen
+% Auflösung der Referenzimpulse und des Interpolationsverfahrens auf
+% Winkelpositionen, Amplitudengenauigkeit und Rauschboden des Ordnungsspektrums.
+Die Genauigkeit des COT hängt insbesondere von der zeitlichen Auflösung der
+Referenzimpulse und vom verwendeten Interpolationsverfahren ab. Ungenau
+bestimmte Resampling-Zeitpunkte beeinträchtigen die Genauigkeit der
+anschließenden Amplitudeninterpolation. Höherwertige Interpolationsverfahren
+können die Amplitudengenauigkeit verbessern und den
+Rauschboden des Ordnungsspektrums verringern
+\cite[S.~193--194, Abschn.~3.1, Abb.~5--7;
+S.~196--201, Abschn.~3.4--3.5 und 4, Abb.~8--13]
 {fyfeANALYSISCOMPUTEDORDER1997}.
-
-% Quellenbasis: Borghesani et al. (2012), S. 1--2, Zusammenfassung,
-% Abschn. 1--2 und Abb. 1: drehzahlabhängige Amplituden- und Phasenverzerrung
-% durch den mechanischen Übertragungsweg, Energieverteilung um die ideale
-% Ordnung und Beeinträchtigung der synchronen Mittelung beziehungsweise DRS.
-Auch bei korrekter Winkelabtastung wird nicht jede Komponente zu einer scharfen
-Ordnungslinie. Der mechanische Übertragungsweg verändert Amplitude und Phase der
-Anregung. Bei variabler Drehzahl wird seine Übertragungsfunktion zu
-unterschiedlichen Zeitpunkten bei unterschiedlichen Frequenzen angeregt. Dadurch
-kann Energie von der idealen Anregungsordnung in ein benachbartes Ordnungsband
-verschoben werden. Bei einer nachfolgenden synchronen Mittelung beziehungsweise
-Deterministic-Random Separation kann deshalb ein Teil der eigentlich
-deterministischen Energie im Residuum verbleiben
-\cite[S.~1--2, Zusammenfassung, Abschn.~1--2 und Abb.~1]
-{borghesaniOrderTrackingDiscreterandom2012}.
-
-% Quellenbasis: Borghesani et al. (2013), S. 24--26, Abschn. 2--4 und
-% Abb. 1--2: Grenzen der traditionellen Reihenfolge COT vor Hüllkurvenanalyse
-% bei starken Drehzahltransienten; zeitlich konstante Resonanz wird im
-% Winkelbereich drehzahlabhängig. Vorgeschlagene Umkehr der Verarbeitung:
-% Demodulation im Zeitbereich, danach COT der Hüllkurve.
-Diese Einschränkung ist für die Wälzlagerdiagnose besonders relevant. Bei starken
-Drehzahltransienten bleibt die angeregte Strukturresonanz im Zeitbereich zwar
-frequenzstabil, ihre Lage im Ordnungsbereich verändert sich jedoch mit der
-Drehzahl. Wird das Rohsignal vor der Hüllkurvenbildung winkelresampelt, kann daher
-kein einheitliches schmales Demodulationsband mehr existieren. Borghesani et al.
-schlagen für diesen Fall die umgekehrte Reihenfolge vor: Zuerst erfolgt die
-Demodulation im Zeitbereich, anschließend wird die Hüllkurve winkelresampelt und
-in den Ordnungsbereich transformiert
-\cite[S.~24--26, Abschn.~2--4 und Abb.~1--2]
-{borghesaniNewProcedureUsing2013}. Die Ordnungsanalyse bildet damit den
-Referenzansatz für Messungen mit veränderlicher Drehzahl; die geeignete
-Verarbeitungsdomäne und die Reihenfolge der Schritte müssen jedoch an
-Drehzahlverlauf, Übertragungsweg und Auswerteverfahren angepasst werden.
 
 %================================================================================================
 %       2.4 Trennung überlagerter Signalanteile
@@ -744,6 +701,21 @@ Modulationsseitenbänder werden durch TSA nicht grundsätzlich mit den zugehöri
 entfernt
 \cites[S.~120--122, Abschn.~3.6.2]{randallVibrationbasedConditionMonitoring2011}
 [S.~11--13, Abschn.~2]{randallComparisonMethodsSeparation2011}.
+
+% Quellenbasis: Borghesani et al. (2012), S. 1--3, Abstract, Abschn. 1--2
+% und Abb. 1: drehzahlabhängige Amplituden- und Phasenverzerrung durch den
+% mechanischen Übertragungsweg, Energieverteilung um die ideale Ordnung und
+% Beeinträchtigung der synchronen Mittelung beziehungsweise DRS.
+Auch bei korrekter Winkelabtastung wird nicht jede Komponente zu einer scharfen
+Ordnungslinie. Der mechanische Übertragungsweg verändert Amplitude und Phase der
+Anregung. Bei variabler Drehzahl wird seine Übertragungsfunktion zu
+unterschiedlichen Zeitpunkten bei unterschiedlichen Frequenzen angeregt. Dadurch
+kann Energie von der idealen Anregungsordnung in ein benachbartes Ordnungsband
+verschoben werden. Bei einer nachfolgenden synchronen Mittelung beziehungsweise
+Deterministic-Random Separation kann deshalb ein Teil der eigentlich
+deterministischen Energie im Residuum verbleiben
+\cite[S.~1--3, Abstract, Abschn.~1--2 und Abb.~1]
+{borghesaniOrderTrackingDiscreterandom2012}.
 
 % Quellenbasis: Randall (2011), S. 122--125, Abschn. 3.6.3, sowie Randall,
 % Sawalhi und Coats (2011), S. 13--14, Abschn. 3: AR-Modell, Vorhersage des
@@ -1179,6 +1151,21 @@ Bandpassfilterung begrenzt die Analyse auf ein geeignetes Resonanzband, während
 Demodulation die darin enthaltene niederfrequente Amplitudenstruktur zugänglich macht. Wie
 diese Demodulation mithilfe der Hilbert-Transformation erfolgt, wird im folgenden Abschnitt
 erläutert.
+
+% Quellenbasis: Borghesani et al. (2013), S. 24--26, Abschn. 2--4 und
+% Abb. 1--2: Grenzen der traditionellen Reihenfolge COT vor Hüllkurvenanalyse
+% bei starken Drehzahltransienten und vorgeschlagene Umkehr der Verarbeitung:
+% Demodulation im Zeitbereich, danach COT der Hüllkurve.
+Bei starken Drehzahltransienten bleibt die angeregte Strukturresonanz im
+Zeitbereich frequenzstabil, während sich ihre Lage im Ordnungsbereich mit der
+Drehzahl verändert. Wird das Rohsignal vor der Hüllkurvenbildung
+winkelresampelt, ist deshalb die Wahl eines einheitlichen schmalen
+Demodulationsbandes schwierig. Borghesani et al. schlagen für diesen Fall die
+umgekehrte Reihenfolge vor: Zuerst erfolgt die Demodulation im Zeitbereich,
+anschließend wird die Hüllkurve winkelresampelt und in den Ordnungsbereich
+transformiert
+\cite[S.~24--26, Abschn.~2--4 und Abb.~1--2]
+{borghesaniNewProcedureUsing2013}.
 
 \paragraphheading{Hilbert-Transformation}
 
