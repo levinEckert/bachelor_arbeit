@@ -498,8 +498,7 @@ verwendeten Fensterfunktion ab
 \cite[S.~86, Abschn.~3.2.8.1, Abb.~3.19;
 S.~89, Tab.~3.1 und Abschn.~3.2.8.2]
 {randallVibrationbasedConditionMonitoring2011}. Diese Effekte werden im folgenden Abschnitt
-näher betrachtet (\hyperref[par:spektraldarstellung_fensterung]{Spektraldarstellung und
-Fensterung}).
+näher betrachtet (\hyperref[par:spektraldarstellung_fensterung]{Leakage und Fensterung}).
 
 % Quellenbasis: Randall (2011), S. 72--73, Abschn. 3.2.5: FFT als effizienter
 % Algorithmus zur Berechnung der DFT und Reduktion der Rechenkomplexität von
@@ -513,71 +512,32 @@ Sie liefert die durch die DFT definierten Frequenzkomponenten, berechnet sie jed
 geringerem Aufwand \cite[S.~72--73, Abschn.~3.2.5]
 {randallVibrationbasedConditionMonitoring2011}.
 
-\paragraphheading{Spektraldarstellung und Fensterung}
+\paragraphheading{Leakage und Fensterung}
 \phantomsection
 \label{par:spektraldarstellung_fensterung}
 
-% Quellenbasis: Randall (2011), S. 67--68, Abschn. 3.2.1
-% Fourier Series, Gl. (3.12)--(3.16) und Abb. 3.4--3.5:
-% Betrag und Phase komplexer Fourier-Koeffizienten sowie konjugiert
-% komplexe positive und negative Frequenzkomponenten.
-% Quellenbasis: Randall (2011), S. 71--72, Abschn. 3.2.4
-% The Discrete Fourier Transform und Abb. 3.7: Übertragung dieser
-% Darstellung auf die komplexen DFT-Koeffizienten und zweite DFT-Hälfte.
-Die komplexen DFT-Koeffizienten $G(k)$ enthalten zu jeder Frequenzstützstelle
-einen Betrag und eine Phase. Für die übersichtliche Darstellung eines reellwertigen
-Schwingungssignals wird häufig das einseitige Betragsspektrum $\lvert G(k)\rvert$
-verwendet, da der negative Frequenzbereich keine unabhängige Information enthält.
-Die Lage ausgeprägter Spektrallinien macht dadurch dominante Frequenzanteile und
-regelmäßige Linienabstände sichtbar; für Untersuchungen von Phasenbeziehungen muss
-hingegen zusätzlich $\arg\{G(k)\}$ erhalten bleiben
-\cite[S.~67--68, Abschn.~3.2.1, Gl.~(3.12)--(3.16), Abb.~3.4--3.5;
-S.~71--72, Abschn.~3.2.4, Abb.~3.7]
+% Quellenbasis: Randall (2011), S. 86, Abschn. 3.2.8.1 und Abb. 3.19:
+% Begrenzung des Messsignals durch ein endliches Rechteckfenster und Verteilung
+% der Energie einer Frequenzkomponente auf benachbarte Frequenzen (Leakage).
+Bei der DFT wird nur ein zeitlich begrenzter Messblock ausgewertet. Randall
+beschreibt diese Begrenzung als Multiplikation des Signals mit einem endlichen
+Rechteckfenster. Dadurch wird die Energie einer einzelnen Frequenzkomponente im
+Frequenzspektrum auf benachbarte Frequenzen verteilt. Dieser Effekt wird als
+Leakage bezeichnet
+\cite[S.~86, Abschn.~3.2.8.1, Abb.~3.19]
 {randallVibrationbasedConditionMonitoring2011}.
 
-% Quellenbasis: Harris (1978), S. 52, Abschn. III und Abb. 4:
-% Leakage als Folge der Verarbeitung eines endlichen Datensatzes; bei einer
-% nicht zur Beobachtungsdauer passenden Signalfrequenz entstehen Sprünge an den
-% Grenzen der impliziten periodischen Fortsetzung. Leakage ist nicht Aliasing.
-Die Beschränkung auf einen endlichen Messblock entspricht zunächst einer rechteckigen
-Gewichtung des Signals. Enthält der Block keine ganzzahlige Anzahl der betrachteten
-Schwingungsperioden, stimmen Anfang und Ende der durch die DFT vorausgesetzten
-periodischen Fortsetzung nicht überein. Die dabei entstehende Sprungstelle verteilt
-die Energie einer einzelnen Komponente über mehrere DFT-Stützstellen. Dieser Effekt
-wird als spektrale Leakage bezeichnet. Er entsteht durch die endliche
-Beobachtungsdauer und ist daher vom zuvor beschriebenen Aliasing zu unterscheiden
-\cite[S.~52, Abschn.~III und Abb.~4]{harrisUseWindowsHarmonic1978}.
-
-% Quellenbasis: Harris (1978), S. 52--53, Abschn. III--IV und Gl. (5)--(6):
-% Fenster als multiplikative Gewichtung im Zeitbereich, Faltung im
-% Frequenzbereich und Reduktion der Randsprünge.
-% Quellenbasis: Harris (1978), S. 60--61, Abschn. V-C, Gl. (27a)--(27b) und
-% Abb. 16--20: Hann-Fenster als angehobenes Kosinusfenster sowie Zielkonflikt
-% zwischen sinkenden Nebenkeulen und wachsender Hauptkeulenbreite.
-Zur Verringerung dieser Randsprünge werden die Abtastwerte vor der DFT mit einer
-Fensterfolge $w(n)$ multipliziert, sodass $g_w(n)=g(n)w(n)$ gilt. Die Multiplikation
-im Zeitbereich entspricht einer Faltung der Spektren von Signal und Fenster.
-Fensterung beseitigt Leakage deshalb nicht vollständig, sondern verändert ihre
-Verteilung. Ein häufig eingesetzter Vertreter ist das Hann-Fenster, das verbreitet
-auch als Hanning-Fenster bezeichnet wird. Seine
-kosinusförmige Gewichtung senkt die Werte zu den Blockgrenzen hin ab und reduziert
-dadurch die Nebenkeulen. Dem steht eine breitere Hauptkeule gegenüber, wodurch eng
-benachbarte Spektrallinien schlechter getrennt werden können
-\cite[S.~52--53, Abschn.~III--IV, Gl.~(5)--(6);
-S.~60--61, Abschn.~V-C, Gl.~(27a)--(27b), Abb.~16--20]
-{harrisUseWindowsHarmonic1978}.
-
-% Quellenbasis: Harris (1978), S. 54--56, Abschn. IV-A--IV-B,
-% Gl. (10) und (13) sowie Tab. I: Fensterkennwerte, kohärente Verstärkung
-% und Verringerung der gemessenen Linienamplitude durch die Gewichtung.
-Die Fensterwahl hängt somit vom Analyseziel ab: Eine geringe Nebenkeulenhöhe
-verbessert die Erkennbarkeit schwacher Linien neben starken Komponenten, während
-eine schmale Hauptkeule die Frequenztrennung begünstigt. Da ein Fenster außerdem
-die gemessene Linienamplitude um seine kohärente Verstärkung verändert, müssen
-Spektralamplituden für quantitative Vergleiche konsistent auf die Summe der
-Fensterkoeffizienten normiert werden
-\cite[S.~54--56, Abschn.~IV-A--IV-B, Gl.~(10), (13), Tab.~I]
-{harrisUseWindowsHarmonic1978}.
+% Quellenbasis: Randall (2011), S. 86--89, Abschn. 3.2.8.1--3.2.8.2,
+% Abb. 3.21 und Tab. 3.1: Einfluss einer ganzzahligen Periodenzahl auf die
+% DFT-Darstellung sowie Auswahl eines Datenfensters entsprechend dem Analyseziel.
+Enthält der Messblock eine ganzzahlige Anzahl der Perioden einer sinusförmigen
+Komponente, kann diese Verteilung bei Verwendung eines Rechteckfensters in der
+DFT weitgehend unauffällig bleiben. Andernfalls kann durch die Wahl eines
+anderen Fensters eine günstigere Darstellung erreicht werden. Randall bezeichnet
+das Hanning-Fenster als geeignetes Allzweckfenster; welches Fenster verwendet
+wird, hängt jedoch vom jeweiligen Analyseziel ab
+\cite[S.~86--89, Abschn.~3.2.8.1--3.2.8.2, Abb.~3.21, Tab.~3.1]
+{randallVibrationbasedConditionMonitoring2011}.
 
 \paragraphheading{Drehzahleinfluss und Ordnungsanalyse}
 
