@@ -450,60 +450,72 @@ definiert die DFT mit \cite[S.~71, Abschn.~3.2.4, Gl.~(3.22)]
     \exp\!\left(-\mathrm{j}\frac{2\pi kn}{N}\right)\,.
     \label{eq:dft}
 \end{equation}
-% Quellenbasis: Randall (2011), S. 71, Abschn. 3.2.4, Absatz nach
-% Gl. (3.23): Der Faktor 1/N steht in Randalls Definition in der
-% Vorwärtstransformation; MATLAB verwendet ihn in der Rücktransformation.
-Der Faktor $1/N$ steht dabei entsprechend
-Randalls Konvention in der Vorwärtstransformation; seine Position kann sich je nach verwendeter
-Softwarekonvention unterscheiden \cite[S.~71, Abschn.~3.2.4]
-{randallVibrationbasedConditionMonitoring2011}. Die DFT liefert $N$ Frequenzkomponenten.
-Abbildung~3.6(d) stellt sowohl den endlichen Zeitverlauf als auch das diskrete Spektrum
-periodisch dar \cite[S.~70--71, Abschn.~3.2.4, Abb.~3.6(d)]
+% Quellenbasis: Randall (2011), S. 71, Abschn. 3.2.4, Gl. (3.22)--(3.23)
+% und nachfolgender Absatz: Richtung der Transformation, Anordnung des Faktors 1/N
+% in Randalls Definition sowie abweichende Anordnung in MATLAB.
+Die Berechnung von $G(k)$ aus den Zeitwerten $g(n)$ wird als Vorwärtstransformation bezeichnet.
+Randall verwendet dabei den Faktor $1/N$; in MATLAB steht dieser Faktor dagegen in der
+Rücktransformation von $G(k)$ zu $g(n)$
+\cite[S.~71, Abschn.~3.2.4, Gl.~(3.22)--(3.23)]
 {randallVibrationbasedConditionMonitoring2011}.
-% Eigene begriffliche Klarstellung auf Grundlage von Randalls Aussage zur
-% impliziten Periodizität des endlichen Messblocks, S. 71, Abschn. 3.2.4.
-Diese Periodizität ist eine mathematische Eigenschaft der DFT und bedeutet nicht, dass sich das
-gemessene Signal physikalisch wiederholt.
 
-% Quellenbasis: Randall (2011), S. 72, Abschn. 3.2.4:
-% k=0 als Gleichanteil, k=N/2 als Nyquist-Frequenz und negative
-% Frequenzkomponenten in der zweiten DFT-Hälfte.
-% Quellenbasis: Randall (2011), S. 84, Abschn. 3.2.7 Zoom FFT:
-% Frequenzauflösung Delta f als Quotient aus Abtastfrequenz f_s und
-% Anzahl der Abtastwerte N.
-% Quellenbasis: Randall (2011), S. 86--89, Abschn. 3.2.8.1--3.2.8.2,
-% Abb. 3.19--3.21 und Tab. 3.1: Einfluss endlicher Beobachtungsdauer,
-% Spektralabtastung und Fensterfunktion auf die Darstellung einer Linie.
-Für die einseitige Darstellung eines reellwertigen Signals werden die Komponenten von $k=0$
-bis $k=N/2$ verwendet. Dabei entspricht $k=0$ dem Gleichanteil und $k=N/2$ der
-Nyquist-Frequenz; die zweite Hälfte der DFT enthält die negativen Frequenzkomponenten. Der
-Abstand benachbarter Frequenzstellen beträgt nach Randall
-\cite[S.~72, Abschn.~3.2.4; S.~84, Abschn.~3.2.7]
-{randallVibrationbasedConditionMonitoring2011}:
+% Quellenbasis: Randall (2011), S. 70--71, Abschn. 3.2.4 und Abb. 3.6(d):
+% endlicher Messblock, diskretes Spektrum und implizite periodische Fortsetzung.
+Die DFT behandelt den endlichen Messblock somit als periodisch fortgesetzt und liefert $N$
+diskrete Frequenzkomponenten
+\cite[S.~70--72, Abschn.~3.2.4, Abb.~3.6(d)]
+{randallVibrationbasedConditionMonitoring2011}.
+
+% TODO: Durch eine selbst erstellte Abbildung ersetzen; Randall, Abb. 3.6(d), nur als
+% fachliche Vorlage verwenden und keine urheberrechtlich geschützte Abbildung ungeprüft kopieren.
+\begin{center}
+    \textcolor{red}{\textbf{[HIER EIGENE ABBILDUNG ZUR PERIODISCHEN FORTSETZUNG
+    EINES DFT-MESSBLOCKS EINFÜGEN]}}
+\end{center}
+
+% Quellenbasis: Randall (2011), S. 84, Abschn. 3.2.7: Abstand Delta f der
+% Frequenzkomponenten als Quotient aus Abtastfrequenz f_s und Anzahl N der Abtastwerte;
+% S. 87, Abb. 3.19: Zusammenhang T = N Delta t = N/f_s;
+% S. 86, Abschn. 3.2.8.1 und Abb. 3.19 sowie S. 89, Tab. 3.1 und Abschn. 3.2.8.2:
+% Einfluss der endlichen Messdauer und der Fensterfunktion auf die Spektraldarstellung.
+Der Abstand benachbarter Frequenzkomponenten beträgt
+\cite[S.~84, Abschn.~3.2.7]{randallVibrationbasedConditionMonitoring2011}:
 \begin{equation}
     \Delta f = \frac{f_s}{N}\,.
     \label{eq:dft_frequency_grid}
 \end{equation}
-Dieser Abstand ist nicht mit einer beliebig genauen Frequenzbestimmung gleichzusetzen: Eine
-tatsächliche Signalkomponente kann zwischen zwei Frequenzstellen liegen, und ihre spektrale
-Darstellung wird zusätzlich durch die endliche Beobachtungsdauer und die verwendete
-Fensterfunktion beeinflusst
-\cite[S.~86--89, Abschn.~3.2.8.1--3.2.8.2, Abb.~3.19--3.21, Tab.~3.1]
+Bei konstanter Abtastfrequenz wird der Abstand $\Delta f$ durch eine größere
+Anzahl von Abtastwerten kleiner. Da $T=N/f_s$ gilt, entspricht dies zugleich
+einer längeren Messdauer
+\cite[S.~84, Abschn.~3.2.7; S.~87, Abb.~3.19]
+{randallVibrationbasedConditionMonitoring2011}.
+
+Eine Signalkomponente kann zwischen zwei Frequenzstellen liegen, sodass die
+DFT ihr spektrales Maximum nicht unmittelbar erfasst. Durch die Begrenzung
+auf einen endlichen Messblock wird ihre Energie außerdem auf benachbarte
+Frequenzstellen verteilt. Die Stärke dieser Verteilung hängt von der
+verwendeten Fensterfunktion ab
+\cite[S.~86, Abschn.~3.2.8.1, Abb.~3.19;
+S.~89, Tab.~3.1 und Abschn.~3.2.8.2]
 {randallVibrationbasedConditionMonitoring2011}. Diese Effekte werden im folgenden Abschnitt
-näher betrachtet.
+näher betrachtet (\hyperref[par:spektraldarstellung_fensterung]{Spektraldarstellung und
+Fensterung}).
 
 % Quellenbasis: Randall (2011), S. 72--73, Abschn. 3.2.5: FFT als effizienter
 % Algorithmus zur Berechnung der DFT und Reduktion der Rechenkomplexität von
 % N^2 auf N log_2(N) bei der beschriebenen Radix-2-Zerlegung.
-Die schnelle Fourier-Transformation (engl. \emph{Fast Fourier Transform}, FFT) ist keine
+Die FFT ist keine
 weitere Transformationsart, sondern ein effizienter Algorithmus zur Berechnung der DFT. Bei
-direkter Auswertung wächst der Rechenaufwand quadratisch mit der Blocklänge $N$. Die von
-Randall beschriebene Radix-2-FFT reduziert ihn auf eine Größenordnung von
-$N\log_2(N)$
+direkter Berechnung benötigt die DFT $N^2$ komplexe Operationen. Die von Randall beschriebene
+Radix-2-FFT reduziert diese Anzahl auf $N\log_2(N)$
 \cite[S.~72--73, Abschn.~3.2.5]{randallVibrationbasedConditionMonitoring2011}.
-Sie berechnet dieselben Spektralwerte an denselben Frequenzstellen wie die direkte DFT.
+Sie liefert die durch die DFT definierten Frequenzkomponenten, berechnet sie jedoch mit
+geringerem Aufwand \cite[S.~72--73, Abschn.~3.2.5]
+{randallVibrationbasedConditionMonitoring2011}.
 
 \paragraphheading{Spektraldarstellung und Fensterung}
+\phantomsection
+\label{par:spektraldarstellung_fensterung}
 
 % Quellenbasis: Randall (2011), S. 67--68, Abschn. 3.2.1
 % Fourier Series, Gl. (3.12)--(3.16) und Abb. 3.4--3.5:
