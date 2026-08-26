@@ -52,10 +52,9 @@ ausgewählten Datensätze.
 % KA05, KA06, KI05 und KI07 als Lager mit künstlich eingebrachten Außen-
 % beziehungsweise Innenringschäden; K001 und K002 als fehlerfreie Lager.
 Als Trainingsdaten für die Entwicklung und Parametrierung werden ausschließlich
-Messungen aus dem Paderborner Datensatz verwendet. Die Trainingsmenge umfasst drei
-Lagerzustände: K001 und K002 sind fehlerfrei, KA05 und KA06 besitzen künstlich
-eingebrachte Außenringschäden und KI05 und KI07 künstlich eingebrachte
-Innenringschäden
+Messungen aus dem Paderborner Datensatz verwendet. Die Trainingsmenge umfasst
+fehlerfreie Referenzzustände sowie künstlich eingebrachte Innen- und
+Außenringschäden
 \cite[S.~5, Tab.~4; S.~8, Tab.~7]
 {lessmeierConditionMonitoringBearing2016}.
 % Eigene Methode/Implementierung/Beobachtung: cm_pipeline_validation,
@@ -78,12 +77,13 @@ verwendet.
 % Datensatzdokumentation: Profile KA04.pdf, KA16.pdf, KI16.pdf und KI17.pdf,
 % jeweils S. 1--2: Ermüdungsschäden mit Pitting am Außen- beziehungsweise
 % Innenring; Schadensentstehung im Lebensdauerversuch.
-Für die Paderborn-Evaluation werden die fehlerfreien Lager K003 und K004, die Lager
-KA04 und KA16 mit Außenringschäden sowie die Lager KI16 und KI17 mit
-Innenringschäden verwendet. Bei den vier geschädigten Lagern handelt es sich um reale
-Ermüdungsschäden, die in einem beschleunigten Lebensdauerversuch entstanden
+Für die Paderborn-Evaluation werden fehlerfreie Referenzzustände sowie real
+entstandene Ermüdungsschäden am Innen- und Außenring verwendet. Die geschädigten
+Lager stammen aus einem beschleunigten Lebensdauerversuch
 \cite[S.~6, Tab.~5; S.~8, Tab.~7]
 {lessmeierConditionMonitoringBearing2016}.
+Die konkrete lagerbezogene Zusammensetzung beider Teilmengen ist in
+Tabelle~\ref{tab:paderborn_auswahl} dokumentiert.
 % Eigene Methode/Implementierung/Beobachtung: cm_pipeline_validation,
 % experiments/paderborn_scope.py, EVALUATION_BEARINGS und collect_paderborn_files,
 % Z. 14--21 und 47--88; experiments/evaluate_paderborn.py, Funktionen
@@ -144,10 +144,27 @@ angetriebenen mechanischen Antriebsstrang
 % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 7, PDF-S. 7,
 % Abschn. 4.1 und Abb. 4: Elektromotor, Drehmomentmesswelle,
 % Wälzlagerprüfmodul, Schwungmasse und Lastmotor.
-Der Prüfstand besteht aus einem Elektromotor, einer Drehmomentmesswelle, dem
-Wälzlagerprüfmodul, einer Schwungmasse und einem Lastmotor
+Der Prüfstand besteht, wie in Abbildung~\ref{fig:paderborn_pruefstand}
+dargestellt, aus (1) einem Elektromotor, (2) einer Drehmomentmesswelle,
+(3) dem Wälzlagerprüfmodul, (4) einer Schwungmasse und (5) einem Lastmotor
 \cite[S.~7, Abschn.~4.1 und Abb.~4]
 {lessmeierConditionMonitoringBearing2016}.
+
+% Abbildungsquelle: Lessmeier et al. (2016), gedruckte S. 7, PDF-S. 7,
+% Abb. 4; unverändert aus dem Verlags-PDF extrahiert. Der Artikel ist gemäß
+% Lizenzhinweis auf gedruckter/PDF-S. 1 unter CC BY 3.0 US veröffentlicht.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]
+  {paderborn_test_rig_lessmeier2016.jpg}
+  \caption{Modularer Paderborner Prüfstand}
+  \label{fig:paderborn_pruefstand}
+  \caption*{\footnotesize Quelle: unverändert übernommen aus
+  Lessmeier et al.~\cite[S.~7, Abb.~4]
+  {lessmeierConditionMonitoringBearing2016}, lizenziert unter
+  \href{https://creativecommons.org/licenses/by/3.0/us/}{CC BY 3.0 US}.}
+\end{figure}
+
 % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 7, PDF-S. 7,
 % Abschn. 4.1: Betrieb des Prüflagers unter konstanter, vor jedem Versuch
 % stufenlos bis 10 kN einstellbarer Radiallast.
@@ -157,17 +174,19 @@ betrieben, die vor dem jeweiligen Versuch stufenlos bis
 \cite[S.~7, Abschn.~4.1]{lessmeierConditionMonitoringBearing2016}.
 
 % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 7, PDF-S. 7,
-% Abschn. 4.1: Messung der Gehäusebeschleunigung am Adapter am oberen Ende
-% des Wälzlagerprüfmoduls in Hauptlastrichtung.
-Die Gehäusebeschleunigung wird am Adapter am oberen Ende des
-Wälzlagerprüfmoduls in Hauptlastrichtung erfasst
+% Abschn. 4.1: Der Adapter ermöglicht die Schwingungsmessung am Innengehäuse;
+% das Innengehäuse hält das zu untersuchende Lager in Hauptlastrichtung.
+Ein Adapter ermöglicht die Messung
+der Schwingungen des Innengehäuses, welches das zu untersuchende Lager in
+Hauptlastrichtung hält
 \cite[S.~7, Abschn.~4.1]{lessmeierConditionMonitoringBearing2016}.
 % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 7, PDF-S. 7,
 % Abschn. 4.1: Beschleunigungsaufnehmer PCB Piezotronics 336C04,
 % Ladungsverstärker Kistler 5015A und Tiefpassfilter bei 30 kHz.
-Dazu dienen ein piezoelektrischer Beschleunigungsaufnehmer des Typs PCB
-Piezotronics 336C04 und ein Ladungsverstärker Kistler 5015A mit einem
-Tiefpassfilter bei \(30~\mathrm{kHz}\)
+Die Gehäusebeschleunigung wird dazu mit einem piezoelektrischen
+Beschleunigungsaufnehmer des Typs PCB Piezotronics 336C04 und einem
+Ladungsverstärker Kistler 5015A mit einem Tiefpassfilter bei
+\(30~\mathrm{kHz}\) erfasst
 \cite[S.~7, Abschn.~4.1]{lessmeierConditionMonitoringBearing2016}.
 % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 7, PDF-S. 7,
 % Abschn. 4.1: Digitalisierung der Beschleunigung mit 64 kHz und synchrone
@@ -184,10 +203,11 @@ zusätzliche Betriebsgrößen, jedoch mit niedrigeren Abtastraten aufgezeichnet
 {lessmeierConditionMonitoringBearing2016}.
 
 % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 5, PDF-S. 5,
-% Abschn. 3: Kugellager der Bauart 6203 von FAG, MTK und IBU/IBB,
+% Abschn. 3: Kugellager mit der Lagerbezeichnung 6203 von den Herstellern
+% FAG, MTK und IBU/IBB,
 % acht Wälzkörper sowie nahezu identische Geometrien.
-Bei den Prüflingen handelt es sich um Kugellager der Bauart 6203 von FAG,
-MTK und IBU/IBB. Sie besitzen jeweils acht Wälzkörper
+Untersucht wurden Kugellager mit der Lagerbezeichnung 6203 von den Herstellern
+FAG, MTK und IBU/IBB. Alle diese Lager besitzen acht Wälzkörper
 \cite[S.~5, Abschn.~3]{lessmeierConditionMonitoringBearing2016}.
 % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 5, PDF-S. 5,
 % Abschn. 3: Aufgrund der nahezu identischen geometrischen Abmessungen
@@ -198,49 +218,119 @@ identisch; die charakteristischen kinematischen Lagerfrequenzen variieren
 dadurch um nicht mehr als \(1\)--\(2\,\%\)
 \cite[S.~5, Abschn.~3]{lessmeierConditionMonitoringBearing2016}.
 
-\paragraphheading{Betriebsbedingungen, Lagerzustände und Messreihen}
+\paragraphheading{Messreihen}
 
-% Quellenbasis: Lessmeier et al. (2016), S. 8, Abschn. 4.2 und Tab. 6:
-% vier Betriebsbedingungen, Konstanz innerhalb einer Messung, Anzahl und Dauer
-% der Wiederholungen sowie Versuchstemperatur.
-Die Messungen liegen für vier Betriebsbedingungen vor. Die Grundkonfiguration
-\texttt{N15\_M07\_F10} kombiniert eine Drehzahl von \(1500~\mathrm{min^{-1}}\),
-ein Lastmoment von \(0{,}7~\mathrm{Nm}\) und eine Radialkraft von
-\(1000~\mathrm{N}\). In den drei weiteren Konfigurationen wird jeweils genau
-eine dieser Größen auf \(900~\mathrm{min^{-1}}\)
-(\texttt{N09\_M07\_F10}), \(0{,}1~\mathrm{Nm}\)
-(\texttt{N15\_M01\_F10}) beziehungsweise \(400~\mathrm{N}\)
-(\texttt{N15\_M07\_F04}) reduziert. Drehzahl, Lastmoment und Radialkraft werden
-während einer einzelnen Messung konstant gehalten. Für jede Betriebsbedingung
-stehen 20 Aufzeichnungen mit einer Dauer von jeweils vier Sekunden zur
-Verfügung; die Versuchstemperatur lag ungefähr zwischen 45 und
-\(50\,^{\circ}\mathrm{C}\)
+% Quellenbasis: Lessmeier et al. (2016), gedruckte S. 8, PDF-S. 8,
+% Abschn. 4.2: Drehzahl des Antriebsstrangs, Radialkraft am Prüflager und
+% Lastmoment im Antriebsstrang als zentrale Betriebsparameter.
+Als zentrale Betriebsparameter nennen Lessmeier et al. die Drehzahl des
+Antriebsstrangs, die Radialkraft am Prüflager und das Lastmoment im
+Antriebsstrang
+\cite[S.~8, Abschn.~4.2]{lessmeierConditionMonitoringBearing2016}.
+
+% Quellenbasis: Lessmeier et al. (2016), gedruckte S. 8, PDF-S. 8,
+% Abschn. 4.2 und Tab. 6: feste Parameterstufen, Konstanz der drei Parameter
+% während einer Messung und vier daraus gebildete Betriebsbedingungen.
+Für jeden dieser Parameter wurden feste Stufen festgelegt. Während einer
+einzelnen Messung werden alle drei Parameter konstant gehalten. Die vier
+daraus gebildeten Betriebsbedingungen sind in
+Tabelle~\ref{tab:paderborn_betriebsbedingungen} zusammengefasst
 \cite[S.~8, Abschn.~4.2 und Tab.~6]
 {lessmeierConditionMonitoringBearing2016}.
 
-% Quellenbasis: Lessmeier et al. (2016), S. 5--6, Abschn. 3.1--3.2 und
-% Tab. 4--5: künstliche Schäden und Schäden aus beschleunigten
-% Lebensdauerversuchen; S. 8--9, Abschn. 4.2 und 5: Umfang und Gruppen des
-% Datensatzes.
+% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 9, Abschn. 5:
+% Betriebsbedingungs- und vierstelliger Lagercode im MATLAB-Dateinamen sowie
+% das dort genannte Beispiel N15_M07_F10_KA01_1.mat.
+Die Einstellungscodes bilden einen Bestandteil der MATLAB-Dateinamen.
+Lessmeier et al. nennen daneben den vierstelligen Lagercode und zeigen als
+Beispiel \texttt{N15\_M07\_F10\allowbreak\_KA01\allowbreak\_1.mat}
+\cite[S.~9, Abschn.~5]{lessmeierConditionMonitoringBearing2016}.
+
+% Quellenbasis: Lessmeier et al. (2016), gedruckte S. 8, PDF-S. 8,
+% Tab. 6: Nummer, Drehzahl, Lastmoment, Radialkraft und Einstellungscode der
+% vier Betriebsbedingungen.
+\begin{table}[H]
+  \centering
+  \caption{Betriebsbedingungen der Paderborner Messreihen nach Lessmeier
+  et al. \cite[S.~8, Abschn.~4.2 und Tab.~6]
+  {lessmeierConditionMonitoringBearing2016}}
+  \label{tab:paderborn_betriebsbedingungen}
+  \small
+  \begin{tabularx}{\textwidth}{|
+    >{\centering\arraybackslash}p{0.8cm}|
+    >{\centering\arraybackslash}p{2.5cm}|
+    >{\centering\arraybackslash}p{2.5cm}|
+    >{\centering\arraybackslash}p{2.5cm}|
+    >{\raggedright\arraybackslash}X|}
+    \hline
+    \textbf{Nr.} & \textbf{Drehzahl} & \textbf{Lastmoment} &
+    \textbf{Radialkraft} & \textbf{Einstellungscode} \\
+    & \([\mathrm{min^{-1}}]\) & \([\mathrm{Nm}]\) & \([\mathrm{N}]\) & \\
+    \hline
+    0 & 1500 & 0,7 & 1000 & \texttt{N15\_M07\_F10} \\
+    \hline
+    1 & 900 & 0,7 & 1000 & \texttt{N09\_M07\_F10} \\
+    \hline
+    2 & 1500 & 0,1 & 1000 & \texttt{N15\_M01\_F10} \\
+    \hline
+    3 & 1500 & 0,7 & 400 & \texttt{N15\_M07\_F04} \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+% Quellenbasis: Lessmeier et al. (2016), gedruckte S. 8, PDF-S. 8,
+% Abschn. 4.2: 20 Messungen von jeweils vier Sekunden je Betriebsbedingung
+% sowie eine ungefähr zwischen 45 und 50 Grad Celsius gehaltene Temperatur.
+Für jede Betriebsbedingung wurden 20 Messungen von jeweils vier Sekunden
+aufgezeichnet. Die Temperatur wurde während der Versuche ungefähr zwischen
+45 und \(50\,^{\circ}\mathrm{C}\) gehalten
+\cite[S.~8, Abschn.~4.2]{lessmeierConditionMonitoringBearing2016}.
+
+% Eigene Datensatzprüfung: cm_pipeline_validation/data/paderborn/, Dateinamen
+% der 960 MATLAB-Dateien der zwölf ausgewählten Lager: Für jede Kombination
+% aus Lager und Betriebsbedingung enden die Dateinamen mit den Zahlen 1--20;
+% darunter befindet sich N15_M07_F10_KA04_1.mat.
+Bei den zwölf in dieser Arbeit ausgewählten Lagern enden die Dateinamen je
+Kombination aus Lager und Betriebsbedingung mit den Zahlen 1 bis 20. Im lokalen
+Datenpaket ist beispielsweise
+\texttt{N15\_M07\_F10\allowbreak\_KA04\allowbreak\_1.mat} vorhanden. Der
+Dateiname verbindet den Code der Grundkonfiguration, den Lagercode KA04 und
+die abschließende Zahl 1.
+
+% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 8--9,
+% Abschn. 4.2 und 5: Gesamtzahl der Lager und Aufteilung in fehlerfreie,
+% künstlich geschädigte und im Lebensdauerversuch geschädigte Lager.
 Der Gesamtdatensatz umfasst Versuche mit 32 Lagern. Sechs davon dienen als
 fehlerfreie Referenzzustände, zwölf weisen künstlich eingebrachte Schäden auf
-und 14 enthalten Schäden aus beschleunigten Lebensdauerversuchen. Die
-künstlichen Schäden wurden durch Funkenerosion, Bohren oder manuelles
-Elektrogravieren erzeugt. Bei den im Lebensdauerversuch entstandenen Schäden
-unterscheiden Lessmeier et al. insbesondere ermüdungsbedingtes Pitting und
-plastische Verformungen in Form von Eindrückungen. Pitting trat sowohl am
-Innen- als auch am Außenring auf
-\cite[S.~5--6, Abschn.~3.1--3.2 und Tab.~4--5; S.~8--9, Abschn.~4.2 und 5]
+und 14 enthalten Schäden aus beschleunigten Lebensdauerversuchen
+\cite[S.~8--9, Abschn.~4.2 und 5]
 {lessmeierConditionMonitoringBearing2016}.
 
-% Quellenbasis: Lessmeier et al. (2016), S. 9, Abschn. 5: Inhalt der
-% Dateinamen und systematische Schadensdokumentation.
-Die MATLAB-Dateinamen verknüpfen den Code der Betriebsbedingung, den Lagercode
-und die Nummer der Wiederholung. So bezeichnet beispielsweise
-\texttt{N15\_M07\_F10\_KA04\_1.mat} die erste Aufzeichnung des Lagers KA04 in
-der Grundkonfiguration. Zu jedem Lager werden ein einheitlich aufgebautes
-Schadensdatenblatt und ein Messprotokoll bereitgestellt
+% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 5,
+% Abschn. 3.1: electrical discharge machining, drilling und manual electric
+% engraving als drei Verfahren zur Erzeugung der künstlichen Schäden.
+Die künstlichen Schäden wurden durch Funkenerodieren, Bohren oder manuelles
+elektrisches Gravieren erzeugt
+\cite[S.~5, Abschn.~3.1]{lessmeierConditionMonitoringBearing2016}.
+
+% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 6,
+% Abschn. 3.2: Pitting als Ermüdungsschaden am Innen- und Außenring sowie
+% plastische Verformungen in Form von Eindrückungen nur am Außenring.
+Bei den im Lebensdauerversuch entstandenen Schäden unterscheiden Lessmeier
+et al. insbesondere ermüdungsbedingtes Pitting und plastische Verformungen in
+Form von Eindrückungen. Pitting wurde am Innen- und Außenring festgestellt,
+Eindrückungen dagegen nur am Außenring
+\cite[S.~6, Abschn.~3.2]{lessmeierConditionMonitoringBearing2016}.
+
+% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 9, Abschn. 5:
+% systematische Dokumentation der Lagerschäden durch einheitliche Datenblätter.
+Die Lagerschäden werden durch einheitlich aufgebaute Schadensdatenblätter
+dokumentiert
 \cite[S.~9, Abschn.~5]{lessmeierConditionMonitoringBearing2016}.
+% Eigene Datensatzprüfung: cm_pipeline_validation/data/paderborn/:
+% Je ein Lagerdatenblatt und measuring_log_<Lagercode>.pdf für alle zwölf in
+% Tabelle~\ref{tab:paderborn_auswahl} aufgeführten Lager.
+Für jedes der zwölf ausgewählten Lager enthält die lokale Datei ein Lagerdatenbaltt, sowie ein Messprotokoll.
 
 \paragraphheading{Auswahl für Entwicklung und Evaluation}
 
@@ -251,38 +341,50 @@ Schadensdatenblatt und ein Messprotokoll bereitgestellt
 % Funktion collect_files, Z. 63--64. Ergebnisartefakte:
 % data/results/paderborn_param_search.csv, Z. 2--301, und
 % data/results/paderborn_results.csv, Z. 2--121.
-% Quellenbasis für Referenzzustände und Schadensentstehung: Lessmeier et al.
-% (2016), S. 5--6, Abschn. 3.1--3.2 und Tab. 4--5, sowie S. 8, Tab. 7.
 Der Paderborner Datensatz wird auf Lagerebene in eine Trainings- und eine
 Evaluationsmenge aufgeteilt. Beide Teilmengen enthalten jeweils zwei
 fehlerfreie Lager, zwei Lager mit Außenringschaden und zwei Lager mit
 Innenringschaden. Die verwendeten Lager und ihre Zuordnung sind in
-Tabelle~\ref{tab:paderborn_auswahl} zusammengefasst
-\cite[S.~5--6, Abschn.~3.1--3.2 und Tab.~4--5; S.~8, Tab.~7]
-{lessmeierConditionMonitoringBearing2016}.
+Tabelle~\ref{tab:paderborn_auswahl} zusammengefasst.
 
 % Quellenbasis: Lessmeier et al. (2016), S. 5, Abschn. 3.1 und Tab. 4:
 % KA05, KA06, KI05 und KI07 wurden durch manuelles Elektrogravieren geschädigt;
 % die dadurch erzeugte unregelmäßige Oberflächenstruktur und geringere Tiefe
 % ähneln nach Aussage der Autoren realem Pitting.
-Für die geschädigten Trainingslager werden gezielt die durch manuelles
-Elektrogravieren präparierten Lager KA05, KA06, KI05 und KI07 ausgewählt. Lessmeier
-et al. beschreiben die so erzeugten Schäden durch eine unregelmäßige
-Oberflächenstruktur und eine geringere Tiefe, wodurch sie realem Pitting ähneln
+% Eigene methodische Entscheidung: Die von Lessmeier et al. beschriebene
+% Ähnlichkeit ist das Auswahlkriterium für die geschädigten Trainingslager.
+Lessmeier et al. ordnen KA05, KA06, KI05 und KI07 der manuellen
+Elektrogravur zu. Die so erzeugte Schadensform beschreiben sie durch eine
+unregelmäßige Oberfläche und eine geringere Tiefe, wodurch sie realem Pitting ähnelt
 \cite[S.~5, Abschn.~3.1 und Tab.~4]
-{lessmeierConditionMonitoringBearing2016}. Die Auswahl nutzt diese beschriebene
-Ähnlichkeit für die Parametrierung; eine Gleichwertigkeit mit real entstandenen
-Ermüdungsschäden wird daraus nicht abgeleitet.
+{lessmeierConditionMonitoringBearing2016}. Aufgrund dieser beschriebenen
+Ähnlichkeit werden die vier Lager für die Parametrierung ausgewählt.
 
-% OFFEN: Den Umfang der verwendeten Aufzeichnungen nach dem abschließenden
-% Gesamtlauf anhand der erzeugten Ergebnisartefakte ergänzen.
+% Eigene Methode/Implementierung/Beobachtung: cm_pipeline_validation,
+% experiments/paderborn_scope.py, OPERATING_CONDITIONS, RECORDING_NUMBERS und
+% collect_paderborn_files, Z. 23--31 und 47--77: vier Betriebsbedingungen und
+% die Wiederholungen 1, 5, 10, 15 und 20; sechs Lager je Teilmenge gemäß
+% TRAINING_BEARINGS und EVALUATION_BEARINGS, Z. 5--21. Ergebnisartefakt:
+% data/results/paderborn_summary.csv, Z. 2: 120 ausgewertete Dateien.
+Für jedes Lager werden unter jeder der vier Betriebsbedingungen die
+Aufzeichnungen 1, 5, 10, 15 und 20 verwendet. Damit umfasst die Auswahl
+20 Aufzeichnungen je Lager und 120 Aufzeichnungen je Teilmenge.
 
-% Quellenbasis und Primärmaterial wie im unmittelbar vorangehenden
-% Quellenkommentar.
+\textbf{TODO -- Vor der finalen Auswertung ist zu entscheiden, ob
+ausschließlich die derzeit ausgewählte Teilmenge oder der vollständige
+Paderborner Datensatz verwendet wird. Bei einer Erweiterung sind die
+Lagerauswahl, die Umfangsangaben und die darauf aufbauende Evaluation
+entsprechend anzupassen.}
+
+% Quellenbasis: Lessmeier et al. (2016), S. 5--6, Abschn. 3.1--3.2 und
+% Tab. 4--5 sowie S. 8, Tab. 7: Referenzzustände, Schadensorte und
+% Schadensentstehung. Eigene Zuordnung zu Training und Evaluation:
+% cm_pipeline_validation/experiments/paderborn_scope.py, Z. 5--21.
 \begin{table}[H]
   \centering
-  \caption{Für Entwicklung und Evaluation ausgewählte Paderborner Lager nach
-  Lessmeier et al. \cite[S.~5--6, Tab.~4--5; S.~8, Tab.~7]
+  \caption{Für Entwicklung und Evaluation ausgewählte Paderborner Lager;
+  Referenzzustände und Schadensentstehung nach Lessmeier et al.
+  \cite[S.~5--6, Tab.~4--5; S.~8, Tab.~7]
   {lessmeierConditionMonitoringBearing2016}}
   \label{tab:paderborn_auswahl}
   \small
@@ -295,13 +397,13 @@ Ermüdungsschäden wird daraus nicht abgeleitet.
     \textbf{Teilmenge} & \textbf{Lager} & \textbf{Zielklasse} &
     \textbf{Schadensentstehung} \\
     \hline
-    Training & K001, K002 & fehlerfrei & kein dokumentierter Schaden \\
+    Training & K001, K002 & fehlerfrei & fehlerfreier Referenzzustand \\
     \hline
     Training & KA05, KA06 & Außenring & künstlich eingebracht \\
     \hline
     Training & KI05, KI07 & Innenring & künstlich eingebracht \\
     \hline
-    Evaluation & K003, K004 & fehlerfrei & kein dokumentierter Schaden \\
+    Evaluation & K003, K004 & fehlerfrei & fehlerfreier Referenzzustand \\
     \hline
     Evaluation & KA04, KA16 & Außenring & real entstanden \\
     \hline
@@ -310,191 +412,291 @@ Ermüdungsschäden wird daraus nicht abgeleitet.
   \end{tabularx}
 \end{table}
 
-% Eigene methodische Festlegung gemäß der Datensatzstrategie in
-% Abschnitt~\ref{sec:untersuchungsrahmen}.
-Die Parameter werden ausschließlich anhand der Trainingslager bestimmt. Die
-festgelegte Pipeline wird anschließend anhand anderer physischer Paderborner
-Lager evaluiert. Dabei wird die mit künstlichen Schäden vorgenommene
-Parametrierung auf real entstandene Innen- und Außenringschäden übertragen.
-Ergebnisse der Evaluationslager werden nicht für eine erneute Anpassung der
-Analyse- oder Entscheidungsparameter verwendet. Die für KA04 dokumentierte
-Dublette der Aufzeichnungen 17 und 18 ist in der Auswahl nicht enthalten.
-
 %================================================================================================
 %       3.3 Datensatz der Case Western Reserve University
 %================================================================================================
 \section{Datensatz der Case Western Reserve University}
 \label{sec:datensatz_cwru}
 
-\paragraphheading{Prüfstand, Lager und Messtechnik}
+\paragraphheading{Messaufbau}
 
-% Quellenbasis: Smith und Randall (2015), S. 102--103, Abschn. 3.1 und Abb. 2:
-% Antrieb, Welle, Drehmomentaufnehmer, Encoder und Belastungseinrichtung.
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 102--103,
+% PDF-S. 3--4, Abschn. 3.1 und Abb. 2: Motor, Welle,
+% Drehmomentsensor, Encoder, Dynamometer und Lagerstellen.
 % Quellenbasis: Case Western Reserve University (o. J.), Webseite
-% „Apparatus & Procedures“, erster Absatz: Komponenten des Prüfstands.
-Der Prüfstand der Case Western Reserve University besteht aus einem
-Elektromotor von Reliance Electric mit 2~hp, der eine Welle antreibt. Auf der Welle
-sind ein Drehmomentaufnehmer und ein Encoder angeordnet; das Drehmoment wird über
-einen Dynamometer und eine elektronische Steuerung aufgebracht. Die untersuchten
-Lager stützen die Motorwelle an der Antriebs- und der Lüfterseite
-\cite[S.~102--103, Abschn.~3.1 und Abb.~2]{smithRollingElementBearing2015}
+% „Apparatus & Procedures“, erster Absatz: Komponenten des Prüfstands
+% und Abstützung der Motorwelle durch die Lager.
+% Eigene Einheitenumrechnung: 2 hp entsprechen rund 1,49 kW
+% beziehungsweise 2,03 PS.
+Der CWRU-Prüfstand besteht aus einem Elektromotor von Reliance Electric
+mit einer Leistung von rund 1,49~kW (2,03~PS), der eine Welle antreibt.
+Auf der Welle befinden sich ein Drehmomentsensor und ein Encoder. Das
+Belastungsmoment wird mit einem Dynamometer und einer elektronischen
+Steuerung erzeugt. Die Motorwelle wird an der Antriebs- und
+Lüfterseite durch die Lager abgestützt
+\cite[S.~102--103, Abschn.~3.1 und Abb.~2]
+{smithRollingElementBearing2015}
 \cite{ApparatusProceduresCase}.
 
 % Quellenbasis: Case Western Reserve University (o. J.), Webseite
-% „Bearing Information“, Abschnitt „Drive end bearing“: Lagertyp und Abmessungen.
-% Quellenbasis: Smith und Randall (2015), S. 103, Tab. 2: Lagermodell an der
-% Antriebsseite und abweichendes NTN-Lager für Schäden mit 0,028 in Durchmesser.
-An der Antriebsseite ist im regulären Versuchsaufbau ein Rillenkugellager des
-Typs SKF 6205-2RS JEM eingesetzt. Der dokumentierte Innendurchmesser beträgt
-0,9843~in, der Außendurchmesser 2,0472~in und die Lagerbreite 0,5906~in. Für
-die Wälzkörper werden ein Durchmesser von 0,3126~in und ein
-Teilkreisdurchmesser von 1,537~in angegeben
-\cite{BearingInformationCase}. Bei den antriebsseitigen Versuchen mit einem
-Schadensdurchmesser von 0,028~in wurde dagegen ein entsprechendes Lager von NTN
-verwendet \cite[S.~103, Tab.~2]{smithRollingElementBearing2015}.
+% „Bearing Information“, Abschnitte „Drive end bearing“ und
+% „Fan end bearing“: antriebs- und lüfterseitiger Lagertyp.
+Die CWRU-Dokumentation gibt für die Antriebsseite ein Rillenkugellager
+des Typs SKF 6205-2RS JEM und für die Lüfterseite eines des Typs
+SKF 6203-2RS JEM an \cite{BearingInformationCase}.
 
 % Quellenbasis: Case Western Reserve University (o. J.), Webseite
-% „Apparatus & Procedures“, Absätze zur Messtechnik: magnetische Befestigung,
-% Sensorpositionen, DAT-Rekorder und MATLAB-Dateiformat.
-% Quellenbasis: Smith und Randall (2015), S. 103, Abschn. 3.1: Messrichtung und
-% Messorte DE, FE und BA.
-Die Beschleunigungsaufnehmer waren mit Magnetfüßen an den Lagergehäusen
-befestigt und jeweils in der 12-Uhr-Position angeordnet. Smith und Randall
-beschreiben die Messrichtung als vertikal. Die Beschleunigung wurde bei allen
-Versuchen am antriebsseitigen Lagergehäuse erfasst; abhängig von der Messreihe
+% „Apparatus & Procedures“, zweiter Absatz: magnetische Befestigung,
+% 12-Uhr-Position, 16-kanaliger DAT-Rekorder und MATLAB-Dateiformat.
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 103,
+% PDF-S. 4, Abschn. 3.1: vertikale Messrichtung und Messstellen
+% an Antriebsseite, Lüfterseite und Grundplatte.
+Die Beschleunigungsaufnehmer wurden mit Magnetfüßen in der
+12-Uhr-Position an den Gehäusen befestigt. Die Beschleunigung wurde in
+vertikaler Richtung gemessen und bei allen Versuchen am
+antriebsseitigen Lagergehäuse erfasst. Bei einem Teil der Versuche
 standen zusätzlich Signale vom lüfterseitigen Lagergehäuse und von der
-Motorgrundplatte zur Verfügung. Die Aufzeichnung erfolgte mit einem
-16-kanaligen DAT-Rekorder, die veröffentlichten Dateien liegen im MATLAB-Format
-vor \cite[S.~103, Abschn.~3.1]{smithRollingElementBearing2015}
+Grundplatte des Motors zur Verfügung
+\cite[S.~103, Abschn.~3.1]{smithRollingElementBearing2015}
 \cite{ApparatusProceduresCase}.
 
 % Quellenbasis: Case Western Reserve University (o. J.), Webseite
-% „Download a Data File“, Absatz zur Variablenbenennung: DE, FE, BA, time und RPM.
-In den Variablennamen kennzeichnen \texttt{DE}, \texttt{FE} und \texttt{BA} die
-Beschleunigungssignale der Antriebsseite, der Lüfterseite und der Grundplatte;
-\texttt{time} bezeichnet eine Zeitreihe und \texttt{RPM} die während des
-Versuchs erfasste Drehzahl \cite{DownloadDataFile}.
+% „Apparatus & Procedures“, zweiter Absatz: DAT-Rekorder,
+% MAT-Dateiformat und Abtastraten.
+Die Signale wurden mit einem 16-Kanal-DAT-Rekorder aufgezeichnet. Die
+veröffentlichten Dateien liegen im MAT-Format vor. Je nach Messreihe
+betrug die Abtastrate 12~kHz oder 48~kHz
+\cite{ApparatusProceduresCase}.
 
-% Quellenbasis: Smith und Randall (2015), S. 103, Abschn. 3.2, sowie
-% S. 126--127, Tab. A1--A4: Gliederung der Messreihen und Abtastraten.
 % Quellenbasis: Case Western Reserve University (o. J.), Webseite
-% „Download a Data File“, erster Absatz: Abtastraten der DE- und FE-Versuche.
-Der Gesamtdatensatz umfasst nach Smith und Randall 161 Datensätze und gliedert
-sich in vier Gruppen: fehlerfreie Referenzmessungen mit 48~kHz,
-antriebsseitige Fehlermessungen mit 12 beziehungsweise 48~kHz sowie
-lüfterseitige Fehlermessungen mit 12~kHz
-\cite[S.~103, Abschn.~3.2; S.~126--127, Tab.~A1--A4]
-{smithRollingElementBearing2015}. Die Datensatzdokumentation bestätigt, dass
-antriebsseitige Versuche mit 12.000 und 48.000 Abtastwerten pro Sekunde und
-lüfterseitige Versuche mit 12.000 Abtastwerten pro Sekunde aufgezeichnet wurden
+% „Download a Data File“, Variablenliste: Bedeutung von DE, FE, BA,
+% time und RPM.
+In den Variablennamen kennzeichnen \texttt{DE}, \texttt{FE} und
+\texttt{BA} die Beschleunigungssignale der Antriebsseite, der
+Lüfterseite und der Grundplatte. \texttt{time} bezeichnet eine
+Zeitreihe und \texttt{RPM} die während des Versuchs erfasste Drehzahl
 \cite{DownloadDataFile}.
 
-\textbf{TODO -- Messdauer ergänzen: Die Dauer der ausgewählten Aufzeichnungen
-ist anhand der originalen MATLAB-Zeitreihen zu verifizieren und für die
-einzelnen Datensatzgruppen anzugeben.}
+\paragraphheading{Messreihen}
 
-\paragraphheading{Betriebsbedingungen, Lagerzustände und Messreihen}
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 102--103,
+% PDF-S. 3--4, Abschn. 3.1: mittels EDM eingebrachte Schäden an
+% Innenring, Außenring oder Wälzkörper, separate Wiedermontage der
+% geschädigten Lager und konstante Drehzahl im jeweiligen Versuch.
+Für die Fehlermessungen wurden mittels Funkenerosion Schäden am Innenring,
+am Außenring oder an einem Wälzkörper eingebracht. Jedes geschädigte Lager
+wurde separat wieder in den Prüfstand eingebaut. Innerhalb des jeweiligen
+Versuchs wurde der Prüfstand bei konstanter Drehzahl betrieben
+\cite[S.~102--103, Abschn.~3.1]{smithRollingElementBearing2015}.
 
-% Quellenbasis: Smith und Randall (2015), S. 102--103, Abschn. 3.1--3.2:
-% Einbringen der Einzelfehler mittels EDM, Schadensorte, separate Montage und
-% Versuche bei konstanten Drehzahlen und vier Motorlaststufen.
-Für die Fehlermessungen wurden mittels Funkenerosion lokale Einzelfehler in den
-Innenring, den Außenring oder einen Wälzkörper eingebracht. Jedes geschädigte
-Lager wurde separat in den Prüfstand eingebaut und anschließend bei konstanter
-Drehzahl untersucht. Die Messreihen unterscheiden vier als Motorlast
-bezeichnete Stufen von 0 bis 3~hp
-\cite[S.~102--103, Abschn.~3.1--3.2]{smithRollingElementBearing2015}.
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 126, PDF-S. 27,
+% Tab. A2: vier Motorlaststufen von 0, 1, 2 und 3 hp.
+% Eigene Einheitenumrechnung: 1 hp entspricht rund 1,0139 PS.
+Die Messreihen unterscheiden vier als Motorlast bezeichnete Stufen.
+Umgerechnet entsprechen diese ungefähr 0; 1,01; 2,03 und 3,04~PS
+\cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}.
 
-% Quellenbasis: Smith und Randall (2015), S. 104, Abschn. 4: Bedeutung der
-% Motorlast und theoretische radiale Lagerbelastung.
-Die Motorlast darf dabei nicht mit einer entsprechend abgestuften radialen
-Lagerlast gleichgesetzt werden. Da zwischen der aufgebrachten Drehmomentlast
-und den Lagern kein Übertragungselement zur Erzeugung einer Radialkraft
-angeordnet ist, wirkt die Laststufe nach Smith und Randall primär auf die
-Wellendrehzahl. Als theoretische radiale Lagerlast verbleibt im Wesentlichen
-die statische Gewichtskraft von Welle und angebauten Komponenten
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 104, PDF-S. 5,
+% Abschn. 4: Motorlast als vom Dynamometer aufgebrachte Drehmomentlast,
+% fehlende Umwandlung in eine radiale Lagerlast und primärer Einfluss
+% auf die Wellendrehzahl.
+Die als Motorlast bezeichneten Stufen beschreiben die vom Dynamometer
+aufgebrachte Drehmomentbelastung und keine gezielt abgestufte radiale
+Belastung der Prüflager. Sie gehen vor allem mit unterschiedlichen
+Wellendrehzahlen einher
 \cite[S.~104, Abschn.~4]{smithRollingElementBearing2015}.
 
-% Quellenbasis: Case Western Reserve University (o. J.), Webseiten
-% „12k Drive End Bearing Fault Data“ und „Normal Baseline Data“, jeweilige
-% Datentabellen: Laststufen, Drehzahlen, Schadensgrößen und Dateikennzeichnungen.
-% Quellenbasis: Smith und Randall (2015), S. 126, Tab. A1--A2: Zuordnung der
-% Datensatznummern zu Drehzahl, Last, Schadensort und Schadensgröße.
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 126, PDF-S. 27,
+% Tab. A2; Case Western Reserve University (o. J.), Webseite
+% „12k Drive End Bearing Fault Data“: Laststufen und Drehzahlen.
 Den vier Laststufen sind in den 12-kHz-Daten der Antriebsseite ungefähre
-Drehzahlen von 1797, 1772, 1750 und 1730~min\textsuperscript{-1} zugeordnet.
-Für Innenring- und Wälzkörperschäden sind dort vier Schadensdurchmesser
-dokumentiert: 0,007, 0,014, 0,021 und 0,028~in. Außenringschäden mit 0,007
-und 0,021~in wurden an drei Positionen untersucht; für 0,014~in sind in dieser
-Gruppe nur Messungen an einer Position veröffentlicht
-\cite[S.~126, Tab.~A1--A2]{smithRollingElementBearing2015}
-\cite{12kDriveEnd,NormalBaselineData}.
+Drehzahlen von 1797, 1772, 1750 und
+1730~min\textsuperscript{-1} zugeordnet
+\cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}
+\cite{12kDriveEnd}.
 
-% Quellenbasis: Case Western Reserve University (o. J.), Webseite
-% „12k Drive End Bearing Fault Data“, Tabellenkopf: Lastzone bei 6 Uhr und
-% Positionsbezeichnungen centered, orthogonal und opposite.
-% Quellenbasis: Smith und Randall (2015), S. 103--104, Abschn. 3.2 und 4:
-% Zuordnung der Außenringpositionen und ausdrückliche Korrektur der abweichenden
-% Angabe auf einer Unterseite des CWRU-Webauftritts.
-Die Datentabelle des Bearing Data Center ordnet einen Außenringschaden bei
-6~Uhr dem Zentrum der Lastzone zu. Die Positionen bei 3 und 12~Uhr werden als
-orthogonal beziehungsweise gegenüberliegend bezeichnet \cite{12kDriveEnd}.
-Smith und Randall verwenden dieselbe Zuordnung und weisen ausdrücklich darauf
-hin, dass die abweichende Angabe auf einer Unterseite des CWRU-Webauftritts
-fehlerhaft ist \cite[S.~103--104, Abschn.~3.2 und 4]
-{smithRollingElementBearing2015}. Für die vorliegende Arbeit wird deshalb die
-mit der Datentabelle und der Benchmark-Studie übereinstimmende Zuordnung
-verwendet.
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 126, PDF-S. 27,
+% Tab. A2; Case Western Reserve University (o. J.), Webseite
+% „12k Drive End Bearing Fault Data“: Schadensgrößen.
+Für Innenring- und Wälzkörperschäden sind vier Schadensdurchmesser
+dokumentiert: 0,007~Zoll (0,18~mm), 0,014~Zoll (0,36~mm),
+0,021~Zoll (0,53~mm) und 0,028~Zoll (0,71~mm)
+\cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}
+\cite{12kDriveEnd}.
+
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 126, PDF-S. 27,
+% Tab. A2; Case Western Reserve University (o. J.), Webseite
+% „12k Drive End Bearing Fault Data“: Außenringpositionen.
+Außenringschäden mit einem Durchmesser von 0,007~Zoll (0,18~mm) und
+0,021~Zoll (0,53~mm) wurden an den drei Positionen 6, 3 und 12~Uhr
+untersucht. Für 0,014~Zoll (0,36~mm) sind in dieser Messreihe nur
+Aufzeichnungen bei 6~Uhr veröffentlicht
+\cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}
+\cite{12kDriveEnd}.
+
+% Eigene methodische Festlegung: Die drei Schadenspositionen werden in der
+% Evaluation nicht als separate Zustandsklassen behandelt.
+In der Evaluation bilden die drei Positionen keine eigenen Zustandsklassen,
+sondern werden gemeinsam der Klasse Außenringschaden zugeordnet.
 
 % Quellenbasis: Case Western Reserve University (o. J.), Webseiten
-% „12k Drive End Bearing Fault Data“ und „Normal Baseline Data“, Datentabellen:
-% systematische Dateinamen der Zustände, Schadensgrößen, Positionen und Lasten.
-Die Dateinamen bilden diese Versuchsbedingungen ab. Beispielsweise bezeichnet
-\texttt{IR007\_0} einen Innenringschaden mit 0,007~in Durchmesser bei der
-Laststufe 0. Bei Außenringschäden enthält der Dateiname zusätzlich die Position,
-etwa \texttt{OR021@6\_3} für einen Schaden mit 0,021~in Durchmesser bei 6~Uhr
-und der Laststufe 3. Die vier fehlerfreien Referenzmessungen sind entsprechend
-als \texttt{Normal\_0} bis \texttt{Normal\_3} gekennzeichnet
-\cite{12kDriveEnd,NormalBaselineData}.
+% „12k Drive End Bearing Fault Data“ und „Normal Baseline Data“:
+% systematische Tabellenbezeichnungen der Messungen.
+Die CWRU-Datentabellen verwenden systematische Bezeichnungen für die
+Messungen. Der Eintrag \texttt{IR007\_0} bezeichnet einen Innenringschaden
+mit einem Durchmesser von 0,007~Zoll (0,18~mm) bei der Laststufe 0.
+Der Eintrag \texttt{OR021@6\_3} bezeichnet einen Außenringschaden mit
+einem Durchmesser von 0,021~Zoll (0,53~mm) bei 6~Uhr und der Laststufe 3
+\cite{12kDriveEnd}. Die vier fehlerfreien Referenzmessungen werden in der
+Datentabelle als \texttt{Normal\_0} bis \texttt{Normal\_3} bezeichnet
+\cite{NormalBaselineData}.
 
 \paragraphheading{Auswahl für die zusätzliche Evaluation}
 
-% Eigene methodische Festlegung auf Grundlage der Zielklassen aus
-% Abschnitt~\ref{sec:untersuchungsrahmen}; Codebasis: cm_pipeline_validation,
-% experiments/evaluate_cwru.py, DATA_DIRS und collect_files, Z. 27--33 und
-% 47--65; Ergebnisartefakt: data/results/cwru_paderborn_params_results.csv,
-% Z. 2--41. Datensatzgrundlage: Case Western Reserve University (o. J.),
-% Tabellen „12k Drive End Bearing Fault Data“ und „Normal Baseline Data“.
-Die zusätzliche CWRU-Evaluation umfasst den DE-Kanal von 40 Messaufzeichnungen.
-Ausgewertet werden die vier fehlerfreien Referenzmessungen, zwölf
-Innenringmessungen und 24 Außenringmessungen. Die Innenringschäden besitzen
-Durchmesser von 0,007, 0,014 oder 0,021~in und liegen jeweils für alle vier
-Laststufen vor. Bei den Außenringschäden werden die Durchmesser 0,007 und
-0,021~in an den Positionen 6, 3 und 12~Uhr sowie ebenfalls bei allen vier
-Laststufen berücksichtigt
+% Eigene Methode/Implementierung: cm_pipeline_validation,
+% experiments/evaluate_cwru.py, DATA_DIRS und collect_files, Z. 27--65;
+% utils/io.py, get_keys und load_signal_cwru, Z. 4--31;
+% Ergebnisartefakt: data/results/cwru_paderborn_params_results.csv,
+% Z. 2--41. Das Ergebnisartefakt belegt den aktuellen Lauf mit 40 Dateien,
+% davon 4 mit Referenzzustand, 12 mit Innenring- und 24 mit
+% Außenringschaden. Die von collect_files ermittelten 40 eindeutigen Pfade
+% stimmen vollständig mit den 40 eindeutigen Dateien des Ergebnisartefakts
+% überein; sämtliche Ergebniszeilen besitzen den Status ok. Das Artefakt
+% ersetzt jedoch keine dauerhaft festgelegte Dateiliste.
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 126, Tab. A1--A2:
+% Referenzgruppe, 12-kHz-DE-Fehlergruppe, Laststufen, Schadensgrößen und
+% Außenringpositionen. Case Western Reserve University (o. J.), Tabellen
+% „12k Drive End Bearing Fault Data“ und „Normal Baseline Data“:
+% Dateikennzeichnungen und Versuchsbedingungen.
+Die zusätzliche CWRU-Evaluation umfasst 40 Messdateien; aus jeder Datei wird
+der DE-Kanal geladen. Ausgewählt werden vier fehlerfreie Referenzmessungen,
+zwölf Innenringmessungen und 24 Außenringmessungen. Die Innenringschäden
+besitzen Durchmesser von 0,007, 0,014 oder 0,021~Zoll, entsprechend etwa
+$0{,}18~\mathrm{mm}$, $0{,}36~\mathrm{mm}$ oder
+$0{,}53~\mathrm{mm}$, und liegen jeweils für
+alle vier Laststufen vor. Bei den Außenringschäden werden die Durchmesser
+0,007 und 0,021~Zoll, entsprechend etwa $0{,}18~\mathrm{mm}$ und
+$0{,}53~\mathrm{mm}$, an den Positionen 6, 3 und 12~Uhr sowie ebenfalls
+bei allen vier Laststufen berücksichtigt
 \cite[S.~126, Tab.~A1--A2]{smithRollingElementBearing2015}
 \cite{12kDriveEnd,NormalBaselineData}.
+Tabelle~\ref{tab:cwru_evaluationsauswahl} führt die tatsächlich verwendeten
+Dateigruppen zusammen.
 
-% Eigene methodische Festlegung; Codebasis: cm_pipeline_validation,
-% experiments/evaluate_cwru.py, load_trained_parameters und main, Z. 18 und
-% 180--193; Ergebnisartefakt:
-% data/results/cwru_paderborn_params_summary.csv, Z. 2.
-Die CWRU-Aufzeichnungen werden mit den Parametern ausgewertet, die zuvor anhand
-der Paderborner Trainingsmenge bestimmt wurden. Ergebnisse der CWRU-Auswertung
-fließen nicht in eine erneute Parametrierung ein. Die Auswertung prüft damit
-ergänzend, wie sich die festgelegte Pipeline auf einen anderen Prüfstand und
-eine andere Lagerbauart übertragen lässt.
+% Eigene Methode/Implementierung: cm_pipeline_validation,
+% experiments/evaluate_cwru.py, DATA_DIRS und collect_files, Z. 27--65;
+% aktuelles Dateiinventar unter data/inner_race, data/outer_race und
+% data/normal; Ergebnisartefakt:
+% data/results/cwru_paderborn_params_results.csv, Z. 2--41. Geprüfter Umfang:
+% 40 eindeutige Messdateien, davon 4 fehlerfrei, 12 mit Innenring- und 24 mit
+% Außenringschaden; alle 40 Dateien stimmen zwischen collect_files und dem
+% Ergebnisartefakt überein.
+% Quellenbasis für Dateibezeichnungen, Schadensgrößen, Positionen und
+% Laststufen: Smith und Randall (2015), gedruckte S. 126, Tab. A1--A2;
+% Case Western Reserve University (o. J.), Webseiten „12k Drive End Bearing
+% Fault Data“ und „Normal Baseline Data“.
+\begin{table}[H]
+  \centering
+  \caption{Für die zusätzliche CWRU-Evaluation verwendete Messdateien
+  \cite[S.~126, Tab.~A1--A2]{smithRollingElementBearing2015}
+  \cite{12kDriveEnd,NormalBaselineData}}
+  \label{tab:cwru_evaluationsauswahl}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{|
+    >{\raggedright\arraybackslash}p{1.8cm}|
+    >{\raggedright\arraybackslash}X|
+    >{\raggedright\arraybackslash}p{2.7cm}|
+    >{\centering\arraybackslash}p{2.1cm}|
+    >{\raggedleft\arraybackslash}p{1.0cm}|}
+    \hline
+    \textbf{Zielklasse} & \textbf{Dateikennzeichnungen} &
+    \textbf{Schadensgröße} & \textbf{Position} & \textbf{Anzahl} \\
+    \hline
+    fehlerfrei & \texttt{Normal\_0} bis \texttt{Normal\_3} & -- & -- & 4 \\
+    \hline
+    Innenring & \texttt{IR007\_0} bis \texttt{IR007\_3} &
+    0,007~Zoll ($0{,}18~\mathrm{mm}$) & -- & 4 \\
+    \hline
+    Innenring & \texttt{IR014\_0} bis \texttt{IR014\_3} &
+    0,014~Zoll ($0{,}36~\mathrm{mm}$) & -- & 4 \\
+    \hline
+    Innenring & \texttt{IR021\_0} bis \texttt{IR021\_3} &
+    0,021~Zoll ($0{,}53~\mathrm{mm}$) & -- & 4 \\
+    \hline
+    Außenring & \texttt{OR007@6}, \texttt{OR007@3} und
+    \texttt{OR007@12}, jeweils mit den Suffixen \texttt{\_0} bis
+    \texttt{\_3} & 0,007~Zoll ($0{,}18~\mathrm{mm}$) &
+    6, 3 und 12~Uhr & 12 \\
+    \hline
+    Außenring & \texttt{OR021@6}, \texttt{OR021@3} und
+    \texttt{OR021@12}, jeweils mit den Suffixen \texttt{\_0} bis
+    \texttt{\_3} & 0,021~Zoll ($0{,}53~\mathrm{mm}$) &
+    6, 3 und 12~Uhr & 12 \\
+    \hline
+    \multicolumn{4}{|r|}{\textbf{Gesamt}} & \textbf{40} \\
+    \hline
+  \end{tabularx}
+\end{table}
 
-% Eigene Abgrenzung gemäß Abschnitt~\ref{sec:untersuchungsrahmen}.
-Wälzkörperschäden, antriebsseitige Fehlermessungen mit 48~kHz,
-lüfterseitige Fehlermessungen sowie die Schadensdurchmesser 0,028~in werden
-nicht einbezogen. Die Ergebnisse gelten daher nur für die ausgewählten
-40 Aufzeichnungen.
+% Eigene Methode/Implementierung: cm_pipeline_validation,
+% experiments/evaluate_cwru.py, Import von load_trained_parameters,
+% evaluate_files und main, Z. 18 und 123--193;
+% experiments/evaluate_paderborn.py, load_trained_parameters, Z. 35--60;
+% Ergebnisartefakt: data/results/cwru_paderborn_params_summary.csv, Z. 2,
+% parameter_source=paderborn_param_search.csv.
+Die CWRU-Aufzeichnungen werden ausschließlich mit den Parametern ausgewertet,
+die zuvor anhand der Paderborner Trainingsmenge bestimmt wurden. Die
+CWRU-Daten werden nicht zur Parameterwahl verwendet.
 
-% OFFEN: experiments/evaluate_cwru.py setzt FS derzeit für alle Dateien auf
-% 12 kHz (Z. 26), obwohl die vier fehlerfreien Referenzmessungen laut Smith und
-% Randall (2015), S. 103 und 126, zur 48-kHz-Gruppe gehören. Vor der finalen
-% CWRU-Evaluation ist entweder eine dokumentierte Abtastratenbehandlung zu
-% implementieren oder die Auswahl entsprechend anzupassen.
+% Eigene methodische Abgrenzung; Dateiinventar und Codebasis:
+% cm_pipeline_validation/data sowie experiments/evaluate_cwru.py,
+% DATA_DIRS und collect_files, Z. 27--65.
+Nicht berücksichtigt werden Wälzkörperschäden, antriebsseitige
+Fehlermessungen mit 48~kHz, lüfterseitige Fehlermessungen,
+Innenringschäden mit 0,028~Zoll (etwa $0{,}71~\mathrm{mm}$) sowie
+zentrierte Außenringschäden mit 0,014~Zoll (etwa
+$0{,}36~\mathrm{mm}$). Die Ergebnisse beziehen sich daher ausschließlich
+auf die ausgewählten 40 Messdateien.
+
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 110,
+% Abschn. 6.3.3: überwiegend nicht erfolgreiche Diagnosen der vier
+% zentrierten 0,014-Zoll-Außenringreihen und nur teilweise Diagnose von
+% Datensatz 197; gedruckte S. 124, Abschn. 6.7: Eignung nicht
+% diagnostizierbarer Aufzeichnungen als robuster Test neuer Verfahren;
+% gedruckte S. 128, Tab. B2: Diagnoseergebnisse der Datensätze 197--200.
+% Eigene methodische Festlegung: Aufgrund der überwiegend fehlenden
+% Diagnostizierbarkeit mit den von Smith und Randall angewandten
+% Referenzverfahren werden die vier Aufzeichnungen nicht in die primäre
+% CWRU-Evaluation aufgenommen. Dies ist keine Einstufung als ungültige Daten.
+Smith und Randall berichten, dass der überwiegende Teil der vier zentrierten
+Außenringmessreihen mit 0,014~Zoll von den durch sie angewandten Verfahren
+nicht diagnostiziert werden konnte; nur für Datensatz 197 wurde eine teilweise
+Diagnose erreicht
+\cite[S.~110, Abschn.~6.3.3; S.~128, Tab.~B2]
+{smithRollingElementBearing2015}. Aufgrund dieser überwiegend fehlenden
+Diagnostizierbarkeit mit den angewandten Referenzverfahren werden die vier
+Aufzeichnungen in der vorliegenden Arbeit nicht als Bestandteil der primären
+CWRU-Evaluation verwendet. Smith und Randall bewerten nicht diagnostizierbare
+Aufzeichnungen jedoch als möglichen robusten Test für neue Diagnoseverfahren
+\cite[S.~124, Abschn.~6.7]{smithRollingElementBearing2015}. Die vier
+ausgeschlossenen Dateien bleiben deshalb für eine gesonderte spätere
+Stresstest-Auswertung vorgesehen.
+
+% Quellenbasis: Smith und Randall (2015), gedruckte S. 103, Abschn. 3.2,
+% und S. 126, Tab. A1--A2: 48-kHz-Referenzgruppe und
+% 12-kHz-DE-Fehlergruppe.
+Die vier fehlerfreien Referenzmessungen gehören zur 48-kHz-Gruppe, während
+die ausgewählten Fehlermessungen mit 12~kHz erfasst wurden
+\cite[S.~103, Abschn.~3.2; S.~126, Tab.~A1--A2]
+{smithRollingElementBearing2015}.
+
+\textbf{TODO: In der CWRU-Auswertung muss für die vier fehlerfreien
+Referenzmessungen die Abtastrate auf 48~kHz umgestellt und die Auswertung
+einschließlich der Ergebnisartefakte erneut ausgeführt werden.}
+
+% OFFEN: collect_files übernimmt derzeit jede MAT-Datei aus den konfigurierten
+% Verzeichnissen. Die hier dokumentierten 40 Dateien sind vor der finalen
+% Evaluation durch eine explizite, versionierte Auswahlliste festzuschreiben.
 
 %================================================================================================
 %       3.4 Vergleich und Eignung der Datengrundlage
