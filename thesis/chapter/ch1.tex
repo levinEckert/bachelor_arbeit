@@ -140,8 +140,12 @@ Zur Beantwortung der Hauptforschungsfrage werden folgende Teilfragen untersucht:
 \begin{enumerate}
     \item Welche Schritte der Signalaufbereitung und Merkmalsextraktion eignen sich,
           um Unterschiede zwischen den betrachteten Lagerzuständen hervorzuheben?
-    \item In welchem Umfang kann die entwickelte Pipeline die in den Referenzdatensätzen
-          gekennzeichneten fehlerfreien und geschädigten Lagerzustände unterscheiden?
+    \item In welchem Umfang kann die entwickelte Pipeline in den ausgewählten
+          Evaluationsdaten zwischen fehlerfreien Lagern, Innenringschäden und
+          Außenringschäden unterscheiden?
+    \item In welchem Umfang kann die anhand künstlich erzeugter Lagerschäden
+          parametrierte Pipeline real entstandene Schäden erkennen und dem
+          Innen- beziehungsweise Außenring zuordnen?
     \item Welche Einschränkungen ergeben sich aus der verwendeten Datenbasis und Methodik
           für eine spätere Übertragung auf industrielle Maschinen?
 \end{enumerate}
@@ -174,14 +178,17 @@ ersetzen jedoch keine betriebliche Instandhaltungsentscheidung.
 
 Kapitel~\ref{ch:grundlagen} behandelt die fachlichen Grundlagen der Instandhaltung,
 Zustandsüberwachung, Schwingungsanalyse und digitalen Signalverarbeitung.
-Kapitel~\ref{ch:analyse} beschreibt die verwendeten Referenzdatensätze
+Kapitel~\ref{ch:datenbasis} beschreibt die verwendeten Referenzdatensätze
 und leitet daraus die Anforderungen an die Verarbeitungspipeline ab.
 Darauf aufbauend stellt Kapitel~\ref{ch:konzept}
-das methodische und softwaretechnische Konzept der Pipeline vor.
+die Untersuchungsstrategie, die begründete Methodenauswahl
+und das Evaluationskonzept der Pipeline vor.
 Kapitel~\ref{ch:implementierung} erläutert dessen Implementierung
 von der Datenaufbereitung über die Merkmalsextraktion bis zur Fehlerindikation.
-Kapitel~\ref{ch:evaluation} evaluiert die Pipeline
-und diskutiert die erzielten Ergebnisse sowie deren Grenzen.
+Kapitel~\ref{ch:evaluation} beschreibt die durchgeführten Versuche
+und stellt die Ergebnisse der Komponentenvalidierung und der Gesamtpipeline dar.
+Kapitel~\ref{ch:diskussion} bewertet die Aussagekraft der Ergebnisse,
+ordnet die methodischen Grenzen ein und untersucht die industrielle Übertragbarkeit.
 Kapitel~\ref{ch:schlussbetrachtung} fasst die Arbeit abschließend zusammen
 und zeigt mögliche Weiterentwicklungen und Schritte
 für eine spätere industrielle Übertragung auf.

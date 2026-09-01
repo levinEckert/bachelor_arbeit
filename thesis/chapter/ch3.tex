@@ -994,485 +994,220 @@ Rahmen der Evaluation ermittelt.
 
 \paragraphheading{Datenanforderungen}
 
-% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 3, Abschn. 2
-% und Tab. 1: Die internen Geometrieparameter sind nicht standardisiert,
-% unterscheiden sich zwischen Herstellern und werden zur Berechnung
-% charakteristischer Frequenzen benötigt.
-Die Lagerbezeichnung 6203 legt die internen Geometrieparameter nicht eindeutig
-fest. Lessmeier et al. ordnen diese Parameter den herstellerspezifischen
-Lagerangaben zu und weisen darauf hin, dass sie nicht standardisiert sind und
-zwischen Herstellern variieren
-\cite[S.~3, Abschn.~2 und Tab.~1]
-{lessmeierConditionMonitoringBearing2016}. Für die Berechnung
-charakteristischer Lagerfrequenzen ist daher die dokumentierte Geometrie des
-jeweiligen Lagers zu verwenden
-\cite[S.~3, Abschn.~2 und Tab.~1]
-{lessmeierConditionMonitoringBearing2016}.
-
-% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 6, Tab. 5:
-% KA15 besitzt einen Außenringschaden durch plastische Verformung in Form
-% von Eindrückungen; gedruckte/PDF-S. 9, Abschn. 5: Die Dateinamen bilden
-% Betriebsbedingung, Lagercode und Wiederholungsnummer ab, während die
-% vollständige Schadensbeschreibung in einheitlichen Lagerprofilen erfolgt.
-Die Schadensklassifikation darf ebenfalls nicht allein aus dem Lager- oder
-Dateicode abgeleitet werden. Tabelle 5 von Lessmeier et al. ordnet KA15 dem
-Außenring zu, klassifiziert den Schaden jedoch als plastische Verformung durch
-Eindrückungen und nicht als Pitting
-\cite[S.~6, Tab.~5]{lessmeierConditionMonitoringBearing2016}. Die Dateinamen
-bilden Betriebsbedingung, Lagercode und Wiederholungsnummer ab; die
-Schadensmerkmale werden dagegen in einheitlichen Lagerprofilen dokumentiert
-\cite[S.~9, Abschn.~5]{lessmeierConditionMonitoringBearing2016}.
-
-% Eigene methodische Ableitung aus den vorstehenden Quellen und den lokalen
-% Lagerprofilen: Geometrie- und Schadensmerkmale werden aus der jeweiligen
-% Originaldokumentation übernommen. Die Referenzklasse wird getrennt davon in
-% der freigegebenen Auswahlliste festgelegt.
-Für die Datenübernahme sind deshalb die Geometrie und, bei geschädigten
-Lagern, Schadensmechanismus, Schadensort und Ausprägung anhand der jeweiligen
-Lagerdokumentation zu prüfen. Die Referenzklasse jeder Messung ist in einer
-freigegebenen Auswahlliste mit Angabe der verwendeten Dokumentationsquelle
-festzuhalten.
+Die Datenanforderungen beschreiben die Schnittstelle zwischen den Datensätzen
+und der Verarbeitungspipeline. Sie legen fest, welche Informationen beim
+Import einer Messung übernommen werden müssen, damit die nachfolgenden
+Verarbeitungsschritte vollständige und fachlich passende Eingaben erhalten.
+Da CWRU und Paderborn Signale und Begleitinformationen unterschiedlich
+organisieren, erfolgt ihre Übernahme zunächst datensatzspezifisch. Anschließend
+stehen der Pipeline ein Schwingungssignal mit Abtastrate, eine repräsentative
+Drehzahl, die passende Lagergeometrie sowie eine Referenzklasse zur Verfügung.
+Damit betreffen die Datenanforderungen die Eingangsseite der Pipeline; die
+darauffolgenden funktionalen Anforderungen beschreiben dagegen deren
+Verarbeitungsschritte. Tabelle~\ref{tab:anforderungen_daten} fasst die
+Festlegungen für die Datenübernahme zusammen.
 
 \begin{longtable}{|
     >{\footnotesize\raggedright\arraybackslash}p{1.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{5.1cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{4.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{3.1cm}|}
-  \caption{Abgeleitete Datenanforderungen}
+    >{\footnotesize\raggedright\arraybackslash}p{7.0cm}|
+    >{\footnotesize\raggedright\arraybackslash}p{5.2cm}|}
+  \caption{Datenanforderungen für die Übernahme in die Pipeline}
   \label{tab:anforderungen_daten} \\
     \hline
-    \textbf{ID} & \textbf{Anforderung} & \textbf{Herleitung} &
-    \textbf{Vorgesehener Nachweis} \\
+    \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{ID} & \textbf{Anforderung} & \textbf{Herleitung} &
-    \textbf{Vorgesehener Nachweis} \\
+    \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
     \hline
     \endhead
-    % Eigene methodische Ableitung aus Smith und Randall (2015), gedruckte
-    % S. 103, Abschn. 3.1--3.2, und S. 126--127, Tab. A1--A4, sowie
-    % Lessmeier et al. (2016), gedruckte/PDF-S. 7--9, Abschn. 4.1--5.
-    D-01 & Jeder Auswertung muss genau eine Schwingungszeitreihe mit
-    dokumentiertem Kanal, dokumentierter Signallänge und nativer Abtastrate
+    % Eigene methodische Festlegung auf Grundlage der in
+    % Tabelle~\ref{tab:vergleich_datensaetze} beschriebenen Messkanäle und
+    % Abtastraten.
+    D-01 & Für jede Auswertung muss der festgelegte Schwingungskanal mit der
+    für die jeweilige Dateigruppe gültigen Abtastrate an die Pipeline
+    übergeben werden. &
+    Verwendet werden der DE-Kanal der CWRU-Daten und der Kanal
+    \texttt{vibration\_1} der Paderborn-Daten. Die Abtastrate wird nicht für
+    jede Datei neu bestimmt, sondern entsprechend der Dateigruppe mit 12~kHz
+    oder 48~kHz bei CWRU beziehungsweise fest mit 64~kHz bei Paderborn
+    konfiguriert. \\
+    \hline
+    % Eigene methodische Festlegung auf Grundlage der in
+    % Tabelle~\ref{tab:vergleich_datensaetze} beschriebenen
+    % Drehzahlinformationen.
+    D-02 & Jeder ausgewerteten Zeitreihe muss eine repräsentative Drehzahl
     zugeordnet sein. &
-    Der CWRU-Datensatz enthält Gehäusebeschleunigungen mit gruppenspezifischen
-    Abtastraten von 12 oder 48 kHz
-    \cite[S.~103, Abschn.~3.1--3.2; S.~126--127, Tab.~A1--A4]
-    {smithRollingElementBearing2015}. Im Paderborner Datensatz wird die
-    Gehäusebeschleunigung mit 64 kHz aufgezeichnet
-    \cite[S.~7, Abschn.~4.1]{lessmeierConditionMonitoringBearing2016}. &
-    Importtest sowie Protokollierung von Quelldatei, Kanal, Signallänge und
-    Abtastrate. \\
+    Der Import stellt der Pipeline in beiden Fällen einen skalaren
+    Drehzahlwert bereit. Bei CWRU wird der einzelne, der Messung zugeordnete
+    Wert aus der MAT-Datei verwendet. Bei Paderborn wird aus dem
+    zeitaufgelösten Kanal \texttt{speed} der Median gebildet. \\
     \hline
-    % Eigene methodische Ableitung aus Smith und Randall (2015), gedruckte
-    % S. 102, Gleichungen zu BPFO, BPFI, FTF und BSF, sowie S. 103 und
-    % S. 126--127; Lessmeier et al. (2016), gedruckte/PDF-S. 7--8.
-    D-02 & Der ausgewerteten Zeitreihe muss eine Drehzahlinformation für den
-    betrachteten Messzeitraum zugeordnet sein. Ob eine zeitaufgelöste Drehzahl
-    oder ein repräsentativer Wert verwendet wird, ist zu dokumentieren. &
-    Die Gleichungen der charakteristischen Lagerfrequenzen enthalten die
-    Wellendrehfrequenz
-    \cite[S.~102, Gleichungen zu BPFO, BPFI, FTF und BSF]
-    {smithRollingElementBearing2015}. CWRU dokumentiert messungsbezogene
-    Drehzahlwerte, während Paderborn ein synchron gemessenes Drehzahlsignal
-    bereitstellt
-    \cite[S.~103, Abschn.~3.2; S.~126--127, Tab.~A1--A4]
-    {smithRollingElementBearing2015}
-    \cite[S.~7--8, Abschn.~4.1--4.2]
-    {lessmeierConditionMonitoringBearing2016}. &
-    Metadatenprüfung und Dokumentation der verwendeten Drehzahlableitung. \\
+    % Eigene methodische Festlegung aus den für die Berechnung der
+    % Lagerfrequenzen benötigten Geometriegrößen.
+    D-03 & Für jedes Prüflager muss das zugehörige Geometrieprofil für die
+    Berechnung der Lagerfrequenzen ausgewählt werden. &
+    Für CWRU wird das Profil des SKF~6205-2RS~JEM verwendet. Bei Paderborn
+    wird die Herstellerzuordnung einmalig anhand der Lagerdatenblätter
+    vorgenommen und in einer Zuordnungstabelle hinterlegt. Der Lagercode dient
+    im Programm lediglich als Schlüssel für die Auswahl des dort hinterlegten
+    FAG- beziehungsweise MTK/IBU-Profils. \\
     \hline
-    % Eigene methodische Ableitung aus Lessmeier et al. (2016), gedruckte/
-    % PDF-S. 3, Abschn. 2 und Tab. 1, sowie den Lagerprofilen der zwölf in
-    % Tab.~\ref{tab:paderborn_auswahl} aufgeführten Lager, jeweils S. 1.
-    D-03 & Für jedes Prüflager müssen Wälzkörperzahl, Wälzkörperdurchmesser,
-    Teilkreisdurchmesser und Kontaktwinkel aus einer nachvollziehbaren
-    Lagerdokumentation vorliegen. &
-    Die internen Geometrieparameter sind herstellerspezifisch und werden zur
-    Berechnung charakteristischer Lagerfrequenzen benötigt
-    \cite[S.~3, Abschn.~2 und Tab.~1]
-    {lessmeierConditionMonitoringBearing2016}. &
-    Abgleich der konfigurierten Geometrie mit dem zugeordneten Datenblatt oder
-    Lagerprofil. \\
-    \hline
-    % Eigene methodische Ableitung aus Smith und Randall (2015), gedruckte
-    % S. 103, Abschn. 3.2 und Tab. 1--2, sowie Lessmeier et al. (2016),
-    % gedruckte/PDF-S. 3--6, Abschn. 2--3 und Tab. 1, 4--5.
-    D-04 & Jede Messung muss vor ihrer Verwendung einer dokumentierten
-    Referenzklasse zugeordnet werden. Für geschädigte Lager sind zusätzlich
-    Lagercode, Schadensmechanismus, Schadensort und Ausprägung festzuhalten.
-    Die Zuordnung darf nicht ausschließlich aus einem Dateipräfix oder aus
-    Programmcode stammen. &
-    CWRU unterscheidet Fehlerart, Fehlergröße und Fehlerposition
-    \cite[S.~103, Abschn.~3.2 und Tab.~1--2]
-    {smithRollingElementBearing2015}. Paderborn dokumentiert unterschiedliche
-    Schadensmechanismen, Schadensorte und Ausprägungsstufen
-    \cite[S.~3--6, Abschn.~2--3 und Tab.~1, 4--5]
-    {lessmeierConditionMonitoringBearing2016}. &
-    Freigegebene Auswahlliste mit Quelle der Kennzeichnung und begründeten
-    Ein- und Ausschlüssen. \\
-    \hline
-    % Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 8--9,
-    % Abschn. 4.2--5: Wiederholungen und Dateinamenschema.
-    % Eigene Datensatzprüfung: cm_pipeline_validation/data/paderborn/KA04/
-    % KA04/measuring_log_KA04.pdf, S. 1, "remarks": Aufzeichnung 17 wurde
-    % durch eine Kopie der Aufzeichnung 18 ersetzt.
-    D-05 & Für jede Messung müssen Datensatz, Lager, Betriebsbedingung und
-    Wiederholungsnummer rückverfolgbar sein. Dokumentierte fehlerhafte oder
-    unvollständige Aufzeichnungen und inhaltliche Duplikate sind vor der
-    Auswertung zu kennzeichnen und nach einer festgelegten Regel zu behandeln. &
-    Paderborn enthält je Betriebsbedingung 20 Wiederholungen und bildet
-    Betriebsbedingung, Lagercode und Wiederholungsnummer im Dateinamen ab
-    \cite[S.~8--9, Abschn.~4.2--5]
-    {lessmeierConditionMonitoringBearing2016}. Das Messprotokoll zu KA04
-    dokumentiert zudem den Ersatz einer Aufzeichnung durch die Kopie einer
-    anderen Aufzeichnung. &
-    Dateninventar, Integritätsprüfung und dokumentiertes Ausschluss- oder
-    Korrekturprotokoll. \\
-    \hline
-    % Eigene methodische Ableitung aus den belegten unterschiedlichen Kanal-,
-    % Abtastraten- und Metadatenorganisationen der beiden Datensätze.
-    D-06 & Datensatzspezifische Eingaben müssen in eine einheitliche interne
-    Repräsentation überführt werden. Auswahl, Skalierung und sonstige
-    Umformungen des Signals sind offenzulegen; die Quelldateien bleiben
-    unverändert. &
-    CWRU ordnet Kanäle, Abtastraten und Metadaten datensatzgruppenbezogen zu
-    \cite[S.~103, Abschn.~3.1--3.2; S.~126--127, Tab.~A1--A4]
-    {smithRollingElementBearing2015}. Paderborn speichert Schwingungs- und
-    Betriebsinformationen als synchron erfasste Messgrößen
-    \cite[S.~7--9, Abschn.~4.1--5]
-    {lessmeierConditionMonitoringBearing2016}. &
-    Datensatzspezifische Importtests und dokumentierte
-    Schnittstellenbeschreibung. \\
+    % Eigene methodische Festlegung auf Grundlage der dokumentierten
+    % Auswahllisten in den Tabellen~\ref{tab:paderborn_auswahl} und
+    % \ref{tab:cwru_evaluationsauswahl}.
+    D-04 & Jede ausgewertete Messung muss einer der drei Referenzklassen
+    \enquote{fehlerfrei}, \enquote{Innenringschaden} oder
+    \enquote{Außenringschaden} zugeordnet und über ihre Quelldatei
+    rückverfolgbar sein. &
+    Die Zuordnung folgt den dokumentierten Namenskonventionen: bei CWRU den
+    Dateipräfixen \texttt{normal}, \texttt{IR} und \texttt{OR}, bei Paderborn
+    den Lagercodes \texttt{K}, \texttt{KI} und \texttt{KA}. Die berücksichtigten
+    Lager und Dateigruppen sind in den Tabellen~\ref{tab:paderborn_auswahl} und
+    \ref{tab:cwru_evaluationsauswahl} festgelegt; die Ergebnisdateien enthalten
+    den Quelldateinamen und die zugeordnete Referenzklasse. \\
     \hline
 \end{longtable}
+
+\textbf{TODO -- Vor der finalen CWRU-Evaluation ist die Abtastrate im
+Auswertungscode dateigruppenspezifisch zuzuordnen. Der aktuelle Stand verwendet
+noch 12~kHz für alle CWRU-Dateien, obwohl die einbezogenen Referenzmessungen mit
+48~kHz vorliegen.}
 
 \paragraphheading{Funktionale und qualitative Anforderungen}
 
-% Eigene methodische Ableitung aus der Hauptforschungsfrage in
-% Abschnitt~\ref{sec:zielsetzung}, den Zielklassen in
-% Abschnitt~\ref{sec:untersuchungsrahmen} und den theoretischen Grundlagen in
-% den Abschnitten~\ref{sec:waelzlagerdiagnose} bis
-% \ref{sec:huellkurvenanalyse}. Die Anforderungen beschreiben keine bereits
-% realisierte oder validierte Implementierung.
-Die funktionalen Anforderungen konkretisieren den in
-Abschnitt~\ref{sec:zielsetzung} festgelegten Verarbeitungsweg von den
-Schwingungsdaten bis zur nachvollziehbaren Fehlerindikation. Sie definieren
-erforderliche Funktionen, legen jedoch weder ein bestimmtes Verfahren zur
-Signaltrennung noch ein bestimmtes Verfahren zur Bandauswahl fest. Die
-Auswahl und Begründung dieser Verfahren bleibt damit Gegenstand von
-Kapitel~\ref{ch:konzept}.
+Die folgenden Anforderungen fassen die zuvor beschriebenen Ziele und
+Rahmenbedingungen für die Pipeline zusammen. Funktionale Anforderungen (F)
+beschreiben die erforderlichen Funktionen, qualitative Anforderungen (Q) die
+gewünschten Eigenschaften der Umsetzung. Die Auswahl und Ausgestaltung der
+dafür eingesetzten Verfahren erfolgt in Kapitel~\ref{ch:konzept}.
 
 \begin{longtable}{|
-    >{\scriptsize\raggedright\arraybackslash}p{1.0cm}|
-    >{\scriptsize\raggedright\arraybackslash}p{5.1cm}|
-    >{\scriptsize\raggedright\arraybackslash}p{4.0cm}|
-    >{\scriptsize\raggedright\arraybackslash}p{3.1cm}|}
+    >{\footnotesize\raggedright\arraybackslash}p{1.0cm}|
+    >{\footnotesize\raggedright\arraybackslash}p{8.0cm}|
+    >{\footnotesize\raggedright\arraybackslash}p{4.2cm}|}
   \caption{Funktionale und qualitative Anforderungen}
   \label{tab:anforderungen_funktional} \\
     \hline
-    \textbf{ID} & \textbf{Anforderung} & \textbf{Herleitung} &
-    \textbf{Vorgesehener Nachweis} \\
+    \textbf{ID} & \textbf{Anforderung} & \textbf{Überprüfung} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{ID} & \textbf{Anforderung} & \textbf{Herleitung} &
-    \textbf{Vorgesehener Nachweis} \\
+    \textbf{ID} & \textbf{Anforderung} & \textbf{Überprüfung} \\
     \hline
     \endhead
-    % Eigene methodische Anforderung aus der Hauptforschungsfrage in
-    % Abschnitt~\ref{sec:zielsetzung}: modulare Pipeline von den
-    % Schwingungsdaten bis zur nachvollziehbaren Fehlerindikation.
-    F-01 & Die Pipeline muss eine ausgewählte Messung mit einer expliziten
-    Konfiguration vollständig vom Datenimport bis zur Fehlerindikation
-    verarbeiten können. & Die Hauptforschungsfrage verlangt eine modulare
-    Pipeline, die aus Schwingungsdaten eine nachvollziehbare Fehlerindikation
-    ableitet. & Dokumentierter Gesamtlauf und Ergebnisartefakt in
-    Abschnitt~\ref{sec:pipelineergebnisse}. \\
+    % Implementierung: core/pipeline.py, run_pipeline; experiments/
+    % evaluate_paderborn.py und evaluate_cwru.py.
+    F-01 & Eine ausgewählte Messdatei muss mit den zugehörigen Parametern
+    vollständig vom Einlesen bis zur Fehlererkennung verarbeitet werden
+    können. & Ausführung der Pipeline für die ausgewählten Paderborner und
+    CWRU-Messungen; Auswertung in Abschnitt~\ref{sec:pipelineergebnisse}. \\
     \hline
-    % Quellenbasis: Smith und Randall (2015), gedruckte S. 102, PDF-S. 3,
-    % Abschn. 2, Gleichungsblock und Nomenklatur: BPFO und BPFI als Funktionen
-    % von Wellendrehfrequenz und Lagergeometrie.
-    % Eigene Festlegung des auszuwertenden Frequenzumfelds.
-    F-02 & Die Pipeline muss aus Drehzahl und Lagergeometrie die Sollfrequenzen
-    für Innen- und Außenringschäden bestimmen und ein festgelegtes Umfeld
-    dieser Frequenzen im abgeleiteten Diagnosesignal auswerten. & BPFO und
-    BPFI hängen von der Wellendrehfrequenz und den Geometriegrößen des Lagers ab
-    \cite[S.~102, Abschn.~2, Gleichungsblock und Nomenklatur]
-    {smithRollingElementBearing2015}. Die betrachteten Schadensorte entsprechen
-    den in Abschnitt~\ref{sec:untersuchungsrahmen} festgelegten Zielklassen und
-    benötigen die in D-02 und D-03 geforderten Eingaben. & Komponententest mit
-    bekannten Eingaben, dokumentierten Sollfrequenzen und festgelegtem
-    Auswertungsumfeld. \\
+    % Implementierung: core/envelope_analysis.py,
+    % compute_bearing_fault_frequencies und evaluate_spectrum.
+    F-02 & Aus Drehzahl und Lagergeometrie müssen die Sollfrequenzen für Innen-
+    und Außenringschäden berechnet werden. Für die Fehlererkennung müssen diese
+    Frequenzen und ihre Harmonischen berücksichtigt werden. & Vergleich der
+    berechneten Sollfrequenzen mit unabhängigen Referenzwerten; Test der
+    Entscheidung anhand eines künstlichen Spektrums. \\
     \hline
-    % Quellenbasis: Randall und Antoni (2011), gedruckte S. 493 und 506--507,
-    % PDF-S. 9 und 22--23, Abschn. 3 und 5: Entfernung diskreter Signalanteile,
-    % Bandpassfilterung, Demodulation und Hüllkurvenspektrum.
-    % Antoni (2007), gedruckte S. 119, PDF-S. 12, Abschn. 4.2:
-    % automatische Auswahl des Filter- und Demodulationsbandes.
-    % Eigene methodische Festlegung: getrennte Prüfbarkeit der Schritte.
-    F-03 & Die Verarbeitung muss Signaltrennung, Auswahl des Analysebandes,
-    Bildung des schadensbezogenen Diagnosesignals und Fehlerindikation als
-    getrennt prüfbare Schritte abbilden. & Die theoretische Verarbeitungskette
-    unterscheidet die Entfernung diskreter Signalanteile, die Bandauswahl sowie
-    Filterung, Demodulation und spektrale Auswertung
-    \cites[S.~493 und 506--507, Abschn.~3 und 5]
-    {randallRollingElementBearing2011a}
-    [S.~119, Abschn.~4.2]{antoniFastComputationKurtogram2007}.
-    Die getrennte Prüfbarkeit wird für die Komponentenvalidierung dieser Arbeit
-    festgelegt. & Einzelprüfung in
+    % Implementierung: core/drs.py, core/fast_kurtogram.py und
+    % core/envelope_analysis.py. Validierung: tests/test_drs_synthetic_validation.py
+    % und tests/test_fast_kurtogram_reference.py.
+    F-03 & Die Verarbeitungsschritte zur Trennung von Signalanteilen, zur
+    Auswahl des auszuwertenden Frequenzbandes und zur Fehlererkennung müssen
+    voneinander getrennt und einzeln prüfbar sein. & Komponententests mit
+    synthetischen Signalen oder unabhängigen Referenzergebnissen in
     Abschnitt~\ref{sec:komponentenvalidierung}. \\
     \hline
-    % Eigene methodische Operationalisierung des in der Hauptforschungsfrage
-    % verwendeten Merkmals der Nachvollziehbarkeit.
-    F-04 & Für jede geprüfte Fehlerklasse müssen mindestens Sollfrequenz,
-    ausgewertete Spektralkomponente, verwendetes Entscheidungskriterium und
-    binäres Ergebnis ausgegeben werden. Mehrere gleichzeitig positive
-    Fehlerindikationen müssen als solche erhalten bleiben. & Diese
-    Ergebnisbestandteile operationalisieren die in der Hauptforschungsfrage
-    geforderte Nachvollziehbarkeit der Fehlerindikation. & Prüfung eines
-    vollständigen Ergebnisdatensatzes und der Fehlerfälle in
-    Abschnitt~\ref{sec:fehleranalyse}. \\
+    % Persistierte Felder: experiments/evaluate_paderborn.py und
+    % experiments/evaluate_cwru.py, evaluate_file.
+    F-04 & Für jede ausgewertete Messung müssen Dateiname, Referenzklasse, alle
+    erkannten Klassen, Drehzahl, ausgewähltes Frequenzband und
+    Verarbeitungsstatus gespeichert werden. Werden Innen- und Außenringschaden
+    gleichzeitig erkannt, müssen beide Angaben erhalten bleiben. & Kontrolle
+    der erzeugten Ergebnisdateien in den
+    Abschnitten~\ref{sec:pipelineergebnisse} und~\ref{sec:fehleranalyse}. \\
     \hline
-    % Eigene Qualitätsanforderung aus Zielsetzung und Hauptforschungsfrage in
-    % Abschnitt~\ref{sec:zielsetzung}. Der aktuelle Arbeitstitel wird nicht als
-    % Grundlage herangezogen.
-    Q-01 & Datenimport, Signalaufbereitung, Analysebereichsauswahl,
-    Merkmalsbildung, Entscheidung und Bewertung müssen über definierte
-    Schnittstellen voneinander getrennt sein. & Diese Zerlegung
-    operationalisiert den in Zielsetzung und Hauptforschungsfrage festgelegten
-    modularen Aufbau. & Architektur- und Schnittstellenbeschreibung in
-    Abschnitt~\ref{sec:softwarestruktur}. \\
+    Q-01 & Die Pipeline muss modular aufgebaut sein. Datenimport,
+    Signalaufbereitung, Frequenzbandauswahl, Fehlererkennung und Evaluation
+    müssen als getrennte Komponenten nutzbar sein. & Architektur- und
+    Schnittstellenbeschreibung in Abschnitt~\ref{sec:softwarestruktur}. \\
     \hline
-    % Eigene Qualitätsanforderung: Determinismus als festgelegte
-    % Vergleichsbedingung der Untersuchung.
-    Q-02 & Identische Eingabedaten und identische Konfigurationen müssen zu
-    identischen numerischen Zwischenergebnissen und Entscheidungen führen. &
-    Deterministisches Verhalten wird als einheitliche Vergleichsbedingung für
-    die untersuchten Varianten und für die Wiederholung der Evaluation
-    festgelegt. & Wiederholungstest mit Vergleich der Zwischenergebnisse und
-    Entscheidungen. \\
-    \hline
-    % Eigene Qualitätsanforderung zur Rückverfolgbarkeit der Untersuchung.
-    Q-03 & Auswahlliste, Parameter, Softwarestand und erzeugte
-    Ergebnisartefakte müssen für jeden Entwicklungs- und Evaluationslauf
-    gespeichert oder eindeutig referenziert werden. & Dadurch wird festgelegt,
-    welcher Daten- und Konfigurationsstand einem Ergebnis zugrunde liegt. &
-    Versuchsprotokoll und automatisiert erzeugte Ergebnistabellen in
-    Abschnitt~\ref{sec:versuchsaufbau}. \\
-    \hline
-    % Quellenbasis: Smith und Randall (2015), gedruckte S. 102, PDF-S. 3,
-    % Abschn. 2, Gleichungsblock und Nomenklatur: Einfluss von Drehzahl und
-    % Geometrie auf BPFO und BPFI.
-    % Eigene Qualitätsanforderung aus D-01--D-05: keine stillen Ersatzwerte für
-    % Pflichtangaben und Referenzkennzeichnungen.
-    Q-04 & Fehlende oder unplausible Pflichtangaben sowie nicht lesbare oder zu
-    kurze Signale müssen erkannt und mit einer eindeutigen Fehlermeldung
-    zurückgewiesen werden. Fachliche Metadaten und Referenzkennzeichnungen
-    dürfen nicht stillschweigend ersetzt werden. & Drehzahl und Lagergeometrie
-    gehen in die berechneten Sollfrequenzen ein
-    \cite[S.~102, Abschn.~2, Gleichungsblock und Nomenklatur]
-    {smithRollingElementBearing2015}; die Referenzkennzeichnung bestimmt die
-    Sollklasse der Evaluation. Beide Grundlagen müssen daher rückverfolgbar
-    bleiben. & Negativtests des Datenimports und der Eingabevalidierung. \\
+    % Implementierung: Status- und Fehlerfelder in beiden Evaluationsskripten.
+    % Test: tests/test_evaluation_scope.py,
+    % test_broken_paderborn_file_is_reported_instead_of_raising.
+    Q-02 & Kann eine Messdatei nicht verarbeitet werden, muss sie mit
+    Fehlerstatus und Ursache protokolliert werden. Sie darf nicht als gültiges
+    Evaluationsergebnis gezählt werden. & Automatisierter Test mit einer
+    fehlerhaften MAT-Datei sowie Kontrolle der Fehleranzahl in den
+    Ergebniszusammenfassungen. \\
     \hline
 \end{longtable}
 
-% Quellenbasis: Lessmeier et al. (2016), gedruckte/PDF-S. 10--12,
-% Abschn. 7 und Tab. 8 und 10: Klassen fehlerfrei, Außenringschaden und
-% Innenringschaden.
-% Smith und Randall (2015), gedruckte S. 103, PDF-S. 4, Abschn. 3.2 und
-% Tab. 1: CWRU-Aufzeichnungen mit Innenring-, Außenring- und weiteren
-% Fehlerarten.
-% Eigene Abgrenzung: Bewertet werden ausschließlich die in
-% Abschnitt~\ref{sec:untersuchungsrahmen} festgelegten Zielklassen.
-Die für diese Arbeit festgelegte Referenzbasis umfasst ausschließlich
-fehlerfreie Lager sowie Innen- und Außenringschäden. Die entsprechenden
-Kategorien sind in den verwendeten Datensatzquellen dokumentiert
-\cites[S.~10--12, Abschn.~7 und Tab.~8 und 10]
-{lessmeierConditionMonitoringBearing2016}
-[S.~103, Abschn.~3.2 und Tab.~1]{smithRollingElementBearing2015}.
-Bewertet werden deshalb ausschließlich Fehlerindikationen für diese
-Zielklassen. Ausgaben zu Wälzkörper- oder Käfigschäden dürfen ergänzend
-protokolliert werden, werden ohne zugehörige Referenzfälle in dieser Arbeit
-jedoch nicht als validierte Diagnoseleistung gewertet.
+\textbf{TODO -- Vor Abschluss der Komponentenvalidierung sind ein Referenztest
+für die berechneten Sollfrequenzen und ein isolierter Test der
+Entscheidungslogik mit einem künstlichen Spektrum zu ergänzen.}
 
-\paragraphheading{Evaluationskriterien}
+\newpage
+\paragraphheading{Festlegungen für die Evaluation}
+\label{par:festlegungen_evaluation}
 
-% Quellenbasis: Lessmeier et al. (2016), gedruckte S. 8--9, PDF-S. 8--9,
-% Abschn. 4.2--5 und Tab. 6: vier Betriebsbedingungen sowie 20
-% viersekündige Wiederholungsaufzeichnungen je Lager und Betriebsbedingung;
-% Dateikennzeichnung durch Betriebsbedingung, Lagercode und
-% Wiederholungsnummer.
-Der Paderborner Datensatz enthält für jedes untersuchte Lager und jede
-Betriebsbedingung mehrere Wiederholungsaufzeichnungen. Der Dateiname ordnet
-jede Aufzeichnung einer Betriebsbedingung, einem Lagercode und einer
-Wiederholungsnummer zu
-\cite[S.~8--9, Abschn.~4.2--5 und Tab.~6]
-{lessmeierConditionMonitoringBearing2016}.
-
-% Eigene Methode/Implementierung: cm_pipeline_validation,
-% experiments/paderborn_scope.py, TRAINING_BEARINGS,
-% EVALUATION_BEARINGS und collect_paderborn_files, Z. 5--88;
-% tests/test_evaluation_scope.py,
-% test_training_and_evaluation_use_disjoint_bearings, Z. 45--54.
-% Methodische Ableitung: Die einzelnen Dateien werden nicht als jeweils
-% eigener physischer Schadensfall gezählt.
-Für die Datenaufteilung werden die Aufzeichnungen deshalb nach dem
-physischen Lager gruppiert. Sämtliche ausgewählten Aufzeichnungen eines
-Lagers gehören derselben Teilmenge an. Die in
-Tabelle~\ref{tab:paderborn_auswahl} aufgeführten Trainings- und
-Evaluationslager besitzen keine gemeinsamen Lagercodes.
+% Eigene methodische Festlegung auf Grundlage der Datensatzstrategie in
+% Abschnitt~\ref{sec:untersuchungsrahmen}; zur Konsistenz mit der späteren
+% Implementierung gegen die Evaluationsskripte geprüft.
+Tabelle~\ref{tab:anforderungen_evaluation} fasst die für die Durchführung und
+Dokumentation der Evaluation festgelegten Anforderungen sowie deren
+vorgesehene Umsetzung zusammen.
 
 \begin{longtable}{|
-    >{\fontsize{7.5}{8.5}\selectfont\raggedright\arraybackslash}p{1.0cm}|
-    >{\fontsize{7.5}{8.5}\selectfont\raggedright\arraybackslash}p{5.1cm}|
-    >{\fontsize{7.5}{8.5}\selectfont\raggedright\arraybackslash}p{4.0cm}|
-    >{\fontsize{7.5}{8.5}\selectfont\raggedright\arraybackslash}p{3.1cm}|}
-  \caption{Anforderungen an die Evaluation}
+    >{\footnotesize\raggedright\arraybackslash}p{1.0cm}|
+    >{\footnotesize\raggedright\arraybackslash}p{8.0cm}|
+    >{\footnotesize\raggedright\arraybackslash}p{4.2cm}|}
+  \caption{Festlegungen und Umsetzung der Evaluation}
   \label{tab:anforderungen_evaluation} \\
     \hline
-    \textbf{ID} & \textbf{Anforderung} & \textbf{Herleitung} &
-    \textbf{Vorgesehener Nachweis} \\
+    \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{ID} & \textbf{Anforderung} & \textbf{Herleitung} &
-    \textbf{Vorgesehener Nachweis} \\
+    \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
     \hline
     \endhead
-    % Eigene methodische Festlegung aus der Datensatzstrategie in
-    % Abschnitt~\ref{sec:untersuchungsrahmen}. Diese Regel beschreibt das
-    % Evaluationsprotokoll der vorliegenden Arbeit und wird nicht als
-    % allgemeingültige Vorgabe ausgegeben.
-    E-01 & Entwicklungs-, Parametrierungs- und Evaluationsdaten müssen vor
-    der abschließenden Evaluation verbindlich festgelegt werden.
-    Evaluationsresultate dürfen nicht zur nachträglichen Anpassung der
-    geprüften Konfiguration verwendet werden. Erfolgt dennoch eine solche
-    Anpassung, gilt sie als erneuter Entwicklungsschritt; für die
-    abschließende Prüfung ist anschließend eine zuvor ungenutzte
-    Evaluationsmenge festzulegen. &
-    Damit trennt die vorliegende Arbeit die Parameterfestlegung von der
-    Bewertung der festgelegten Konfiguration. &
-    Versionierte Auswahllisten sowie ein den Auswertungsläufen eindeutig
-    zugeordnetes Parameterprotokoll. \\
+    % Implementierung: cm_pipeline_validation,
+    % experiments/paderborn_scope.py, TRAINING_BEARINGS und
+    % EVALUATION_BEARINGS, Z. 5--21; experiments/optimize.py, Z. 40--164;
+    % experiments/evaluate_paderborn.py, load_trained_parameters und
+    % collect_files, Z. 35--64; experiments/evaluate_cwru.py, Z. 18 und
+    % 180--193; Test: tests/test_evaluation_scope.py, Z. 45--53.
+    E-01 & Die Daten zur Parameterfestlegung müssen von den Evaluationsdaten
+    getrennt sein. Die anhand der Trainingsdaten festgelegten Analyse- und
+    Entscheidungsparameter dürfen für die Paderborn- und CWRU-Evaluation nicht
+    nachträglich verändert werden. &
+    Aufteilung der Paderborn-Daten nach physischen Lagern in eine Trainings-
+    und eine Evaluationsgruppe. Einmalige Parameterfestlegung anhand der
+    Trainingsgruppe und unveränderte Verwendung in beiden Evaluationsläufen. \\
     \hline
-    % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 8--9,
-    % PDF-S. 8--9, Abschn. 4.2--5: wiederholte Aufzeichnungen je Lager und
-    % Betriebsbedingung sowie Lagercode im Dateinamen.
-    % Eigene methodische Ableitung: Gruppierung der Teilmengen nach
-    % physischem Lager.
-    E-02 & Die Aufteilung innerhalb des Paderborner Datensatzes muss nach
-    physischen Lagern gruppiert werden. Aufzeichnungen desselben Lagers
-    dürfen nicht auf Trainings- und Evaluationsmenge verteilt werden. &
-    Je Lager und Betriebsbedingung liegen mehrere Wiederholungsaufzeichnungen
-    vor; die Dateien werden durch den Lagercode demselben physischen Lager
-    zugeordnet
-    \cite[S.~8--9, Abschn.~4.2--5]
-    {lessmeierConditionMonitoringBearing2016}. &
-    Automatisierte Prüfung auf überschneidungsfreie Lagercodes zwischen
-    den Teilmengen. \\
+    % Implementierung: experiments/evaluate_paderborn.py, evaluate_files,
+    % Z. 120--167; experiments/evaluate_cwru.py, evaluate_files,
+    % Z. 123--177; Ergebnisartefakte: paderborn_summary.csv und
+    % cwru_paderborn_params_summary.csv.
+    E-02 & Für jeden Evaluationslauf muss nachvollziehbar sein, wie viele
+    Messungen vorgesehen, erfolgreich ausgewertet oder aufgrund eines Fehlers
+    ausgeschlossen wurden und mit welchen Parametern die Auswertung erfolgte. &
+    Erstellung einer Zusammenfassung mit dem Auswertungsumfang, der Anzahl
+    fehlgeschlagener Messungen und den verwendeten Parameterwerten. \\
     \hline
-    % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 3--9,
-    % PDF-S. 3--9, Abschn. 2--5 und Tab. 1--7: Lagercodes,
-    % Schadensmechanismen, Schadensorte, Schadensausprägungen,
-    % Betriebsbedingungen und Wiederholungen.
-    % Eigene methodische Ableitung aus D-04--D-05.
-    E-03 & Vor jedem Auswertungslauf müssen die Anzahl der Dateien und
-    physischen Lager, die Klassenverteilung, die einbezogenen
-    Schadensmechanismen sowie bekannte Ausschlüsse ausgewiesen werden. &
-    Der Datensatz umfasst unterschiedliche Lager, Schadensmechanismen,
-    Schadensausprägungen und Betriebsbedingungen
-    \cite[S.~3--9, Abschn.~2--5 und Tab.~1--7]
-    {lessmeierConditionMonitoringBearing2016}. Eine alleinige Angabe der
-    Dateizahl bildet diese Zusammensetzung nicht ab. &
-    Dateninventar im Versuchsaufbau sowie Abgleich mit Schadensprofilen
-    und Ausschlussprotokoll. \\
-    \hline
-    % Eigene Methode/Implementierung: Anforderung F-03;
-    % cm_pipeline_validation/tests/test_drs_synthetic_validation.py;
-    % tests/test_fast_kurtogram_reference.py. Die getrennten Prüfungen
-    % dienen in dieser Arbeit der komponentenbezogenen Fehlersuche.
-    E-04 & Die in F-03 getrennt ausgewiesenen Verarbeitungsschritte müssen
-    vor der Gesamtbewertung mit synthetischen Signalen, analytisch bekannten
-    Fällen oder einer geeigneten Referenzimplementierung separat geprüft
-    werden. &
-    Die Einzelprüfungen stellen für die vorliegende Arbeit
-    komponentenbezogene Vergleichswerte bereit, bevor die vollständige
-    Pipeline bewertet wird. &
-    Dokumentierte Tests in
-    Abschnitt~\ref{sec:komponentenvalidierung}. \\
-    \hline
-    % Eigene methodische Festlegung: Die Vergleichskonfiguration bildet
-    % innerhalb dieser Arbeit die Referenz für die Beurteilung der
-    % vollständigen Verarbeitungskette.
-    % OFFEN: Die konkrete Vergleichskonfiguration und die konstant zu
-    % haltenden Parameter sind in Abschnitt~\ref{sec:evaluationskonzept}
-    % vor Einsicht in die abschließenden Evaluationsergebnisse festzulegen.
-    E-05 & Vor der Evaluation ist mindestens eine fachlich begründete
-    Vergleichskonfiguration festzulegen. Die vollständige
-    Verarbeitungskette wird unter ansonsten übereinstimmenden
-    Auswertungsbedingungen mit dieser Konfiguration verglichen. &
-    Der Vergleich bildet die in dieser Arbeit festgelegte Referenz für die
-    Beurteilung der durch die vollständige Verarbeitungskette veränderten
-    Fehlerindikationen. &
-    Definition der Vergleichskonfiguration in
-    Abschnitt~\ref{sec:evaluationskonzept} und parametergleicher Vergleich
-    in Abschnitt~\ref{sec:pipelineergebnisse}. \\
-    \hline
-    % Eigene methodische Festlegung aus den zwei Bewertungsebenen in
-    % Abschnitt~\ref{sec:untersuchungsrahmen}.
-    % Implementierungsgrundlage: cm_pipeline_validation,
-    % experiments/scoring.py, detection_metrics und diagnosis_metrics,
-    % Z. 39--106.
-    % OFFEN: Abschnitt~\ref{sec:evaluationskonzept} muss festlegen, wie
-    % gleichzeitige Innen- und Außenringindikationen in der
-    % Konfusionsdarstellung und den klassenbezogenen Kennzahlen gezählt
-    % werden.
-    E-06 & Schadenserkennung und Zuordnung zum Innen- oder Außenring müssen
-    getrennt bewertet werden. Für die binäre Schadenserkennung sind
-    mindestens Konfusionszahlen, Präzision, Sensitivität, Spezifität,
-    Fehlalarmrate und F1-Maß auszuweisen. Für die Ortszuordnung sind eine
-    Darstellung der Referenz- und Ausgabezuordnungen, klassenbezogene
-    Präzision, Sensitivität und F1-Maß sowie der Anteil exakt richtiger
-    Zuordnungen anzugeben. Mehrdeutige Mehrfachindikationen sind gesondert
-    auszuweisen. &
-    Die getrennte Auswertung bildet die beiden in
-    Abschnitt~\ref{sec:untersuchungsrahmen} festgelegten
-    Bewertungsaufgaben einzeln ab. &
-    Metriktabellen, Konfusionsdarstellung und Auswertung mehrdeutiger Fälle
-    in den Abschnitten~\ref{sec:pipelineergebnisse} und
-    \ref{sec:fehleranalyse}. \\
-    \hline
-    % Quellenbasis: Lessmeier et al. (2016), gedruckte S. 3--9,
-    % PDF-S. 3--9, Abschn. 2--5 und Tab. 1--7: unterschiedliche
-    % physische Lager, Schadensmechanismen, Schadensausprägungen,
-    % Betriebsbedingungen und Wiederholungen.
-    % Eigene methodische Ableitung: gruppierte Ergebnisdarstellung und
-    % Fallanalyse.
-    E-07 & Ergebnisse müssen zusätzlich zur Gesamtbewertung mindestens nach
-    physischem Lager, Zielklasse und Betriebsbedingung ausgewiesen werden.
-    Fehlerfälle sind unter Einbeziehung des dokumentierten
-    Schadensmechanismus und der Schadensausprägung zu analysieren. &
-    Die Datengrundlage enthält mehrere physische Lager,
-    Betriebsbedingungen, Schadensmechanismen und Schadensausprägungen
-    \cite[S.~3--9, Abschn.~2--5 und Tab.~1--7]
-    {lessmeierConditionMonitoringBearing2016}. &
-    Gruppierte Ergebnistabellen und Fallanalyse in
-    Abschnitt~\ref{sec:fehleranalyse}. \\
-    \hline
-    % Eigene Abgrenzung aus Abschnitt~\ref{sec:zielsetzung}, dem
-    % Untersuchungsrahmen in Abschnitt~\ref{sec:untersuchungsrahmen} und
-    % den Aussagegrenzen in Abschnitt~\ref{sec:eignung_datengrundlage}.
-    E-08 & Die Ergebnisinterpretation muss auf die ausgewählten Lager,
-    Schadensmechanismen und Prüfstandsbedingungen begrenzt werden. Aus den
-    Ergebnissen werden weder eine industrielle Einsatzreife noch eine
-    Ausfallzeitpunkt- oder Restnutzungsdauerprognose abgeleitet. &
-    Der festgelegte Untersuchungsrahmen umfasst Zustandsaufzeichnungen
-    ausgewählter Referenzlager, jedoch keine industrielle Validierung und
-    keine in dieser Arbeit ausgewertete Degradationshistorie bis zum
-    Ausfall. &
-    Explizite Aussagegrenzen in Kapitel~\ref{ch:diskussion}. \\
+    % Implementierung: experiments/scoring.py, diagnosis_metrics und
+    % detection_metrics, Z. 39--107; Speicherung in beiden
+    % Evaluationszusammenfassungen.
+    E-03 & Die Evaluation muss getrennt bewerten, ob ein Schaden erkannt und
+    ob der Lagerzustand korrekt als fehlerfrei, Innenringschaden oder
+    Außenringschaden zugeordnet wird. &
+    Für die Schadenserkennung werden \gls{TP}, \gls{TN}, \gls{FP} und
+    \gls{FN} sowie Präzision,
+    Sensitivität, Spezifität, Fehlalarmrate, Genauigkeit und F1-Maß
+    berechnet. Die Klassenzuordnung wird anhand von Präzision, Sensitivität,
+    F1-Maß und dem Anteil exakt richtiger Zuordnungen bewertet. \\
     \hline
 \end{longtable}
