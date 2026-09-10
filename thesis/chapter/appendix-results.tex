@@ -2,11 +2,8 @@
 \label{app:pipelineergebnisse}
 \begingroup
 \raggedbottom
-% Absatzüberschriften stehen im bestehenden Anhanggerüst direkt unter dem Kapitel.
 \makeatletter\def\toclevel@subsection{1}\makeatother
 
-% Interne Zuordnung der unveränderten Datenauszüge zu Originaldateien und
-% Originalzeilen: data/pipelineergebnisse-f-2f/QUELLEN.json.
 Dieser Anhang dokumentiert die Referenzrechnung der in
 Abschnitt~\ref{sec:komponentenvalidierung} geprüften Lagerfrequenzen und ergänzt
 Abschnitt~\ref{sec:pipelineergebnisse} um führende Parameterkonfigurationen,
@@ -17,11 +14,6 @@ in Abschnitt~\ref{sec:methodische_grenzen}.
 \paragraphheading{Referenzrechnung der Lagerfrequenzen}
 \label{app:lagerfrequenz_referenzrechnung}
 
-% Eigene Nachrechnung anhand der Gleichungen~\eqref{eq:bpfo} und
-% \eqref{eq:bpfi}. Eingabewerte: CWRU_6205_GEOMETRY und
-% PADERBORN_MTK_IBU_6203_GEOMETRY aus config/bearings.py sowie die im
-% Komponentenfall vorgegebenen Drehzahlen aus tests/test_peak_detection.py.
-% Die Komponentenfunktion wurde für diese Nachrechnung nicht aufgerufen.
 Die Vergleichswerte werden mit den Gleichungen~\eqref{eq:bpfo} und
 \eqref{eq:bpfi} für die im Komponententest vorgegebenen Geometrien und
 Drehzahlen berechnet.
@@ -75,16 +67,6 @@ von $29{,}05\,\mathrm{mm}$ und einem Druckwinkel von $0^\circ$ folgt:
 \paragraphheading{Berechnung der DRS-Mittelungen}
 \label{app:drs_mittelungen}
 
-% Eigene, vom Autor beauftragte Nachrechnung der Implementierung:
-% cm_pipeline_validation/core/drs.py, init_params, run_drs und estimate_filter.
-% Eingaben: 64 kHz, vier Sekunden und Nenndrehzahlen 900/1500 U/min gemäß
-% sec:datensatz_paderborn; Blockfaktor 5, Bezugsfrequenz 3000 Hz,
-% Sicherheitsfaktor 3 und Periodenzahl 100 gemäß paderborn_summary.csv.
-% Blockfaktor 20 ist ein Vergleichswert aus dem Suchraum, kein ausgewählter
-% Evaluationsparameter. Auswertung der Indexfolge ohne Signalverarbeitung.
-% Kontrolliert an N09_M07_F10_KI17_15.mat und N15_M07_F10_KI17_15.mat:
-% tatsächliche Längen 256001/256002, Drehzahlen 900.0865868/1499.3208275,
-% Blocklängen 21331/12805, jeweils ebenfalls 10/18 Paare bei Blockfaktor 5.
 Für eine idealisierte Paderborner Aufzeichnung von vier Sekunden mit
 $64\,\mathrm{kHz}$ gilt $L=256000$ Abtastwerte. Bei 1500~U/min
 ($25\,\mathrm{Hz}$) umfasst ein Block mit dem ausgewählten Faktor $B=5$
@@ -96,9 +78,6 @@ Die freie Lücke zwischen den gepaarten Blöcken beträgt mit den festen
 DRS-Parametern $\Delta=(3\cdot100/3000)\cdot64000=6400$
 Abtastwerte, also $0{,}1\,\mathrm{s}$.
 
-% Codebasis: run_drs, block_distance=N+delta und skip=block_distance;
-% estimate_filter, range(skip, len(signal)-N, N), obere Grenze exklusiv.
-% Aufeinanderfolgende Paare beginnen im Abstand N.
 Der spätere Block jedes Paares beginnt laut Implementierung bei
 $s_j=N+\Delta+jN<L-N$. Im Beispiel erfüllen $j=0,\ldots,17$
 diese Bedingung: Es werden 18~Blockpaare gemittelt.
@@ -106,10 +85,6 @@ Tabelle~\ref{tab:drs_mittelungen} ergänzt die niedrigere Nenndrehzahl und
 den Vergleich mit $B=20$. Blocklängen werden wie im Code auf ganze
 Abtastwerte abgerundet.
 
-% Eigene Nachrechnung derselben Indexfolge:
-% B=5, 15 Hz: N=21333, delta=6400, m=10;
-% B=20, 25 Hz: N=51200, delta=6400, m=3;
-% B=20, 15 Hz: N=85333, delta=6400, m=1.
 \begin{table}[H]
   \centering
   \caption{Rechnerische Zahl der DRS-Blockpaare bei vier Sekunden Messdauer
@@ -135,10 +110,6 @@ Unabhängigkeit und die erreichbare Diagnosegüte werden damit nicht geprüft.
 
 \paragraphheading{Parameterkonfigurationen}
 
-% Ergebnisbasis: paderborn_param_search.csv, alle 120 Zeilen; sämtliche
-% summary-Dateien, Zeile 2; config/settings.py und utils/io.py,
-% load_trained_parameters. Beide Tabellenlabels betreffen die realen
-% Such- und Evaluationsparameter dieser Tabelle.
 \begin{table}[H]
   \centering
   \caption{Untersuchter Suchraum und in beiden DRS-Varianten geladene Werte}
@@ -161,8 +132,6 @@ Unabhängigkeit und die erreichbare Diagnosegüte werden damit nicht geprüft.
   \end{tabular}
 \end{table}
 
-% Ergebnisbasis: paderborn_param_search.csv, Originalzeilen 2, 3, 4 und 12.
-% Auswahlzweck: drei führende Ränge; Rang 11 als Maximum von detection_f1.
 Tabelle~\ref{tab:ergebnisse_rangliste} zeigt die drei führenden
 Konfigurationen und Rang elf mit dem höchsten binären F1-Maß.
 Alle Trainingskennzahlen beziehen sich auf dieselben 120 Messungen.
@@ -189,8 +158,6 @@ Alle Trainingskennzahlen beziehen sich auf dieselben 120 Messungen.
 
 \paragraphheading{Paderborner Lager}
 
-% Ergebnisbasis: alle 120 Zeilen von paderborn_results.csv; Gruppierung
-% nach bearing, expected und vollständigem detected.
 \begin{table}[H]
   \centering
   \caption{Paderborner Ausgabemengen mit DRS, jeweils 20 Messungen pro Lager}
@@ -213,9 +180,6 @@ Alle Trainingskennzahlen beziehen sich auf dieselben 120 Messungen.
 \clearpage
 \paragraphheading{DRS-Vergleich}
 
-% Ergebnisbasis: paarweise Zuordnung über file in paderborn_results*.csv
-% und cwru_paderborn_params_results*.csv; alle 13 geänderten Klassenmengen.
-% P1--P8 und C1--C5 ordnen die ausgewählten Originalzeilen eindeutig zu.
 Tabelle~\ref{tab:ergebnisse_einzelfaelle} enthält sämtliche Messungen,
 deren Ausgabemenge sich zwischen den Varianten ändert. P bezeichnet
 Paderborn, C den CWRU-Datensatz. Die übrigen 112 Paderborner und 35
@@ -252,10 +216,6 @@ binär erkannten Schäden oder Fehlalarmen.
   \end{tabular}
 \end{table}
 
-% Eigene Auswahl aus den Originalzeilen: P1 und C1 zeigen geänderte Ausgaben
-% bei gleichem Band; P8 und C4 geänderte Ausgaben bei geändertem Band;
-% P9 zeigt geändertes Band bei unveränderter Ausgabe. Frequenzen in Hz,
-% Originalwerte in den CSV-Auszügen ungerundet erhalten.
 Tabelle~\ref{tab:ergebnisse_baender} ergänzt ausgewählte Bandangaben.
 P1 und C1 zeigen eine geänderte Ausgabe bei gleichem Band, P8 und C4 eine
 geänderte Ausgabe bei verändertem Band. Als Gegenbeispiel dient P9,

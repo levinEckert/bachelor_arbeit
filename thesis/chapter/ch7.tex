@@ -1,26 +1,18 @@
 \chapter{Diskussion}
 \label{ch:diskussion}
 
-% Rückverweis: Kapitel~\ref{ch:evaluation}, Pipelineergebnisse und
-% Fehleranalyse. Eigene Orientierung anhand der abgestimmten Abschnitte
-% 7.1 bis 7.3; keine neue externe Aussage.
 Kapitel~\ref{ch:evaluation} zeigt, welche Lagerzustände die Pipeline in den
 ausgewählten Messungen erkennt und wo Fehlentscheidungen auftreten.
-Die Diskussion ordnet diese Ergebnisse ein und beantwortet die
-Forschungsfragen. Dabei werden der Einfluss der gewählten Verfahren und
-die Grenzen einer Übertragung auf industrielle Maschinen betrachtet.
+Die Diskussion ordnet diese Ergebnisse ein und beantwortet die vier
+Teilfragen aus Abschnitt~\ref{sec:zielsetzung}. Dabei werden der Einfluss
+der gewählten Verfahren und die Grenzen einer Übertragung auf industrielle
+Maschinen betrachtet. Das Fazit in Abschnitt~\ref{sec:fazit} führt die
+Erkenntnisse zu einer abschließenden Antwort auf die Hauptforschungsfrage
+zusammen.
 
-%================================================================================================
-%       7.1 Aussagekraft der Fehlerindikation
-%================================================================================================
 \section{Aussagekraft der Fehlerindikation}
 \label{sec:aussagekraft_ergebnisse}
 
-% Rückverweise: sec:zielsetzung, Teilfragen 2 und 3; sec:pipelineergebnisse,
-% tab:pipeline_kennzahlen und tab:cwru_ausgabemengen; sec:fehleranalyse.
-% Eigene Ableitung: In beiden Datensätzen und DRS-Varianten enthalten binär
-% erkannte Schäden falsche oder zusätzliche Ringindikationen. Die binäre
-% Erkennung belegt daher nicht zugleich die exakte Ringzuordnung.
 Für die Bewertung der Pipeline ist entscheidend, ob sie einen Schaden
 erkennt und ob sie ihn dem richtigen Ring zuordnet. Eine Meldung kann auf
 einen vorhandenen Schaden hinweisen, dabei aber den falschen oder beide
@@ -30,40 +22,21 @@ Schadenserkennung häufiger als die exakte Ringzuordnung. Bei der
 Beantwortung der Teilfragen~2 und~3 aus Abschnitt~\ref{sec:zielsetzung}
 werden diese beiden Leistungen deshalb getrennt beurteilt.
 
-% Rückverweis: sec:datensatz_paderborn, tab:paderborn_auswahl, und
-% sec:eignung_datengrundlage, Eignung für die Untersuchung: Parametrierung
-% an künstlichen Schäden, Evaluation an ausgewählten Ermüdungsschäden aus
-% beschleunigten Lebensdauerversuchen; keine neue externe Aussage.
 Bei Paderborn wurde die Pipeline anhand künstlicher Schäden parametriert.
 Anschließend wurde geprüft, ob sie auch ausgewählte real entstandene
-Ermüdungsschäden erkennt. Damit untersucht dieser Versuch den in
-Teilfrage~3 angesprochenen Übergang innerhalb eines Datensatzes
+Ermüdungsschäden erkennt
 (Abschnitt~\ref{sec:eignung_datengrundlage}).
-% Ergebnisbasis: cm_pipeline_validation/data/results/paderborn_summary.csv,
-% Datenzeile 1: detection_recall=0.825, exact_accuracy=0.7583333333333333.
-% paderborn_results.csv, alle 120 Datenzeilen: 36/40 Normalmessungen ohne
-% Indikation, 39/40 Außenringmessungen und 16/40 Innenringmessungen exakt.
-% Eigene Ableitung: Erkennung real entstandener Schäden ist für die Auswahl
-% belegt; die Trennung aller drei Zielklassen gelingt nicht durchgehend.
 Mit DRS werden $82{,}5\,\%$ der geschädigten Messungen binär erkannt.
 Bei $75{,}83\,\%$ aller Ausgaben stimmt die Zuordnung exakt mit der
 jeweiligen Referenzklasse überein
 (Tabelle~\ref{tab:pipeline_kennzahlen}). Fehlerfreie Zustände lösen
 überwiegend keine Schadensmeldung aus, und die ausgewählten Außenringschäden
 werden fast durchgehend richtig und ohne zusätzliche Ringmeldung zugeordnet.
-Die Schwierigkeiten betreffen vor allem die Innenringlager. Die Pipeline
-kann somit real entstandene Schäden erkennen, unterscheidet die drei
-untersuchten Lagerzustände aber nicht in allen Fällen eindeutig.
+Die Schwierigkeiten betreffen vor allem die Innenringlager.
+Für Teilfrage~3 zeigt sich damit: Die anhand künstlicher Schäden
+parametrierte Pipeline kann auch real entstandene Schäden erkennen,
+aber nicht durchgehend dem richtigen Ring zuordnen.
 
-% Ergebnisbasis: cm_pipeline_validation/data/results/paderborn_results.csv,
-% Gruppierung aller Datenzeilen nach bearing und detected: KI17 mit
-% Auslassungen, KI16 vollständig binär erkannt, aber mit Zusatzindikationen.
-% Rückverweise: sec:fehleranalyse, Messgruppen; sec:datensatz_paderborn,
-% Auswahl für Entwicklung und Evaluation; sec:eignung_datengrundlage,
-% Aussagegrenzen der Datengrundlage.
-% Eigene Ableitung: 120 Aufzeichnungen von sechs Lagern, zwei je Zielklasse,
-% erweitern die beobachteten Wiederholungen und Betriebspunkte, nicht die
-% Zahl physischer Lagerfälle; keine Generalisierung von KI16/KI17.
 Diese Ergebnisse lassen sich nur eingeschränkt auf andere Lager übertragen.
 Die 120 Paderborner Messdateien stammen von sechs Lagern, jeweils zwei pro
 Zielklasse. Wiederholte Messungen und verschiedene Betriebspunkte zeigen,
@@ -77,20 +50,6 @@ Innenringlager verdecken diesen Unterschied. Aus den Ergebnissen für KI16
 und KI17 lässt sich daher nicht ableiten, wie gut die Pipeline
 Innenringschäden allgemein erkennt.
 
-% Rückverweis: sec:untersuchungsrahmen und sec:eignung_datengrundlage:
-% CWRU als zusätzliche Prüfung des Datensatzwechsels, künstliche Schäden.
-% Ergebnisbasis: cm_pipeline_validation/data/results/
-% cwru_paderborn_params_summary.csv, Datenzeile 1: detection_recall=1.0,
-% exact_accuracy=0.125; cwru_paderborn_params_results.csv, alle Datenzeilen:
-% 32/36 Schäden mit beiden Ringindikationen, 3/4 Normalmessungen mit Fehlalarm.
-% Eigene Ableitung aus den vollständigen Ausgabemengen: 36 erkannte Schäden
-% und drei Fehlalarme ergeben Schadensmeldungen bei 39/40 Messungen;
-% 32 Schäden und drei Normalmessungen erhalten beide Ringindikationen.
-% Eigene Ableitung: Hohe binäre Erkennung und häufige Zusatzindikationen
-% begründen keine erfolgreiche Trennung der Zielklassen; wenige Normalfälle
-% begrenzen die Übertragung der beobachteten Fehlalarmhäufigkeit. 36/40
-% Messungen sind geschädigt und bestimmen dadurch die binäre Gesamtgenauigkeit
-% stärker als die vier Normalmessungen (evaluation/metrics.py, detection_metrics).
 CWRU prüft zusätzlich, wie die Pipeline bei einem anderen Datensatz
 abschneidet. Die ausgewählten Schäden wurden hier künstlich erzeugt.
 Mit DRS erkennt die Pipeline alle geschädigten Messungen, doch nur
@@ -108,33 +67,16 @@ Gesamtgenauigkeit. Diese Kennzahl allein reicht deshalb nicht aus, um die
 Pipeline zu bewerten. Die Fehlalarme und die häufigen zusätzlichen
 Ringmeldungen müssen ebenfalls berücksichtigt werden.
 
-% Rückverweise: sec:zielsetzung, Abgrenzung; sec:eignung_datengrundlage,
-% Aussagegrenzen: beide Datensätze sind Prüfstandsdaten, keine industrielle
-% Validierung. Eigene Ableitung: weder Schadensentstehung bei Paderborn noch
-% Datensatzwechsel zu CWRU erweitert diesen belegten Untersuchungsrahmen.
-Beide Versuche zeigen somit, was die Pipeline an den ausgewählten
-Prüfstandsmessungen leisten kann. Weder die Erkennung real entstandener
-Schäden bei Paderborn noch die zusätzliche Prüfung mit CWRU belegt jedoch
-eine allgemeine industrielle Einsatzfähigkeit. Die Voraussetzungen für
-eine Übertragung auf industrielle Maschinen werden in
+Für Teilfrage~2 zeigen die Ergebnisse somit, dass die Pipeline die drei
+Lagerzustände bei Paderborn überwiegend korrekt unterscheidet, bei CWRU
+jedoch nur eine geringe Trennfähigkeit erreicht. Diese Antwort gilt für
+die ausgewählten Messungen und die untersuchte Konfiguration. Die Grenzen
+einer Übertragung auf industrielle Maschinen werden in
 Abschnitt~\ref{sec:industrielle_uebertragbarkeit} diskutiert.
 
-%================================================================================================
-%       7.2 Einfluss der Verarbeitung und Entscheidungsregel
-%================================================================================================
 \section{Einfluss der Verarbeitung und Entscheidungsregel}
 \label{sec:methodische_grenzen}
 
-% Rückverweise: sec:aussagekraft_ergebnisse; sec:versuchsaufbau und
-% sec:pipelineergebnisse, Absatz DRS-Vergleich; sec:fehleranalyse.
-% Codebasis: cm_pipeline_validation/main.py, main; core/pipeline.py,
-% run_pipeline: fast_kurtogram und find_in_kwav nach dem use_drs-Zweig.
-% Ergebnisbasis: data/results/paderborn_results{,_no_drs}.csv und
-% cwru_paderborn_params_results{,_no_drs}.csv samt den vier summaries;
-% gegenläufige Klassenwechsel und Bandänderungen in Kapitel 6 ausgewiesen.
-% Eigene Ableitung: Die Wirkung auf die abschließende Indikation umfasst
-% mögliche Bandwechsel; ähnliche Gesamtkennzahlen schließen Änderungen
-% einzelner Ausgaben nicht aus und begründen keinen eindeutigen DRS-Vorteil.
 Der Vergleich mit und ohne DRS zeigt, wie die Signaltrennung die in
 Abschnitt~\ref{sec:aussagekraft_ergebnisse} bewertete Fehlerindikation
 verändert. Verglichen werden vollständige Pipelinevarianten: Die übrigen
@@ -147,18 +89,6 @@ zeigt, stehen verbesserten Zuordnungen neue Fehlentscheidungen gegenüber.
 Ein eindeutiger diagnostischer Vorteil von DRS ergibt sich unter der
 untersuchten Konfiguration daraus nicht.
 
-% Rückverweis: sec:komponentenvalidierung, DRS, und
-% data/results/drs_synthetic_results.csv: Trennung bekannter Signalanteile
-% bei verbleibenden Abweichungen der Signalstärke; keine unveränderte Amplitude.
-% Quellenbasis: Antoni und Randall (2004), S. 112--113, PDF-S. 10--11,
-% Abschn. 3.5, Gl. (6)--(7): statistische Fehler bei einem Sinus in weißem
-% Rauschen und Zielkonflikt zwischen Blocklänge und Zahl der Mittelungen.
-% Codebasis: core/drs.py, init_params, run_drs und estimate_filter:
-% Länge und Abstand der Blöcke begrenzen die nutzbaren Blockpaare.
-% Rückverweis: sec:datensatz_paderborn, Aufzeichnungsdauer vier Sekunden.
-% Eigene Ableitung: Begrenzte Mittelung ist eine mögliche Einflussgröße;
-% Rechenbeispiele im Anhang, app:drs_mittelungen, für Nenndrehzahlen und
-% idealisierte vier Sekunden; keine isolierte Untersuchung der Messdauer.
 Die Komponentenprüfung zeigt zugleich, dass DRS die bekannten Signalanteile
 in den synthetischen Fällen weitgehend trennt, ihre Signalstärke aber nicht
 unverändert erhält (Abschnitt~\ref{sec:komponentenvalidierung}). Die
@@ -167,10 +97,6 @@ Randall zeigen für einen Sinus in weißem Rauschen, dass mehr Mittelungen
 zufallsbedingte Schätzfehler verringern. Bei endlicher Signallänge muss dies
 gegen die Blocklänge abgewogen werden \cite[S.~112--113, Abschn.~3.5]
 {antoniUnsupervisedNoiseCancellation2004}.
-% Quellenbasis: Randall (2022), S. 277, Abschn. 7.3.2: 10--20 Perioden
-% der niedrigsten zu entfernenden Frequenz. Suchraum: B=3,5,10,15,20.
-% Autorenangabe: kleinere Blockfaktoren wegen der kurzen Aufnahmedauer
-% zusätzlich zugelassen. Eigene Nachrechnung: app:drs_mittelungen.
 Randall empfiehlt eine Blocklänge von 10 bis 20 Perioden der niedrigsten
 zu entfernenden Frequenz \cite[S.~277, Abschn.~7.3.2]
 {randallVibrationbasedConditionMonitoring2022}. Hier wird dafür die
@@ -186,17 +112,6 @@ im Anhang).
 Wie stark die begrenzte Mittelung die Fehlerindikation beeinflusst, wurde
 nicht durch einen Vergleich mit längeren Aufzeichnungen untersucht.
 
-% Quellenbasis: Randall (2022), S. 277, PDF-S. 299, Abschn. 7.3.2:
-% Abstand mindestens drei Korrelationslängen; bei angenommenem Schlupf
-% von 1 Prozent ungefähr 300 Perioden der Mittenfrequenz des Demodulationsbands.
-% Codebasis: core/drs.py, init_params und run_drs: resonance_freq bestimmt
-% delta, gesamter Versatz N+delta; core/pipeline.py, run_pipeline:
-% Bandauswahl erst nach DRS, keine Rückkopplung der gewählten Mittenfrequenz.
-% Ergebnisbasis: alle vier summaries, resonance_freq=3000, safety_factor=3,
-% slip_periods=100; utils/io.py, load_trained_parameters, Übernahme aus Suche.
-% Eigene Ableitung: Feste Bezugsfrequenz ist kein messungsbezogener
-% Resonanznachweis; die Auslegung sichert die Dekorrelation nicht für jede
-% Messung ab. Kein nachgewiesener Einfluss auf konkrete Fehlentscheidungen.
 Eine weitere Festlegung betrifft die DRS-Bezugsfrequenz von
 $3\,\mathrm{kHz}$. Sie bestimmt den freien Abstand zwischen den gepaarten
 Blöcken. Randall bezieht die Auslegung dieses Abstands auf die
@@ -211,13 +126,6 @@ dekorreliert, ist somit nicht abgesichert. Die feste Bezugsfrequenz bleibt
 eine mögliche Einflussgröße, ohne dass ihr ein bestimmter Fehlerfall
 zugeschrieben werden kann.
 
-% Rückverweis: sec:bandauswahl, Bandauswahl und methodische Grenzen.
-% Dortige Quellen neu geprüft: Antoni (2007), S. 109 und 111, PDF-S. 2 und 4,
-% Abschn. 1.2 und 2.2, Gl. (5)--(7): Maximum im Frequenz-/Bandbreitenraster;
-% Smith und Randall (2015), S. 122--123, PDF-S. 23--24, Abschn. 6.6:
-% nicht schadensbezogene Impulsivität und Reaktion der spektralen Kurtosis.
-% Eigene Ableitung: Maximierung der Kurtosis ist keine Maximierung der
-% richtigen Ringzuordnung; diese wird erst mit der Fehlerindikation bewertet.
 Auch bei der anschließenden Bandauswahl sind das Auswahlkriterium und die
 diagnostische Eignung zu unterscheiden. Das Kurtogramm hebt Bänder mit hoher
 Impulsivität hervor. Wie in Abschnitt~\ref{sec:bandauswahl} erläutert,
@@ -227,18 +135,6 @@ nicht, dass das ausgewählte Band die Lagerzustände am besten unterscheidet.
 Dafür ist entscheidend, welche schadensbezogenen Merkmale im SES erkennbar
 werden und wie die Entscheidungsregel sie bewertet.
 
-% Eigene methodische Festlegung und Codebasis: config/settings.py,
-% PADERBORN_F_MIN/MAX=500/10000, F_MIN/MAX=500/5000, MAX_BANDWIDTH=2000;
-% utils/helper_functions.py, find_in_kwav: Maximum unter zulässigen Bändern.
-% core/pipeline.py, run_pipeline: zusätzliche Mindestbandbreite für die
-% geprüften Sollfrequenzen; keine vollständige Aufzählung aller Bedingungen.
-% Ergebnisbasis: vier summaries, f_min, f_max und max_bandwidth;
-% workflows/tune_paderborn.py, grid_search: diese Grenzen werden nicht variiert.
-% Rückverweise: par:auswahl_frequenzband; sec:parametrierungsstrategie,
-% feste Grenzen in tab:parametrierung_suchraum; sec:komponentenvalidierung,
-% Fast Kurtogram, Umfang des Python-MATLAB-Vergleichs.
-% Eigene Ableitung: Eine begründete Beschränkung auf zulässige Teilbänder
-% belegt weder die Optimalität von 2 kHz noch die diagnostische Überlegenheit.
 Die Pipeline sucht das Maximum nur unter den für sie zulässigen Bändern.
 Die datensatzabhängigen Grenzen der Mittenfrequenz und die maximale
 Bandbreite von $2\,\mathrm{kHz}$ sind eigene methodische Festlegungen
@@ -251,16 +147,6 @@ liefert dafür keinen Nachweis, da er die Kurtogrammberechnung und die
 Bandangaben des globalen Maximums prüft, nicht die nachfolgende eingeschränkte
 Bandauswahl (Abschnitt~\ref{sec:komponentenvalidierung}).
 
-% Codebasis: core/envelope_analysis.py, _find_spectrum_peaks,
-% _select_target_peak und evaluate_spectrum; config/settings.py,
-% FAULT_FREQUENCY_ORDERS=(1,2): lokale Maxima, MAD-Score und all-Verknüpfung.
-% Rückverweise: sec:versuchsaufbau; sec:komponentenvalidierung,
-% Peak- und Fehlerentscheidung; sec:pipelineergebnisse.
-% Testbasis: tests/test_peak_detection.py, PeakDetectionTest;
-% Ausführungsgrundlage: in Kapitel 6 dokumentierte bestandene Prüfungen
-% und dort festgehaltene Autorbestätigung; keine erneute Testausführung.
-% Eigene Ableitung: Validierung für den untersuchten
-% Umfang anerkennen, daraus keine allgemeine Trennfähigkeit ableiten.
 Die abschließende Verbindung aus lokalen Peaks, MAD-Schwelle und gültigen
 Peaks bei $f$ und $2f$ ist ebenfalls eine eigene Entscheidungsregel.
 Sie verlangt für jede Ringklasse gemeinsam eine ausreichend hohe lokale
@@ -272,16 +158,6 @@ diesen Untersuchungsumfang vor. Die lokale Bewertung allein gewährleistet
 jedoch keine zutreffende Trennung der Lagerzustände, wie insbesondere die
 CWRU-Ergebnisse zeigen.
 
-% Rückverweis: sec:aussagekraft_ergebnisse, CWRU-Befund, und
-% sec:pipelineergebnisse, tab:cwru_ausgabemengen.
-% Ergebnisbasis: cwru_paderborn_params_results{,_no_drs}.csv und summaries;
-% Parameterquelle paderborn_param_search.csv, k=1.5, tolerance=0.01,
-% freq_search_area=20. Codebasis: utils/io.py, load_trained_parameters;
-% main.py, main; workflows/evaluate_cwru.py, evaluate_file.
-% Eigene Ableitung/Hypothese: Übernommene Schwellen könnten bei CWRU zu
-% viele Peaks als schadensbezogen bewerten; kein isolierter Nachweis für k.
-% _select_target_peak: höheres k kann auch bisher gültige Peaks zutreffender
-% Meldungen zurückweisen. Keine Wirksamkeitsbehauptung ohne Vergleich.
 Bei CWRU wird fast jede Messung als geschädigt eingestuft, überwiegend mit
 beiden Ringindikationen (Abschnitt~\ref{sec:aussagekraft_ergebnisse}).
 Eine mögliche Erklärung ist, dass die anhand der Paderborner Daten
@@ -295,11 +171,6 @@ Regel akzeptiert. Eine strengere Schwelle ist daher ohne entsprechenden
 Vergleich keine belegte Verbesserung; sie könnte neben falschen auch
 zutreffende Schadensmeldungen unterdrücken.
 
-% Ergebnisbasis: thesis/data/fehleranalyse-ses/peak_details.json, runs C1
-% und P8, beide DRS-Varianten; tab:fehleranalyse_peakpruefung und
-% fig:fehleranalyse_ses. Codebasis: _select_target_peak und evaluate_spectrum.
-% Eigene Ableitung: Unterschreitung eines erforderlichen MAD-Scores erklärt
-% die Entscheidung, nicht die physikalische Ursache der Signaländerung.
 Die Fehleranalyse aus Abschnitt~\ref{sec:fehleranalyse} zeigt, dass eine
 zurückgewiesene Peakprüfung unterschiedliche Folgen haben kann. Bei C1
 entfällt mit DRS eine falsche zusätzliche Außenringmeldung. Bei P8 geht
@@ -310,11 +181,6 @@ Dies erklärt, warum die Regel ihre Ausgabe ändert, aber noch nicht, warum
 sich die zugrunde liegenden Spektralanteile verändert haben. Ob die neue
 Ausgabe richtig ist, zeigt erst der Vergleich mit dem bekannten Lagerzustand.
 
-% Rückverweise: sec:zielsetzung, Teilfrage 1; sec:komponentenvalidierung,
-% sec:pipelineergebnisse und sec:fehleranalyse.
-% Eigene Ableitung: SES-Modulationsprüfung und korrekte Entscheidungen in
-% Messdaten tragen die begrenzte Eignung der Kombination; keine isolierte
-% Rangfolge der Verarbeitungsschritte und keine allgemeine Überlegenheit.
 Für Teilfrage~1 ergibt sich damit eine begrenzte Eignung der gewählten
 Verarbeitung: Bandauswahl und SES machen Merkmale für die regelbasierte
 Prüfung zugänglich, mit denen sich ein Teil der betrachteten Lagerzustände
@@ -323,17 +189,9 @@ abschließende Indikation aber nicht durchgehend. Die Nachweise stützen somit
 die Verwendung der Schritte innerhalb der untersuchten Pipeline, ohne eine
 optimale oder allgemein überlegene Methodenkombination zu belegen.
 
-%================================================================================================
-%       7.3 Übertragbarkeit auf industrielle Maschinen
-%================================================================================================
 \section{Übertragbarkeit auf industrielle Maschinen}
 \label{sec:industrielle_uebertragbarkeit}
 
-% Rückverweise: sec:aussagekraft_ergebnisse, Paderborn- und CWRU-Bewertung;
-% sec:versuchsaufbau, Übernahme des ausgewählten Parametersatzes;
-% sec:methodische_grenzen, keine isolierte Ursache der CWRU-Fehlindikationen.
-% Eigene Ableitung: Der Datensatzvergleich begrenzt Aussagen zur unveränderten
-% Konfiguration, erlaubt aber kein allgemeines Urteil über den Methodenansatz.
 Beim Wechsel von Paderborn zu CWRU erreicht die übernommene Konfiguration
 keine vergleichbare Trennung der Lagerzustände
 (Abschnitt~\ref{sec:aussagekraft_ergebnisse}). Das begrenzt die Erwartung,
@@ -341,16 +199,6 @@ mit unveränderten Parametern an einer anderen Maschine eine ähnliche
 Güte zu erzielen. Daraus folgt jedoch kein allgemeines Urteil über die
 Eignung der zugrunde liegenden Verfahrenskombination.
 
-% Quellenbasis: Randall (2022), S. 277--278, PDF-S. 299--300,
-% Abschn. 7.3.2 und Abb. 7.47: halbautomatisches Diagnoseverfahren;
-% Anwendung auf unterschiedliche Lagerfälle; Signaltrennung, SK/Fast
-% Kurtogram und Hüllkurvenanalyse als zentrale Schritte, fallbezogene
-% Parameteranpassung.
-% Codebasis: cm_pipeline_validation/core/pipeline.py, run_pipeline:
-% DRS, Fast Kurtogram und SES, keine vollständige Umsetzung von Abb. 7.47.
-% Rückverweis: sec:methodische_grenzen, eigene lokale Entscheidungsregel.
-% Eigene Ableitung: Literatur stützt den grundsätzlichen Diagnoseansatz,
-% nicht die Güte der eigenen Entscheidungsregel und Parametrierung.
 Die Kombination aus Signaltrennung, impulsivitätsbasierter Bandauswahl
 und Hüllkurvenanalyse greift zentrale Schritte des von Randall
 beschriebenen halbautomatischen Diagnoseverfahrens auf. Dieses wurde an
@@ -363,45 +211,20 @@ der vorliegenden Pipeline sind jedoch eigene Festlegungen, deren
 Eignung sich nicht aus diesen Literaturbeispielen ableiten lässt
 (Abschnitt~\ref{sec:methodische_grenzen}).
 
-% Rückverweise: sec:datensatz_paderborn und sec:datensatz_cwru, Messreihen;
-% sec:versuchsaufbau und sec:fehleranalyse, Messgruppen.
-% Codebasis: utils/io.py, load_signal_cwru und load_signal_paderborn;
-% core/pipeline.py, run_pipeline; core/envelope_analysis.py,
-% compute_bearing_fault_frequencies und evaluate_spectrum:
-% ein RPM-Wert und feste Sollfrequenzen für die gesamte Aufnahme.
-% Eigene Ableitung: Kein zeitlich aufgelöster Verlauf der Schadensfrequenzen.
 Wie sich die Pipeline bei Drehzahl- oder Lastwechseln innerhalb einer
 Aufnahme verhält, wurde bisher nicht systematisch untersucht. Sie verwendet für
 das gesamte Signal einen einzigen Drehzahlwert, bei Paderborn den Median
 des Drehzahlkanals (Tabelle~\ref{tab:datenimport_impl}). Auf dieser
 Grundlage prüft sie feste Schadensfrequenzen; deren zeitliche Veränderung
 bei wechselnder Drehzahl bildet die aktuelle Verarbeitung nicht ab.
-% Rückverweis: sec:waelzlagerdiagnose, Modulation und zyklostationäres
-% Signalverhalten; Randall und Antoni (2011), S. 486--487, PDF-S. 2--3,
-% Abschn. 1 und Abb. 1: lastabhängige Stärke der Stoßantworten.
-% Eigene Ableitung: Lastwechsel können die für die Peakbewertung
-% ausgewerteten Signalanteile verändern; keine bestimmte Gütefolge behauptet.
 Lastwechsel können die Stärke der Stoßantworten und damit die Grundlage
 der lokalen Peakbewertung verändern
 (Abschnitt~\ref{sec:waelzlagerdiagnose}).
 
-% Rückverweise: sec:waelzlagerdiagnose, Entstehung und Übertragung,
-% Randall und Antoni (2011), S. 498, PDF-S. 14, Abschn. 4;
-% sec:bandauswahl, nicht schadensbezogene Impulsivität,
-% Smith und Randall (2015), S. 122--123, PDF-S. 23--24, Abschn. 6.6.
-% Eigene Ableitung: Die Einflüsse betreffen die Bandauswahl; der
-% Datensatzvergleich trennt ihre Wirkung nicht von anderen Unterschieden.
 Auch andere Übertragungswege und zusätzliche impulsive Signalquellen
 können beeinflussen, welches Band für die SES-Auswertung gewählt wird
 (Abschnitte~\ref{sec:waelzlagerdiagnose} und~\ref{sec:bandauswahl}).
 
-% Rückverweise: sec:zielsetzung, Teilfrage 4 und Abgrenzung;
-% sec:eignung_datengrundlage, Aussagegrenzen; sec:aussagekraft_ergebnisse
-% und sec:methodische_grenzen. Quellenbasis zur methodischen Eignung:
-% Randall (2022), S. 277--278, PDF-S. 299--300, Abschn. 7.3.2.
-% Eigene Ableitung: Literaturbeispiele tragen die grundsätzliche Eignung
-% des Ansatzes; eigene Versuche tragen kein Urteil über seine konkrete
-% industrielle Umsetzung, Parametrierung und Entscheidungsregel.
 Für Teilfrage~4 ist daher zwischen der grundsätzlichen Eignung des
 methodischen Ansatzes und der industriellen Eignung der konkreten Pipeline
 zu unterscheiden. Die Literatur stützt den Ansatz; die vorliegenden

@@ -1,98 +1,169 @@
 \chapter{Schlussbetrachtung}
 \label{ch:schlussbetrachtung}
 
-% Rückverweise: Kapitel~\ref{ch:diskussion} und
-% Abschnitt~\ref{sec:zielsetzung}; Orientierung ohne neue externe Aussage.
-Die Schlussbetrachtung führt die in Kapitel~\ref{ch:diskussion} bewerteten
-Ergebnisse zu einer abschließenden Antwort auf die Hauptforschungsfrage
-zusammen. Im Mittelpunkt stehen der erreichte Beitrag und die Reichweite
-des diagnostischen Nachweises.
+Die Schlussbetrachtung bündelt die in Kapitel~\ref{ch:diskussion}
+diskutierten Ergebnisse und beantwortet die Hauptforschungsfrage
+abschließend. Sie zeigt, welchen Beitrag die Arbeit leistet und
+was durch die Untersuchung belegt ist.
 
-%================================================================================================
-%       8.1 Fazit
-%================================================================================================
 \section{Fazit}
 \label{sec:fazit}
 
-% Rückverweise: Abschnitte~\ref{sec:softwarestruktur},
-% \ref{sec:signalverarbeitung_impl} und \ref{sec:signalbewertung_impl};
-% Abschnitt~\ref{sec:fehleranalyse}, Erläuterung der Peakentscheidungen.
-% Gezielt geprüfte Codebasis: cm_pipeline_validation/core/pipeline.py,
-% PipelineResult und run_pipeline; core/envelope_analysis.py,
-% DIAGNOSTIC_FAULT_TYPES und evaluate_spectrum. Keine neue Verfahrensaussage.
-Die entwickelte Softwarepipeline leitet aus Schwingungsdaten öffentlicher
-Wälzlagerdatensätze eine regelbasierte Indikation von Innen- und
-Außenringschäden ab. Sie verbindet den Datenimport mit optionaler
-DRS-Signaltrennung, Bandauswahl durch das Fast Kurtogram und Auswertung
-des SES. Die Komponenten sind getrennt aufrufbar und stellen
-Zwischenergebnisse bereit (Abschnitt~\ref{sec:softwarestruktur}).
-Eine Meldung lässt sich auf die ausgewerteten Spektralmerkmale und die
-festgelegten Peakprüfungen zurückführen, wie die Fehleranalyse in
-Abschnitt~\ref{sec:fehleranalyse} zeigt.
+Die entwickelte Softwarepipeline wertet Schwingungsdaten öffentlicher
+Wälzlagerdatensätze aus und leitet daraus regelbasierte Indikationen
+für Innen- und Außenringschäden ab. Auf den Datenimport folgen die
+optionale Signaltrennung mit DRS, die Bandauswahl mit dem Fast Kurtogram
+und die Auswertung des SES. Die einzelnen Verarbeitungsschritte lassen
+sich getrennt aufrufen und ihre Zwischenergebnisse prüfen
+(Abschnitt~\ref{sec:softwarestruktur}). So lässt sich nachvollziehen,
+welche Spektralmerkmale und Peakprüfungen zu einer Meldung führen.
+Die Fehleranalyse in Abschnitt~\ref{sec:fehleranalyse} zeigt diesen
+Zusammenhang.
 
-% Rückverweise: Abschnitt~\ref{sec:pipelineergebnisse}, Paderborn,
-% Tabelle~\ref{tab:cwru_ausgabemengen}; Abschnitt~\ref{sec:aussagekraft_ergebnisse},
-% Übertragung von künstlichen auf ausgewählte real entstandene Schäden
-% und Unterscheidung von Erkennung und exakter Zuordnung.
-% Verdichtung der dort belegten Ergebnisse; keine neue Verallgemeinerung.
-Die Evaluation zeigt, dass Schadenserkennung und korrekte Ringzuordnung
-getrennte Leistungen sind. Bei Paderborn lässt sich die anhand künstlicher
-Schäden festgelegte Parametrierung teilweise auf ausgewählte real
-entstandene Schäden übertragen. Mit DRS werden die betrachteten
-Außenringschäden fast durchgehend korrekt und ohne zusätzliche Ringmeldung
-zugeordnet. Die Schwierigkeiten liegen vor allem bei den Innenringschäden:
-Ein Teil bleibt unerkannt oder erhält eine falsche beziehungsweise
-zusätzliche Außenringindikation
+Die Ergebnisse zeigen jedoch, dass ein erkannter Schaden nicht immer
+dem richtigen Ring zugeordnet wird. Bei Paderborn erkennt die anhand
+künstlicher Schäden parametrierte Pipeline auch einen Teil der ausgewählten
+real entstandenen Schäden. Mit DRS werden die betrachteten Außenringschäden
+fast durchgehend richtig und ohne zusätzliche Ringmeldung zugeordnet.
+Schwierigkeiten treten vor allem bei Innenringschäden auf: Einige bleiben
+unerkannt, andere werden dem Außenring zugeordnet oder lösen zusätzlich
+eine Außenringmeldung aus
 (Abschnitt~\ref{sec:aussagekraft_ergebnisse}).
 
-% Rückverweise: Abschnitt~\ref{sec:pipelineergebnisse}, CWRU,
-% Tabellen~\ref{tab:pipeline_kennzahlen} und \ref{tab:cwru_ausgabemengen}:
-% mit DRS 36/36 Schäden binär erkannt, 5/40 Ausgaben exakt richtig;
-% Abschnitt~\ref{sec:aussagekraft_ergebnisse}, geringe Trennfähigkeit.
-% Keine neue Berechnung; Fallzahlen aus der vorhandenen Ergebnisdarstellung.
-Beim zusätzlichen Datensatzwechsel zu CWRU tritt dieser Unterschied noch
-deutlicher hervor. Mit DRS erkennt die Pipeline alle 36 geschädigten
-Messungen, doch nur fünf der insgesamt 40 Messungen erhalten eine exakt
-richtige Zustandszuordnung. Häufige Meldungen beider Ringfehler und
-Fehlalarme bei fehlerfreien Messungen zeigen die geringe Trennfähigkeit
-der übernommenen Konfiguration. Die hohe Schadenserkennung allein belegt
-daher keine erfolgreiche Unterscheidung der Lagerzustände
+Beim Wechsel zu CWRU wird dieser Unterschied noch deutlicher. Mit DRS
+erkennt die Pipeline alle 36 geschädigten Messungen. Doch nur bei fünf
+der insgesamt 40 Messungen stimmt die Ausgabe genau mit dem bekannten
+Lagerzustand überein. Häufig meldet die Pipeline beide Ringfehler;
+auch bei fehlerfreien Messungen treten Fehlalarme auf. Die übernommene
+Konfiguration unterscheidet die Lagerzustände daher trotz der hohen
+Schadenserkennung nur eingeschränkt
 (Abschnitt~\ref{sec:pipelineergebnisse}).
 
-% Rückverweise: Abschnitt~\ref{sec:pipelineergebnisse}, DRS-Vergleich;
-% Abschnitt~\ref{sec:methodische_grenzen}, erster Absatz und abschließende
-% Bewertung der Verarbeitung: gegenläufige Änderungen, erneute Bandauswahl,
-% kein eindeutiger diagnostischer Vorteil in der untersuchten Konfiguration.
-Der Vergleich der vollständigen Pipelinevarianten mit und ohne DRS ergibt
-unter der untersuchten Konfiguration keinen eindeutigen diagnostischen
-Gesamtvorteil. Einzelnen verbesserten Zuordnungen stehen neue
-Fehlentscheidungen gegenüber. Da beide Varianten das Analyseband jeweils
-neu wählen, umfasst dieser Vergleich auch mögliche Bandwechsel. Der
-Befund bewertet damit DRS innerhalb der untersuchten Verarbeitung und
-begründet keine allgemeine Untauglichkeit des Verfahrens
+Der Vergleich mit und ohne DRS zeigt für die untersuchte Konfiguration
+keinen eindeutigen diagnostischen Gesamtvorteil. Mit DRS verbessern sich
+einige Zuordnungen, andere verschlechtern sich. Verglichen werden die
+vollständigen Pipelinevarianten, die das Analyseband jeweils neu wählen.
+Der Vergleich erfasst somit auch mögliche Bandwechsel. Das Ergebnis
+gilt für die untersuchte Verarbeitung und bedeutet nicht, dass DRS
+allgemein ungeeignet ist
 (Abschnitt~\ref{sec:methodische_grenzen}).
 
-% Rückverweise: Abschnitt~\ref{sec:zielsetzung}, Hauptforschungsfrage und
-% Abgrenzung; Abschnitt~\ref{sec:anforderungserfuellung}, F-01, F-03, Q-01
-% und E-03; Abschnitte~\ref{sec:aussagekraft_ergebnisse} und
-% \ref{sec:industrielle_uebertragbarkeit}, Reichweite der eigenen Versuche.
-% Abschließende Zusammenführung der bereits begründeten Antworten;
-% keine neue Gütebehauptung und keine allgemeine Reproduzierbarkeitszusage.
-Bezogen auf die Hauptforschungsfrage zeigt die Arbeit damit, wie sich der
-Weg vom Messsignal zur regelbasierten Fehlerindikation modular umsetzen,
-nachvollziehen und anhand bekannter Lagerzustände evaluieren lässt.
-Der diagnostische Nachweis umfasst die Erkennung und teilweise korrekte
-Zuordnung bestehender Schäden in den ausgewählten Prüfstandsmessungen.
-Er bleibt an diese Daten und die untersuchte Konfiguration gebunden.
-Eine Ausfallprognose oder eine validierte Anwendung an industriellen
-Maschinen ist damit nicht verbunden
+Die Hauptforschungsfrage ist damit im untersuchten Umfang beantwortet:
+Der Weg vom Messsignal zur regelbasierten Fehlerindikation ist modular
+umgesetzt. Die Entscheidungen lassen sich nachvollziehen und anhand
+bekannter Lagerzustände bewerten. Die Versuche zeigen, dass die Pipeline
+bestehende Schäden erkennt und teilweise dem richtigen Ring zuordnet.
+Dieser Nachweis beschränkt sich auf die ausgewählten Prüfstandsmessungen
+und die untersuchte Konfiguration. Ausfallzeitpunkte werden nicht
+vorhergesagt; die Anwendung an industriellen Maschinen wurde nicht
+validiert
 (Abschnitte~\ref{sec:zielsetzung} und~\ref{sec:industrielle_uebertragbarkeit}).
 
-%================================================================================================
-%       8.2 Ausblick
-%================================================================================================
 \section{Ausblick}
 \label{sec:ausblick}
 
-% Mögliche Weiterentwicklung, industrielle Validierung und spätere Integration
-% der Verarbeitungspipeline in betriebliche Systeme.
+% Eigene methodische Festlegung: Aus Abschnitt~\ref{sec:methodische_grenzen}
+% folgt der Bedarf, Aufnahmedauer und DRS-Blockbildung gezielt zu vergleichen.
+% Abschnitt~\ref{sec:pipelineergebnisse}, Absatz DRS-Vergleich, begründet die
+% ergänzende Betrachtung bei festgehaltenem Analyseband.
+Die Weiterentwicklung sollte zunächst klären, welche Verarbeitungsschritte
+die beobachteten Fehlentscheidungen beeinflussen. Vorrangig sind längere
+Aufzeichnungen, an denen sich unterschiedliche DRS-Blocklängen bei
+vergleichbaren Betriebsbedingungen untersuchen lassen. Damit wäre zu
+prüfen, ob längere Blöcke bei zugleich ausreichender Zahl von Mittelungen
+zu einer zutreffenderen Fehlerindikation führen
+(Abschnitt~\ref{sec:methodische_grenzen}). Ergänzende Vergleiche bei
+festgehaltenem Analyseband könnten den Einfluss der Signaltrennung von
+dem einer geänderten Bandauswahl unterscheiden.
+% Eigene methodische Festlegung: Abschnitt~\ref{sec:aussagekraft_ergebnisse}
+% und Abschnitt~\ref{sec:fehleranalyse}, Absatz Messgruppen: wenige physische
+% Lager, unterschiedliche Fehlerbilder von KI16 und KI17 sowie nur vier
+% CWRU-Normalmessungen begründen zusätzliche unabhängige Lagerfälle.
+Zugleich sollte die Datenbasis um weitere unabhängige Lagerfälle erweitert
+werden, insbesondere um fehlerfreie Zustände. So ließe sich untersuchen,
+ob die Fehlalarme und die unterschiedlichen Fehlerbilder der Innenringlager
+auch bei anderen Lagern auftreten.
+
+% Rückverweis: Abschnitt~\ref{sec:methodische_grenzen}, Absätze zur
+% Bandauswahl und Entscheidungsregel; keine neue Erklärung der Fehlerursachen.
+Die Fehlalarme und zusätzlichen Ringmeldungen legen außerdem einen
+gezielten Vergleich von Bandauswahl und anschließender Bewertung nahe.
+% Quellenbasis: Antoni (2016), S. 83 (PDF-S. 12 der HAL-Fassung),
+% Ablaufdiagramm der Infogram-Berechnung; Barszcz und Jablonski (2011),
+% S. 438--440, Abschn. 3.2; Moshrefzadeh und Fasana (2018),
+% Autorenmanuskript S. 8--13 (PDF-S. 9--14), Abschn. 3.1 und Abb. 1:
+% unterschiedliche Verfahren zur Auswahl eines Demodulationsbands.
+Als Alternativen zum Fast Kurtogram kommen Infogram, Protrugram und
+Autogram für die Auswahl des Demodulationsbands infrage
+\cite{antoniInfogramEntropicEvidence2016,barszczNovelMethodOptimal2011,
+moshrefzadehAutogramEffectiveApproach2018}.
+% Eigene methodische Festlegung: Zunächst unveränderte Bewertung, um den
+% Vergleich der Bandauswahl von einer Änderung der Entscheidungsregel zu trennen.
+Zunächst wäre bei unveränderter Entscheidungsregel zu untersuchen, ob
+die damit gewählten Bänder die Lagerzustände im SES besser unterscheiden
+lassen. Eine Überlegenheit für die vorliegende Pipeline ist damit noch
+nicht belegt.
+
+% Quellenbasis: Mo, Wang, Zhang und Miao (2020), öffentliches
+% Autorenmanuskript S. 4--7, Abschn. III.A--D, insbesondere III.C,
+% Gl. (29): WCHNR verbindet die lokale Ausprägung charakteristischer
+% Harmonischer mit deren erkannter Anzahl. Die Quelle enthält eigene
+% Schwellen und Voraussetzungen; sie belegt keine fertige Entscheidungsregel
+% für die hier betrachteten drei Lagerzustände.
+Für die Bewertung bietet sich ergänzend die Weighted Cyclic
+Harmonic-to-Noise Ratio (WCHNR) als literaturbasierter Vergleichskandidat
+an. Der Kennwert berücksichtigt die Ausprägung und die Anzahl erkannter
+charakteristischer Harmonischer im SES
+\cite[Abschn.~III]{moWeightedCyclicHarmonictoNoise2020}.
+% Eigene methodische Festlegung: Abgleich des in Mo et al. beschriebenen
+% Kennwerts mit der eigenen regelbasierten Bewertung aus
+% Abschnitt~\ref{sec:methodische_grenzen}; die Zuordnung der Kennwerte
+% zu den drei Zielzuständen ist eine zusätzliche Entwicklungsaufgabe.
+Vor einem Vergleich mit der eigenen regelbasierten Bewertung wären die
+Spektralberechnung und die Voraussetzungen der Schwellenprüfung
+abzugleichen. Außerdem wäre festzulegen, wie aus dem Kennwert und den
+ringbezogenen Harmonischenprüfungen eine Entscheidung für die betrachteten
+Lagerzustände folgt. Der Kennwert allein ersetzt diese Entscheidungsregel
+nicht. Maßgeblich für die Bewertung beider Weiterentwicklungen sollten
+die korrekte Ringzuordnung, die Fehlalarme und die übersehenen Schäden
+sein. Weniger zusätzliche Ringmeldungen wären nur dann eine Verbesserung,
+wenn zugleich die zutreffenden Schadensmeldungen erhalten bleiben;
+eine hohe binäre Erkennungsrate allein genügt nicht.
+
+% Codebasis: core/pipeline.py, PipelineResult und run_pipeline, insbesondere
+% Rückgabe von residual, freq_ses, ses und faults; core/envelope_analysis.py,
+% _select_target_peak und evaluate_spectrum: Ausgabe von amplitude und
+% mad_score für die geprüften Ordnungen. Aktueller ausführbarer Code gelesen.
+% Eigene methodische Festlegung: Diese Ausgaben künftig zu Merkmalen für
+% einen Klassifikator aufbereiten; eine Leistungssteigerung wird nicht behauptet.
+Auf dieser Grundlage ließe sich die Pipeline auch für einen lernenden
+Klassifikator nutzen. Die Signalverarbeitung würde weiterverwendet;
+aus ihren Signalen beziehungsweise Spektren wären geeignete Merkmale
+abzuleiten. Bereits verfügbar sind beispielsweise die Peakamplituden
+und MAD-Scores an den geprüften Schadensfrequenzen und ihrer zweiten
+Harmonischen. Ihre Aufbereitung zu einem einheitlichen Merkmalsvektor
+wäre noch zu entwickeln. Anschließend könnte untersucht werden, ob ein
+Klassifikator mit diesen Informationen die Lagerzustände besser trennt
+als die bestehende Regel.
+% Eigene methodische Festlegung: Aus der Abhängigkeit wiederholter Messungen
+% desselben Lagers (Abschnitt~\ref{sec:aussagekraft_ergebnisse}) folgt die
+% Trennung nach physischen Lagern für den vorgeschlagenen Lernvergleich.
+Dafür wären ausreichend unabhängige Lagerfälle erforderlich. Sämtliche
+Aufnahmen eines physischen Lagers müssten jeweils derselben Trainings-,
+Validierungs- oder Testgruppe zugeordnet werden. Der Vergleich sollte an
+denselben zurückgehaltenen Lagern und anhand der genannten Kriterien
+erfolgen.
+
+% Eigene methodische Festlegung: Begrenzte Pilotuntersuchung als nächster
+% industrieller Prüfschritt aus Abschnitt~\ref{sec:industrielle_uebertragbarkeit};
+% bekannte Zustände und repräsentative Bedingungen dienen als Referenz für
+% Erkennung, Ringzuordnung und Fehlalarme. Abgrenzung gemäß Abschnitt~\ref{sec:zielsetzung}.
+Der nächste Schritt zur industriellen Anwendung wäre eine begrenzte
+Pilotuntersuchung an einer ausgewählten Maschine. Sie sollte mit einer
+geeigneten Messkette, bekannten Lagerzuständen und repräsentativen
+Betriebsbedingungen an die Voraussetzungen aus
+Abschnitt~\ref{sec:industrielle_uebertragbarkeit} anknüpfen. Zu prüfen
+wäre, welche Erkennung und Ringzuordnung unter diesen Bedingungen
+erreichbar sind und wie häufig fehlerfreie Zustände Meldungen auslösen.
+Die Ergebnisse könnten anschließend die Grundlage für eine betriebliche
+Integration der Fehlerindikation bilden.
