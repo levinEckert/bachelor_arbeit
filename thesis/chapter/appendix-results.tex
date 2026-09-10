@@ -11,7 +11,8 @@ Dieser Anhang dokumentiert die Referenzrechnung der in
 Abschnitt~\ref{sec:komponentenvalidierung} geprüften Lagerfrequenzen und ergänzt
 Abschnitt~\ref{sec:pipelineergebnisse} um führende Parameterkonfigurationen,
 Ergebnisse einzelner Lager und Messungen mit geänderten Fehlerindikationen im
-DRS-Vergleich.
+DRS-Vergleich. Die Berechnung der DRS-Mittelungen ergänzt die Diskussion
+in Abschnitt~\ref{sec:methodische_grenzen}.
 
 \paragraphheading{Referenzrechnung der Lagerfrequenzen}
 \label{app:lagerfrequenz_referenzrechnung}
@@ -69,6 +70,68 @@ von $29{,}05\,\mathrm{mm}$ und einem Druckwinkel von $0^\circ$ folgt:
        \approx 123{,}24\,\mathrm{Hz}.
   \end{aligned}
 \end{equation}
+
+\clearpage
+\paragraphheading{Berechnung der DRS-Mittelungen}
+\label{app:drs_mittelungen}
+
+% Eigene, vom Autor beauftragte Nachrechnung der Implementierung:
+% cm_pipeline_validation/core/drs.py, init_params, run_drs und estimate_filter.
+% Eingaben: 64 kHz, vier Sekunden und Nenndrehzahlen 900/1500 U/min gemäß
+% sec:datensatz_paderborn; Blockfaktor 5, Bezugsfrequenz 3000 Hz,
+% Sicherheitsfaktor 3 und Periodenzahl 100 gemäß paderborn_summary.csv.
+% Blockfaktor 20 ist ein Vergleichswert aus dem Suchraum, kein ausgewählter
+% Evaluationsparameter. Auswertung der Indexfolge ohne Signalverarbeitung.
+% Kontrolliert an N09_M07_F10_KI17_15.mat und N15_M07_F10_KI17_15.mat:
+% tatsächliche Längen 256001/256002, Drehzahlen 900.0865868/1499.3208275,
+% Blocklängen 21331/12805, jeweils ebenfalls 10/18 Paare bei Blockfaktor 5.
+Für eine idealisierte Paderborner Aufzeichnung von vier Sekunden mit
+$64\,\mathrm{kHz}$ gilt $L=256000$ Abtastwerte. Bei 1500~U/min
+($25\,\mathrm{Hz}$) umfasst ein Block mit dem ausgewählten Faktor $B=5$
+\[
+  N=5\cdot\frac{64000}{25}=12800\ \text{Abtastwerte}
+  \quad (0{,}2\,\mathrm{s}).
+\]
+Die freie Lücke zwischen den gepaarten Blöcken beträgt mit den festen
+DRS-Parametern $\Delta=(3\cdot100/3000)\cdot64000=6400$
+Abtastwerte, also $0{,}1\,\mathrm{s}$.
+
+% Codebasis: run_drs, block_distance=N+delta und skip=block_distance;
+% estimate_filter, range(skip, len(signal)-N, N), obere Grenze exklusiv.
+% Aufeinanderfolgende Paare beginnen im Abstand N.
+Der spätere Block jedes Paares beginnt laut Implementierung bei
+$s_j=N+\Delta+jN<L-N$. Im Beispiel erfüllen $j=0,\ldots,17$
+diese Bedingung: Es werden 18~Blockpaare gemittelt.
+Tabelle~\ref{tab:drs_mittelungen} ergänzt die niedrigere Nenndrehzahl und
+den Vergleich mit $B=20$. Blocklängen werden wie im Code auf ganze
+Abtastwerte abgerundet.
+
+% Eigene Nachrechnung derselben Indexfolge:
+% B=5, 15 Hz: N=21333, delta=6400, m=10;
+% B=20, 25 Hz: N=51200, delta=6400, m=3;
+% B=20, 15 Hz: N=85333, delta=6400, m=1.
+\begin{table}[H]
+  \centering
+  \caption{Rechnerische Zahl der DRS-Blockpaare bei vier Sekunden Messdauer
+    und $64\,\mathrm{kHz}$; die freie Lücke beträgt jeweils $0{,}1\,\mathrm{s}$.}
+  \label{tab:drs_mittelungen}
+  \small
+  \begin{tabular}{rrrrr}
+    \hline
+    \textbf{Blockfaktor} & \textbf{Drehzahl} & \textbf{Blocklänge} &
+      \textbf{Blockdauer} & \textbf{Blockpaare} \\
+    $B$ & (U/min) & (Abtastwerte) & (s) & \\
+    \hline
+    5 & 1500 & 12800 & 0,200 & 18 \\
+    5 & 900 & 21333 & 0,333 & 10 \\
+    20 & 1500 & 51200 & 0,800 & 3 \\
+    20 & 900 & 85333 & 1,333 & 1 \\
+    \hline
+  \end{tabular}
+\end{table}
+Mit $B=20$ bleiben somit nur drei beziehungsweise ein Blockpaar übrig.
+Die Rechnung bestimmt die Zahl der gemittelten Paare; ihre statistische
+Unabhängigkeit und die erreichbare Diagnosegüte werden damit nicht geprüft.
 
 \paragraphheading{Parameterkonfigurationen}
 

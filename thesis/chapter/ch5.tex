@@ -489,10 +489,6 @@ benötigten Größen über alle Blockpaare und bildet daraus den Quotienten.
 % Rückverweis: Abschnitt~\ref{sec:signalverarbeitung}, Absatz zur DFT:
 % zyklische Anordnung der inversen DFT. Eigene Umsetzung mit fftshift und
 % Beschnitt anhand des mittig angeordneten Nullzeitpunkts.
-% OFFEN: Die theoretische Einordnung der Betragsfilterung steht in Kapitel 2,
-% sec:signalseparation, weiterhin als TODO. Dort anhand Randall, Sawalhi und
-% Coats (2011), S. 15, Abschn. 5, ergänzen und von der Phasenkorrektur bei
-% Antoni und Randall (2004), S. 105, Abschn. 2, abgrenzen.
 Für die Filteranwendung nutzt \texttt{apply\_filter} nur den Betrag
 $\lvert H_1\rvert$. Damit wird die von Randall, Sawalhi und Coats
 beschriebene amplitudenbasierte Variante umgesetzt
@@ -513,9 +509,6 @@ $H_1$-Frequenzgang und $N$.
 % codex-clipboard-2c631c1d-efb9-4253-bd70-152daf6a7f16.png.
 % SHA-256: d009defd42af9b21c5ef6b25c05f8cb52a4d43e08aca91e099e706a980b6eb3c.
 % Datenzuordnung laut Autor: PROJECT_ROOT / data/cwru/inner_race/IR007_2.mat.
-% OFFEN: Verwendete DRS-Konfiguration und Codestand des Abbildungslaufs
-% für die abschließende Dokumentation ergänzen. Die Darstellung dient hier
-% nur der Veranschaulichung, nicht als Validierungs- oder Gütenachweis.
 Die Zuordnung von Eingangssignal, deterministischer Schätzung und
 Residuum veranschaulicht Abbildung~\ref{fig:drs_signalanteile_impl}
 an ihren Spektren.
@@ -579,10 +572,6 @@ $1/M$, wobei $M$ die Anzahl gemittelter Blockpaare bezeichnet; zugelassen ist
 eine absolute Abweichung von $0{,}01$. Da die statistische Herleitung dieses
 Referenzwerts für die aktuelle Blockbildung nicht dokumentiert ist, dient
 diese Prüfung nicht als eigenständiger Nachweis der Trennqualität.
-% OFFEN: Die statistische Herleitung dieses Referenzwerts ist im Testcode
-% nicht dokumentiert. Vor einer Einordnung als Qualitätsnachweis fachlich
-% prüfen und die Assertion gegebenenfalls durch ein begründetes Kriterium ersetzen.
-
 % Codebasis: tests/test_drs_synthetic_validation.py, run_drs_case, Z. 218--297,
 % und DrsTest, Z. 399--455; core/drs.py, compute_residual, Z. 126.
 % Aussagegrenzen des Referenzvergleichs, keine behaupteten Testergebnisse.
@@ -595,43 +584,6 @@ und deterministischer Schätzung bildet, kann auch eine falsche Schätzung
 diese Rekonstruktionsprüfung erfüllen. Die eigentliche Trennqualität
 wird deshalb über den Vergleich mit den bekannten Referenzanteilen erfasst.
 Ergebnisse und Bewertung folgen in Kapitel~\ref{ch:evaluation}.
-
-% OFFEN: Ergänzende Codeauszüge im gemeinsamen Anhang einbinden; in diesem
-% parallelen Auftrag sind Anhang, Codekopien und Codestand nicht freigegeben.
-% Geprüfte Basis am 05.09.2026: cm_pipeline_validation, HEAD
-% f402c087d7a907059344e00bd9069c83b4c478a1 mit uncommitteter Änderung in
-% core/drs.py. Der Standardwert von estimate_filter ist bereits 0.0,
-% run_drs übergibt jedoch weiterhin ausdrücklich overlap=0.5. Der ausgeführte
-% Pipelinepfad verwendet somit weiterhin die Blocküberlappung. Vor Einbindung
-% nach Abarbeitung des DRS-Todos erneut abgleichen.
-% core/drs.py, aktueller Arbeitsbaum: SHA-256
-% 32bf096d63857942c412bf0e50e065a93c45fc601990b21119e845551a11d281.
-% core/pipeline.py: SHA-256
-% 8c84031686209da1955069b401a51fca6783bcec0be10d4d4870cee1f954ba0f.
-% tests/test_drs_synthetic_validation.py: SHA-256
-% 1769dfc01543035c9a69dd9bb5d312b5a1f1c96792914396197fe1b30f65b5f1.
-% Benötigte unveränderte Auszüge mit firstline/lastline/firstnumber:
-% - core/drs.py, init_params, Z. 25--30:
-%   lst:drs-init-params-blocklaengen (Umrechnung von Perioden in Abtastwerte).
-% - core/drs.py, run_drs, Z. 149--164:
-%   lst:drs-run-drs-signaltrennung (Blockversatz, Aufrufe und Rückgabe).
-% - core/drs.py, estimate_filter, Z. 63--85:
-%   lst:drs-estimate-filter-spektralmittelung (Fenster, Paare und H1).
-% - core/drs.py, apply_filter, Z. 99--113:
-%   lst:drs-apply-filter-ausrichtung (Betragsfilterung und Beschnitt).
-% - core/pipeline.py, run_pipeline, Z. 113--122; die bereits dokumentierte
-%   Kopie unter code/2026-09-04-f402c087/core/pipeline.py verwenden:
-%   lst:pipeline-run-pipeline-drs-bypass (Signalbelegung beider Pfade).
-% - tests/test_drs_synthetic_validation.py, run_drs_case, Z. 218--260:
-%   lst:drs-test-run-drs-case-referenzzuordnung (Mischung und Vergleichsfenster).
-% - tests/test_drs_synthetic_validation.py,
-%   DrsTest.test_white_noise_remains_in_residual, Z. 399--438:
-%   lst:drs-test-weisses-rauschen (Rauschfall und Filterhintergrund).
-% - tests/test_drs_synthetic_validation.py,
-%   DrsTest.test_drs_separates_known_signal_components, Z. 440--455:
-%   lst:drs-test-signalanteile (tatsächlich geprüfte Bestehensgrenzen).
-% Nach Einbindung passende sichtbare Listingverweise ergänzen; aktuell
-% existiert hierfür bewusst kein Verweis auf ein noch fehlendes Listing.
 
 \paragraphheading{Fast Kurtogram}
 \label{subsec:fast_kurtogram_impl}
@@ -812,10 +764,6 @@ blieben unverändert. Die zugehörige BSD-Lizenz mit zwei Bedingungen liegt
 dem Projekt bei.
 % Literaturdaten am 04.09.2026 in Zotero ergänzt; den tatsächlich nach
 % sources.bib exportierten Schlüssel antoniFastKurtogram2015 verwendet.
-% OFFEN: THIRD_PARTY_NOTICES.md nennt für die MATLAB-Lizenz Copyright 2015;
-% das direkt geprüfte Originalarchiv und die bytegleiche lokale Lizenzkopie
-% nennen 2014. Herkunftshinweis außerhalb dieses Schreibauftrags berichtigen.
-
 % Codebasis: tests/create_fast_kurtogram_reference.m, Skript, Z. 5--100;
 % config/settings.py, PADERBORN_EVALUATION_BEARINGS,
 % PADERBORN_OPERATING_CONDITIONS und PADERBORN_RECORDING_NUMBERS;
@@ -857,40 +805,6 @@ und die im Wrapper ergänzte Mittelwertentfernung ein. Er prüft weder die
 eingeschränkte Bandauswahl noch die Hüllkurvenwerte, das SES oder die gesamte
 Pipeline.
 % Ergebnisse und Bewertung bleiben Kapitel~\ref{ch:evaluation} vorbehalten.
-% OFFEN: Kapitel 4, sec:evaluationskonzept, kündigt zusätzlich mittlere
-% absolute Abweichungen, RMSE und Korrelation als protokollierte Kennwerte
-% des Fast-Kurtogram-Vergleichs an. Der aktuelle unittest-Test Z. 59--96
-% berechnet bzw. protokolliert diese nicht; dortige Darstellung und alte
-% Testpfade außerhalb dieses Auftrags an den aktuellen Stand anpassen.
-
-% OFFEN: Fehlende Codeauszüge im gemeinsamen Anhang nach abgestimmter
-% Zuständigkeit einbinden; dieser Parallelauftrag erlaubt nur ch5.tex.
-% Geprüfter Stand: cm_pipeline_validation, HEAD
-% f402c087d7a907059344e00bd9069c83b4c478a1, erneut geprüft am 04.09.2026.
-% Kurtogrammkern, Auswahlhilfe, MATLAB-Routine und beide Referenzskripte
-% sind gegenüber dem zuvor geprüften Commit ccaaa6009df5 unverändert.
-% Vorhandenes Listing lst:pipeline-run-pipeline-schnittstelle wiederverwendet.
-% Der Anhang verwendet inzwischen code/2026-09-04-f402c087/core/pipeline.py;
-% diese Kopie wurde bei der redaktionellen Kürzung am 04.09.2026 byteweise
-% mit der aktuellen Projektdatei abgeglichen und stimmt überein.
-% Für die folgenden Auszüge firstline/lastline und firstnumber entsprechend
-% setzen; neue Quelldateikopien samt Prüfsummen zentral dokumentieren:
-% - core/fast_kurtogram.py, _validate_fast_kurtogram_input, Z. 818--837;
-%   vorgeschlagenes Label: lst:fast-kurtogram-eingabepruefung-zentrierung.
-% - utils/helper_functions.py, find_in_kwav, Z. 97--164;
-%   vorgeschlagenes Label: lst:helper-find-in-kwav-bandauswahl.
-% - core/pipeline.py, run_pipeline, Z. 124--165; vorhandene Kopie
-%   code/2026-09-04-f402c087/core/pipeline.py verwenden;
-%   vorgeschlagenes Label: lst:pipeline-run-pipeline-bandextraktion.
-% - matlab/Fast_Kurtogram.m, Fast_Kurtogram, Z. 44--56;
-%   vorgeschlagenes Label: lst:matlab-fast-kurtogram-referenzrueckgabe.
-% - tests/create_fast_kurtogram_reference.m, Skript (keine Funktion),
-%   Z. 71--89; vorgeschlagenes Label: lst:fast-kurtogram-referenzerzeugung.
-% - tests/test_fast_kurtogram_reference.py, load_matlab_references sowie
-%   FastKurtogramReferenceTest mit beiden Testmethoden, Z. 37--96;
-%   vorgeschlagenes Label: lst:fast-kurtogram-referenzvergleich.
-% Nach Einbindung passende Textverweise ergänzen; hier wird noch auf keines
-% dieser fehlenden Listings verwiesen.
 \par\endgroup
 
 \paragraphheading{SES}
@@ -1035,45 +949,6 @@ der Schnittstelle von \texttt{compute\_ses} ansetzt.
   \label{fig:ses_n15_m07_f10_ka04_20}
 \end{figure}
 
-% OFFEN: In Kapitel 4, sec:evaluationskonzept, Absatz Komponentenvalidierung,
-% fehlt das konkrete SES-Prüfziel trotz des vorhandenen Tests. Bei dessen
-% Überarbeitung die Prüfung der dominanten Modulationsfrequenz aufnehmen;
-% Testumsetzung hier und Ergebnisse in Kapitel 6 belassen. Kapitel 4 wird
-% in diesem auf den SES-Absatz begrenzten Parallelauftrag nicht geändert.
-% OFFEN: Im gemeinsamen Codeanhang ist noch kein passender SES-Auszug
-% eingebunden. Die bestehenden Listings zur Pipeline-Signatur und zu den
-% Aufrufstellen enthalten die SES-Berechnung nicht. Nach abgestimmter
-% Zuständigkeit die folgenden unveränderten Auszüge einbinden, mit
-% firstline/lastline und firstnumber gemäß den angegebenen Originalzeilen:
-% - core/fast_kurtogram.py, getFTSquaredEnvelope, Z. 622--636;
-%   vorgeschlagenes Label: lst:fast-kurtogram-getftsquaredenvelope-ses.
-% - core/fast_kurtogram.py, nextpow2, Z. 32--45, ergänzend zur FFT-Länge;
-%   vorgeschlagenes Label: lst:fast-kurtogram-nextpow2-fftlaenge.
-% - core/envelope_analysis.py, compute_ses, Funktionskörper Z. 32--44;
-%   vorgeschlagenes Label: lst:envelope-analysis-compute-ses-frequenzachse.
-% - tests/test_ses.py, SquaredEnvelopeSpectrumTest.
-%   test_known_modulation_appears_at_the_expected_frequency, Z. 13--33;
-%   vorgeschlagenes Label: lst:test-ses-bekannte-modulation.
-% Geprüfter Stand: erneuter Codeabgleich am 05.09.2026, HEAD
-% f402c087d7a907059344e00bd9069c83b4c478a1. Das Arbeitsverzeichnis enthält
-% Änderungen außerhalb der SES-Berechnung und ihres Tests.
-% compute_ses, getFTSquaredEnvelope, nextpow2 und der SES-Test sind gegenüber
-% dem zuvor geprüften Commit ccaaa6009df56fd8efab4fdbe43d396253cb8359
-% unverändert; auch die SES-Eingaben und -Ergebnisfelder bleiben gleich.
-% Die Änderungen in core/envelope_analysis.py betreffen die nachfolgende
-% Spektrumbewertung, nicht compute_ses. SHA-256 der aktuellen Quelldateien:
-% core/fast_kurtogram.py:
-% a756d8b902f6e3559ee2f73a2375323be6fa7ae9da2885b1e96a7606dbb1d6be
-% core/envelope_analysis.py:
-% b0da650f97c25ba5741e0131fbb564079fe094fa13a1486db4d093c98865afa5
-% tests/test_ses.py:
-% b95aaa9146c025b20453149b4b1d329dbf4e09306cb896a470fcfa57fa71c83c
-% Die Anhangkopien von core/pipeline.py, main.py und
-% workflows/evaluate_paderborn.py im Stand 2026-09-04-f402c087 wurden am
-% 05.09.2026 erneut byteweise mit den aktuellen Projektdateien abgeglichen
-% und stimmen überein. Die gemeinsamen Anhangdateien bleiben hier unverändert.
-% Auf noch nicht eingebundene Listings wird im Fließtext nicht verwiesen.
-
 %================================================================================================
 %       5.4 Signalbewertung
 %================================================================================================
@@ -1142,18 +1017,6 @@ Geometrieprofile berechnet und auf zwei Nachkommastellen gerundet. Da der Test
 die beiden Geometrie-Dictionaries direkt auswählt, prüft er weder BSF und FTF
 noch die vollständige Zuordnung der Geometrieprofile zu den Paderborner
 Lagerkennungen.
-
-% OFFEN: Im gemeinsamen Codeanhang fehlen Auszüge für diesen Absatz. Nach
-% abgestimmter Zuständigkeit unverändert einbinden:
-% - core/envelope_analysis.py, compute_bearing_fault_frequencies, Z. 47--69;
-%   vorgeschlagenes Label:
-%   lst:envelope-analysis-compute-bearing-fault-frequencies.
-% - tests/test_peak_detection.py,
-%   test_fault_frequencies_match_independent_reference_values, Z. 130--149;
-%   vorgeschlagenes Label: lst:test-peak-detection-lagerfrequenzreferenzen.
-% Geprüfter Stand: 05.09.2026, HEAD
-% f402c087d7a907059344e00bd9069c83b4c478a1, Codearbeitsverzeichnis unverändert.
-% Auf die noch nicht vorhandenen Listings wird im Fließtext nicht verwiesen.
 
 \paragraphheading{Peak-Erkennung}
 \label{subsec:peaks_impl}
@@ -1303,27 +1166,6 @@ Peaks zwischen den Frequenzstellen ab. Für den Sonderfall mit weniger als drei
 Vergleichswerten enthält die Testdatei keinen eigenen Test. Die Ergebnisse
 werden in Kapitel~\ref{ch:evaluation} berichtet.
 
-% OFFEN: Im gemeinsamen Codeanhang fehlen Auszüge für diesen Absatz. Nach
-% abgestimmter Zuständigkeit unverändert und mit dokumentiertem Codestand
-% einbinden:
-% - core/envelope_analysis.py, _find_spectrum_peaks und _select_target_peak,
-%   Z. 72--127; vorgeschlagenes Label:
-%   lst:envelope-analysis-select-target-peak.
-% - tests/test_peak_detection.py, setUp, detected_faults und die Fälle mit
-%   gesetzten Peaks, Z. 21--67; vorgeschlagenes Label:
-%   lst:test-peak-detection-gesetzte-peaks.
-% - tests/test_peak_detection.py, test_spectral_slope_is_not_a_peak und
-%   test_isolated_peak_is_valid_when_local_mad_is_zero, Z. 69--99;
-%   vorgeschlagenes Label: lst:test-peak-detection-grenzfaelle.
-% Geprüfter Stand: 06.09.2026, HEAD
-% f402c087d7a907059344e00bd9069c83b4c478a1; die beiden relevanten Dateien
-% entsprechen HEAD. Andere Dateien des Codearbeitsverzeichnisses sind geändert.
-% SHA-256: core/envelope_analysis.py
-% b0da650f97c25ba5741e0131fbb564079fe094fa13a1486db4d093c98865afa5;
-% tests/test_peak_detection.py
-% a7503cf73638dacf369f1d3abb933b2ec12b146421ebfce5ddbe8c200dd96ec6.
-% Auf die noch nicht vorhandenen Listings wird im Fließtext nicht verwiesen.
-
 \paragraphheading{Fehlerentscheidung}
 \label{subsec:fehlerentscheidung_impl}
 
@@ -1414,32 +1256,6 @@ BSF und FTF als Sollfrequenzen. Damit wird geprüft, dass die Funktion trotzdem
 nur BPFO und BPFI auswertet. Diese Fälle prüfen die Umsetzung der
 Entscheidungsregel. Ihre Anwendung auf die Messdaten und die daraus folgende
 Bewertung werden in Kapitel~\ref{ch:evaluation} behandelt.
-
-% OFFEN: Im gemeinsamen Codeanhang fehlen Auszüge für diesen Absatz. Nach
-% abgestimmter Zuständigkeit unverändert und mit Originalzeilennummern einbinden:
-% - core/envelope_analysis.py, evaluate_spectrum, Signatur und
-%   Parameterschranken Z. 174--220; vorgeschlagenes Label:
-%   lst:envelope-analysis-evaluate-spectrum-schnittstelle.
-% - core/envelope_analysis.py, evaluate_spectrum, Schleife, Entscheidung und
-%   Rückgabestruktur Z. 223--270; vorgeschlagenes Label:
-%   lst:envelope-analysis-evaluate-spectrum-fehlerentscheidung.
-% - tests/test_peak_detection.py, PeakDetectionTest, Entscheidungsfälle
-%   Z. 45--67 und Parametervariation Z. 101--128, als zwei Auszüge;
-%   vorgeschlagene Labels: lst:test-peak-detection-entscheidungsfaelle und
-%   lst:test-peak-detection-required-harmonics.
-% - tests/test_evaluation_scope.py,
-%   test_only_inner_and_outer_race_faults_are_evaluated, Z. 29--44;
-%   vorgeschlagenes Label: lst:test-evaluation-scope-fehlerarten.
-% Geprüfter Stand: 06.09.2026, HEAD
-% f402c087d7a907059344e00bd9069c83b4c478a1; die drei relevanten Dateien
-% entsprechen HEAD. Andere Dateien des Codearbeitsverzeichnisses sind geändert.
-% SHA-256: core/envelope_analysis.py
-% b0da650f97c25ba5741e0131fbb564079fe094fa13a1486db4d093c98865afa5;
-% tests/test_peak_detection.py
-% a7503cf73638dacf369f1d3abb933b2ec12b146421ebfce5ddbe8c200dd96ec6;
-% tests/test_evaluation_scope.py
-% e92c739878699ea2581f0b8a5886cbecfe97a842cf3f2ae40d214aaa4b6fd85e.
-% Auf die noch nicht vorhandenen Listings wird im Fließtext nicht verwiesen.
 
 %================================================================================================
 %       5.5 Versuchsautomatisierung
@@ -1871,14 +1687,6 @@ vollständigen Evaluationslauf vom Dateiimport bis zum CSV-Export.
 % workflows/evaluate_paderborn.py, evaluate_file, evaluate_files und main;
 % workflows/evaluate_cwru.py, evaluate_file, evaluate_files und main;
 % core/pipeline.py, run_pipeline, Z. 55--60 und 113--122.
-% OFFEN: Der Variantenvergleich aus Abschnitt~\ref{sec:evaluationskonzept}
-% ist in den direkten Starts der Evaluationsmodule und in
-% workflows/run_complete_evaluation.py nicht enthalten: Sie verwenden
-% use_drs=True. Diesen Aufrufpfad mit dem vorgesehenen Vergleich abstimmen
-% und dessen Durchführung in Kapitel~\ref{ch:evaluation} nachweisen.
-% Abgrenzung zum separaten Haupteinstieg: main.py, main, Z. 9--27, enthält
-% bereits Aufrufe beider Varianten; daraus wird hier keine Durchführung
-% oder allgemeine Lücke sämtlicher Einstiegspunkte abgeleitet.
 Über den Schalter \texttt{use\_drs} unterstützen die Evaluationsfunktionen
 auch eine Verarbeitung ohne DRS. Die direkten Starts der beiden
 Evaluationsskripte verwenden jedoch den Standardwert \texttt{True}.

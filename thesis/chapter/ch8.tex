@@ -1,14 +1,92 @@
 \chapter{Schlussbetrachtung}
 \label{ch:schlussbetrachtung}
 
+% Rückverweise: Kapitel~\ref{ch:diskussion} und
+% Abschnitt~\ref{sec:zielsetzung}; Orientierung ohne neue externe Aussage.
+Die Schlussbetrachtung führt die in Kapitel~\ref{ch:diskussion} bewerteten
+Ergebnisse zu einer abschließenden Antwort auf die Hauptforschungsfrage
+zusammen. Im Mittelpunkt stehen der erreichte Beitrag und die Reichweite
+des diagnostischen Nachweises.
+
 %================================================================================================
 %       8.1 Fazit
 %================================================================================================
 \section{Fazit}
 \label{sec:fazit}
 
-% Abschließende Zusammenfassung des Lösungsansatzes, der wichtigsten Ergebnisse
-% und des erreichten Beitrags der Arbeit.
+% Rückverweise: Abschnitte~\ref{sec:softwarestruktur},
+% \ref{sec:signalverarbeitung_impl} und \ref{sec:signalbewertung_impl};
+% Abschnitt~\ref{sec:fehleranalyse}, Erläuterung der Peakentscheidungen.
+% Gezielt geprüfte Codebasis: cm_pipeline_validation/core/pipeline.py,
+% PipelineResult und run_pipeline; core/envelope_analysis.py,
+% DIAGNOSTIC_FAULT_TYPES und evaluate_spectrum. Keine neue Verfahrensaussage.
+Die entwickelte Softwarepipeline leitet aus Schwingungsdaten öffentlicher
+Wälzlagerdatensätze eine regelbasierte Indikation von Innen- und
+Außenringschäden ab. Sie verbindet den Datenimport mit optionaler
+DRS-Signaltrennung, Bandauswahl durch das Fast Kurtogram und Auswertung
+des SES. Die Komponenten sind getrennt aufrufbar und stellen
+Zwischenergebnisse bereit (Abschnitt~\ref{sec:softwarestruktur}).
+Eine Meldung lässt sich auf die ausgewerteten Spektralmerkmale und die
+festgelegten Peakprüfungen zurückführen, wie die Fehleranalyse in
+Abschnitt~\ref{sec:fehleranalyse} zeigt.
+
+% Rückverweise: Abschnitt~\ref{sec:pipelineergebnisse}, Paderborn,
+% Tabelle~\ref{tab:cwru_ausgabemengen}; Abschnitt~\ref{sec:aussagekraft_ergebnisse},
+% Übertragung von künstlichen auf ausgewählte real entstandene Schäden
+% und Unterscheidung von Erkennung und exakter Zuordnung.
+% Verdichtung der dort belegten Ergebnisse; keine neue Verallgemeinerung.
+Die Evaluation zeigt, dass Schadenserkennung und korrekte Ringzuordnung
+getrennte Leistungen sind. Bei Paderborn lässt sich die anhand künstlicher
+Schäden festgelegte Parametrierung teilweise auf ausgewählte real
+entstandene Schäden übertragen. Mit DRS werden die betrachteten
+Außenringschäden fast durchgehend korrekt und ohne zusätzliche Ringmeldung
+zugeordnet. Die Schwierigkeiten liegen vor allem bei den Innenringschäden:
+Ein Teil bleibt unerkannt oder erhält eine falsche beziehungsweise
+zusätzliche Außenringindikation
+(Abschnitt~\ref{sec:aussagekraft_ergebnisse}).
+
+% Rückverweise: Abschnitt~\ref{sec:pipelineergebnisse}, CWRU,
+% Tabellen~\ref{tab:pipeline_kennzahlen} und \ref{tab:cwru_ausgabemengen}:
+% mit DRS 36/36 Schäden binär erkannt, 5/40 Ausgaben exakt richtig;
+% Abschnitt~\ref{sec:aussagekraft_ergebnisse}, geringe Trennfähigkeit.
+% Keine neue Berechnung; Fallzahlen aus der vorhandenen Ergebnisdarstellung.
+Beim zusätzlichen Datensatzwechsel zu CWRU tritt dieser Unterschied noch
+deutlicher hervor. Mit DRS erkennt die Pipeline alle 36 geschädigten
+Messungen, doch nur fünf der insgesamt 40 Messungen erhalten eine exakt
+richtige Zustandszuordnung. Häufige Meldungen beider Ringfehler und
+Fehlalarme bei fehlerfreien Messungen zeigen die geringe Trennfähigkeit
+der übernommenen Konfiguration. Die hohe Schadenserkennung allein belegt
+daher keine erfolgreiche Unterscheidung der Lagerzustände
+(Abschnitt~\ref{sec:pipelineergebnisse}).
+
+% Rückverweise: Abschnitt~\ref{sec:pipelineergebnisse}, DRS-Vergleich;
+% Abschnitt~\ref{sec:methodische_grenzen}, erster Absatz und abschließende
+% Bewertung der Verarbeitung: gegenläufige Änderungen, erneute Bandauswahl,
+% kein eindeutiger diagnostischer Vorteil in der untersuchten Konfiguration.
+Der Vergleich der vollständigen Pipelinevarianten mit und ohne DRS ergibt
+unter der untersuchten Konfiguration keinen eindeutigen diagnostischen
+Gesamtvorteil. Einzelnen verbesserten Zuordnungen stehen neue
+Fehlentscheidungen gegenüber. Da beide Varianten das Analyseband jeweils
+neu wählen, umfasst dieser Vergleich auch mögliche Bandwechsel. Der
+Befund bewertet damit DRS innerhalb der untersuchten Verarbeitung und
+begründet keine allgemeine Untauglichkeit des Verfahrens
+(Abschnitt~\ref{sec:methodische_grenzen}).
+
+% Rückverweise: Abschnitt~\ref{sec:zielsetzung}, Hauptforschungsfrage und
+% Abgrenzung; Abschnitt~\ref{sec:anforderungserfuellung}, F-01, F-03, Q-01
+% und E-03; Abschnitte~\ref{sec:aussagekraft_ergebnisse} und
+% \ref{sec:industrielle_uebertragbarkeit}, Reichweite der eigenen Versuche.
+% Abschließende Zusammenführung der bereits begründeten Antworten;
+% keine neue Gütebehauptung und keine allgemeine Reproduzierbarkeitszusage.
+Bezogen auf die Hauptforschungsfrage zeigt die Arbeit damit, wie sich der
+Weg vom Messsignal zur regelbasierten Fehlerindikation modular umsetzen,
+nachvollziehen und anhand bekannter Lagerzustände evaluieren lässt.
+Der diagnostische Nachweis umfasst die Erkennung und teilweise korrekte
+Zuordnung bestehender Schäden in den ausgewählten Prüfstandsmessungen.
+Er bleibt an diese Daten und die untersuchte Konfiguration gebunden.
+Eine Ausfallprognose oder eine validierte Anwendung an industriellen
+Maschinen ist damit nicht verbunden
+(Abschnitte~\ref{sec:zielsetzung} und~\ref{sec:industrielle_uebertragbarkeit}).
 
 %================================================================================================
 %       8.2 Ausblick

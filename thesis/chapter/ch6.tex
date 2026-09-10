@@ -947,15 +947,20 @@ konkreten Nachweis zu.
   % settings: Lagergruppen disjunkt; aktuelles Dateiinventar je 120 Dateien.
   % tune_paderborn.py, collect_files und grid_search; main.py, main;
   % utils/io.py, load_trained_parameters; Rangliste und vier summaries stimmen.
-  % OFFEN: Die unveränderte Übernahme des finalen Parametersatzes ist belegt.
-  % Eine ursprüngliche Vorabfestlegung der f/2f-Regel darf nicht rückwirkend
-  % behauptet werden. Die Unabhängigkeit der Regelwahl bleibt getrennt von
-  % den disjunkten Lagerlisten und dem finalen Parametertransfer zu bewerten.
+  % Autorbestätigung im zugehörigen Überarbeitungsauftrag: Auch die
+  % Entscheidungsregel wurde ohne Verwendung der Evaluationsdaten festgelegt.
+  % Neu geprüft: settings.py, getrennte Lagerlisten; tune_paderborn.py,
+  % collect_files und main, Parametersuche ausschließlich auf Trainingslagern;
+  % main.py und utils/io.py, load_trained_parameters, einmaliges Laden und
+  % Weitergabe an beide Evaluationen. Auswahlparameter der ersten Zeile von
+  % paderborn_param_search.csv stimmen mit allen vier summaries überein.
+  % Eigene Erfüllungsbewertung am Wortlaut von E-01 in Kapitel 3;
+  % Autorbestätigung ergänzt den Code- und Ergebnisnachweis zum Ablauf.
   E-01: Datentrennung und Parameterübernahme &
   Getrennte Lagergruppen und identische Auswahlparameter in Rangliste und
   vier Zusammenfassungen (Abs.~\ref{sec:versuchsaufbau},
   Tab.~\ref{tab:ergebnisse_suchumfang}). &
-  noch nicht beurteilbar \\
+  erfüllt \\
   \hline
   % Vier summaries: total_files, evaluated_files, failed_files und sämtliche
   % Parameter konsistent mit den Einzelresultaten und der Konfiguration.
@@ -976,13 +981,6 @@ konkreten Nachweis zu.
   erfüllt \\
 \end{longtable}
 \endgroup
-
-% Eigene Nachweisgrenze zu E-01: disjunkte Lagergruppen und finaler
-% Parametertransfer belegen nicht die Unabhängigkeit der Regelwahl.
-Bei E-01 sind die Trennung der Lagergruppen und die unveränderte Übernahme
-des finalen Parametersatzes belegt. Davon zu unterscheiden ist die nicht
-nachgewiesene Unabhängigkeit der Festlegung der Entscheidungsregel von
-den Evaluationsdaten.
 
 % Beide evaluate_files: if not expected_labels vor Zusammenfassung/Rückgabe;
 % belegte funktionale Grenze, kein neu ausgeführter Fehlerfall.
