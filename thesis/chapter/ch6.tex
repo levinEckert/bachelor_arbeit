@@ -1,33 +1,993 @@
-\chapter{Evaluation und Ergebnisse}
+\chapter{Evaluation}
 \label{ch:evaluation}
 
-%================================================================================================
-%       6.1 Testdurchführung
-%================================================================================================
-\section{Testdurchführung}
-\label{sec:testdurchfuehrung}
-\begin{itemize}
-    \item Beschreibung der gewählten Testszenarien
-    \item Dokumentation der Versuchsbedingungen
-\end{itemize}
+% Rückverweis: Abschnitt~\ref{sec:zielsetzung}, insbesondere Teilfragen 2
+% und 3; Abschnitt~\ref{sec:untersuchungsrahmen}, Rolle der Datensätze.
+Die Evaluation untersucht, in welchem Umfang die Pipeline fehlerfreie Lager,
+Innenring- und Außenringschäden in den ausgewählten Messungen unterscheidet.
+Ein Schwerpunkt ist die Erkennung real entstandener Schäden mit einer anhand
+künstlicher Schäden parametrierten Pipeline
+(Abschnitt~\ref{sec:zielsetzung}).
 
 %================================================================================================
-%       6.2 Darstellung der Ergebnisse
+%       6.1 Versuchsgrundlage
 %================================================================================================
-\section{Darstellung der Ergebnisse}
-\label{sec:ergebnisse_darstellung}
+\section{Versuchsgrundlage}
+\label{sec:versuchsaufbau}
 
-\subsection{Validierung des Algorithmus}
-\begin{itemize}
-    \item Vergleich Funktionsweise mit Zielsetzung
-\end{itemize}
+% Rückverweise: Abschnitt~\ref{sec:evaluationskonzept} zu Nachweisebenen,
+% Testaufbauten und Kennzahlen; Abschnitt~\ref{sec:versuchsautomatisierung}
+% zur Versuchsausführung. Keine neue externe Aussage.
+Dieser Abschnitt legt die gemeinsame Grundlage für die in den folgenden
+Abschnitten dargestellten Ergebnisse fest. Die Evaluation umfasst zwei
+Nachweisebenen: Die Komponentenvalidierung prüft einzelne
+Verarbeitungsschritte anhand synthetischer Signale und numerischer
+Referenzausgaben. Die Pipelineevaluation vergleicht die abschließenden
+Fehlerindikationen mit den Referenzklassen der Messungen. Die bereits
+erläuterten Testaufbauten, Kennzahlen und Abläufe werden dabei vorausgesetzt
+(Abschnitte~\ref{sec:evaluationskonzept}
+und~\ref{sec:versuchsautomatisierung}).
+
+% Interne Primärgrundlage: cm_pipeline_validation,
+% workflows/tune_paderborn.py, collect_files, run_pipeline_file und grid_search;
+% evaluation/paderborn_scope.py, collect_paderborn_files; config/settings.py,
+% PADERBORN_TRAINING_BEARINGS und PADERBORN_EVALUATION_BEARINGS.
+% main.py, main; utils/io.py, load_trained_parameters.
+% data/results/paderborn_param_search.csv und alle vier Evaluationssummaries:
+% ausgewählter Satz nlevel=8, resonance_freq=3000, n_size=5, k=1.5,
+% tolerance=0.01, freq_search_area=20; feste Ergänzungen safety_factor=3,
+% slip_periods=100. Rückverweise zur bereits belegten Datenauswahl:
+% Tabellen~\ref{tab:paderborn_auswahl} und \ref{tab:cwru_evaluationsauswahl}.
+Für die Pipelineevaluation wird der ausschließlich anhand der Paderborner
+Trainingsmenge mit DRS ausgewählte Parametersatz auf die zurückgehaltenen
+Paderborner Messungen und die zusätzliche CWRU-Auswahl angewendet. Die
+Zusammensetzung dieser Teilmengen ist in den
+Tabellen~\ref{tab:paderborn_auswahl} und \ref{tab:cwru_evaluationsauswahl}
+dokumentiert.
+% Interne Primärgrundlage: config/settings.py, FAULT_FREQUENCY_ORDERS=(1,2);
+% core/envelope_analysis.py, evaluate_spectrum: Prüfung beider Ordnungen und
+% fault_detected=all(...); workflows/tune_paderborn.py, grid_search:
+% variabel sind n_size, k, tolerance und freq_search_area, keine Ordnungszahl.
+% data/results/paderborn_param_search.csv: n_harmonics und required_harmonics
+% in sämtlichen 120 Zeilen gleich 2.
+Für die Fehlerindikation werden jeweils die Grundfrequenz $f$ und die zweite
+Ordnung $2f$ geprüft. Beide müssen einen gültigen Peak aufweisen, damit der
+entsprechende Innen- oder Außenringschaden angezeigt wird. Diese Festlegung
+bleibt während der Parametersuche unverändert.
+
+% Interne Primärgrundlage: main.py, main, lädt einmal den Parametersatz,
+% sammelt je Datensatz einmal die Messungen und durchläuft use_drs=True/False.
+% core/pipeline.py, run_pipeline, ruft fast_kurtogram und find_in_kwav für
+% beide Varianten mit denselben Auswahlgrenzen auf.
+% workflows/evaluate_paderborn.py und workflows/evaluate_cwru.py, evaluate_file
+% und evaluate_files; data/results/paderborn_results{,_no_drs}.csv und
+% cwru_paderborn_params_results{,_no_drs}.csv: paarweise identische Dateimengen;
+% alle vier zugehörigen summaries: gleicher ausgewählter Parametersatz,
+% je Datensatz gleiche Werte für f_min, f_max und max_bandwidth.
+Der Vergleich mit und ohne DRS verwendet je Datensatz dieselben Messungen
+und denselben ausgewählten Parametersatz. Die Suchgrenzen der Bandauswahl
+bleiben ebenfalls gleich. Das konkrete Frequenzband wird jedoch in beiden
+Varianten jeweils neu bestimmt und kann sich unterscheiden. Paderborn und
+CWRU werden getrennt ausgewertet.
+Tabelle~\ref{tab:versuchsumfang_bestand} fasst den Umfang der durchgeführten
+Untersuchungen zusammen.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Umfang der durchgeführten Untersuchungen}
+  \label{tab:versuchsumfang_bestand}
+  \small
+  \begin{tabularx}{\textwidth}{|
+      >{\raggedright\arraybackslash}p{3.8cm}|
+      >{\raggedright\arraybackslash}X|}
+    \hline
+    \textbf{Untersuchung} & \textbf{Umfang} \\
+    \hline
+    % Interne Primärgrundlage: tests/test_drs_synthetic_validation.py, DrsTest
+    % (2 Methoden); tests/test_fast_kurtogram_reference.py,
+    % FastKurtogramReferenceTest (2); tests/test_ses.py,
+    % SquaredEnvelopeSpectrumTest (1); tests/test_peak_detection.py,
+    % PeakDetectionTest (9); tests/test_evaluation_scope.py,
+    % EvaluationScopeTest (6). Alle 20 Methoden sind in
+    % /private/tmp/ba-cleanup.3HSkXY/component_tests.log als ausgeführt erfasst.
+    % Vier dort zusätzlich erfasste ParameterLoadingTest-Methoden werden hier
+    % nicht mitgezählt. data/results/matlab_kurtogram_results.mat:
+    % 120 eindeutige Messdateien, identisch mit der Auswahl des Referenztests.
+    Komponenten und Versuchsumgebung &
+    20 Testmethoden: 14 zur Signalverarbeitung und 6 zum Untersuchungsumfang
+    und zu Fehlerfällen; darin Python-MATLAB-Vergleich für 120 Messungen. \\
+    \hline
+    % Interne Primärgrundlage: data/results/drs_synthetic_results.csv,
+    % 45 eindeutige Kombinationen aus 5 Seeds, 3 Rauschstärken und 3 Frequenzen;
+    % tests/test_drs_synthetic_validation.py, run_parameter_study.
+    DRS-Kennwertstudie &
+    45 synthetische Prüffälle. \\
+    \hline
+    % Interne Primärgrundlage: workflows/tune_paderborn.py, grid_search,
+    % 5 n_size- x 4 k- x 2 tolerance- x 3 freq_search_area-Werte;
+    % data/results/paderborn_param_search.csv: 120 eindeutige Kombinationen,
+    % label_tp+label_fn=120 je Zeile. collect_files und
+    % evaluation/paderborn_scope.py, collect_paderborn_files: 120 ausgewählte
+    % Trainingsdateien, anhand des Dateiinventars bestätigt.
+    Parametersuche &
+    120 Parameterkombinationen auf 120 Paderborner Trainingsmessungen. \\
+    \hline
+    % Interne Primärgrundlage: data/results/paderborn_results.csv und
+    % paderborn_results_no_drs.csv: je 120 eindeutige Messdateien;
+    % paderborn_summary.csv und paderborn_summary_no_drs.csv:
+    % total_files=evaluated_files=120.
+    Paderborn-Evaluation &
+    120 zurückgehaltene Messungen je Variante mit und ohne DRS. \\
+    \hline
+    % Interne Primärgrundlage:
+    % data/results/cwru_paderborn_params_results.csv und
+    % cwru_paderborn_params_results_no_drs.csv: je 40 eindeutige Messdateien;
+    % cwru_paderborn_params_summary.csv und
+    % cwru_paderborn_params_summary_no_drs.csv: total_files=evaluated_files=40.
+    CWRU-Evaluation &
+    40 Messungen je Variante mit und ohne DRS. \\
+    \hline
+  \end{tabularx}
+\end{table}
 
 %================================================================================================
-%       6.3 Soll-Ist-Vergleich
+%       6.2 Komponentenvalidierung
 %================================================================================================
-\section{Soll-Ist-Vergleich}
-\label{sec:soll_ist_vergleich}
-\begin{itemize}
-    \item Abgleich der Ergebnisse mit der Anforderungstabelle
-    \item Status der Umsetzung (Muss-, Soll- und Kann-Kriterien)
-\end{itemize}
+\section{Komponentenvalidierung}
+\label{sec:komponentenvalidierung}
+
+% Rückverweis: Abschnitt~\ref{sec:evaluationskonzept}; eigene Einordnung
+% der Nachweisebenen, keine zusätzliche externe Fachbehauptung.
+Die Komponentenprüfung untersucht, ob die einzelnen Verarbeitungsschritte
+in den Prüffällen aus Abschnitt~\ref{sec:evaluationskonzept} ihre jeweilige
+Aufgabe erfüllen. Tabelle~\ref{tab:komponentenvalidierung_ergebnisse} fasst
+die Ergebnisse zusammen. Die Güte der Fehlerindikation auf den Messdaten
+wird anschließend in Abschnitt~\ref{sec:pipelineergebnisse} untersucht;
+sie lässt sich aus bestandenen Einzelprüfungen noch nicht ableiten.
+
+% Gemeinsamer Ausführungsnachweis: /private/tmp/ba-cleanup.3HSkXY/
+% component_tests.log; alle hier behandelten Testmethoden mit "ok",
+% Gesamtergebnis: Ran 24 tests, OK, ohne übersprungene Tests.
+% Davon vier Parameterlade-Regressionstests, keine DRS-Prüfungen.
+% Prüfumfang anhand des aktuellen Testcodes und der Komponenten gelesen;
+% keine Tests, Signalverarbeitungen oder Evaluationen neu ausgeführt.
+
+\paragraphheading{DRS}
+
+% Rückverweise: Abschnitt~\ref{sec:evaluationskonzept}, Komponentenvalidierung,
+% sowie Absatz~\hyperref[subsec:drs_impl]{DRS}.
+% Ergebnisbasis: cm_pipeline_validation/data/results/drs_synthetic_results.csv,
+% alle 45 Zeilen; arithmetische Mittelwerte je Kennwert und Signalanteil.
+% Codebasis: tests/test_drs_synthetic_validation.py, run_drs_case,
+% run_parameter_study, correlation, normalized_rmse und rms_ratio.
+% Vergleich im inneren Signalbereich; DRS-Testparameter n_size=15,
+% safety_factor=3, slip_periods=100, resonance_freq=3000, rpm=1500.
+% Diese Vorgaben sind unabhängig vom ausgewählten Pipelineparametersatz.
+Die synthetische Untersuchung prüft die Trennung anhand der vor der Mischung
+bekannten Signalanteile:
+Die deterministische Schätzung wird mit dem deterministischen Referenzanteil
+verglichen, das Residuum mit dem zufälligen Anteil aus Impulsantworten und
+Rauschen. Der detaillierte Ablauf ist in
+Abschnitt~\ref{sec:signalverarbeitung_impl} unter
+\hyperref[subsec:drs_impl]{\emph{DRS}} beschrieben.
+Die 45 Mischsignalfälle zeigen im ausgewerteten inneren Signalbereich
+für beide Vergleiche hohe Korrelationen. Die zeitlichen Schwankungen der Ausgaben stimmen somit
+weitgehend mit denen ihrer jeweiligen Referenz überein. Der normierte RMSE
+zeigt jedoch verbleibende Abweichungen, die beim Residuum bezogen auf den
+Effektivwert der Referenz größer ausfallen. Während die deterministische
+Schätzung im Mittel nahezu denselben Effektivwert wie ihre Referenz erreicht,
+liegt das Residuum nur bei rund $79\,\%$. Eine hohe Korrelation bedeutet
+hier daher keine unveränderte Signalstärke.
+
+% Ausführungsnachweis: component_tests.log, beide Methoden von DrsTest.
+% Codebasis: test_white_noise_remains_in_residual, Korrelation > 0.98;
+% test_drs_separates_known_signal_components: beide Korrelationen > 0.9,
+% Rekonstruktionsfehler < 1e-12. Die CSV enthält für alle 45 Fälle
+% reconstruction_error=0.0. core/drs.py, compute_residual: Eingang minus
+% deterministische Schätzung. Die zusätzliche Prüfung des Filterhintergrunds
+% im Rauschtest wird nicht als eigenständiger Qualitätsnachweis interpretiert.
+Der Mischsignaltest und der ergänzende Rauschtest wurden bestanden. Im
+reinen Rauschfall liegt die Korrelation zwischen Eingang und Residuum über
+$0{,}98$; der Rauschverlauf bleibt damit weitgehend im Residuum erhalten.
+Der gespeicherte Rekonstruktionsfehler beträgt in allen 45 Mischsignalfällen
+null. Da das Residuum durch Subtraktion der deterministischen Schätzung vom
+Eingang entsteht, belegt die fehlerfreie Rekonstruktion allein keine korrekte
+Trennung der Signalanteile.
+
+\paragraphheading{Fast Kurtogram}
+
+% Rückverweis: Absatz~\hyperref[subsec:fast_kurtogram_impl]{Fast Kurtogram}.
+% Ausführungsnachweis: component_tests.log, beide Methoden von
+% FastKurtogramReferenceTest. Ergebnisbasis: data/results/
+% matlab_kurtogram_results.mat, 120 eindeutige Namen, Fs=64000, nlevel=8,
+% alle Matrizen 16 x 768; Auswahl mit config/settings.py abgeglichen.
+% Codebasis: tests/test_fast_kurtogram_reference.py,
+% test_python_matches_matlab_reference: alle Matrixwerte, fc und bw mit
+% rtol=1e-6, atol=1e-8; keine separaten MAE-, RMSE- oder Korrelationskennwerte.
+% core/fast_kurtogram.py, fast_kurtogram: globale Bandangaben;
+% core/pipeline.py, run_pipeline: eingeschränkte Auswahl und Bandextraktion
+% sind nachfolgende, im Referenzvergleich nicht geprüfte Schritte.
+Der Vergleich mit der ursprünglichen MATLAB-Implementierung von Antoni
+prüft die Kurtogrammmatrix sowie Mittenfrequenz und Bandbreite des globalen
+Maximums (Abschnitt~\ref{sec:signalverarbeitung_impl},
+\hyperref[subsec:fast_kurtogram_impl]{\emph{Fast Kurtogram}}).
+Für alle 120 ausgewählten
+Paderborner Messungen bei $64\,\mathrm{kHz}$ und Zerlegungstiefe~8 wurde der
+Vergleich bestanden: Sämtliche Werte der jeweils $16\times768$ großen Matrix
+und beide Bandangaben stimmen innerhalb der relativen Toleranz von $10^{-6}$
+und der absoluten Toleranz von $10^{-8}$ überein. Damit ist die numerische
+Übereinstimmung dieser Ausgaben für die geprüften Messungen nachgewiesen.
+Der Vergleich erfasst weder die eingeschränkte Bandauswahl noch die
+Bandextraktion, das SES oder die vollständige Pipeline.
+
+\paragraphheading{SES}
+
+% Rückverweis: Absatz~\hyperref[subsec:ses_impl]{SES}.
+% Ausführungsnachweis: component_tests.log,
+% test_known_modulation_appears_at_the_expected_frequency.
+% Codebasis: tests/test_ses.py; core/envelope_analysis.py, compute_ses;
+% core/fast_kurtogram.py, getFTSquaredEnvelope. Geprüft wird ausschließlich
+% die Frequenz des stärksten Spektralwerts oberhalb von 0 Hz.
+Der im Absatz \hyperref[subsec:ses_impl]{SES} beschriebene Versuch prüft die
+Frequenzzuordnung einer bekannten Modulation. Der Test wurde bestanden:
+Der stärkste Spektralwert oberhalb von $0\,\mathrm{Hz}$ liegt bei
+$64\,\mathrm{Hz}$. Damit ist die Frequenzzuordnung für diesen genau auf dem
+Frequenzraster liegenden Fall nachgewiesen. Die absoluten Spektralwerte und
+die vorgelagerte Gewinnung der Hüllkurve werden damit nicht geprüft.
+
+\paragraphheading{Lagerfrequenzen}
+
+% Rückverweis: Absatz~\hyperref[subsec:lagerfrequenzen_impl]{Lagerfrequenzen}.
+% Ausführungsnachweis: component_tests.log,
+% test_fault_frequencies_match_independent_reference_values.
+% Codebasis: tests/test_peak_detection.py; config/bearings.py,
+% CWRU_6205_GEOMETRY und PADERBORN_MTK_IBU_6203_GEOMETRY;
+% core/envelope_analysis.py, compute_bearing_fault_frequencies.
+% Unabhängige arithmetische Nachrechnung ohne Aufruf der Komponentenfunktion:
+% CWRU, rpm=1797, n=9, d=7.94, D=39, Winkel=0:
+% BPFO=107.33619230769231 Hz, BPFI=162.21380769230768 Hz;
+% MTK/IBU, rpm=1500, n=8, d=6.75, D=29.05, Winkel=0:
+% BPFO=76.76419965576592 Hz, BPFI=123.23580034423408 Hz.
+% Testkonstanten auf zwei Nachkommastellen gerundet, Vergleich places=2.
+Die Prüfung vergleicht BPFO und BPFI für zwei festgelegte Kombinationen aus
+Geometrie und Drehzahl, wie in Abschnitt~\ref{sec:signalbewertung_impl} unter
+\hyperref[subsec:lagerfrequenzen_impl]{\emph{Lagerfrequenzen}} beschrieben.
+Beide Fälle wurden bestanden;
+die berechneten Frequenzen stimmen mit den auf zwei Nachkommastellen
+gerundeten Vergleichswerten in
+Tabelle~\ref{tab:komponentenvalidierung_ergebnisse} überein. Die unabhängige
+\hyperref[app:lagerfrequenz_referenzrechnung]
+{\emph{Referenzrechnung der Lagerfrequenzen}} ist im Anhang dargestellt.
+Die Vergleichswerte sind rechnerische Sollwerte, keine gemessenen Referenzfrequenzen.
+Nachgewiesen ist damit die Berechnung für die vorgegebenen Eingaben,
+nicht die tatsächliche Geometrie eines vermessenen Lagers.
+
+\paragraphheading{Peak- und Fehlerentscheidung}
+
+% Rückverweise: Absätze~\hyperref[subsec:peaks_impl]{Peak-Erkennung} und
+% \hyperref[subsec:fehlerentscheidung_impl]{Fehlerentscheidung}.
+% Ausführungsnachweis: component_tests.log, alle acht Peak-/Entscheidungsfälle
+% aus tests/test_peak_detection.py sowie
+% test_only_inner_and_outer_race_faults_are_evaluated aus
+% tests/test_evaluation_scope.py. Der neunte Test in test_peak_detection.py
+% betrifft die Lagerfrequenzen und ist dem vorigen Absatz zugeordnet.
+% Codebasis: core/envelope_analysis.py, _select_target_peak und
+% evaluate_spectrum; config/settings.py, FAULT_FREQUENCY_ORDERS=(1, 2).
+% Die beiden Fälle mit fehlender Grundfrequenz bzw. zweiter Ordnung prüfen BPFO.
+Die Entscheidungsregel wird mit künstlichen Spektren geprüft
+(Abschnitt~\ref{sec:signalbewertung_impl},
+\hyperref[subsec:peaks_impl]{\emph{Peak-Erkennung}} und
+\hyperref[subsec:fehlerentscheidung_impl]{\emph{Fehlerentscheidung}}).
+Alle vier
+Entscheidungsfälle wurden bestanden: keine Indikation, nur BPFO, nur BPFI
+und beide zugleich. In den beiden ergänzenden BPFO-Fällen wurde die
+Indikation sowohl bei fehlender Grundfrequenz als auch bei fehlender zweiter
+Ordnung zurückgewiesen. Dies bestätigt für diese Fälle die feste Vorgabe,
+dass gültige Peaks bei $f$ und $2f$ gemeinsam erforderlich sind.
+
+Peaks außerhalb der Suchfenster und ein reiner Spektralanstieg führten zu
+keiner Erkennung. Ein isolierter Peak über konstantem Hintergrund wurde auch
+bei einer MAD von null angenommen. Zudem blieb die Ausgabe auf BPFO und BPFI
+beschränkt, obwohl weitere Lagerfrequenzen übergeben wurden. Damit sind die
+Entscheidungen für die untersuchten künstlichen Spektren bestätigt; ihre
+Treffsicherheit bei gemessenen Lagersignalen wird erst mit der Pipeline
+evaluiert.
+
+% Tabellenwerte: DRS-Mittelwerte aus der oben genannten CSV, getrennt nach
+% Referenzanteil; alle übrigen Befunde aus component_tests.log in Verbindung
+% mit den oben zugeordneten Testmethoden. Keine neuen Komponentenläufe.
+\begin{table}[htbp]
+  \centering
+  \caption{Ergebnisse der Komponentenprüfung. Die DRS-Kennwerte sind
+    Mittelwerte über 45 Mischsignalfälle; beide Ausgaben werden getrennt
+    mit ihrem jeweiligen Referenzanteil verglichen.}
+  \label{tab:komponentenvalidierung_ergebnisse}
+  \small
+  \begin{tabularx}{\textwidth}{|
+      >{\raggedright\arraybackslash}p{3.0cm}|
+      >{\raggedright\arraybackslash}X|
+      >{\raggedright\arraybackslash}p{4.0cm}|}
+    \hline
+    \textbf{Prüfgegenstand} & \textbf{Ergebnis} &
+    \textbf{Unmittelbare Aussage} \\
+    \hline
+    DRS: deterministische Schätzung &
+    Korrelation: $0{,}9970$; normierter RMSE: $0{,}0773$;
+    RMS-Verhältnis: $1{,}0024$ &
+    Hohe zeitliche Übereinstimmung bei nahezu gleichem Effektivwert \\
+    \hline
+    DRS: Residuum &
+    Korrelation: $0{,}9879$; normierter RMSE: $0{,}2528$;
+    RMS-Verhältnis: $0{,}7886$ &
+    Geringerer Effektivwert trotz hoher Korrelation \\
+    \hline
+    Fast Kurtogram &
+    Matrix und globale Bandangaben bei allen 120 Messungen innerhalb
+    der Toleranzen &
+    Numerische Übereinstimmung mit MATLAB im geprüften Umfang \\
+    \hline
+    SES &
+    Maximum oberhalb von $0\,\mathrm{Hz}$ bei $64\,\mathrm{Hz}$ &
+    Vorgegebene Modulationsfrequenz richtig zugeordnet \\
+    \hline
+    Lagerfrequenzen: CWRU 6205 bei 1797~U/min &
+    BPFO: $107{,}34\,\mathrm{Hz}$; BPFI: $162{,}21\,\mathrm{Hz}$ &
+    Vergleich mit rechnerischen Sollwerten bestanden \\
+    \hline
+    Lagerfrequenzen: MTK/IBU 6203 bei 1500~U/min &
+    BPFO: $76{,}76\,\mathrm{Hz}$; BPFI: $123{,}24\,\mathrm{Hz}$ &
+    Vergleich mit rechnerischen Sollwerten bestanden \\
+    \hline
+    Peak- und Fehlerentscheidung &
+    Alle vier Indikationsfälle bestanden; BPFO bei fehlendem $f$ oder
+    $2f$ zurückgewiesen &
+    Entscheidungsregel in den künstlichen Prüffällen bestätigt \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+%================================================================================================
+%       6.3 Pipelineergebnisse
+%================================================================================================
+\section{Pipelineergebnisse}
+\label{sec:pipelineergebnisse}
+
+% Rückverweis: Abschnitt~\ref{sec:evaluationskonzept}; Ergebnisbewertung
+% nach binärer Schadenserkennung und vollständiger Klassenzuordnung.
+Die Parametersuche legt die Konfiguration fest, mit der die Pipeline an
+zurückgehaltenen Messungen geprüft wird. Auf die Auswahl anhand der
+Paderborner Trainingsdaten folgen die Ergebnisse der getrennten Paderborner
+Evaluationsgruppe und des zusätzlichen CWRU-Datensatzes. Anschließend wird
+für beide Datensätze verglichen, wie sich die Fehlerindikationen mit und
+ohne DRS unterscheiden.
+
+\paragraphheading{Parametersuche}
+
+% Ergebnisbasis: data/results/paderborn_param_search.csv, alle 120 Datenzeilen;
+% Codebasis: workflows/tune_paderborn.py, grid_search und evaluate_detection;
+% config/settings.py, FAULT_FREQUENCY_ORDERS; core/envelope_analysis.py,
+% evaluate_spectrum. Interner Nachweis: data/pipelineergebnisse-f-2f/QUELLEN.json.
+Die Suche umfasst 120 verschiedene Konfigurationen. Sie kombiniert fünf
+DRS-Blockfaktoren mit vier Schwellenfaktoren, zwei relativen
+Fensterhalbbreiten und drei lokalen Vergleichsbereichen. Sämtliche
+Kombinationen des vorgesehenen Rasters sind in der Rangliste enthalten
+(Tabelle~\ref{tab:ergebnisse_suchumfang}). Die Prüfung ist in allen Fällen
+auf die Grundfrequenz $f$ und die zweite Ordnung $2f$ begrenzt; beide Peaks
+müssen die Entscheidungsregel erfüllen. Die Anzahl der Ordnungen ist somit
+keine Suchvariable. Jede Konfiguration wird anhand der 120
+Trainingsmessungen bewertet.
+
+% Ergebnisbasis: paderborn_param_search.csv, Originalzeilen 2--4 und 12;
+% Codebasis: workflows/tune_paderborn.py, grid_search, und utils/io.py,
+% load_trained_parameters: exact_accuracy, diagnosis_f1, detection_f1
+% absteigend, anschließend Parameterwerte aufsteigend.
+Die Rangfolge priorisiert den Anteil exakt richtiger Ausgaben. Erst bei
+gleichem Wert entscheiden das F1-Maß der Klassenzuordnung, danach das binäre
+F1-Maß und schließlich die festgelegte Reihenfolge der Parameterwerte.
+Die führende Konfiguration erreicht 55 exakt richtige Ausgaben,
+die zweitplatzierte 54. Die Auswahl ist daher bereits beim primären
+Kriterium eindeutig, ihr Vorsprung beträgt jedoch nur eine Trainingsmessung.
+Die ausgewählte Konfiguration besitzt zugleich das höchste Diagnose-F1,
+während das höchste binäre F1-Maß bei Rang elf liegt.
+Tabelle~\ref{tab:ergebnisse_rangliste} stellt die drei führenden
+Konfigurationen dieser Alternative gegenüber. Diese Kennzahlen erklären
+ausschließlich die Auswahl; sie sind keine Evaluation an zurückgehaltenen
+Messungen.
+
+% Ergebnisbasis: erste Ranglistenzeile und alle vier summary-Dateien,
+% jeweils Zeile 2; statischer und lesender Abgleich der Ladefunktion
+% utils/io.py, load_trained_parameters. Kein Aufruf der Signalpipeline.
+Ausgewählt werden der DRS-Blockfaktor $5$, der Schwellenfaktor $k=1{,}5$,
+eine relative Fensterhalbbreite von $1\,\%$ und eine lokale Halbbreite von
+$20\,\mathrm{Hz}$. Die festen Einstellungen und der vollständige Suchraum
+sind in Tabelle~\ref{tab:ergebnisse_suchumfang} zusammengefasst.
+Alle vier Evaluationsläufe übernehmen diesen Parametersatz unverändert.
+
+\paragraphheading{Paderborn}
+
+% Ergebnisbasis: paderborn_results.csv, alle 120 Datenzeilen, und
+% paderborn_summary.csv, Zeile 2. Codebasis: evaluation/metrics.py,
+% detection_metrics und diagnosis_metrics; vollständige Klassenmengen.
+Mit DRS erkennt die Pipeline 66 der 80 geschädigten Paderborner Messungen
+binär. Von den 40 fehlerfreien Messungen bleiben 36 ohne Indikation;
+vier erzeugen einen Fehlalarm. Die 14 nicht erkannten Schäden betreffen
+ausschließlich das Innenringlager KI17. Alle 120 ausgewählten Messungen
+werden erfolgreich ausgewertet. Tabelle~\ref{tab:pipeline_kennzahlen}
+fasst die Kennzahlen beider Datensätze zusammen und enthält zugleich die
+Werte der später verglichenen Variante ohne DRS.
+
+% Eigene Darstellung: Nachzählung aller Einzelresultate, Abgleich mit den
+% vier summary-Zeilen. Raten erst für die Darstellung auf zwei Stellen gerundet.
+\begin{table}[htbp]
+  \centering
+  \caption{Kennzahlen der Pipelineevaluationen. Außer der Fallzahl sind alle
+    Werte in Prozent angegeben. Die Diagnosekennzahlen beruhen auf den
+    über die Klassen kumulierten Zählwerten.}
+  \label{tab:pipeline_kennzahlen}
+  \small
+  \begin{tabular}{lrrrr}
+    \hline
+    & \multicolumn{2}{c}{\textbf{Paderborn}} &
+      \multicolumn{2}{c}{\textbf{CWRU}} \\
+    \textbf{Kennzahl} & mit DRS & ohne DRS & mit DRS & ohne DRS \\
+    \hline
+    Ausgewertete Messungen & 120 & 120 & 40 & 40 \\
+    \hline\multicolumn{5}{l}{\textit{Binäre Schadenserkennung}} \\
+    Präzision & 94,29 & 94,37 & 92,31 & 92,11 \\
+    Sensitivität & 82,50 & 83,75 & 100,00 & 97,22 \\
+    Spezifität & 90,00 & 90,00 & 25,00 & 25,00 \\
+    Genauigkeit & 85,00 & 85,83 & 92,50 & 90,00 \\
+    F1-Maß & 88,00 & 88,74 & 96,00 & 94,59 \\
+    \hline\multicolumn{5}{l}{\textit{Klassenzuordnung}} \\
+    Präzision & 77,69 & 77,86 & 49,33 & 49,32 \\
+    Sensitivität & 84,17 & 85,00 & 92,50 & 90,00 \\
+    F1-Maß & 80,80 & 81,27 & 64,35 & 63,72 \\
+    Exakte Übereinstimmung & 75,83 & 75,83 & 12,50 & 10,00 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% Ergebnisbasis: paderborn_results.csv, expected x vollständiges detected;
+% 91 exakte Ausgaben, zehn Doppelindikationen bei Schäden und eine reine
+% Ringverwechslung; Lageraggregate aus sämtlichen 120 Zeilen.
+Bei der genauen Klassenzuordnung stimmen 91 Ausgaben ausschließlich mit der
+Referenzklasse überein. Zehn geschädigte Messungen erhalten neben der
+zutreffenden Ringindikation auch die Indikation des anderen Rings.
+Eine weitere Innenringmessung wird ausschließlich als Außenringschaden
+ausgegeben. Sie zählt binär als erkannter Schaden, ist dem Ring jedoch
+falsch zugeordnet. Tabelle~\ref{tab:cwru_ausgabemengen} erhält diese
+Unterschiede einschließlich der gleichzeitigen BPFO- und BPFI-Indikationen.
+Die Aufschlüsselung nach den einzelnen Paderborner Lagern steht in
+Tabelle~\ref{tab:ergebnisse_paderborn_lager}.
+
+\paragraphheading{CWRU}
+
+% Ergebnisbasis: cwru_paderborn_params_results.csv, alle 40 Datenzeilen,
+% und cwru_paderborn_params_summary.csv, Zeile 2; identische Kennzahlfunktionen.
+Bei CWRU werden mit derselben Konfiguration und aktivierter DRS alle
+36 geschädigten Messungen binär erkannt. Zugleich erhalten drei der vier
+fehlerfreien Referenzmessungen eine Schadensindikation. Anders als bei
+Paderborn bleibt damit kein Schaden unerkannt; der Anteil der Fehlalarme
+unter den Normalmessungen ist jedoch höher. Auch hier werden sämtliche
+40 ausgewählten Messungen erfolgreich ausgewertet. Die Kennzahlen bleiben
+in Tabelle~\ref{tab:pipeline_kennzahlen} getrennt von Paderborn ausgewiesen.
+
+% Ergebnisbasis: CWRU-Kreuztabelle, 5 exakte Ausgaben, 32 Schäden mit beiden
+% Ringindikationen und 3 Normalmessungen mit beiden Ringindikationen.
+Die genaue Klassenzuordnung ist wesentlich eingeschränkter als die binäre
+Schadenserkennung. Nur fünf Ausgaben stimmen exakt mit der Referenzklasse
+überein. In 32 der 36 geschädigten Messungen wird die zutreffende Klasse
+zusammen mit der anderen Ringfehlerklasse angezeigt. Auch die drei
+Fehlalarme der Normalmessungen enthalten beide Ringindikationen
+(Tabelle~\ref{tab:cwru_ausgabemengen}). Die vollständige binäre Erkennung
+der Schäden geht hier somit überwiegend mit einer zusätzlichen, falschen
+Ringindikation einher.
+
+% Eigene Darstellung: Referenz und vollständige Ergebnismenge aus sämtlichen
+% Einzelresultaten mit DRS; normal entspricht keiner Ringfehlerindikation.
+\begin{table}[htbp]
+  \centering
+  \caption{Referenzklassen und vollständige Ausgabemengen mit DRS.
+    BPFO+BPFI bezeichnet zwei gleichzeitige Ringindikationen.}
+  \label{tab:cwru_ausgabemengen}
+  \small
+  \begin{tabular}{llrrrr}
+    \hline
+    & & \multicolumn{4}{c}{\textbf{Ausgabemenge}} \\
+    \textbf{Datensatz} & \textbf{Referenz} & normal & BPFO & BPFI & BPFO+BPFI \\
+    \hline
+    Paderborn & normal & 36 & 2 & 2 & 0 \\
+    Paderborn & BPFO & 0 & 39 & 0 & 1 \\
+    Paderborn & BPFI & 14 & 1 & 16 & 9 \\
+    \hline
+    CWRU & normal & 1 & 0 & 0 & 3 \\
+    CWRU & BPFO & 0 & 3 & 0 & 21 \\
+    CWRU & BPFI & 0 & 0 & 1 & 11 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\paragraphheading{DRS-Vergleich}
+
+% Ergebnisbasis: vier summary-Dateien und paarweiser Vergleich sämtlicher
+% Einzelresultate über file; gleiche Referenz, Drehzahl und übrige Metadaten.
+% Codebasis: main.py, main; core/pipeline.py, run_pipeline: Bandauswahl nach
+% dem use_drs-Zweig. 28/120 bzw. 21/40 Paare mit geändertem fc oder bw.
+Beide Varianten verarbeiten je Datensatz dieselben Messungen mit denselben
+übrigen Einstellungen. Die Bandauswahl folgt auf die optionale
+Signaltrennung. Dadurch kann die DRS-Variante ein anderes Band
+auswählen: Mittenfrequenz oder Bandbreite unterscheiden sich bei 28 der
+120 Paderborner und bei 21 der 40 CWRU-Messungen. Diese Unterschiede sind
+Bestandteil des Pipelinevergleichs. Der Vergleich hält die Suchgrenzen,
+nicht aber das tatsächlich gewählte Frequenzband fest.
+Ausgewählte Bandangaben enthält Tabelle~\ref{tab:ergebnisse_baender}.
+
+% Eigene Ableitung: Differenzen mit minus ohne DRS aus paderborn_summary*.csv;
+% Nachzählung der paarweisen Ausgaben: 8 Änderungen, 4 Gewinne und 4 Verluste
+% exakter Ausgaben; binäre TP 66 statt 67, FP in beiden Varianten 4.
+Bei Paderborn liegt das binäre F1-Maß mit DRS um 0,74 Prozentpunkte und das
+Diagnose-F1 um 0,47 Prozentpunkte niedriger. Der Anteil exakt richtiger
+Ausgaben bleibt gleich. Dahinter stehen acht geänderte Ausgaben: Vier
+zuvor fehlerhafte werden exakt richtig, vier zuvor exakt richtige werden
+fehlerhaft. Darunter ist eine Innenringmessung, die mit DRS keine
+Schadensindikation mehr erhält. Die Zahl der Fehlalarme bleibt bei vier,
+obwohl sich die betroffenen Normalmessungen teilweise ändern.
+
+% Eigene Ableitung: Differenzen mit minus ohne DRS aus CWRU-summary*.csv;
+% Einzelpaare: IR021_1, normal_1, normal_2, OR007@12_1, OR007@12_2.
+Bei CWRU wird mit DRS eine zusätzliche Außenringmessung binär erkannt;
+das binäre F1-Maß steigt um 1,41 Prozentpunkte. Zwei zuvor fehlerhafte
+Ausgaben werden exakt richtig, eine verliert die exakte Übereinstimmung
+durch eine zusätzliche Ringindikation. Der Anteil exakt richtiger Ausgaben
+steigt dadurch um 2,50 Prozentpunkte, das Diagnose-F1 um 0,63 Prozentpunkte.
+Zwei Normalmessungen erhalten zusätzlich zu ihrer bisherigen
+Außenringindikation auch eine Innenringindikation. Die Zahl der
+Fehlalarmmessungen bleibt daher unverändert, ihre Klassenmenge erweitert
+sich jedoch. Tabelle~\ref{tab:ergebnisse_einzelfaelle} dokumentiert sämtliche
+geänderten Ausgaben beider Datensätze einschließlich dieser
+entgegenläufigen Veränderungen.
+
+%================================================================================================
+%       6.4 Fehleranalyse
+%================================================================================================
+\section{Fehleranalyse}
+\label{sec:fehleranalyse}
+
+% Ergebnisbasis: aktuelle Einzelresultate in cm_pipeline_validation/data/results/,
+% paderborn_results{,_no_drs}.csv und cwru_paderborn_params_results{,_no_drs}.csv;
+% Referenzen, Dateimengen, Parameter und Kennzahlen mit den vier summaries
+% abgeglichen. Derselbe Ergebnisbestand wie in 6.3 und den in
+% data/pipelineergebnisse-f-2f/QUELLEN.json dokumentierten Anhangsauszügen.
+% Eigene methodische Festlegung: vier Fehlerarten aus Referenz und vollständiger
+% Klassenmenge; Grundlage evaluation/metrics.py, diagnosis_metrics und
+% detection_metrics, sowie sec:evaluationskonzept, Bewertungskennzahlen.
+\begingroup
+\raggedbottom
+\clubpenalty=10000
+Die Gesamtkennzahlen aus Abschnitt~\ref{sec:pipelineergebnisse} fassen
+unterschiedliche Fehlindikationen zusammen. Eine fehlende Schadensindikation
+bedeutet, dass bei einer geschädigten Messung kein Ringfehler angezeigt wird.
+Bei einer falschen Ringzuordnung wird ausschließlich der andere Ring
+gemeldet. Eine zusätzliche Ringindikation enthält dagegen die zutreffende
+und die unzutreffende Klasse: Sie zählt binär als erkannter Schaden,
+verfehlt aber die exakte Zuordnung. Eine fehlerfreie Messung mit mindestens
+einer Ringindikation gilt als Fehlalarm.
+
+\paragraphheading{Messgruppen}
+
+% Ergebnisbasis: paderborn_results.csv, Gruppierung nach bearing, expected
+% und den ersten drei Dateinamenkomponenten; je fünf Messungen pro Bedingung.
+% KI17: 14 normal, 1 BPFO, 5 BPFI; KI16: 11 BPFI, 9 BPFI+BPFO.
+% Rückverweis: tab:ergebnisse_paderborn_lager enthält alle Lageraggregate.
+Bei Paderborn konzentrieren sich die fehlenden Schadensindikationen mit DRS
+auf KI17: 14 seiner 20 Messungen bleiben ohne Meldung. Das zweite
+Innenringlager KI16 wird in allen 20 Messungen binär erkannt, erhält jedoch
+in neun Fällen zusätzlich eine Außenringindikation
+(Tabelle~\ref{tab:ergebnisse_paderborn_lager}).
+Tabelle~\ref{tab:fehleranalyse_paderborn} schlüsselt diese unterschiedlichen
+Fehlerbilder nach Betriebsbedingung auf. Besonders ausgeprägt sind die
+Auslassungen bei KI17 unter \texttt{N15\_M01\_F10} und die zusätzlichen
+Ringindikationen bei KI16 unter \texttt{N15\_M07\_F04}; beide betreffen
+jeweils alle fünf Messungen der betreffenden Gruppe.
+
+% Eigene Darstellung: gezielte Gegenüberstellung der beiden Innenringlager,
+% keine vollständige Kreuzung sämtlicher Paderborner Lager und Bedingungen.
+% Zellen aus paderborn_results.csv, nur DRS, jeweils n=5.
+\begin{table}[htbp]
+  \centering
+  \caption{Fehlindikationen der Paderborner Innenringlager mit DRS.
+    Jede Betriebsbedingung umfasst fünf Messungen je Lager; die Zellen
+    geben Fehleranzahlen an. Die Bedingungen sind in
+    Tabelle~\ref{tab:paderborn_betriebsbedingungen} erläutert.}
+  \label{tab:fehleranalyse_paderborn}
+  \small
+  \begin{tabular}{lrrr}
+    \hline
+    \textbf{Betriebsbedingung} &
+      \shortstack{\textbf{KI17}\\keine Indikation} &
+      \shortstack{\textbf{KI17}\\falscher Ring} &
+      \shortstack{\textbf{KI16}\\zusätzlicher Ring} \\
+    \hline
+    \texttt{N09\_M07\_F10} & 2 & 0 & 2 \\
+    \texttt{N15\_M01\_F10} & 5 & 0 & 1 \\
+    \texttt{N15\_M07\_F04} & 4 & 0 & 5 \\
+    \texttt{N15\_M07\_F10} & 3 & 1 & 1 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% Ergebnisbasis: paderborn_results.csv, Originalzeile 119,
+% N15_M07_F10_KI17_15.mat; einziger geschädigter Fall mit ausschließlich
+% falscher Ringklasse. Beide Varianten liefern BPFO. Außenringlager:
+% KA04 genau eine zusätzliche BPFI-Meldung, KA16 20/20 exakt.
+% Gesunde Lager: je 2/20 Fehlalarme; K003 BPFI unter N09_M07_F10 und
+% N15_M07_F10, K004 BPFO unter N15_M01_F10 und N15_M07_F04, jeweils 1/5.
+Die einzige reine Ringverwechslung betrifft ebenfalls KI17:
+\texttt{N15\_M07\_F10\_KI17\_15} liefert in beiden DRS-Varianten nur BPFO.
+Bei den Außenringlagern tritt mit DRS dagegen lediglich eine zusätzliche
+Innenringindikation unter den 20 Messungen von KA04 auf; KA16 wird in allen
+20 Messungen exakt zugeordnet. Die fehlerfreien Lager K003 und K004 lösen
+je zwei Fehlalarme unter 20 Messungen aus. Diese verteilen sich je Lager
+auf zwei Betriebsbedingungen mit jeweils einem Fehlalarm unter fünf
+Messungen. Die Häufungen bei KI16 und KI17 beschreiben damit die
+Aufzeichnungen zweier Lager, keine entsprechend große Zahl unabhängiger
+Lagerexperimente.
+
+% Ergebnisbasis: cwru_paderborn_params_results.csv, alle 40 Zeilen;
+% Gruppierung nach Klasse, Schadensgröße und gegebenenfalls Position aus file,
+% Laststufe aus Suffix gemäß tab:cwru_evaluationsauswahl.
+% Je 4/4 Doppelindikationen: IR007, IR014, OR007@6, OR007@3, OR021@3,
+% OR021@12. Verbleibende Gruppen: IR021 3/4, OR007@12 3/4, OR021@6 2/4.
+Bei CWRU treten zusätzliche Ringindikationen mit DRS über mehrere
+Schadensgrößen und Positionen hinweg auf. In sechs der neun Schadensgruppen aus
+Tabelle~\ref{tab:cwru_evaluationsauswahl} betreffen sie sämtliche vier
+Messungen, insgesamt 24 von 24.
+Tabelle~\ref{tab:fehleranalyse_cwru} zeigt die drei Gruppen, in denen neben
+zusätzlichen Ringindikationen auch exakte Zuordnungen vorkommen.
+Die Unterschiede zwischen den Laststufen ergeben kein einheitliches
+Fehlerbild: Bei 0,021~Zoll und 6~Uhr werden beispielsweise die beiden
+mittleren Laststufen exakt zugeordnet, die Stufen~0 und~3 erhalten eine
+zusätzliche Innenringindikation.
+
+% Eigene Darstellung: nur die drei Gruppen mit unterschiedlichen Ausgaben
+% über die Laststufen, anstelle einer vollständigen Kreuztabelle.
+\begin{table}[htbp]
+  \centering
+  \caption{CWRU-Schadensgruppen mit teilweise exakter Zuordnung unter DRS.
+    Jede Zeile umfasst vier Messungen, eine je Laststufe.}
+  \label{tab:fehleranalyse_cwru}
+  \small
+  \begin{tabular}{lrrcc}
+    \hline
+    \textbf{Referenz} & \textbf{Größe} & \textbf{Position} &
+      \shortstack{\textbf{Zusätzlicher Ring}\\Fälle / Messungen} &
+      \shortstack{\textbf{Exakte Zuordnung}\\Laststufen} \\
+    & (Zoll) & (Uhr) & & \\
+    \hline
+    BPFI & 0,021 & -- & 3 / 4 & 1 \\
+    BPFO & 0,007 & 12 & 3 / 4 & 1 \\
+    BPFO & 0,021 & 6 & 2 / 4 & 1, 2 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% Ergebnisbasis: cwru_paderborn_params_results.csv, normal_0 bis normal_3;
+% normal_0 ohne Indikation, normal_1/2/3 jeweils BPFI+BPFO. Keine reine
+% Ringverwechslung und keine Auslassung unter den 36 geschädigten Messungen.
+% Eigene Aussagegrenze: Gruppenvergleich beobachteter Messungen, keine
+% isolierte Variation einzelner Einflussgrößen oder unabhängigen Lagerfälle.
+Reine Ringverwechslungen treten bei CWRU mit DRS nicht auf. Die Fehlalarme
+betreffen dagegen die fehlerfreien Referenzen der Laststufen~1 bis~3,
+insgesamt drei von vier Messungen. Jede dieser drei Ausgaben enthält beide
+Ringindikationen. Die Gruppenunterschiede belegen weder isolierte Last-,
+Drehzahl- oder Schadensgrößeneffekte noch eine entsprechende Zahl unabhängiger
+Lagerfälle.
+
+\paragraphheading{Ausgewählte Messungen}
+
+% Eigene methodische Festlegung: aus den bereits im Ergebnisanhang belegten
+% DRS-Paaren Auswahl je eines Verlusts und Gewinns binärer Schadenserkennung
+% (P8, C4), einer beseitigten Zusatzindikation bei gleichem Band (C1) sowie
+% eines um eine Ringklasse erweiterten Fehlalarms (C2; niedrigere Laststufe
+% der beiden gleichartigen Fälle C2/C3). Keine Häufigkeitsschätzung aus Auswahl.
+Vier Vergleichsfälle aus Tabelle~\ref{tab:ergebnisse_einzelfaelle} zeigen,
+welche Änderungen hinter ähnlichen Gesamtkennzahlen stehen. Gewählt werden
+je ein Verlust und Gewinn der binären Schadenserkennung, eine beseitigte
+Zusatzindikation bei unverändertem Band und ein um eine Ringklasse
+erweiterter Fehlalarm. Für den letzten Fall wird von zwei gleichartigen
+Änderungen die niedrigere Laststufe gewählt.
+
+% Ergebnisbasis: paderborn_results{,_no_drs}.csv,
+% N09_M07_F10_KI17_15.mat (P8): BPFI -> normal;
+% cwru_paderborn_params_results{,_no_drs}.csv,
+% OR007@12_1.mat (C4): normal -> BPFO. Richtung jeweils ohne -> mit DRS.
+% Bandangaben vollständig in tab:ergebnisse_baender; beide Paare ändern fc/bw.
+Bei P8, \texttt{N09\_M07\_F10\_KI17\_15}, entfällt mit DRS die zuvor richtige
+BPFI-Indikation. Dadurch steigt die Zahl der Auslassungen in dieser
+KI17-Betriebsgruppe von einer auf zwei unter fünf Messungen.
+C4, \texttt{OR007@12\_1}, zeigt die Gegenrichtung: Ohne DRS bleibt die
+Außenringmessung ohne Meldung, mit DRS wird ausschließlich BPFO angezeigt.
+In beiden Fällen ändert sich zugleich das ausgewählte Frequenzband
+(Tabelle~\ref{tab:ergebnisse_baender}). Die Klassenwechsel lassen sich daher
+nicht allein einer Veränderung des Signals innerhalb eines festgehaltenen
+Bandes zuschreiben.
+
+% Ergebnisbasis: cwru_paderborn_params_results{,_no_drs}.csv,
+% IR021_1.mat (C1): BPFI+BPFO -> BPFI, fc=4500, bw=1000 in beiden Varianten;
+% normal_1.mat (C2): BPFO -> BPFI+BPFO. Richtung ohne -> mit DRS.
+% Eigene Ableitung: C1 verliert ausschließlich die falsche Zusatzklasse;
+% C2 bleibt binär falsch, obwohl sich seine vollständige Klassenmenge ändert.
+C1, \texttt{IR021\_1}, verliert dagegen bei unveränderter Mittenfrequenz von
+$4500\,\mathrm{Hz}$ und Bandbreite von $1000\,\mathrm{Hz}$ die zusätzliche
+BPFO-Indikation. Die zutreffende BPFI-Meldung bleibt bestehen.
+Bei der fehlerfreien Messung C2, \texttt{normal\_1}, kommt mit DRS zur
+falschen BPFO-Meldung noch BPFI hinzu. Binär bleibt dies ein Fehlalarm;
+die Zahl der unzutreffenden Ringklassen steigt jedoch von eins auf zwei.
+Die binäre Bewertung bleibt in beiden Fällen gleich, obwohl eine zusätzliche
+Ringindikation entfällt beziehungsweise hinzukommt.
+
+% Rückverweis: sec:versuchsaufbau, feste Prüfung von f und 2f, k=1,5.
+% Ergebnisbasis: data/fehleranalyse-ses/peak_details.json und spectra.npz;
+% vier gezielte Aufrufe von workflows/evaluate_cwru.py bzw.
+% workflows/evaluate_paderborn.py, evaluate_file; PipelineResult abgegriffen.
+% create_comparison.py prüft Parameter gegen die summaries sowie Klassen,
+% Exaktheit, Status, rpm, fc und bw gegen die ursprünglichen Ergebniszeilen.
+% Eigene Auswahl: C1 (entfallende Zusatzindikation) und P8 (verlorene
+% Schadensindikation) vertiefen die beiden unterschiedlichen Fehlerfolgen.
+Für C1 und P8 verdeutlicht Abbildung~\ref{fig:fehleranalyse_ses}, welche
+Peakprüfung die jeweilige Änderung auslöst. Die feste Entscheidungsregel
+verlangt gültige Peaks bei $f$ und $2f$
+(Abschnitt~\ref{sec:versuchsaufbau}).
+Tabelle~\ref{tab:fehleranalyse_peakpruefung} zeigt die MAD-Scores derjenigen
+Ringklasse, deren Indikation im Vergleich entfällt.
+
+% Eigene Darstellung: create_comparison.py, plot; gespeicherte SES-Arrays,
+% target_f, actual_f, amplitude und is_valid aller BPFO-/BPFI-Prüfungen.
+% Gemeinsamer Amplitudenbezug je Fall: Maximum beider Varianten im gezeigten
+% Frequenzausschnitt; 20*log10(ses/reference). Fensterbreite aus tolerance.
+% Keine separate Normierung der Varianten und keine Kurvensynthese.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{fehleranalyse_ses_vergleich.pdf}
+  \caption{SES-Ausschnitte der Fälle C1 und P8 mit den geprüften Peaks.
+    $f_{\mathrm{O}}$ bezeichnet BPFO, $f_{\mathrm{I}}$ BPFI;
+    die schattierten Bereiche zeigen die Toleranzfenster von $\pm1\,\%$.
+    Je Fall beziehen sich $0\,\mathrm{dB}$ auf die größte SES-Amplitude
+    beider Varianten im gezeigten Ausschnitt.
+    Eigene Darstellung der Einzelverarbeitungen.}
+  \label{fig:fehleranalyse_ses}
+\end{figure}
+
+% Ergebnisbasis: peak_details.json, C1_{without,with}_drs.faults.BPFO.details
+% und P8_{without,with}_drs.faults.BPFI.details; target_f auf 2,
+% mad_score auf 3 Nachkommastellen gerundet. Alle vier Kandidatenpaare
+% besitzen actual_f>0 und liegen innerhalb der Toleranzfenster.
+\begin{table}[htbp]
+  \centering
+  \caption{Peakprüfung der entfallenden Ringindikationen.
+    Ein MAD-Score ab $k=1{,}5$ gilt als ausreichend;
+    $\dagger$ kennzeichnet eine Unterschreitung.}
+  \label{tab:fehleranalyse_peakpruefung}
+  \small
+  \begin{tabular}{llrrr}
+    \hline
+    \textbf{Fall} & \textbf{Prüffrequenz} &
+      \shortstack{\textbf{Sollwert}\\(Hz)} &
+      \shortstack{\textbf{MAD-Score}\\ohne DRS} &
+      \shortstack{\textbf{MAD-Score}\\mit DRS} \\
+    \hline
+    C1 & BPFO  & 105,96 & 2,026 & 1,900 \\
+       & 2 BPFO & 211,92 & 1,503 & $1{,}191^{\dagger}$ \\
+    P8 & BPFI  & 73,95  & 1,629 & $1{,}245^{\dagger}$ \\
+       & 2 BPFI & 147,90 & 2,479 & 2,717 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% Codebasis: core/envelope_analysis.py, _select_target_peak und
+% evaluate_spectrum. Ergebnisbasis: peak_details.json, C1, beide Varianten:
+% BPFO bei 2f 1.5030948033 -> 1.1914272178; f bleibt gültig.
+% BPFI: beide Ordnungen bleiben gültig; Band unverändert 4500/1000 Hz.
+% Eigene Ableitung: Klassenwechsel folgt aus genau einer zurückgewiesenen
+% Peakprüfung; keine Aussage über die physikalische Herkunft dieses Peaks.
+Bei C1 liegt der Score bei $2\,\mathrm{BPFO}$ ohne DRS mit $1{,}503$ nur
+knapp über der Schwelle. Mit DRS wird dieser Peak zurückgewiesen, während
+die Prüfung bei BPFO weiterhin erfüllt ist. Damit entfällt die zusätzliche
+Außenringindikation. Beide BPFI-Prüfungen bleiben gültig, sodass der
+Innenringschaden weiterhin angezeigt wird.
+
+% Ergebnisbasis: peak_details.json, P8, beide Varianten: BPFI bei f
+% 1.6292330957 -> 1.2446898636; 2f bleibt gültig; beide BPFO-Prüfungen
+% bleiben ungültig. fc/bw 750/500 -> 500/1000 Hz.
+% Eigene Ableitung: Unterschreitung bei f erklärt fehlende BPFI-Indikation;
+% kein isolierter DRS-Effekt bei festem Band und keine physikalische Ursache.
+Bei P8 unterschreitet dagegen der Peak bei BPFI mit DRS die Schwelle;
+die Prüfung bei $2\,\mathrm{BPFI}$ bleibt erfüllt. Da zugleich beide
+BPFO-Prüfungen scheitern, erfolgt keine Schadensindikation. In beiden Fällen
+sind die zurückgewiesenen Peakkandidaten weiterhin im Toleranzfenster
+vorhanden. Ihr MAD-Score reicht jedoch nicht mehr für die Entscheidung aus.
+Dies erklärt die algorithmische Zuordnung, nicht die physikalische Herkunft
+der Spektralanteile. Bei P8 ist zudem der Wechsel des ausgewählten Bandes
+zu berücksichtigen.
+\par\endgroup
+
+%================================================================================================
+%       6.5 Anforderungserfüllung
+%================================================================================================
+\section{Anforderungserfüllung}
+\label{sec:anforderungserfuellung}
+
+% Eigene Bewertung am Wortlaut sämtlicher Anforderungen aus
+% Abschnitt~\ref{sec:anforderungskatalog}; keine zusätzlichen Gütezielwerte.
+Die Erfüllungsbewertung führt die Nachweise aus Kapitel~\ref{ch:implementierung}
+und den Abschnitten~\ref{sec:versuchsaufbau} bis~\ref{sec:fehleranalyse} auf
+den Anforderungskatalog aus Abschnitt~\ref{sec:anforderungskatalog} zurück.
+Bewertet wird der Wortlaut der Anforderungen: \enquote{erfüllt} bezeichnet
+einen vollständigen Nachweis, \enquote{teilweise erfüllt} belegte Teilaspekte
+bei einer verbleibenden Lücke. \enquote{Noch nicht beurteilbar} bedeutet,
+dass die Grundlage für ein abschließendes Urteil fehlt. Da der Katalog
+keine diagnostische Mindestgüte fordert, begründen geringe Erkennungs- oder
+Zuordnungsraten allein keine Nichterfüllung.
+Tabelle~\ref{tab:anforderungserfuellung} ordnet jeder Anforderung ihren
+konkreten Nachweis zu.
+
+% Aktuelle Primärgrundlage: cm_pipeline_validation/data/results/,
+% paderborn_param_search.csv, paderborn_results{,_no_drs}.csv,
+% cwru_paderborn_params_results{,_no_drs}.csv und die vier summaries.
+% Neu abgeglichen: Pflichtfelder, Referenzklassen, eindeutige Dateinamen,
+% Fallzahlen, sämtliche Kennzahlen und Übernahme des ausgewählten Satzes.
+% Ausführungsgrundlage der Tests: vom Autor bestätigter bestandener Prüflauf
+% aller 20 bestehenden Testmethoden einschließlich Python-MATLAB-Vergleich;
+% aktuelle Testfunktionen erneut gelesen. Keine erneute Testausführung.
+\begingroup
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\small
+\begin{longtable}{|
+    >{\raggedright\arraybackslash}p{3.2cm}|
+    >{\raggedright\arraybackslash}p{8.45cm}|
+    >{\raggedright\arraybackslash}p{2.55cm}|}
+  \caption{Bewertung der Anforderungen anhand von Umsetzung und Evaluation}
+  \label{tab:anforderungserfuellung} \\
+  \hline
+  \textbf{Anforderung} & \textbf{Nachweis} & \textbf{Urteil} \\
+  \hline
+  \endfirsthead
+  \multicolumn{3}{l}{\tablename~\thetable: Anforderungserfüllung (Fortsetzung)} \\
+  \hline
+  \textbf{Anforderung} & \textbf{Nachweis} & \textbf{Urteil} \\
+  \hline
+  \endhead
+  \hline
+  \endfoot
+  % utils/io.py, beide Loader; evaluate_file in beiden Workflows;
+  % config/settings.py; bestandener CWRU-Abtastratentest in EvaluationScopeTest.
+  D-01: Signal und Abtastrate &
+  Kanalwahl beim Import und datensatzabhängige Übergabe der Abtastrate;
+  CWRU-Zuordnungstest bestanden
+  (Abs.~\ref{sec:softwarestruktur}, Tab.~\ref{tab:versuchsumfang_bestand}). &
+  erfüllt \\
+  \hline
+  % Quellenbasis: CWRU, o. J., Normal Baseline Data, Tabelle,
+  % Zeilen Normal_1/Normal_2: ungefähre Drehzahlen 1772/1750 rpm.
+  % Codebasis: utils/io.py, beide Loader;
+  % workflows/evaluate_cwru.py, NORMAL_RPM_IF_MISSING und evaluate_file.
+  % Lokale MAT-Header und Loaderausgaben der vier Normaldateien geprüft;
+  % nur normal_1/2 ohne RPM, Übernahme identisch zu beiden Ergebnis-CSVs.
+  % Sichtbarer Quellennachweis bei der Importbeschreibung in 5.2.
+  D-02: Repräsentative Drehzahl &
+  Drehzahl aus den Messdateien; für zwei CWRU-Normalmessungen die
+  zugeordneten Näherungswerte des Datenanbieters
+  (Abs.~\ref{sec:softwarestruktur}, Tab.~\ref{tab:datenimport_impl}). &
+  erfüllt \\
+  \hline
+  % config/bearings.py, PADERBORN_GEOMETRY_BY_BEARING und
+  % CWRU_6205_GEOMETRY; evaluate_file in beiden Workflows.
+  D-03: Geometrieprofil &
+  Lagerabhängige Profilauswahl und Übergabe an die Frequenzberechnung
+  (Abs.~\ref{sec:signalbewertung_impl}). &
+  erfüllt \\
+  \hline
+  % expected_fault in evaluation/paderborn_scope.py und evaluate_cwru.py;
+  % alle vier Ergebnisdateien: file und expected vollständig und konsistent.
+  D-04: Referenz und Quelldatei &
+  Eindeutige Dateinamen und passende Referenzklassen in allen Einzelresultaten;
+  Zuordnung nach Abs.~\ref{sec:versuchsautomatisierung}. &
+  erfüllt \\
+  \hline
+  % core/pipeline.py, run_pipeline; vier Ergebnisdateien ausschließlich status=ok.
+  F-01: Vollständige Verarbeitung &
+  Alle ausgewählten Messungen in beiden DRS-Varianten abgeschlossen
+  (Tab.~\ref{tab:versuchsumfang_bestand}). &
+  erfüllt \\
+  \hline
+  % core/envelope_analysis.py, compute_bearing_fault_frequencies und
+  % evaluate_spectrum; settings.FAULT_FREQUENCY_ORDERS=(1,2).
+  % tests/test_peak_detection.py: Frequenzvergleich und Entscheidungsfälle,
+  % einschließlich Ablehnung bei fehlendem f oder 2f, bestanden.
+  F-02: Sollfrequenzen und Harmonische &
+  Referenzrechnungen und Spektraltests für die feste Prüfung von $f$ und $2f$
+  bestanden (Tab.~\ref{tab:komponentenvalidierung_ergebnisse}). &
+  erfüllt \\
+  \hline
+  % core/drs.py, run_drs; core/fast_kurtogram.py, fast_kurtogram;
+  % utils/helper_functions.py, find_in_kwav; core/envelope_analysis.py,
+  % evaluate_spectrum. Einzelne Prüfbarkeit ist keine umfassende Validierung.
+  F-03: Einzelne Prüfbarkeit &
+  Getrennt aufrufbare Verarbeitungsschritte; synthetische Prüfungen und
+  MATLAB-Referenzvergleich (Abs.~\ref{sec:softwarestruktur}
+  und~\ref{sec:komponentenvalidierung}). &
+  erfüllt \\
+  \hline
+  % Alle vier Ergebnisdateien: file, expected, detected, rpm, fc, bw, status
+  % vollständig; Mehrfachindikationen als BPFI,BPFO erhalten.
+  F-04: Ergebnis je Messung &
+  Pflichtfelder vollständig; beide Ringindikationen bleiben gespeichert
+  (Abs.~\ref{sec:pipelineergebnisse} und~\ref{sec:fehleranalyse}). &
+  erfüllt \\
+  \hline
+  % Import, Signalverarbeitung, Bandauswahl, Detektor und Kennzahlen
+  % besitzen getrennte Aufrufe; core/pipeline.py verbindet sie.
+  Q-01: Modularer Aufbau &
+  Separat aufrufbare Komponenten für Import, Signalverarbeitung,
+  Bandauswahl, Fehlerentscheidung und Evaluation
+  (Abs.~\ref{sec:softwarestruktur}, Abb.~\ref{tab:modulorganisation_impl}). &
+  erfüllt \\
+  \hline
+  % tests/test_evaluation_scope.py,
+  % test_broken_paderborn_file_is_reported_instead_of_raising bestanden.
+  % Beide evaluate_files filtern fehlgeschlagene Rückgaben aus Kennzahlen,
+  % brechen bei ausschließlich fehlerhaften Dateien aber vor dem Export ab.
+  Q-02: Fehlerbehandlung &
+  Fehlerstatus und Ursache je fehlgeschlagener Messung; Ausschluss aus
+  Kennzahlen. Test mit beschädigter MAT-Datei bestanden
+  (Abs.~\ref{sec:versuchsautomatisierung}). &
+  teilweise erfüllt \\
+  \hline
+  % settings: Lagergruppen disjunkt; aktuelles Dateiinventar je 120 Dateien.
+  % tune_paderborn.py, collect_files und grid_search; main.py, main;
+  % utils/io.py, load_trained_parameters; Rangliste und vier summaries stimmen.
+  % OFFEN: Die unveränderte Übernahme des finalen Parametersatzes ist belegt.
+  % Eine ursprüngliche Vorabfestlegung der f/2f-Regel darf nicht rückwirkend
+  % behauptet werden. Die Unabhängigkeit der Regelwahl bleibt getrennt von
+  % den disjunkten Lagerlisten und dem finalen Parametertransfer zu bewerten.
+  E-01: Datentrennung und Parameterübernahme &
+  Getrennte Lagergruppen und identische Auswahlparameter in Rangliste und
+  vier Zusammenfassungen (Abs.~\ref{sec:versuchsaufbau},
+  Tab.~\ref{tab:ergebnisse_suchumfang}). &
+  noch nicht beurteilbar \\
+  \hline
+  % Vier summaries: total_files, evaluated_files, failed_files und sämtliche
+  % Parameter konsistent mit den Einzelresultaten und der Konfiguration.
+  % Beide evaluate_files: Abbruch bei leerer expected_labels-Liste vor
+  % Zusammenfassung und Rückgabe; main exportiert erst nach der Rückgabe.
+  E-02: Laufdokumentation &
+  Umfang, Erfolgs- und Fehleranzahl sowie Parameter in allen vier
+  Zusammenfassungen dokumentiert
+  (Abs.~\ref{sec:versuchsautomatisierung} und~\ref{sec:pipelineergebnisse}). &
+  teilweise erfüllt \\
+  \hline
+  % evaluation/metrics.py, diagnosis_metrics und detection_metrics;
+  % sämtliche Kennzahlen aus den vier Einzelresultaten neu aggregiert und
+  % gegen die summaries geprüft; keine Rohsignalverarbeitung.
+  E-03: Getrennte Gütebewertung &
+  Schadenserkennung und Klassenzuordnung getrennt berechnet und ausgewiesen
+  (Tab.~\ref{tab:pipeline_kennzahlen}). &
+  erfüllt \\
+\end{longtable}
+\endgroup
+
+% Eigene Nachweisgrenze zu E-01: disjunkte Lagergruppen und finaler
+% Parametertransfer belegen nicht die Unabhängigkeit der Regelwahl.
+Bei E-01 sind die Trennung der Lagergruppen und die unveränderte Übernahme
+des finalen Parametersatzes belegt. Davon zu unterscheiden ist die nicht
+nachgewiesene Unabhängigkeit der Festlegung der Entscheidungsregel von
+den Evaluationsdaten.
+
+% Beide evaluate_files: if not expected_labels vor Zusammenfassung/Rückgabe;
+% belegte funktionale Grenze, kein neu ausgeführter Fehlerfall.
+Q-02 und E-02 sind durch dieselbe funktionale Grenze eingeschränkt:
+Scheitern sämtliche Dateien eines Laufs, endet dieser vor dem Export der
+Fehlerzeilen und der Zusammenfassung
+(Abschnitt~\ref{sec:versuchsautomatisierung}). Die vier durchgeführten
+Evaluationen waren davon nicht betroffen; ihre Laufangaben sind vollständig.

@@ -370,12 +370,6 @@ Für jedes Lager werden unter jeder der vier Betriebsbedingungen die
 Aufzeichnungen 1, 5, 10, 15 und 20 verwendet. Damit umfasst die Auswahl
 20 Aufzeichnungen je Lager und 120 Aufzeichnungen je Teilmenge.
 
-\textbf{TODO -- Vor der finalen Auswertung ist zu entscheiden, ob
-ausschließlich die derzeit ausgewählte Teilmenge oder der vollständige
-Paderborner Datensatz verwendet wird. Bei einer Erweiterung sind die
-Lagerauswahl, die Umfangsangaben und die darauf aufbauende Evaluation
-entsprechend anzupassen.}
-
 % Quellenbasis: Lessmeier et al. (2016), S. 5--6, Abschn. 3.1--3.2 und
 % Tab. 4--5 sowie S. 8, Tab. 7: Referenzzustände, Schadensorte und
 % Schadensentstehung. Eigene Zuordnung zu Training und Evaluation:
@@ -706,10 +700,6 @@ die ausgewählten Fehlermessungen mit 12~kHz erfasst wurden
 \cite[S.~103, Abschn.~3.2; S.~126, Tab.~A1--A2]
 {smithRollingElementBearing2015}.
 
-\textbf{TODO: In der CWRU-Auswertung muss für die vier fehlerfreien
-Referenzmessungen die Abtastrate auf 48~kHz umgestellt und die Auswertung
-einschließlich der Ergebnisartefakte erneut ausgeführt werden.}
-
 % OFFEN: collect_files übernimmt derzeit jede MAT-Datei aus den konfigurierten
 % Verzeichnissen. Die hier dokumentierten 40 Dateien sind vor der finalen
 % Evaluation durch eine explizite, versionierte Auswahlliste festzuschreiben.
@@ -868,15 +858,6 @@ Prüfstand, Lagerbauart und Messkonfiguration von den Paderborner Daten
 {smithRollingElementBearing2015}
 \cite[S.~5 und S.~7--9, Abschn.~3--5]
 {lessmeierConditionMonitoringBearing2016}.
-
-% OFFEN: experiments/evaluate_cwru.py setzt derzeit FS=12000 für sämtliche
-% CWRU-Dateien, obwohl die vier Referenzaufzeichnungen zur 48-kHz-Gruppe
-% gehören. Zudem beträgt die obere Analysegrenze in evaluate_paderborn.py
-% 10 kHz, für CWRU über config/settings.py dagegen 5 kHz. Vor Aussagen zu
-% den Ergebnissen einer vollständig unveränderten datensatzübergreifenden
-% Evaluation sind die Abtastrate zu korrigieren, die beabsichtigte
-% Parametergleichheit eindeutig festzulegen und sämtliche CWRU-Artefakte
-% erneut zu erzeugen.
 
 \paragraphheading{Aussagegrenzen der Datengrundlage}
 
@@ -1039,8 +1020,14 @@ Festlegungen für die Datenübernahme zusammen.
     D-02 & Jeder ausgewerteten Zeitreihe muss eine repräsentative Drehzahl
     zugeordnet sein. &
     Der Import stellt der Pipeline in beiden Fällen einen skalaren
-    Drehzahlwert bereit. Bei CWRU wird der einzelne, der Messung zugeordnete
-    Wert aus der MAT-Datei verwendet. Bei Paderborn wird aus dem
+    Drehzahlwert bereit. Bei CWRU wird der Wert aus der MAT-Datei verwendet.
+    % Quellenbasis: CWRU, o. J., Normal Baseline Data, Tabelle,
+    % Zeilen Normal_1/Normal_2: Approx. Motor Speed 1772/1750 rpm.
+    % Codebasis: evaluate_cwru.py, NORMAL_RPM_IF_MISSING;
+    % utils/io.py, load_signal_cwru; lokale MAT-Header ohne RPM-Feld.
+    Fehlt dort das RPM-Feld, wird für die beiden betroffenen Normalmessungen
+    die ungefähre Drehzahl aus der CWRU-Datentabelle übernommen
+    \cite{NormalBaselineData}. Bei Paderborn wird aus dem
     zeitaufgelösten Kanal \texttt{speed} der Median gebildet. \\
     \hline
     % Eigene methodische Festlegung aus den für die Berechnung der
@@ -1068,11 +1055,6 @@ Festlegungen für die Datenübernahme zusammen.
     den Quelldateinamen und die zugeordnete Referenzklasse. \\
     \hline
 \end{longtable}
-
-\textbf{TODO -- Vor der finalen CWRU-Evaluation ist die Abtastrate im
-Auswertungscode dateigruppenspezifisch zuzuordnen. Der aktuelle Stand verwendet
-noch 12~kHz für alle CWRU-Dateien, obwohl die einbezogenen Referenzmessungen mit
-48~kHz vorliegen.}
 
 \paragraphheading{Funktionale und qualitative Anforderungen}
 
@@ -1144,10 +1126,6 @@ dafür eingesetzten Verfahren erfolgt in Kapitel~\ref{ch:konzept}.
     Ergebniszusammenfassungen. \\
     \hline
 \end{longtable}
-
-\textbf{TODO -- Vor Abschluss der Komponentenvalidierung sind ein Referenztest
-für die berechneten Sollfrequenzen und ein isolierter Test der
-Entscheidungslogik mit einem künstlichen Spektrum zu ergänzen.}
 
 \newpage
 \paragraphheading{Festlegungen für die Evaluation}

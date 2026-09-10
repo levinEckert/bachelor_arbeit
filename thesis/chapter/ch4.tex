@@ -25,9 +25,6 @@ bestimmt werden. Anschließend wird das Evaluationsvorgehen festgelegt.
 Die prototypische Umsetzung verbindet die einzelnen Softwarekomponenten zu
 einer ausführbaren Pipeline. Die Implementierung wird in
 Kapitel~\ref{ch:implementierung} beschrieben.
-% OFFEN: Kapitel~\ref{ch:implementierung} enthält derzeit nur die vorgesehene
-% Gliederung und muss noch anhand der genannten Implementierungsartefakte
-% ausgearbeitet werden.
 
 % Eigene methodische Festlegung: Zwei Nachweisebenen entsprechend dem
 % Evaluationskonzept in Abschnitt~\ref{sec:evaluationskonzept}.
@@ -58,14 +55,6 @@ Pipeline vom Datenimport bis zur Fehlerindikation verarbeitet. Die dabei
 erzeugten Fehlerindikationen werden mit den dokumentierten Referenzklassen
 verglichen.
 
-% OFFEN: Kapitel~\ref{ch:evaluation} enthält derzeit nur die vorgesehene
-% Gliederung. Vor der abschließenden Evaluation sind noch
-% - ein separater Referenztest für die Lagerfrequenzberechnung und ein
-%   isolierter Test der Entscheidungslogik mit künstlichen Spektren,
-% - die gepaarte Ausführung des DRS-Pfads und des bereits in run_pipeline
-%   unterstützten Bypasses sowie
-% - die erneute CWRU-Evaluation mit dateigruppenspezifischer Abtastrate
-% umzusetzen beziehungsweise auszuführen und zu dokumentieren.
 Die Durchführung und die Ergebnisse der Versuche werden in
 Kapitel~\ref{ch:evaluation} dargestellt und bewertet.
 
@@ -313,6 +302,7 @@ angewandt. Der Vergleich beider Varianten ermöglicht eine getrennte Bewertung
 des Beitrags der Signaltrennung.
 
 \paragraphheading{Auswahl des Frequenzbandes}
+\label{par:auswahl_frequenzband}
 
 % Quellenbasis: Smith und Randall (2015), gedruckte S. 102--103,
 % PDF-S. 3--4, Abschn. 3.1--3.2 und Tab. 2; Lessmeier et al. (2016),
@@ -523,10 +513,6 @@ Abbildung~\ref{fig:verarbeitungspipeline_datenfluss} dargestellte Datenfluss.
   \caption*{\footnotesize Quelle: eigene Darstellung.}
 \end{figure}
 
-\textbf{TODO -- Die Berechnung und Darstellung von BSF und FTF sind aus dem
-Code zu entfernen, da der Prototyp ausschließlich BPFO und BPFI auswertet.
-Die zugehörigen Tests und Visualisierungen sind entsprechend anzupassen.}
-
 \paragraphheading{Fehlerindikation}
 \label{par:fehlerindikation_pipeline}
 
@@ -610,19 +596,6 @@ Mustern im \acrshort{SES}. Die genaue Verknüpfung der Peaks mit der
 lokalen MAD-Schwelle ist dagegen eine eigene Regel für diesen Prototyp. Ihre
 Eignung muss daher in der Evaluation geprüft werden; eine allgemeine Gültigkeit
 wird nicht vorausgesetzt.
-
-\textbf{TODO -- Absicherung und Grenzen der Entscheidungslogik:}
-\begin{itemize}
-    \item Die feste Harmonischen- und Schwellenregel ist mit künstlichen
-          Spektren isoliert zu prüfen. Zusätzlich ist ihre Erkennungsleistung
-          anhand der zurückgehaltenen Evaluationsmessungen auszuweisen.
-    \item Die Empfindlichkeit gegenüber der Fensterhalbbreite ist zu bewerten.
-          Der ausgewählte Wert von $\pm 1\,\%$ bildet nur einen Teil der in der
-          Literatur genannten typischen Abweichungen von $1$--$2\,\%$ ab.
-    \item Als methodische Grenze ist zu diskutieren, dass nur die ersten drei
-          Harmonischen geprüft und insbesondere die für Innenringschäden
-          erwarteten Seitenbänder derzeit nicht ausgewertet werden.
-\end{itemize}
 
 \paragraphheading{Module und Schnittstellen}
 
@@ -900,22 +873,6 @@ Ranglistendatei gespeichert. Tabelle~\ref{tab:parametrierung_suchraum} nennt die
 Parametersuche werden erst in Abschnitt~\ref{sec:pipelineergebnisse} als
 Ergebnis der Parameterstudie dargestellt.
 
-\textbf{TODO -- Die feste Bezugsfrequenz von $3000\,\mathrm{Hz}$ ist nicht der
-Empfehlung von Randall entnommen. Vor der finalen Parametersuche ist
-festzulegen und zu begründen, wie diese Bezugsfrequenz aus dem betrachteten
-Signal oder Analyseband bestimmt wird.}
-
-\textbf{TODO -- Vor der finalen Parametersuche ist zu prüfen, ob die
-angenommene relative Schlupfvariation von $1\,\%$ für die verwendeten
-Lagersignale plausibel ist. Falls diese Annahme nicht begründet werden kann,
-ist die Korrelationslänge aus den Signalen zu bestimmen und der Blockabstand
-entsprechend anzupassen.}
-
-\textbf{TODO -- Falls weitere Parameterwerte untersucht oder die Suchbereiche
-geändert werden, sind der dokumentierte Suchraum, die übernommene
-Konfiguration und die Beschreibung der Parametersuche in diesem Abschnitt nach
-der erneuten Suche zu aktualisieren.}
-
 \section{Evaluationskonzept}
 \label{sec:evaluationskonzept}
 
@@ -1007,9 +964,6 @@ Um nicht nur ein einziges Signal zu prüfen, wird der Test mit mehreren Variante
 wiederholt. Zwischen den Varianten ändern sich der Zufallsstartwert, die
 Rauschstärke und die Frequenz einer deterministischen Komponente.
 
-\emph{[Platzhalter: Verweis auf die Erzeugung der DRS-Testsignale und den
-DRS-Test im Anhang ergänzen.]}
-
 % Herkunft und Implementierungsgrundlage: cm_pipeline_validation,
 % core/fast_kurtogram.py, Kopfkommentar sowie fast_kurtogram und
 % Fast_Kurtogram, Z. 1--161: Python-3-Anpassung der von T. Lecocq für Waveloc
@@ -1040,9 +994,6 @@ Abweichung, der \gls{RMSE} und die Korrelation protokolliert. Der \gls{RMSE}
 und die Korrelation werden dabei nach
 Gleichung~\eqref{eq:komponentenvalidierung_kennwerte} berechnet. Die Ergebnisse
 werden in Abschnitt~\ref{sec:komponentenvalidierung} berichtet.
-
-\emph{[Platzhalter: Verweise auf den MATLAB-Code, die angepasste Python-Fassung
-und den Vergleichstest im Anhang ergänzen.]}
 
 % Eigene methodische Festlegung zur vollständigen Abdeckung von F-02 und F-03
 % aus Tabelle~\ref{tab:anforderungen_funktional}. Zu prüfende Funktionen:
@@ -1112,17 +1063,6 @@ dem Status \texttt{ok} abgeschlossen wurde. Bei fehlgeschlagenen Dateien wird
 die Ursache protokolliert. Ihre Anzahl wird zusammen mit der Zahl der
 übergebenen und der erfolgreich verarbeiteten Dateien angegeben.
 
-\textbf{TODO -- Auswertung nach Messgruppen:}
-\begin{itemize}
-    \item Für Paderborn die Kennzahlen getrennt nach Zielklasse, Lager und
-          Betriebsbedingung berechnen.
-    \item Für CWRU die Kennzahlen getrennt nach Zielklasse, Schadensgröße und
-          Laststufe berechnen. Außenringschäden zusätzlich nach der
-          Schadensposition unterscheiden.
-    \item Die Ergebnisse der einzelnen Gruppen in
-          Abschnitt~\ref{sec:fehleranalyse} für die Fehleranalyse verwenden.
-\end{itemize}
-
 \paragraphheading{Bewertungskennzahlen}
 
 % Rückverweis: Anforderung E-03 im Absatz
@@ -1146,10 +1086,6 @@ Ausgabe \enquote{fehlerfrei}. Aus dem Vergleich von Referenz und Ausgabe
 entstehen die Zählwerte \gls{TP}, \gls{TN}, \gls{FP} und \gls{FN}. Daraus
 werden Präzision, Sensitivität, Spezifität, Fehlalarmrate, Genauigkeit und
 F1-Maß berechnet.
-
-\emph{[Platzhalter: Nach Ausarbeitung von
-Abschnitt~\ref{sec:versuchsautomatisierung} einen Verweis auf die
-Implementierung der Kennzahlenberechnung ergänzen.]}
 
 % Eigene methodische Festlegung und Implementierungsgrundlage:
 % cm_pipeline_validation, experiments/scoring.py, extract_detected_faults und

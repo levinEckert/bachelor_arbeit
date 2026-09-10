@@ -1,23 +1,71 @@
-\chapter{Zusammenfassung und Ausblick}
-\label{ch:schlussbetrachtung}
+\chapter{Diskussion}
+\label{ch:diskussion}
+
+% Eigene methodische Einleitung: Kapitel~\ref{ch:diskussion} ordnet die in
+% Kapitel~\ref{ch:evaluation} beobachteten Ergebnisse im Hinblick auf die
+% Forschungsfragen und ihre Aussagegrenzen ein; keine neue externe Aussage.
+Die Diskussion ordnet die beobachteten Evaluationsergebnisse im Hinblick auf
+die Forschungsfragen und den Untersuchungsrahmen ein. Dabei wird zwischen dem
+unmittelbaren Befund der ausgewählten Messungen und der Reichweite der daraus
+zulässigen Schlussfolgerungen unterschieden.
 
 %================================================================================================
-%       7.1 Zusammenfassung
+%       7.1 Aussagekraft der Fehlerindikation
 %================================================================================================
-\section{Zusammenfassung}
-\label{sec:zusammenfassung}
-\begin{itemize}
-    \item Auswertung der entwickelten Lösung und der erreichten Ziele
-    \item Fazit zur Implementierung des Predictive-Maintenance-Algorithmus
-\end{itemize}
+\section{Aussagekraft der Fehlerindikation}
+\label{sec:aussagekraft_ergebnisse}
+
+% VORGEMERKT: Vom Gesamtbefund zur Reichweite der Fehlerindikation führen;
+% Teilfragen 2 und 3 gemeinsam beantworten. Binäre Schadenserkennung und
+% exakte Ringzuordnung unterscheiden; Paderborn und CWRU getrennt einordnen.
+% Die Übertragung von künstlichen auf real entstandene Schäden bei Paderborn
+% von der zusätzlichen datensatzübergreifenden CWRU-Evaluation abgrenzen.
+% Fehlerhäufungen bei einzelnen Lagern und die geringe Zahl unabhängiger
+% Lagerfälle berücksichtigen, ohne Tabellen oder Einzelfälle nachzuerzählen.
+% Grundlage: Abschnitte zu Pipelineergebnissen und Fehleranalyse in Kapitel 6
+% sowie Datenauswahl in Kapitel 3. Geplanter Umfang: 1 bis 1,5 Seiten.
 
 %================================================================================================
-%       7.2 Ausblick
+%       7.2 Einfluss der Verarbeitung und Entscheidungsregel
 %================================================================================================
-\section{Ausblick}
-\label{sec:ausblick}
-\begin{itemize}
-    \item zukünftige Erweiterungen
-    \item Nächste Schritte
-    \item Übertragbarkeit des Konzepts auf weitere Maschinen/Standorte
-\end{itemize}
+\section{Einfluss der Verarbeitung und Entscheidungsregel}
+\label{sec:methodische_grenzen}
+
+% VORGEMERKT: Den Beitrag und die Grenzen der methodischen Festlegungen
+% beurteilen; Teilfrage 1 beantworten, ohne eine optimale Methodenkombination
+% zu behaupten. Den fehlenden eindeutigen DRS-Vorteil unter der untersuchten
+% Konfiguration einschließlich gegenläufiger Einzelentscheidungen und
+% möglicher Bandwechsel einordnen. Begrenzte Mittelung und feste
+% DRS-Bezugsfrequenz von 3 kHz als mögliche Einflussgrößen behandeln;
+% keine unbelegte Ursache für die beobachteten Ergebnisse behaupten.
+% Eingeschränkte Kurtogramm-Bandauswahl und maximale Bandbreite von 2 kHz
+% sowie die eigene Peak-Regel mit lokaler MAD-Schwelle und gültigen Peaks
+% bei f und 2f bündeln. Algorithmische Entscheidungen von physikalischen
+% Ursachen trennen; Komponentenprüfungen nicht als allgemeinen Gütenachweis
+% darstellen. Grundlage: Kapitel 6, aktueller Code in core/drs.py,
+% core/pipeline.py, core/envelope_analysis.py und utils/helper_functions.py;
+% Rückverweise auf die methodischen Grundlagen in Kapitel 2 und 4.
+% Geplanter Umfang: 1,5 bis 2 Seiten.
+
+%================================================================================================
+%       7.3 Übertragbarkeit auf industrielle Maschinen
+%================================================================================================
+\section{Übertragbarkeit auf industrielle Maschinen}
+\label{sec:industrielle_uebertragbarkeit}
+
+% VORGEMERKT: Aus den Befunden die Grenzen einer späteren industriellen
+% Anwendung ableiten; Teilfrage 4 beantworten. Real entstandene
+% Prüfstandsschäden nicht mit einer industriellen Validierung gleichsetzen.
+% Voraussetzungen hinsichtlich Drehzahl, Lagergeometrie und Messbedingungen
+% sowie ungeprüfte Betriebsänderungen und Signalüberlagerungen behandeln.
+% DRS als möglichen Baustein unter bestimmten Voraussetzungen einordnen,
+% nicht als allgemeinen Schutz gegen Rauschen oder Nachweis der Einsatzreife.
+% Am Ende die Hauptforschungsfrage knapp aus der Diskussion beantworten.
+% Grundlage: Forschungsfragen und Abgrenzung in Kapitel 1, Datengrundlage
+% in Kapitel 3, Methodenvoraussetzungen und Befunde aus Kapitel 6.
+% Geplanter Umfang: etwa 1 Seite.
+%
+% Abgrenzung zu Kapitel 8: Das Fazit verdichtet nur den erreichten Beitrag
+% und die zentrale Einschränkung; keine erneute Einzelbeantwortung aller
+% Forschungsfragen. Konkrete Folgeuntersuchungen zur Entscheidungsregel
+% und eine Evaluation mit geeigneten Maschinendaten gehören in den Ausblick.

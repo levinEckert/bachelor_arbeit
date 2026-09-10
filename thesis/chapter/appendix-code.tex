@@ -1,0 +1,72 @@
+% Kurze Listings zusammenhalten, ohne die Abstände auf der Seite zu dehnen.
+\begingroup
+\raggedbottom
+\chapter{Codeauszüge}
+\label{app:codeauszuege}
+
+% Codebasis: bytegetreue Kopien aus cm_pipeline_validation vom 04.09.2026.
+% Vollständige Commitkennung, SHA-256-Prüfsummen und Abgleich mit dem
+% Arbeitsverzeichnis: code/2026-09-04-f402c087/CODESTAND.md.
+\begingroup
+\setlength{\emergencystretch}{1em}
+Die Listings zeigen unveränderte Auszüge aus dem Projekt
+\path{cm_pipeline_validation}. Die Quelldateien wurden am
+4.~September~2026 in das LaTeX-Projekt übernommen. Die vier kopierten Dateien
+entsprechen dem Commit \texttt{f402c087d7a9}; die vollständige Commitkennung
+und die SHA-256-Prüfsummen der Kopien sind in
+\path{code/2026-09-04-f402c087/CODESTAND.md} dokumentiert. Dieser Stand
+berücksichtigt den geänderten Haupteinstiegspunkt, die nach
+\texttt{utils/io.py} verschobene Parameterladefunktion und die direkte
+Übergabe der Entscheidungsparameter an die Pipeline. Er ersetzt für die
+folgenden Listings den früher dokumentierten Stand \texttt{ccaaa6009df5};
+dessen Codekopien bleiben im Projekt erhalten.
+Die Zeilennummern beziehen sich auf die vollständigen Quelldateien.
+\par\endgroup
+
+\lstinputlisting[
+    style=pythoncode,
+    firstline=55,
+    lastline=60,
+    firstnumber=55,
+    caption={Aufrufsignatur -- Auszug aus
+        \texttt{core/pipeline.py}, Funktion \texttt{run\_pipeline}},
+    label={lst:pipeline-run-pipeline-schnittstelle}
+]{code/2026-09-04-f402c087/core/pipeline.py}
+
+\lstinputlisting[
+    style=pythoncode,
+    firstline=9,
+    lastline=21,
+    firstnumber=9,
+    caption={Evaluation mit und ohne DRS -- Auszug aus \texttt{main.py},
+        Funktion \texttt{main}},
+    label={lst:main-main-einzelaufruf}
+]{code/2026-09-04-f402c087/main.py}
+
+\noindent\begin{minipage}{\textwidth}
+\lstinputlisting[
+    style=pythoncode,
+    firstline=134,
+    lastline=155,
+    firstnumber=134,
+    caption={Zusammenstellung der Laufparameter aus der Suchrangliste --
+        Auszug aus \texttt{utils/io.py},
+        Funktion \texttt{load\_trained\_parameters}},
+    label={lst:evaluate-paderborn-load-trained-parameters-konfiguration}
+]{code/2026-09-04-f402c087/utils/io.py}
+\end{minipage}
+
+\noindent\begin{minipage}{\textwidth}
+\lstinputlisting[
+    style=pythoncode,
+    firstline=86,
+    lastline=100,
+    firstnumber=86,
+    caption={Pipelineaufruf mit geladenen Entscheidungsparametern -- Auszug aus
+        \texttt{workflows/evaluate\_paderborn.py},
+        Funktion \texttt{evaluate\_file}},
+    label={lst:evaluate-paderborn-evaluate-file-parameteruebergabe}
+]{code/2026-09-04-f402c087/workflows/evaluate_paderborn.py}
+\end{minipage}
+\par\clearpage
+\endgroup

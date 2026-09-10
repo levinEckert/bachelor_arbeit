@@ -1,0 +1,224 @@
+\chapter{Ergebnisnachweise}
+\label{app:pipelineergebnisse}
+\begingroup
+\raggedbottom
+% Absatzüberschriften stehen im bestehenden Anhanggerüst direkt unter dem Kapitel.
+\makeatletter\def\toclevel@subsection{1}\makeatother
+
+% Interne Zuordnung der unveränderten Datenauszüge zu Originaldateien und
+% Originalzeilen: data/pipelineergebnisse-f-2f/QUELLEN.json.
+Dieser Anhang dokumentiert die Referenzrechnung der in
+Abschnitt~\ref{sec:komponentenvalidierung} geprüften Lagerfrequenzen und ergänzt
+Abschnitt~\ref{sec:pipelineergebnisse} um führende Parameterkonfigurationen,
+Ergebnisse einzelner Lager und Messungen mit geänderten Fehlerindikationen im
+DRS-Vergleich.
+
+\paragraphheading{Referenzrechnung der Lagerfrequenzen}
+\label{app:lagerfrequenz_referenzrechnung}
+
+% Eigene Nachrechnung anhand der Gleichungen~\eqref{eq:bpfo} und
+% \eqref{eq:bpfi}. Eingabewerte: CWRU_6205_GEOMETRY und
+% PADERBORN_MTK_IBU_6203_GEOMETRY aus config/bearings.py sowie die im
+% Komponentenfall vorgegebenen Drehzahlen aus tests/test_peak_detection.py.
+% Die Komponentenfunktion wurde für diese Nachrechnung nicht aufgerufen.
+Die Vergleichswerte werden mit den Gleichungen~\eqref{eq:bpfo} und
+\eqref{eq:bpfi} für die im Komponententest vorgegebenen Geometrien und
+Drehzahlen berechnet.
+
+Für den CWRU-Lagertyp 6205 beträgt die Drehfrequenz bei 1797~U/min
+\[
+  f_r=\frac{1797}{60}=29{,}95\,\mathrm{Hz}.
+\]
+Mit neun Wälzkörpern, einem
+Wälzkörperdurchmesser von $7{,}94\,\mathrm{mm}$, einem Teilkreisdurchmesser
+von $39{,}00\,\mathrm{mm}$ und einem Druckwinkel von $0^\circ$ ergibt sich:
+\begin{equation}
+  \begin{aligned}
+    \mathrm{BPFO}
+      &= \frac{9}{2}\cdot29{,}95\,\mathrm{Hz}
+         \left(1-\frac{7{,}94}{39{,}00}\cos 0^\circ\right)
+       \approx 107{,}3362\,\mathrm{Hz}
+       \approx 107{,}34\,\mathrm{Hz}, \\
+    \mathrm{BPFI}
+      &= \frac{9}{2}\cdot29{,}95\,\mathrm{Hz}
+         \left(1+\frac{7{,}94}{39{,}00}\cos 0^\circ\right)
+       \approx 162{,}2138\,\mathrm{Hz}
+       \approx 162{,}21\,\mathrm{Hz}.
+  \end{aligned}
+\end{equation}
+
+Für den Paderborner Lagertyp MTK/IBU 6203 beträgt die Drehfrequenz bei
+1500~U/min
+\[
+  f_r=\frac{1500}{60}=25{,}00\,\mathrm{Hz}.
+\]
+Mit acht Wälzkörpern, einem
+Wälzkörperdurchmesser von $6{,}75\,\mathrm{mm}$, einem Teilkreisdurchmesser
+von $29{,}05\,\mathrm{mm}$ und einem Druckwinkel von $0^\circ$ folgt:
+\begin{equation}
+  \begin{aligned}
+    \mathrm{BPFO}
+      &= \frac{8}{2}\cdot25{,}00\,\mathrm{Hz}
+         \left(1-\frac{6{,}75}{29{,}05}\cos 0^\circ\right)
+       \approx 76{,}7642\,\mathrm{Hz}
+       \approx 76{,}76\,\mathrm{Hz}, \\
+    \mathrm{BPFI}
+      &= \frac{8}{2}\cdot25{,}00\,\mathrm{Hz}
+         \left(1+\frac{6{,}75}{29{,}05}\cos 0^\circ\right)
+       \approx 123{,}2358\,\mathrm{Hz}
+       \approx 123{,}24\,\mathrm{Hz}.
+  \end{aligned}
+\end{equation}
+
+\paragraphheading{Parameterkonfigurationen}
+
+% Ergebnisbasis: paderborn_param_search.csv, alle 120 Zeilen; sämtliche
+% summary-Dateien, Zeile 2; config/settings.py und utils/io.py,
+% load_trained_parameters. Beide Tabellenlabels betreffen die realen
+% Such- und Evaluationsparameter dieser Tabelle.
+\begin{table}[H]
+  \centering
+  \caption{Untersuchter Suchraum und in beiden DRS-Varianten geladene Werte}
+  \label{tab:ergebnisse_suchumfang}
+  \label{tab:ergebnisse_vergleichsparameter}
+  \small
+  \begin{tabular}{llr}
+    \hline
+    \textbf{Parameter} & \textbf{Suchwerte} & \textbf{Evaluation} \\
+    \hline
+    DRS-Blockfaktor $B$ & 3, 5, 10, 15, 20 & 5 \\
+    Schwellenfaktor $k$ & 1,5; 2; 3; 4 & 1,5 \\
+    Relative Halbbreite $t$ (\%) & 1; 2 & 1 \\
+    Lokale Halbbreite $w$ (Hz) & 10, 20, 40 & 20 \\
+    \hline
+    \multicolumn{3}{l}{Fest: Ordnungen 1 und 2, beide Peaks erforderlich;} \\
+    \multicolumn{3}{l}{Zerlegungstiefe 8, DRS-Bezugsfrequenz 3000\,Hz,} \\
+    \multicolumn{3}{l}{Sicherheitsfaktor 3 und Periodenzahl 100.} \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% Ergebnisbasis: paderborn_param_search.csv, Originalzeilen 2, 3, 4 und 12.
+% Auswahlzweck: drei führende Ränge; Rang 11 als Maximum von detection_f1.
+Tabelle~\ref{tab:ergebnisse_rangliste} zeigt die drei führenden
+Konfigurationen und Rang elf mit dem höchsten binären F1-Maß.
+Alle Trainingskennzahlen beziehen sich auf dieselben 120 Messungen.
+
+\begin{table}[H]
+  \centering
+  \caption{Ausgewählte Parameterkonfigurationen und Trainingskennzahlen}
+  \label{tab:ergebnisse_rangliste}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{rrrrrrrr}
+    \hline
+    Rang & $B$ & $k$ & $t$ (\%) & $w$ (Hz) &
+      \shortstack{exakt\\(\%)} & \shortstack{F1 Diagnose\\(\%)} &
+      \shortstack{F1 binär\\(\%)} \\
+    \hline
+    1 & 5 & 1,5 & 1,00 & 20 & 45,83 & 45,83 & 40,38 \\
+    2 & 3 & 1,5 & 1,00 & 10 & 45,00 & 44,81 & 40,74 \\
+    3 & 5 & 1,5 & 2,00 & 20 & 44,17 & 45,45 & 48,70 \\
+    11 & 3 & 1,5 & 2,00 & 10 & 42,50 & 42,98 & 55,12 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\paragraphheading{Paderborner Lager}
+
+% Ergebnisbasis: alle 120 Zeilen von paderborn_results.csv; Gruppierung
+% nach bearing, expected und vollständigem detected.
+\begin{table}[H]
+  \centering
+  \caption{Paderborner Ausgabemengen mit DRS, jeweils 20 Messungen pro Lager}
+  \label{tab:ergebnisse_paderborn_lager}
+  \small
+  \begin{tabular}{llrrrr}
+    \hline
+    \textbf{Lager} & \textbf{Referenz} & normal & BPFO & BPFI & BPFO+BPFI \\
+    \hline
+    K003 & normal & 18 & 0 & 2 & 0 \\
+    K004 & normal & 18 & 2 & 0 & 0 \\
+    KA04 & BPFO & 0 & 19 & 0 & 1 \\
+    KA16 & BPFO & 0 & 20 & 0 & 0 \\
+    KI16 & BPFI & 0 & 0 & 11 & 9 \\
+    KI17 & BPFI & 14 & 1 & 5 & 0 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\clearpage
+\paragraphheading{DRS-Vergleich}
+
+% Ergebnisbasis: paarweise Zuordnung über file in paderborn_results*.csv
+% und cwru_paderborn_params_results*.csv; alle 13 geänderten Klassenmengen.
+% P1--P8 und C1--C5 ordnen die ausgewählten Originalzeilen eindeutig zu.
+Tabelle~\ref{tab:ergebnisse_einzelfaelle} enthält sämtliche Messungen,
+deren Ausgabemenge sich zwischen den Varianten ändert. P bezeichnet
+Paderborn, C den CWRU-Datensatz. Die übrigen 112 Paderborner und 35
+CWRU-Ausgaben bleiben gleich. Die Auswahl erfasst sowohl Gewinne als auch
+Verluste exakter Zuordnungen und zusätzliche Indikationen bei weiterhin
+binär erkannten Schäden oder Fehlalarmen.
+
+\begin{table}[H]
+  \centering
+  \caption{Geänderte Ausgabemengen bei gleicher Messung und Konfiguration}
+  \label{tab:ergebnisse_einzelfaelle}
+  \small
+  \setlength{\tabcolsep}{3pt}
+  \begin{tabular}{lllll}
+    \hline
+    \textbf{Fall} & \textbf{Messungskennung} & \textbf{Referenz} &
+      \textbf{ohne DRS} & \textbf{mit DRS} \\
+    \hline
+    P1 & \path{N15_M07_F10_K003_1.mat} & normal & BPFO & normal \\
+    P2 & \path{N15_M07_F04_K004_10.mat} & normal & normal & BPFO \\
+    P3 & \path{N15_M07_F04_KA04_15.mat} & BPFO & BPFO+BPFI & BPFO \\
+    P4 & \path{N15_M07_F04_KA04_20.mat} & BPFO & BPFO+BPFI & BPFO \\
+    P5 & \path{N09_M07_F10_KI16_10.mat} & BPFI & BPFO+BPFI & BPFI \\
+    P6 & \path{N09_M07_F10_KI16_15.mat} & BPFI & BPFI & BPFO+BPFI \\
+    P7 & \path{N15_M01_F10_KI16_5.mat} & BPFI & BPFI & BPFO+BPFI \\
+    P8 & \path{N09_M07_F10_KI17_15.mat} & BPFI & BPFI & normal \\
+    \hline
+    C1 & \path{IR021_1.mat} & BPFI & BPFO+BPFI & BPFI \\
+    C2 & \path{normal_1.mat} & normal & BPFO & BPFO+BPFI \\
+    C3 & \path{normal_2.mat} & normal & BPFO & BPFO+BPFI \\
+    C4 & \path{OR007@12_1.mat} & BPFO & normal & BPFO \\
+    C5 & \path{OR007@12_2.mat} & BPFO & BPFO & BPFO+BPFI \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% Eigene Auswahl aus den Originalzeilen: P1 und C1 zeigen geänderte Ausgaben
+% bei gleichem Band; P8 und C4 geänderte Ausgaben bei geändertem Band;
+% P9 zeigt geändertes Band bei unveränderter Ausgabe. Frequenzen in Hz,
+% Originalwerte in den CSV-Auszügen ungerundet erhalten.
+Tabelle~\ref{tab:ergebnisse_baender} ergänzt ausgewählte Bandangaben.
+P1 und C1 zeigen eine geänderte Ausgabe bei gleichem Band, P8 und C4 eine
+geänderte Ausgabe bei verändertem Band. Als Gegenbeispiel dient P9,
+\path{N15_M01_F10_K003_10.mat}: Diese fehlerfreie Referenzmessung bleibt
+in beiden Varianten ohne Ringindikation, obwohl sich das gewählte Band
+ändert. Ein Bandwechsel und eine geänderte Klassenmenge fallen somit
+nicht durchgehend zusammen.
+
+\begin{table}[H]
+  \centering
+  \caption{Ausgewählte Mittenfrequenzen $f_c$ und Bandbreiten $b$ in Hz}
+  \label{tab:ergebnisse_baender}
+  \small
+  \begin{tabular}{lrrrr}
+    \hline
+    & \multicolumn{2}{c}{\textbf{ohne DRS}} &
+      \multicolumn{2}{c}{\textbf{mit DRS}} \\
+    \textbf{Fall} & $f_c$ & $b$ & $f_c$ & $b$ \\
+    \hline
+    P1 & 8666,67 & 1333,33 & 8666,67 & 1333,33 \\
+    P8 & 750,00 & 500,00 & 500,00 & 1000,00 \\
+    P9 & 8333,33 & 666,67 & 500,00 & 1000,00 \\
+    C1 & 4500,00 & 1000,00 & 4500,00 & 1000,00 \\
+    C4 & 2812,50 & 375,00 & 4500,00 & 1000,00 \\
+    \hline
+  \end{tabular}
+\end{table}
+\par\clearpage
+\endgroup
