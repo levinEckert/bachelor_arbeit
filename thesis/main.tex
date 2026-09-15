@@ -7,7 +7,7 @@
 %% 26.08.21 Tschirley V2.0 Umbenennung zur Berliner Hochschule für Technik
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[11pt, a4paper]{book}
+\documentclass[11pt, a4paper, openany]{book}
 %\usepackage[ngerman]{babel} %TODO anpassen alls english aus Style nicht passt
 %\documentclass[11pt, a4paper, oneside]{book}
 %% Übersetzen als Entwurf
@@ -32,6 +32,7 @@
 %% Einbinden persönlicher macros 
 %%
 \input{personalMacros}
+\usepackage{longtable}
 
 %% Literaturverwaltung: Zotero-/BibLaTeX-Export mit Biber und IEEE-Zitierstil
 \usepackage[
@@ -104,7 +105,13 @@
 \input{chapter/ch5}
 \input{chapter/ch6}
 \input{chapter/ch7}
+\input{chapter/ch8}
 
+%% Codeanhang: unveränderte Auszüge mit dokumentiertem Quellcodestand.
+\appendix
+\input{chapter/appendix-code}
+%% Gezielte Ergebnisnachweise, getrennt von den Codeauszügen.
+\input{chapter/appendix-results}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Literaturverzeichnis
