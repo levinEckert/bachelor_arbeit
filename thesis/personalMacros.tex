@@ -23,3 +23,31 @@
     \addvspace{0.2\baselineskip}%
     \noindent\ignorespaces
 }
+
+% Gemeinsamer Stil für unveränderte Python-Auszüge im Codeanhang.
+% Bei Bereichsauswahl Originalzeilen mit firstline/lastline/firstnumber setzen.
+\lstdefinestyle{pythoncode}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries,
+    commentstyle=\color{black!60},
+    stringstyle=\color{black!75},
+    numbers=left,
+    numberstyle=\ttfamily\scriptsize\color{black!60},
+    numbersep=8pt,
+    stepnumber=1,
+    breaklines=true,
+    breakatwhitespace=false,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=t,
+    xleftmargin=2.5em,
+    frame=single,
+    rulecolor=\color{black!25},
+    aboveskip=\baselineskip,
+    belowskip=\baselineskip
+}
+\renewcommand{\lstlistingname}{Listing}
+\captionsetup[lstlisting]{justification=raggedright,singlelinecheck=false}
