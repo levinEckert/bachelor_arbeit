@@ -1,7 +1,7 @@
 \chapter{Einleitung}
 \label{ch:einleitung}
 
-\section{Umfeld}
+\section{Industrielles Umfeld}
 \label{sec:umfeld}
 
 \paragraphheading{Siemens Energy}
@@ -18,17 +18,18 @@ Zum 30. September 2025 beschäftigte der Konzern etwa 103.000 Mitarbeitende
 und erzielte im Geschäftsjahr 2025 Umsatzerlöse von 39,1 Milliarden Euro
 \cite[5]{se_presentation}.
 
-Aufgrund dieser Tätigkeitsfelder ist das Wettbewerbsumfeld von Siemens Energy segmentspezifisch.
-Ein Wettbewerber in mehreren dieser Tätigkeitsfelder ist GE Vernova.
+Das Wettbewerbsumfeld von Siemens Energy unterscheidet sich je nach Tätigkeitsfeld.
+Ein Wettbewerber in mehreren dieser Bereiche ist GE Vernova.
 Dessen Geschäftstätigkeit umfasst Technologien für die Energieerzeugung,
 die Windenergie sowie die Elektrifizierung und Energieübertragung.
-Hierzu zählen unter anderem Gas-, Wasser-, Kern- und Dampfkrafttechnologien,
-Onshore- und Offshore-Windenergie sowie Netztechnik, Energieumwandlung und Energiespeicherung
+Hierzu zählen unter anderem Gas-, Wasser-, Kern- und Dampfkrafttechnologien
+sowie Onshore- und Offshore-Windenergie.
+Das Angebot umfasst außerdem Netztechnik, Energieumwandlung und Energiespeicherung
 \cite{MissionStatementGE}.
 In einer bei der US-Börsenaufsicht SEC eingereichten Registrierungserklärung
-führt GE Vernova für Gasturbinen und Kraftwerke mit kombiniertem Gas- und Dampfkreislauf neben
-Siemens Energy noch Mitsubishi Power, Ansaldo Energia und Doosan sowie in ausgewählten Märkten
-DongFang und Shanghai Electric als Wettbewerber an \cite{S1}.
+nennt GE Vernova für Gasturbinen und Kraftwerke mit kombiniertem Gas- und Dampfkreislauf
+Siemens Energy, Mitsubishi Power, Ansaldo Energia und Doosan als Wettbewerber.
+In ausgewählten Märkten zählen dazu auch DongFang und Shanghai Electric \cite{S1}.
 
 \paragraphheading{Standort Berlin-Huttenstraße}
 
@@ -46,8 +47,8 @@ für die Untersuchung einer automatisierten Auswertung von Zustandsdaten.
 \label{sec:motivation}
 
 Eine hohe Verfügbarkeit industrieller Anlagen setzt eine Instandhaltung voraus,
-die ungeplante Ausfälle reduziert und zugleich einen wirtschaftlich effizienten Einsatz
-personeller und materieller Ressourcen ermöglicht.
+die ungeplante Ausfälle reduziert und es zugleich ermöglicht,
+personelle und materielle Ressourcen wirtschaftlich effizient einzusetzen.
 Bei einer korrektiven Instandhaltung werden Maßnahmen nach der Erkennung eines Fehlers durchgeführt.
 Eine vorausbestimmte Instandhaltung folgt dagegen festgelegten Zeit- oder Nutzungsintervallen,
 ohne dass zuvor zwingend eine Zustandsermittlung erfolgt
@@ -60,8 +61,8 @@ oder erst nach einer Fehlererkennung ein.
 Die zunehmende Verfügbarkeit sensorisch erfasster Betriebs- und Zustandsdaten eröffnet die Möglichkeit,
 Instandhaltungsentscheidungen stärker am beobachteten Zustand technischer Anlagen auszurichten.
 Diese Daten können Informationen über Veränderungen des Maschinenzustands liefern.
-Durch ihre automatisierte Verarbeitung können relevante Abweichungen ausgewertet
-und als Informationsgrundlage für eine bedarfsgerechtere Instandhaltungsplanung bereitgestellt werden.
+Durch eine automatisierte Verarbeitung lassen sich relevante Abweichungen auswerten.
+Die Ergebnisse können als Informationsgrundlage für eine bedarfsgerechtere Instandhaltungsplanung dienen.
 
 Dieses Optimierungspotential wird im betrachteten Bereich der Maschineninstandhaltung
 bislang nicht genutzt.
@@ -71,19 +72,20 @@ Ergänzend werden Maßnahmen reaktiv nach dem Auftreten eines Schadens veranlass
 Ein durchgängiges System, das sensorisch erfasste Zustandsdaten automatisiert auswertet
 und die daraus gewonnenen Informationen in die Instandhaltungsplanung einbezieht,
 wird derzeit nicht eingesetzt.
-Die Diskrepanz zwischen den Möglichkeiten einer zustandsorientierten Auswertung
-und der gegenwärtigen Instandhaltungspraxis bildet damit den betrieblichen Ausgangspunkt der Arbeit.
+Der Unterschied zwischen diesen Auswertungsmöglichkeiten und der gegenwärtigen
+Instandhaltungspraxis bildet damit den betrieblichen Ausgangspunkt der Arbeit.
 
 \section{Problemstellung}
 \label{sec:problemstellung}
 
-Aufgrund der Breite und Komplexität dieses Themenfeldes beschränkt sich die vorliegende Arbeit
+Aufgrund der Breite und Komplexität der zustandsorientierten Instandhaltung
+beschränkt sich die vorliegende Arbeit
 auf die schwingungsbasierte Zustandsbewertung von Wälzlagern.
 Schwingungssignale können Hinweise auf mechanische Zustandsänderungen enthalten,
 erlauben in ihrer Rohform jedoch noch keine unmittelbare und belastbare Fehlerbewertung.
 Fehlerbezogene Signalanteile können durch Betriebsgeräusche, Resonanzen,
 wechselnde Last- und Drehzahlzustände sowie weitere Störeinflüsse überlagert werden.
-Für die Diagnose von Wälzlagerschäden müssen daher geeignete Verfahren zur Signalaufbereitung- und Verarbeitung,
+Für die Diagnose von Wälzlagerschäden müssen daher geeignete Verfahren zur Signalaufbereitung und -verarbeitung,
 Merkmalsextraktion und Bewertung zu einer sinnvollen Verarbeitungspipeline kombiniert werden.
 Die zentrale technische Herausforderung besteht darin,
 aus den Messsignalen eine reproduzierbare Fehlerindikation abzuleiten,
