@@ -1,7 +1,7 @@
 \chapter{Datenbasis und abgeleitete Anforderungen}
 \label{ch:datenbasis}
 
-\section{Untersuchungsrahmen und Datensatzstrategie}
+\section{Datensätze und Zielklassen}
 \label{sec:untersuchungsrahmen}
 
 \paragraphheading{Untersuchungsgegenstand und Zielklassen}
@@ -39,36 +39,36 @@ Außenringschäden
 {lessmeierConditionMonitoringBearing2016}.
 Aus jedem der sechs Trainingslager werden Messungen für die Parametersuche verwendet.
 Nur diese Trainingsdaten dienen dazu, die Analyse- und Entscheidungsparameter
-auszuwählen. Die vollständigen Ergebnisse der Parametersuche einschließlich der
-Kennwerte aller untersuchten Parameterkonfigurationen werden gespeichert. Aus ihnen
-wird die bestplatzierte Konfiguration geladen und unverändert für die Evaluationen
-verwendet.
+auszuwählen. Das Vorgehen zur Parameterwahl wird in
+Abschnitt~\ref{sec:parametrierungsstrategie} erläutert.
 
 Für die Paderborn-Evaluation werden fehlerfreie Referenzzustände sowie real
 entstandene Ermüdungsschäden am Innen- und Außenring verwendet. Die geschädigten
 Lager stammen aus einem beschleunigten Lebensdauerversuch
 \cite[S.~6, Tab.~5; S.~8, Tab.~7]
 {lessmeierConditionMonitoringBearing2016}.
-Die konkrete lagerbezogene Zusammensetzung beider Teilmengen ist in
-Tabelle~\ref{tab:paderborn_auswahl} dokumentiert.
+Tabelle~\ref{tab:paderborn_auswahl} zeigt, welche Lager zur Trainingsmenge
+und welche zur Evaluationsmenge gehören.
 Die Paderborn-Evaluation untersucht anhand der Detektions- und Diagnosekennwerte, mit
 welcher Güte die auf künstlichen Schäden parametrierte Pipeline real entstandene
 Ermüdungsschäden erkennt und dem Innen- beziehungsweise Außenring zuordnet.
 
 Für die zusätzliche Evaluation wird der CWRU-Datensatz verwendet. Keine seiner
-Aufzeichnungen fließt in die Parametrierung ein. Die Evaluationsmenge besteht aus vier
-fehlerfreien Aufzeichnungen, zwölf Aufzeichnungen mit künstlichem Innenringschaden und
-24 Aufzeichnungen mit künstlichem Außenringschaden
-\cite[S.~102--103, Abschn.~3.1--3.2]{smithRollingElementBearing2015}. Auf alle 40
-Aufzeichnungen wird dieselbe, ausschließlich mit den Paderborner Trainingsdaten
-festgelegte Konfiguration angewendet. Diese zusätzliche Evaluation prüft die festgelegte
-Pipeline damit zusätzlich an Messungen eines anderen Datensatzes.
+Aufzeichnungen fließt in die Parametrierung ein.
+Für diese Untersuchung werden vier fehlerfreie Aufzeichnungen, zwölf Aufzeichnungen
+mit künstlichem Innenringschaden und 24 Aufzeichnungen mit künstlichem
+Außenringschaden ausgewählt. Tabelle~\ref{tab:cwru_evaluationsauswahl} dokumentiert
+die insgesamt 40 Messdateien nach Dateigruppen. Damit wird die Pipeline auch an
+Messungen eines anderen Datensatzes geprüft.
 
-Für beide Datensätze werden lediglich die jeweils notwendigen Eingangsinformationen und
-Importfunktionen datensatzspezifisch festgelegt, insbesondere Abtastrate und
-Lagergeometrie. Die zuvor festgelegten Analyse- und Entscheidungsparameter bleiben in
-beiden Evaluationen unverändert. Auch nach Kenntnis der Evaluationsergebnisse wurden
-keine dieser Parameter angepasst.
+Die anhand der Paderborner Trainingsdaten ausgewählten Analyse- und
+Entscheidungsparameter werden in beiden Evaluationen unverändert verwendet.
+Auch nach Kenntnis der Evaluationsergebnisse wurden keine dieser Parameter angepasst.
+
+Datensatzspezifisch festgelegt werden die Eingangsinformationen und Importfunktionen,
+insbesondere Abtastrate und Lagergeometrie. Zusätzlich unterscheidet sich die obere
+Grenze der Bandauswahl: Sie beträgt 10~kHz für Paderborn und 5~kHz für CWRU.
+Diese Grenze gehört nicht zu den anhand der Trainingsdaten ausgewählten Parametern.
 
 \section{Datensatz der Universität Paderborn}
 \label{sec:datensatz_paderborn}
