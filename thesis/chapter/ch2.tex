@@ -94,7 +94,6 @@ Schwingungssignalen.
 
 \paragraphheading{Aufbau und Schadensarten von Wälzlagern}
 \label{par:aufbau_schadensarten_waelzlager}
-
 Ein Wälzlager für Drehbewegungen besteht im Grundaufbau aus einem Innen- und
 einem Außenring mit Laufbahnen, den dazwischen angeordneten Wälzkörpern sowie
 einem Käfig. Die Wälzkörper
@@ -207,7 +206,6 @@ ihre Amplitudenmodulation betrachtet.
 
 \paragraphheading{Charakteristische Lagerschadensfrequenzen}
 \label{par:charakteristische_lagerschadensfrequenzen}
-
 Die zuvor eingeführte Einteilung lokaler Schäden in Außenring-, Innenring-
 und Wälzkörperschäden
 bildet die Grundlage für ihre spektrale Unterscheidung
@@ -224,29 +222,24 @@ $\varphi$ der Belastungsrichtung zur Radialebene ergeben sich die vier
 kinematischen Frequenzen nach Smith und Randall wie folgt
 \cite[S.~102, Abschn.~2, Gleichungsblock und Nomenklatur]
 {smithRollingElementBearing2015}:
-\begingroup
-\let\lagerfrequenzlabel\label
-\begin{equation}
-  \begin{aligned}
+\begin{align}
     \mathrm{BPFO}
         &= \frac{n f_r}{2}
-           \left(1-\frac{d}{D}\cos\varphi\right)\\[1ex]
+           \left(1-\frac{d}{D}\cos\varphi\right)
+           \label{eq:bpfo}\\[1ex]
     \mathrm{BPFI}
         &= \frac{n f_r}{2}
-           \left(1+\frac{d}{D}\cos\varphi\right)\\[1ex]
+           \left(1+\frac{d}{D}\cos\varphi\right)
+           \label{eq:bpfi}\\[1ex]
     \mathrm{FTF}
         &= \frac{f_r}{2}
-           \left(1-\frac{d}{D}\cos\varphi\right)\\[1ex]
+           \left(1-\frac{d}{D}\cos\varphi\right)
+           \label{eq:ftf}\\[1ex]
     \mathrm{BSF}
         &= \frac{D f_r}{2d}
            \left[1-\left(\frac{d}{D}\cos\varphi\right)^2\right]
-  \end{aligned}
-  \lagerfrequenzlabel{eq:bpfo}
-  \lagerfrequenzlabel{eq:bpfi}
-  \lagerfrequenzlabel{eq:ftf}
-  \lagerfrequenzlabel{eq:bsf}
-\end{equation}
-\endgroup
+           \label{eq:bsf}
+\end{align}
 
 Die \emph{\textbf{B}all \textbf{P}ass \textbf{F}requency \textbf{O}uter Race}
 kennzeichnet die Wiederholung
@@ -269,7 +262,7 @@ die geradzahligen BSF-Harmonischen dominant
 {randallRollingElementBearing2011a}
 \cite[S.~103, Tab.~1]{smithRollingElementBearing2015}.
 
-Die Formeln in Gleichungsblock~\eqref{eq:bpfo} liefern kinematische Werte
+Die Gleichungen~\eqref{eq:bpfo}--\eqref{eq:bsf} liefern kinematische Werte
 unter der Annahme schlupffreier Bewegung. Durch Schlupf können die tatsächlichen
 Frequenzen vom berechneten Wert abweichen und zufällig um ihre mittlere Lage
 schwanken. Randall und Antoni geben für beide Effekte eine typische Größenordnung
@@ -279,7 +272,6 @@ von ein bis zwei Prozent an
 
 \paragraphheading{Modulation und zyklostationäres Signalverhalten}
 \label{par:modulation_zyklostationaeres_signalverhalten}
-
 Die charakteristischen Lagerfrequenzen beschreiben, in welchen zeitlichen Abständen
 die Schadenskontakte wiederkehren. Darüber hinaus können die dabei angeregten
 hochfrequenten Resonanzantworten in ihrer Amplitude variieren. Randall und Antoni
