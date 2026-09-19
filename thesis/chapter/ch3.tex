@@ -75,14 +75,13 @@ Diese Grenze gehört nicht zu den anhand der Trainingsdaten ausgewählten Parame
 
 \paragraphheading{Messaufbau}
 
-Lessmeier et al. beschreiben einen am Lehrstuhl für Konstruktions- und
-Antriebstechnik der Universität Paderborn konzipierten und betriebenen
-Prüfstand als modulares System für Versuche zu Defekten in einem elektrisch
-angetriebenen mechanischen Antriebsstrang
+Der Prüfstand wurde am Lehrstuhl für Konstruktions- und Antriebstechnik der
+Universität Paderborn konzipiert und betrieben. Er ist modular aufgebaut und
+dient dazu, Defekte in einem elektrisch angetriebenen mechanischen
+Antriebsstrang zu untersuchen
 \cite[S.~7, Abschn.~4]{lessmeierConditionMonitoringBearing2016}.
-
-Der Prüfstand besteht, wie in Abbildung~\ref{fig:paderborn_pruefstand}
-dargestellt, aus (1) einem Elektromotor, (2) einer Drehmomentmesswelle,
+Wie Abbildung~\ref{fig:paderborn_pruefstand} zeigt, besteht er aus
+(1) einem Elektromotor, (2) einer Drehmomentmesswelle,
 (3) dem Wälzlagerprüfmodul, (4) einer Schwungmasse und (5) einem Lastmotor
 \cite[S.~7, Abschn.~4.1 und Abb.~4]
 {lessmeierConditionMonitoringBearing2016}.
@@ -103,10 +102,8 @@ Das Prüflager wird im Wälzlagerprüfmodul unter einer konstanten Radiallast
 betrieben, die vor dem jeweiligen Versuch stufenlos bis
 \(10~\mathrm{kN}\) eingestellt werden kann
 \cite[S.~7, Abschn.~4.1]{lessmeierConditionMonitoringBearing2016}.
-
-Ein Adapter ermöglicht die Messung
-der Schwingungen des Innengehäuses, welches das zu untersuchende Lager in
-Hauptlastrichtung hält
+Ein Adapter ermöglicht die Schwingungsmessung am Innengehäuse, welche das
+Prüflager in Hauptlastrichtung hält
 \cite[S.~7, Abschn.~4.1]{lessmeierConditionMonitoringBearing2016}.
 Die Gehäusebeschleunigung wird dazu mit einem piezoelektrischen
 Beschleunigungsaufnehmer des Typs PCB Piezotronics 336C04 und einem
@@ -121,7 +118,7 @@ zusätzliche Betriebsgrößen, jedoch mit niedrigeren Abtastraten aufgezeichnet
 \cite[S.~7, Abschn.~4.1 und Abb.~5]
 {lessmeierConditionMonitoringBearing2016}.
 
-Untersucht wurden Kugellager mit der Lagerbezeichnung 6203 von den Herstellern
+Untersucht wurden Kugellager mit der Bezeichnung 6203 von den Herstellern
 FAG, MTK und IBU/IBB. Alle diese Lager besitzen acht Wälzkörper
 \cite[S.~5, Abschn.~3]{lessmeierConditionMonitoringBearing2016}.
 Lessmeier et al. beschreiben die geometrischen Abmessungen als nahezu
@@ -131,22 +128,15 @@ dadurch um nicht mehr als \(1\)--\(2\,\%\)
 
 \paragraphheading{Messreihen}
 
-Als zentrale Betriebsparameter nennen Lessmeier et al. die Drehzahl des
-Antriebsstrangs, die Radialkraft am Prüflager und das Lastmoment im
-Antriebsstrang
+Die zentralen Betriebsparameter sind die Drehzahl und das Lastmoment im
+Antriebsstrang sowie die Radialkraft am Prüflager
 \cite[S.~8, Abschn.~4.2]{lessmeierConditionMonitoringBearing2016}.
-
-Für jeden dieser Parameter wurden feste Stufen festgelegt. Während einer
-einzelnen Messung werden alle drei Parameter konstant gehalten. Die vier
-daraus gebildeten Betriebsbedingungen sind in
-Tabelle~\ref{tab:paderborn_betriebsbedingungen} zusammengefasst
+Für diese Parameter wurden feste Stufen gewählt. Die vier daraus gebildeten
+Betriebsbedingungen sind in
+Tabelle~\ref{tab:paderborn_betriebsbedingungen} zusammengefasst. Während
+einer einzelnen Messung werden alle drei Parameter konstant gehalten
 \cite[S.~8, Abschn.~4.2 und Tab.~6]
 {lessmeierConditionMonitoringBearing2016}.
-
-Die Einstellungscodes bilden einen Bestandteil der MATLAB-Dateinamen.
-Lessmeier et al. nennen daneben den vierstelligen Lagercode und zeigen als
-Beispiel \texttt{N15\_M07\_F10\allowbreak\_KA01\allowbreak\_1.mat}
-\cite[S.~9, Abschn.~5]{lessmeierConditionMonitoringBearing2016}.
 
 \begin{table}[H]
   \centering
@@ -182,33 +172,35 @@ aufgezeichnet. Die Temperatur wurde während der Versuche ungefähr zwischen
 45 und \(50\,^{\circ}\mathrm{C}\) gehalten
 \cite[S.~8, Abschn.~4.2]{lessmeierConditionMonitoringBearing2016}.
 
-Bei den zwölf in dieser Arbeit ausgewählten Lagern enden die Dateinamen je
-Kombination aus Lager und Betriebsbedingung mit den Zahlen 1 bis 20. Im lokalen
-Datenpaket ist beispielsweise
-\texttt{N15\_M07\_F10\allowbreak\_KA04\allowbreak\_1.mat} vorhanden. Der
-Dateiname verbindet den Code der Grundkonfiguration, den Lagercode KA04 und
-die abschließende Zahl 1.
+Die MATLAB-Dateinamen enthalten den Einstellungscode und den vierstelligen
+Lagercode
+\cite[S.~9, Abschn.~5]{lessmeierConditionMonitoringBearing2016}.
+Bei den zwölf in dieser Arbeit ausgewählten Lagern kennzeichnet die
+abschließende Zahl von 1 bis 20 die jeweilige Aufzeichnung innerhalb einer
+Kombination aus Lager und Betriebsbedingung. Beispielsweise bezeichnet die
+Datei \texttt{N15\_M07\_F10\allowbreak\_KA04\allowbreak\_1.mat} im lokalen
+Datenpaket die Aufzeichnung 1 des Lagers KA04 unter der Grundkonfiguration
+\texttt{N15\_M07\_F10}.
 
 Der Gesamtdatensatz umfasst Versuche mit 32 Lagern. Sechs davon dienen als
 fehlerfreie Referenzzustände, zwölf weisen künstlich eingebrachte Schäden auf
 und 14 enthalten Schäden aus beschleunigten Lebensdauerversuchen
 \cite[S.~8--9, Abschn.~4.2 und 5]
 {lessmeierConditionMonitoringBearing2016}.
-
 Die künstlichen Schäden wurden durch Funkenerodieren, Bohren oder manuelles
 elektrisches Gravieren erzeugt
 \cite[S.~5, Abschn.~3.1]{lessmeierConditionMonitoringBearing2016}.
-
 Bei den im Lebensdauerversuch entstandenen Schäden unterscheiden Lessmeier
-et al. insbesondere ermüdungsbedingtes Pitting und plastische Verformungen in
-Form von Eindrückungen. Pitting wurde am Innen- und Außenring festgestellt,
+et al. insbesondere ermüdungsbedingtes \emph{Pitting} und plastische Verformungen in
+Form von Eindrückungen. \emph{Pitting} wurde am Innen- und Außenring festgestellt,
 Eindrückungen dagegen nur am Außenring
 \cite[S.~6, Abschn.~3.2]{lessmeierConditionMonitoringBearing2016}.
 
 Die Lagerschäden werden durch einheitlich aufgebaute Schadensdatenblätter
 dokumentiert
 \cite[S.~9, Abschn.~5]{lessmeierConditionMonitoringBearing2016}.
-Für jedes der zwölf ausgewählten Lager enthält die lokale Datei ein Lagerdatenbaltt, sowie ein Messprotokoll.
+Das lokale Datenpaket enthält für jedes der zwölf ausgewählten Lager ein
+Lagerdatenblatt sowie ein Messprotokoll als separate PDF-Dateien.
 
 \paragraphheading{Auswahl für Entwicklung und Evaluation}
 
@@ -220,7 +212,7 @@ Tabelle~\ref{tab:paderborn_auswahl} zusammengefasst.
 
 Lessmeier et al. ordnen KA05, KA06, KI05 und KI07 der manuellen
 Elektrogravur zu. Die so erzeugte Schadensform beschreiben sie durch eine
-unregelmäßige Oberfläche und eine geringere Tiefe, wodurch sie realem Pitting ähnelt
+unregelmäßige Oberfläche und eine geringere Tiefe, wodurch sie realem \emph{Pitting} ähnelt
 \cite[S.~5, Abschn.~3.1 und Tab.~4]
 {lessmeierConditionMonitoringBearing2016}. Aufgrund dieser beschriebenen
 Ähnlichkeit werden die vier Lager für die Parametrierung ausgewählt.
@@ -237,6 +229,7 @@ Aufzeichnungen 1, 5, 10, 15 und 20 verwendet. Damit umfasst die Auswahl
   {lessmeierConditionMonitoringBearing2016}}
   \label{tab:paderborn_auswahl}
   \small
+  \renewcommand{\arraystretch}{1.25}
   \begin{tabularx}{\textwidth}{|
     >{\raggedright\arraybackslash}p{2.0cm}|
     >{\raggedright\arraybackslash}p{2.1cm}|
