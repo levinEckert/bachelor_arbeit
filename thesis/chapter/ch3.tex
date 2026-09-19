@@ -145,25 +145,23 @@ einer einzelnen Messung werden alle drei Parameter konstant gehalten
   {lessmeierConditionMonitoringBearing2016}}
   \label{tab:paderborn_betriebsbedingungen}
   \small
-  \begin{tabularx}{\textwidth}{|
-    >{\centering\arraybackslash}p{0.8cm}|
-    >{\centering\arraybackslash}p{2.5cm}|
-    >{\centering\arraybackslash}p{2.5cm}|
-    >{\centering\arraybackslash}p{2.5cm}|
-    >{\raggedright\arraybackslash}X|}
-    \hline
+  \begin{tabularx}{\textwidth}{
+    >{\centering\arraybackslash}p{0.8cm}
+    >{\centering\arraybackslash}p{2.5cm}
+    >{\centering\arraybackslash}p{2.5cm}
+    >{\centering\arraybackslash}p{2.5cm}
+    >{\raggedright\arraybackslash}X}
+    \toprule
+    \toprule
     \textbf{Nr.} & \textbf{Drehzahl} & \textbf{Lastmoment} &
     \textbf{Radialkraft} & \textbf{Einstellungscode} \\
     & \([\mathrm{min^{-1}}]\) & \([\mathrm{Nm}]\) & \([\mathrm{N}]\) & \\
-    \hline
+    \midrule
     0 & 1500 & 0,7 & 1000 & \texttt{N15\_M07\_F10} \\
-    \hline
     1 & 900 & 0,7 & 1000 & \texttt{N09\_M07\_F10} \\
-    \hline
     2 & 1500 & 0,1 & 1000 & \texttt{N15\_M01\_F10} \\
-    \hline
     3 & 1500 & 0,7 & 400 & \texttt{N15\_M07\_F04} \\
-    \hline
+    \bottomrule
   \end{tabularx}
 \end{table}
 
@@ -230,27 +228,24 @@ Aufzeichnungen 1, 5, 10, 15 und 20 verwendet. Damit umfasst die Auswahl
   \label{tab:paderborn_auswahl}
   \small
   \renewcommand{\arraystretch}{1.25}
-  \begin{tabularx}{\textwidth}{|
-    >{\raggedright\arraybackslash}p{2.0cm}|
-    >{\raggedright\arraybackslash}p{2.1cm}|
-    >{\raggedright\arraybackslash}p{2.4cm}|
-    >{\raggedright\arraybackslash}X|}
-    \hline
+  \begin{tabularx}{\textwidth}{
+    >{\raggedright\arraybackslash}p{2.0cm}
+    >{\raggedright\arraybackslash}p{2.1cm}
+    >{\raggedright\arraybackslash}p{2.4cm}
+    >{\raggedright\arraybackslash}X}
+    \toprule
+    \toprule
     \textbf{Teilmenge} & \textbf{Lager} & \textbf{Zielklasse} &
     \textbf{Schadensentstehung} \\
-    \hline
+    \midrule
     Training & K001, K002 & fehlerfrei & fehlerfreier Referenzzustand \\
-    \hline
     Training & KA05, KA06 & Außenring & künstlich eingebracht \\
-    \hline
     Training & KI05, KI07 & Innenring & künstlich eingebracht \\
-    \hline
+    \midrule
     Evaluation & K003, K004 & fehlerfrei & fehlerfreier Referenzzustand \\
-    \hline
     Evaluation & KA04, KA16 & Außenring & real entstanden \\
-    \hline
     Evaluation & KI16, KI17 & Innenring & real entstanden \\
-    \hline
+    \bottomrule
   \end{tabularx}
 \end{table}
 
