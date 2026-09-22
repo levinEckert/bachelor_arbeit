@@ -306,86 +306,87 @@ zyklostationär behandelt werden
 \section{Signalverarbeitung für die Wälzlagerdiagnose}
 \label{sec:signalverarbeitung}
 
+Für die weitere Auswertung stehen nun die Frequenzanteile der zuvor beschriebenen
+Schwingungssignale im Mittelpunkt. Die folgenden Grundlagen erläutern, wie diese
+Anteile aus digital erfassten Messwerten bestimmt werden und welche Einflüsse bei
+der Interpretation der Spektren zu beachten sind.
+
 \paragraphheading{Fourier-Analyse und Fourier-Transformation}
 
 Die Fourier-Analyse beschreibt Signale als Summe sinusförmiger Komponenten. In der
-Maschinenschwingungsanalyse wird die Fourier-Reihe nach Randall vor allem für periodische
+Maschinenschwingungsanalyse wird die Fourier-Reihe vor allem für periodische
 Signale eingesetzt, wie sie bei Maschinen mit konstanter Drehzahl auftreten
-\cite[S.~66, Abschn.~3.2--3.2.1]{randallVibrationbasedConditionMonitoring2011}.
+\cite[S.~67, Abschn.~3.2--3.2.1]{randallVibrationbasedConditionMonitoring2022}.
 
 Für nichtperiodische Signale, insbesondere transiente Signale, wird die
-Fourier-Transformation verwendet. Sie kann nach Randall aus der Fourier-Reihe hergeleitet
-werden, indem die Periodendauer $T$ gegen unendlich geführt und zugleich die Division durch
-$T$ aufgehoben wird. Randall begründet dies damit, dass bei transienten Signalen die endliche
-Signalenergie und nicht wie bei periodischen Signalen die endliche mittlere Signalleistung
-maßgeblich ist. Für ein zeitabhängiges Signal $g(t)$ lautet die kontinuierliche
-Fourier-Transformation
-\cite[S.~69, Abschn.~3.2.2, Gl.~(3.17)]
-{randallVibrationbasedConditionMonitoring2011}:
+Fourier-Transformation verwendet. Für ein zeitabhängiges Signal $g(t)$ wird die
+kontinuierliche Fourier-Transformation geschrieben als
+\cite[S.~68--69, Abschn.~3.2.2, Gl.~(3.23)]
+{randallVibrationbasedConditionMonitoring2022}:
 \begin{equation}
-    G(f)=\int_{-\infty}^{\infty}g(t)\exp(-\mathrm{j}2\pi ft)\,\mathrm{d}t\,.
+    G(\jmath\omega)=\int\limits_{-\infty}^{+\infty}
+    g(t)\cdot e^{-\jmath\omega\cdot t}\,\mathrm{d}t
     \label{eq:continuous_fourier_transform}
 \end{equation}
-Dabei bezeichnet $G(f)$ die Fourier-Transformierte und $f$ die Frequenz in Hertz.
+Dabei bezeichnet $G(\jmath\omega)$ die Fourier-Transformierte und $\jmath$ die
+imaginäre Einheit. Die Frequenz $f$ wird in Hertz und die Kreisfrequenz $\omega=2\pi f$
+in Radiant pro Sekunde angegeben.
 
-\paragraphheading{Abtastung und Aliasing}
+\paragraphheading{Abtastung und \emph{Aliasing}}
 
-Für eine digitale Verarbeitung wird $g(t)$ diskret abgetastet. Die Abtastzeitpunkte sind nach
-Randall \cite[S.~71, Abschn.~3.2.3]{randallVibrationbasedConditionMonitoring2011}:
+Für eine digitale Verarbeitung wird $g(t)$ diskret abgetastet. Die Abtastzeitpunkte sind
+\cite[S.~70, Abschn.~3.2.3]{randallVibrationbasedConditionMonitoring2022}:
 \begin{equation}
-    t_n=n\Delta t=\frac{n}{f_s}\,.
+    t_n=n\cdot\Delta t=\frac{n}{f_s}\,.
     \label{eq:sampling_times}
 \end{equation}
 Dabei bezeichnet $n\in\mathbb{Z}$ den Abtastindex, $\Delta t=1/f_s$ das Abtastintervall
-und $f_s$ die Abtastfrequenz. Randall gibt für das abgetastete Zeitsignal $g(t_n)$ folgende
-Frequenzdarstellung an
-\cite[S.~69--71, Abschn.~3.2.3, Gl.~(3.20), Abb.~3.6(c)]
-{randallVibrationbasedConditionMonitoring2011}:
+und $f_s$ die Abtastfrequenz. Für das abgetastete Zeitsignal $g(t_n)$ lautet die
+Frequenzdarstellung in der hier verwendeten Notation
+\cite[S.~70--71, Abschn.~3.2.3, Gl.~(3.26), Abb.~3.6(c)]
+{randallVibrationbasedConditionMonitoring2022}:
 \begin{equation}
-    G(f)=\sum_{n=-\infty}^{\infty}g(t_n)\exp(-\mathrm{j}2\pi f t_n)\,.
+    G(\jmath\omega)=\sum_{n=-\infty}^{\infty}
+    g(t_n)\cdot e^{-\jmath\omega\cdot t_n}\,.
     \label{eq:sampled_time_transform}
 \end{equation}
-Die Abtastung erzeugt eine Folge diskreter Zeitwerte. Deren Frequenzdarstellung $G(f)$
-wiederholt sich jeweils nach einer Verschiebung um $f_s$
-\cite[S.~70--71, Abschn.~3.2.3, Abb.~3.6(c); S.~86, Abschn.~3.2.8.1,
+Die Abtastung erzeugt eine Folge diskreter Zeitwerte. Ihre Frequenzdarstellung bleibt
+eine Funktion der kontinuierlichen Kreisfrequenz $\omega$. Auf einer Frequenzachse
+in Hertz wiederholt sich das Spektrum jeweils nach einer Verschiebung um $f_s$
+\cite[S.~70--71, Abschn.~3.2.3, Abb.~3.6(c); S.~84--85, Abschn.~3.2.8.1,
 Abb.~3.19(a)--(c)]
-{randallVibrationbasedConditionMonitoring2011}.
+{randallVibrationbasedConditionMonitoring2022}.
 
 Die Nyquist-Frequenz beträgt $f_N=f_s/2$. Enthält das ursprüngliche Signal Komponenten
 außerhalb des Bereichs $-f_N$ bis $+f_N$, überlagern sich die periodischen Spektren. Höhere
-Frequenzen werden dadurch als niedrigere Frequenzen dargestellt. Dieser als Aliasing
+Frequenzen werden dadurch als niedrigere Frequenzen dargestellt. Dieser als \emph{Aliasing}
 bezeichnete Effekt lässt sich nach der Digitalisierung nicht mehr entfernen. Deshalb müssen
 die betreffenden Frequenzanteile bereits vor der Analog-Digital-Umsetzung durch einen
 geeigneten analogen Tiefpassfilter ausreichend gedämpft werden
 \cite[S.~70--71, Abschn.~3.2.3, Abb.~3.6(c);
-S.~86, Abschn.~3.2.8.1, Abb.~3.19--3.20]
-{randallVibrationbasedConditionMonitoring2011}.
+S.~84--86, Abschn.~3.2.8.1, Abb.~3.19--3.20]
+{randallVibrationbasedConditionMonitoring2022}.
 
-\paragraphheading{Diskrete Fourier-Transformation und Fast Fourier-Transformation}
+\paragraphheading{Diskrete Fourier-Transformation und \emph{Fast Fourier-Transformation}}
 
 Die in Abschnitt~3.2.3 von Randall betrachteten abgetasteten Zeitsignale sind grundsätzlich
 unendlich lang. Wird dagegen nur ein Messblock aus $N$ Werten verarbeitet, ist auch das
 Spektrum diskret und der endliche Zeitverlauf wird implizit als periodisch behandelt. Randall
-definiert die DFT mit \cite[S.~71, Abschn.~3.2.4, Gl.~(3.22)]
-{randallVibrationbasedConditionMonitoring2011}:
+definiert die DFT mit \cite[S.~70, Abschn.~3.2.4, Gl.~(3.28)]
+{randallVibrationbasedConditionMonitoring2022}:
 \begin{equation}
     G(k)=\frac{1}{N}\sum_{n=0}^{N-1}g(n)
-    \exp\!\left(-\mathrm{j}\frac{2\pi kn}{N}\right)\,.
+    \cdot e^{-\jmath\frac{2\pi kn}{N}}\,.
     \label{eq:dft}
 \end{equation}
-Die Berechnung von $G(k)$ aus den Zeitwerten $g(n)$ wird als Vorwärtstransformation bezeichnet.
-Randall verwendet dabei den Faktor $1/N$; in MATLAB steht dieser Faktor dagegen in der
-Rücktransformation von $G(k)$ zu $g(n)$
-\cite[S.~71, Abschn.~3.2.4, Gl.~(3.22)--(3.23)]
-{randallVibrationbasedConditionMonitoring2011}.
-
-Die DFT behandelt den endlichen Messblock somit als periodisch fortgesetzt und liefert $N$
-diskrete Frequenzkomponenten
-\cite[S.~70--72, Abschn.~3.2.4, Abb.~3.6(d)]
-{randallVibrationbasedConditionMonitoring2011}.
+Die Zeitwerte werden mit $g(n)$ bezeichnet; $n$ ist der Abtastindex und $k$
+der Frequenzindex. Die Vorwärtstransformation wird in dieser Definition durch
+die Aufzeichnungslänge $N$ geteilt
+\cite[S.~70, Abschn.~3.2.4, Gl.~(3.28)--(3.30)]
+{randallVibrationbasedConditionMonitoring2022}.
 
 Der Abstand benachbarter Frequenzkomponenten beträgt
-\cite[S.~84, Abschn.~3.2.7]{randallVibrationbasedConditionMonitoring2011}:
+\cite[S.~83, Abschn.~3.2.7]{randallVibrationbasedConditionMonitoring2022}:
 \begin{equation}
     \Delta f = \frac{f_s}{N}\,.
     \label{eq:dft_frequency_grid}
@@ -393,39 +394,34 @@ Der Abstand benachbarter Frequenzkomponenten beträgt
 Bei konstanter Abtastfrequenz wird der Abstand $\Delta f$ durch eine größere
 Anzahl von Abtastwerten kleiner. Da $T=N/f_s$ gilt, entspricht dies zugleich
 einer längeren Messdauer
-\cite[S.~84, Abschn.~3.2.7; S.~87, Abb.~3.19]
-{randallVibrationbasedConditionMonitoring2011}.
+\cite[S.~83, Abschn.~3.2.7; S.~85, Abb.~3.19]
+{randallVibrationbasedConditionMonitoring2022}.
 
-Eine Signalkomponente kann zwischen zwei Frequenzstellen liegen, sodass die
-DFT ihr spektrales Maximum nicht unmittelbar erfasst. Durch die Begrenzung
-auf einen endlichen Messblock wird ihre Energie außerdem auf benachbarte
-Frequenzstellen verteilt. Die Stärke dieser Verteilung hängt von der
-verwendeten Fensterfunktion ab
-\cite[S.~86, Abschn.~3.2.8.1, Abb.~3.19;
-S.~89, Tab.~3.1 und Abschn.~3.2.8.2]
-{randallVibrationbasedConditionMonitoring2011}. Diese Effekte werden im folgenden Abschnitt
-näher betrachtet (\hyperref[par:spektraldarstellung_fensterung]{Leakage und Fensterung}).
+Die FFT ist ein effizienter Algorithmus zur Berechnung der DFT. Bei direkter Berechnung benötigt
+die DFT $N^2$ komplexe Operationen. Die von Randall beschriebene Radix-2-FFT
+setzt voraus, dass $N$ eine Zweierpotenz ist, und reduziert diese Anzahl auf
+$N\log_2(N)$
+\cite[S.~72--73, Abschn.~3.2.5]
+{randallVibrationbasedConditionMonitoring2022}.
 
-Die FFT ist keine
-weitere Transformationsart, sondern ein effizienter Algorithmus zur Berechnung der DFT. Bei
-direkter Berechnung benötigt die DFT $N^2$ komplexe Operationen. Die von Randall beschriebene
-Radix-2-FFT reduziert diese Anzahl auf $N\log_2(N)$
-\cite[S.~72--73, Abschn.~3.2.5]{randallVibrationbasedConditionMonitoring2011}.
-Sie liefert die durch die DFT definierten Frequenzkomponenten, berechnet sie jedoch mit
-geringerem Aufwand \cite[S.~72--73, Abschn.~3.2.5]
-{randallVibrationbasedConditionMonitoring2011}.
-
-\paragraphheading{Leakage und Fensterung}
+\paragraphheading{\emph{Leakage} und Fensterung}
 \phantomsection
 \label{par:spektraldarstellung_fensterung}
-
 Bei der DFT wird nur ein zeitlich begrenzter Messblock ausgewertet. Randall
 beschreibt diese Begrenzung als Multiplikation des Signals mit einem endlichen
 Rechteckfenster. Dadurch wird die Energie einer einzelnen Frequenzkomponente im
 Frequenzspektrum auf benachbarte Frequenzen verteilt. Dieser Effekt wird als
-Leakage bezeichnet
-\cite[S.~86, Abschn.~3.2.8.1, Abb.~3.19]
-{randallVibrationbasedConditionMonitoring2011}.
+\emph{Leakage} bezeichnet
+\cite[S.~85--86, Abschn.~3.2.8.1, Abb.~3.19]
+{randallVibrationbasedConditionMonitoring2022}.
+
+Auch das Frequenzraster beeinflusst die Darstellung: Eine Signalkomponente
+kann zwischen zwei Frequenzstellen liegen, sodass die DFT ihr spektrales
+Maximum nicht unmittelbar erfasst. Wie stark ihre Energie auf benachbarte
+Frequenzstellen verteilt wird, hängt von der verwendeten Fensterfunktion ab
+\cite[S.~85--86, Abschn.~3.2.8.1, Abb.~3.19;
+S.~87--88, Tab.~3.1 und Abschn.~3.2.8.2]
+{randallVibrationbasedConditionMonitoring2022}.
 
 Enthält der Messblock eine ganzzahlige Anzahl der Perioden einer sinusförmigen
 Komponente, kann diese Verteilung bei Verwendung eines Rechteckfensters in der
@@ -433,10 +429,10 @@ DFT weitgehend unauffällig bleiben. Andernfalls kann durch die Wahl eines
 anderen Fensters eine günstigere Darstellung erreicht werden. Randall bezeichnet
 das Hanning-Fenster als geeignetes Allzweckfenster; welches Fenster verwendet
 wird, hängt jedoch vom jeweiligen Analyseziel ab
-\cite[S.~86--89, Abschn.~3.2.8.1--3.2.8.2, Abb.~3.21, Tab.~3.1]
-{randallVibrationbasedConditionMonitoring2011}.
+\cite[S.~86--88, Abschn.~3.2.8.1--3.2.8.2, Abb.~3.21, Tab.~3.1]
+{randallVibrationbasedConditionMonitoring2022}.
 
-\paragraphheading{Computed Order Tracking}
+\paragraphheading{\emph{Computed Order Tracking}}
 
 Bei rotierenden Maschinen können Schwingungskomponenten proportional zur
 Drehzahl auftreten. Bei veränderlicher Drehzahl verschieben sich solche
@@ -457,7 +453,7 @@ winkeläquidistanten Folge liefert das Ordnungsspektrum
 
 Die Genauigkeit des COT hängt insbesondere von der zeitlichen Auflösung der
 Referenzimpulse und vom verwendeten Interpolationsverfahren ab. Ungenau
-bestimmte Resampling-Zeitpunkte beeinträchtigen die Genauigkeit der
+bestimmte \emph{Resampling}-Zeitpunkte beeinträchtigen die Genauigkeit der
 anschließenden Amplitudeninterpolation. Höherwertige Interpolationsverfahren
 können die Amplitudengenauigkeit verbessern und den
 Rauschboden des Ordnungsspektrums verringern
@@ -465,23 +461,23 @@ Rauschboden des Ordnungsspektrums verringern
 S.~196--201, Abschn.~3.4--3.5 und 4, Abb.~8--13]
 {fyfeANALYSISCOMPUTEDORDER1997}.
 
-\section{Trennung überlagerter Signalanteile}
+\section{Signalanalyse}
 \label{sec:signalseparation}
 
-\paragraphheading{Deterministische und zufällige Signalanteile}
-
-Das für Condition Monitoring ausgewertete Schwingungssignal setzt sich aus Komponenten
+Das für \emph{Condition Monitoring} ausgewertete Schwingungssignal setzt sich aus Komponenten
 verschiedener Quellen zusammen, die über unterschiedliche Übertragungswege zum Messpunkt
 gelangen. Eine der grundlegenden Einteilungen bei der Analyse solcher Signale unterscheidet
-zwischen deterministischen und zufälligen Komponenten
+zwischen deterministischen und stochastischen Komponenten
 \cite[S.~11, Abschn.~1]{randallComparisonMethodsSeparation2011}.
+Diese Unterscheidung bildet die Grundlage für die im Folgenden erläuterten
+Verfahren zur Signaltrennung.
 
-Für stationäre Signale unterscheidet Randall zwischen deterministischen und zufälligen
-Anteilen. Stationäre deterministische Signale bestehen vollständig aus diskreten
+\paragraphheading{Deterministische und stochastische Signalanteile}
+Stationäre deterministische Signale bestehen vollständig aus diskreten
 sinusförmigen Komponenten. Sind deren Frequenzen, Amplituden und Anfangsphasen bekannt,
 kann der Signalwert für jeden vergangenen oder zukünftigen Zeitpunkt vorhergesagt werden
 \cite[S.~26, Abschn.~2.1 und Abb.~2.1]
-{randallVibrationbasedConditionMonitoring2011}.
+{randallVibrationbasedConditionMonitoring2022}.
 
 Bei periodischen deterministischen Signalen liegen die diskreten Komponenten bei
 ganzzahligen Vielfachen der Grundfrequenz. Quasiperiodische Signale bestehen ebenfalls aus
@@ -489,33 +485,32 @@ diskreten Komponenten, die jedoch nicht sämtlich derselben harmonischen Reihe a
 rotierenden Maschinen erzeugen einzelne Wellen typischerweise Familien von Harmonischen;
 Getriebesignale treten gewöhnlich bei Harmonischen der zugehörigen Wellendrehzahlen auf
 \cite[S.~25, Abschn.~2.1; S.~28, Abschn.~2.1.1]
-{randallVibrationbasedConditionMonitoring2011}.
+{randallVibrationbasedConditionMonitoring2022}.
 
-Der Wert eines zufälligen Signals ist dagegen nicht für einen beliebigen Zeitpunkt
+Der Wert eines stochastischen Signals ist dagegen nicht für einen beliebigen Zeitpunkt
 vorhersagbar. Seine Eigenschaften werden durch statistische Größen wie Mittelwert und
-mittleren quadratischen Wert beschrieben. Bei stationären zufälligen Signalen bleiben diese
+mittleren quadratischen Wert beschrieben. Bei stationären stochastischen Signalen bleiben diese
 statistischen Eigenschaften zeitlich unverändert; ihr Spektrum enthält keine diskreten
 Frequenzen, sondern eine kontinuierlich über die Frequenz verteilte spektrale Leistung
-\cite[S.~26, Abschn.~2.1; S.~29, Abschn.~2.1.2]
-{randallVibrationbasedConditionMonitoring2011}.
+\cite[S.~26, Abschn.~2.1; S.~28--29, Abschn.~2.1.2]
+{randallVibrationbasedConditionMonitoring2022}.
 
-% Quellenbasis: Randall (2011), S. 117, Abschn. 3.6: Zuordnung der zufälligen Komponenten einschließlich zyklostationärer Lagersignale.
-Zu den zufälligen Komponenten zählt Randall neben Hintergrund- und Messrauschen sowie
-zufälligen Quellsignalen auch zyklostationäre Wälzlagersignale
-\cite[S.~117, Abschn.~3.6]{randallVibrationbasedConditionMonitoring2011}.
+Zu den stochastischen Komponenten zählt Randall neben Hintergrund- und Messrauschen sowie
+stochastischen Quellsignalen auch zyklostationäre Wälzlagersignale
+\cite[S.~178, Abschn.~5.3]{randallVibrationbasedConditionMonitoring2022}.
 % Quellenbasis: Randall und Antoni (2011), S. 487 und 490--491, Abschn. 2--2.1 und Abb. 4--5: CS2-Modellierung lokaler Lagerschäden.
 Signale lokaler Lagerschäden können für die Analyse als zyklostationär zweiter
 Ordnung modelliert werden
 \cite[S.~487; S.~490--491, Abschn.~2--2.1 und Abb.~4--5]
 {randallRollingElementBearing2011a}.
 % Rückverweis: Abschnitt~\ref{sec:waelzlagerdiagnose}; Definitionen und Schlupfeinfluss bleiben dort erhalten.
-Die Definitionen und die Abgrenzung zur Pseudo-Zyklostationarität sind im Absatz
+Die Definitionen und die Abgrenzung zur Pseudo-Zyklostationarität erläutert der Absatz
 \hyperref[par:modulation_zyklostationaeres_signalverhalten]
-{\emph{Modulation und zyklostationäres Signalverhalten}} erläutert;
+{\emph{Modulation und zyklostationäres Signalverhalten}};
 den Einfluss des Schlupfs beschreibt Abschnitt~\ref{sec:waelzlagerdiagnose}.
 
 Für die Wälzlagerdiagnostik ist die Unterscheidung zwischen deterministischen und
-zufälligen Anteilen relevant, weil vergleichsweise schwache
+stochastischen Anteilen relevant, weil vergleichsweise schwache
 Lagersignale durch starke diskrete Getriebekomponenten maskiert werden können. Solche
 Komponenten sind häufig auch bei fehlerfreien Zahnrädern ausgeprägt und können
 Frequenzbereiche verunreinigen, in denen das Lagersignal ansonsten dominieren würde. Randall
@@ -524,10 +519,9 @@ entfernen \cite[S.~493, Abschn.~3]{randallRollingElementBearing2011a}. Die dafü
 verfügbaren Trennverfahren werden im folgenden Abschnitt betrachtet.
 
 \paragraphheading{Alternative Verfahren zur Signaltrennung}
-
-Beim \gls{TSA} werden mehrere Signalabschnitte gemittelt, die jeweils einer
+Beim \emph{\gls{TSA}} werden mehrere Signalabschnitte gemittelt, die jeweils einer
 Periode des zu extrahierenden periodischen Signals entsprechen. Die Einflüsse
-von Drehzahlschwankungen müssen vor der Mittelung durch Order Tracking
+von Drehzahlschwankungen müssen vor der Mittelung durch \emph{Order Tracking}
 beziehungsweise eine winkeläquidistante Neuabtastung kompensiert werden, wie
 im Absatz \emph{Computed Order Tracking} in
 Abschnitt~\ref{sec:signalverarbeitung} beschrieben. Dadurch entspricht der
@@ -536,12 +530,8 @@ erste Abtastwert jeder Periode demselben Phasenwinkel der Periodizität
 {randallVibrationbasedConditionMonitoring2022}
 [S.~12, Abschn.~2]{randallComparisonMethodsSeparation2011}.
 
-Die Mittelung der Signalabschnitte lässt sich als Faltung mit einer um die
-Periodendauer versetzten Impulsfolge modellieren. Im Frequenzbereich
-entspricht dies einem Kammfilter, das die Harmonischen der periodischen
-Grundfrequenz auswählt. Mit wachsender Anzahl der Mittelungen wird der Filter
-selektiver; nicht harmonische Komponenten und additives Zufallsrauschen
-werden dadurch stärker unterdrückt
+Mit wachsender Anzahl der Mittelungen werden nicht harmonische Komponenten
+und additives stochastisches Rauschen stärker unterdrückt
 \cites[S.~178, Abschn.~5.3.1]
 {randallVibrationbasedConditionMonitoring2022}
 [S.~12, Abschn.~2]
@@ -562,7 +552,6 @@ und dem vorhergesagten Wert bildet das Residuum $e(n)$
 {randallVibrationbasedConditionMonitoring2022}
 [S.~13--14, Abschn.~3]
 {randallComparisonMethodsSeparation2011}.
-
 Das Residuum enthält Rauschen und Impulse und weist ein vorgeweißtes
 Spektrum auf. Welche diskreten Komponenten unterdrückt werden, lässt sich
 in gewissem Umfang durch die Ordnung des autoregressiven Modells beeinflussen
@@ -570,7 +559,7 @@ in gewissem Umfang durch die Ordnung des autoregressiven Modells beeinflussen
 {randallVibrationbasedConditionMonitoring2022}
 [S.~13--14, Abschn.~3]{randallComparisonMethodsSeparation2011}.
 
-Bei der \gls{ANC} enthält das Primärsignal zwei unkorrelierte Komponenten,
+Bei der \emph{\gls{ANC}} enthält das Primärsignal zwei unkorrelierte Komponenten,
 während das Referenzsignal nur eine davon enthält. Das Referenzsignal muss
 nicht mit dem entsprechenden Anteil des Primärsignals identisch sein, sondern
 mit ihm kohärent und durch einen linearen Übertragungsweg verknüpft sein. Ein
@@ -581,10 +570,10 @@ so angepasst, dass die Varianz des Fehlersignals minimiert wird
 {randallVibrationbasedConditionMonitoring2022}
 [S.~14, Abschn.~4]{randallComparisonMethodsSeparation2011}.
 
-Die \gls{SANC} ersetzt die externe Referenz durch eine zeitlich verzögerte
+Die \emph{\gls{SANC}} ersetzt die externe Referenz durch eine zeitlich verzögerte
 Kopie des Primärsignals. Die Verzögerung wird länger als die
-Korrelationslänge des zufälligen Anteils, aber kürzer als diejenige des
-deterministischen Anteils gewählt. Dadurch wird der zufällige Anteil zwischen
+Korrelationslänge des stochastischen Anteils, aber kürzer als diejenige des
+deterministischen Anteils gewählt. Dadurch wird der stochastische Anteil zwischen
 Original und verzögerter Kopie weitgehend dekorreliert, während die
 deterministischen Komponenten korreliert bleiben
 \cites[S.~183--185, Abschn.~5.3.4]
@@ -593,7 +582,7 @@ deterministischen Komponenten korreliert bleiben
 
 Ein rekursives adaptives Filter bestimmt den Übertragungsweg zwischen dem
 deterministischen Signalanteil und dessen verzögerter Version; das
-Fehlersignal enthält den verbleibenden zufälligen Anteil. Die adaptive
+Fehlersignal enthält den verbleibenden stochastischen Anteil. Die adaptive
 Struktur kann langsame Änderungen des Signals oder Systems nachführen,
 erfordert jedoch die Wahl von Verzögerung, Filterordnung und Konvergenzfaktor
 \cites[S.~184--185, Abschn.~5.3.4]
@@ -611,9 +600,8 @@ Zeitsignal entfernen, während andere diskrete Komponenten erhalten bleiben
 \cite[S.~16--18, Abschn.~6--7]
 {randallComparisonMethodsSeparation2011}.
 
-\paragraphheading{Discrete and Random Signal Separation}
-
-Die \gls{DRS} bestimmt den Trennfilter für stationäre Signale direkt im
+\paragraphheading{\emph{Discrete and Random Signal Separation}}
+Die \emph{\gls{DRS}} bestimmt den Trennfilter für stationäre Signale direkt im
 Frequenzbereich. Im Unterschied zu SANC ist dazu keine Anpassungsphase
 erforderlich. Stattdessen wird der Filter aus den Fourier-Transformationen
 mehrerer Datenblöcke geschätzt; durch die Verwendung der FFT kann diese
@@ -623,9 +611,10 @@ Berechnung effizient durchgeführt werden
 [S.~185--186, Abschn.~5.3.5]
 {randallVibrationbasedConditionMonitoring2022}.
 
-Zur Formulierung des Vorhersageproblems werden Paare gefensterter Blöcke der
-Länge $N$ betrachtet. Der aktuelle Block und der zeitlich verzögerte frühere
-Block werden durch
+Für die Filterschätzung werden Paare gefensterter Blöcke der Länge $N$
+betrachtet. Gesucht wird ein Filter, der den aktuellen Block $x_k(n)$
+bestmöglich aus einem früheren Block $x_k^{(d)}(n)$ vorhersagt. Die beiden
+Blöcke werden durch
 \begin{equation}
     \begin{aligned}
         x_k(n) &= x(n+kT)\,w_N(n), \\
@@ -634,21 +623,31 @@ Block werden durch
     \end{aligned}
     \label{eq:drs_blocks}
 \end{equation}
-beschrieben. Dabei bezeichnet $T$ den Versatz aufeinanderfolgender Blockpaare
+beschrieben. Dabei zählt $k$ die Blockpaare und $n$ die Abtastwerte innerhalb
+eines Blocks. $T$ bezeichnet den Versatz aufeinanderfolgender Blockpaare
 und $w_N(n)$ das Gewichtungsfenster. Der frühere Block liegt insgesamt
 $N+\Delta$ Abtastwerte vor dem aktuellen Block; $\Delta$ bezeichnet die Lücke
-zwischen den beiden Blöcken. Gesucht wird ein Filter, der den aktuellen Block
-$x_k(n)$ bestmöglich aus dem verzögerten Block $x_k^{(d)}(n)$ vorhersagt.
+zwischen den beiden Blöcken.
 Deterministische Komponenten bleiben trotz der Fensterung vorhersagbar. Ist
 das breitbandige Rauschen zwischen den Blöcken unkorreliert, trägt es dagegen
 nicht zum vorhergesagten Signal bei
 \cite[S.~104, Abschn.~2 und Abb.~1]
 {antoniUnsupervisedNoiseCancellation2004}.
 
-Randall beschreibt die Berechnung als dasselbe Vorgehen, das in der
-Modalanalyse zur Bestimmung der $H_1$-Frequenzgangfunktion verwendet wird:
-Das Kreuzspektrum von Eingang zu Ausgang wird durch das Autospektrum des
-Eingangs geteilt. Mit $G_a(f)$ als Spektrum des verzögerten Eingangsblocks
+Die Wahl von $\Delta$ richtet sich nach der Korrelationslänge des
+stochastischen Anteils. Für die Wälzlagerdiagnose empfiehlt Randall einen
+Abstand von mindestens dem Dreifachen der Korrelationslänge des Lagersignals.
+Bei einem angenommenen Schlupf von $1\,\%$ entspricht dies ungefähr
+300 Perioden der Mittenfrequenz des zu demodulierenden Bandes
+\cite[S.~277, Abschn.~7.3.2]
+{randallVibrationbasedConditionMonitoring2022}.
+Um $\Delta$ in Abtastwerten anzugeben, wird die gewählte Zeitspanne mit der
+Abtastfrequenz multipliziert. Die konkrete Festlegung für diese Arbeit folgt
+in Abschnitt~\ref{sec:parametrierungsstrategie}.
+
+Der Filter wird nach Randall wie die $H_1$-Frequenzgangfunktion in der
+Modalanalyse bestimmt: Das Kreuzspektrum von Eingang zu Ausgang wird durch
+das Autospektrum des Eingangs geteilt. Mit $G_a(f)$ als Spektrum des verzögerten Eingangsblocks
 und $G_b(f)$ als Spektrum des aktuellen Ausgangsblocks ergibt sich
 \begin{equation}
     H_1(f)
@@ -657,8 +656,12 @@ und $G_b(f)$ als Spektrum des aktuellen Ausgangsblocks ergibt sich
     = \frac{G_{ab}(f)}{G_{aa}(f)}.
     \label{eq:drs_h1_estimator}
 \end{equation}
-Die in Gleichung~\eqref{eq:drs_h1_estimator} auftretenden Erwartungswerte
-werden bei der praktischen Schätzung durch eine Mittelung der Spektralprodukte
+Dabei bezeichnet $G_{ab}(f)$ das Kreuzspektrum und $G_{aa}(f)$ das
+Autospektrum des Eingangs; der Stern kennzeichnet die komplexe Konjugation
+und $\mathrm{E}[\cdot]$ den Erwartungswert
+\cite[S.~186, Abschn.~5.3.5, Gl.~(5.27)]
+{randallVibrationbasedConditionMonitoring2022}.
+Bei der praktischen Schätzung werden die Erwartungswerte durch eine Mittelung der Spektralprodukte
 über mehrere Blockpaare angenähert
 \cite[S.~104--105, Abschn.~2, Gl.~(2)]
 {antoniUnsupervisedNoiseCancellation2004}.
@@ -666,22 +669,36 @@ An Frequenzen diskreter Komponenten nimmt der Filter idealerweise Werte nahe
 eins an, während er in rauschdominierten Bereichen gegen null geht. Die
 tatsächlichen Werte hängen vom
 Signal-Rausch-Verhältnis ab
-\cite[S.~186, Abschn.~5.3.5, Gl.~(5.27)]
+\cite[S.~186, Abschn.~5.3.5, Gl.~(5.27)--(5.28)]
 {randallVibrationbasedConditionMonitoring2022}.
+
+Für die Anwendung des geschätzten Filters beschreiben Antoni und Randall
+eine Korrektur seiner Phase um die Verzögerung, bevor er auf das gemessene
+Signal angewandt wird
+\cite[S.~105, Abschn.~2, Absatz nach Gl.~(2)]
+{antoniUnsupervisedNoiseCancellation2004}.
+Eine andere Möglichkeit ist, nur den Betrag $\lvert H_1(f)\rvert$ zu
+verwenden. Dieser Filter verändert die Phase der durchgelassenen Komponenten
+nicht und ist nichtkausal
+\cite[S.~15, Abschn.~5]{randallComparisonMethodsSeparation2011}.
 
 Nach der Bestimmung im Frequenzbereich wird der Filter durch schnelle Faltung
 auf das Signal angewandt. Die Berechnung erfolgt ebenfalls mit FFTs und dem
-Overlap-Add-Verfahren. Dieses ist aufgrund der zirkulären Faltung von FFT und
+\emph{Overlap-Add}-Verfahren. Dieses ist aufgrund der zirkulären Faltung von FFT und
 DFT erforderlich
 \cite[S.~186, Abschn.~5.3.5]
 {randallVibrationbasedConditionMonitoring2022}.
+Der verbleibende stochastische Anteil wird als Residuum gewonnen, indem der
+geschätzte deterministische Anteil vom gemessenen Signal abgezogen wird
+\cite[S.~16, Abschn.~5, Beschreibung von Abb.~8(d)]
+{randallComparisonMethodsSeparation2011}.
 
 Da der Filter zunächst aus den Daten bestimmt und anschließend auf dieselben
-Daten angewandt wird, müssen die diskreten Frequenzkomponenten während der
-ausgewerteten Daten hinreichend stabil bleiben. Randall nennt deshalb Order
-Tracking als gegebenenfalls erforderlichen Vorverarbeitungsschritt. Antoni
+Daten angewandt wird, müssen die diskreten Frequenzkomponenten während des
+ausgewerteten Zeitraums hinreichend stabil bleiben. Randall nennt deshalb
+\emph{Order Tracking} als gegebenenfalls erforderlichen Vorverarbeitungsschritt. Antoni
 und Randall berichten ebenfalls von besseren Ergebnissen, wenn der
-deterministische Anteil durch vorgelagertes Order Tracking periodisch gemacht
+deterministische Anteil durch vorgelagertes \emph{Order Tracking} periodisch gemacht
 wird
 \cites[S.~115, Abschn.~5]{antoniUnsupervisedNoiseCancellation2004}
 [S.~186, Abschn.~5.3.5]
