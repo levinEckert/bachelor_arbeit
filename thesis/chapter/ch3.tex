@@ -145,23 +145,29 @@ einer einzelnen Messung werden alle drei Parameter konstant gehalten
   {lessmeierConditionMonitoringBearing2016}}
   \label{tab:paderborn_betriebsbedingungen}
   \small
-  \begin{tabularx}{\textwidth}{
-    >{\centering\arraybackslash}p{0.8cm}
-    >{\centering\arraybackslash}p{2.5cm}
-    >{\centering\arraybackslash}p{2.5cm}
-    >{\centering\arraybackslash}p{2.5cm}
-    >{\raggedright\arraybackslash}X}
-    \toprule
-    \toprule
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\doublerulesep}{0pt}
+  \begin{tabularx}{\textwidth}{|
+    >{\centering\arraybackslash}p{0.8cm}|
+    >{\centering\arraybackslash}p{2.5cm}|
+    >{\centering\arraybackslash}p{2.5cm}|
+    >{\centering\arraybackslash}p{2.5cm}|
+    >{\raggedright\arraybackslash}X|}
+    \hline
     \textbf{Nr.} & \textbf{Drehzahl} & \textbf{Lastmoment} &
     \textbf{Radialkraft} & \textbf{Einstellungscode} \\
     & \([\mathrm{min^{-1}}]\) & \([\mathrm{Nm}]\) & \([\mathrm{N}]\) & \\
-    \midrule
+    \toprule
+    \toprule
     0 & 1500 & 0,7 & 1000 & \texttt{N15\_M07\_F10} \\
+    \hline
     1 & 900 & 0,7 & 1000 & \texttt{N09\_M07\_F10} \\
+    \hline
     2 & 1500 & 0,1 & 1000 & \texttt{N15\_M01\_F10} \\
+    \hline
     3 & 1500 & 0,7 & 400 & \texttt{N15\_M07\_F04} \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -230,25 +236,32 @@ Aufzeichnungen 1, 5, 10, 15 und 20 verwendet. Damit umfasst die Auswahl
   {lessmeierConditionMonitoringBearing2016}}
   \label{tab:paderborn_auswahl}
   \small
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\doublerulesep}{0pt}
   \renewcommand{\arraystretch}{1.25}
-  \begin{tabularx}{\textwidth}{
-    >{\raggedright\arraybackslash}p{2.0cm}
-    >{\raggedright\arraybackslash}p{2.1cm}
-    >{\raggedright\arraybackslash}p{2.4cm}
-    >{\raggedright\arraybackslash}X}
-    \toprule
-    \toprule
+  \begin{tabularx}{\textwidth}{|
+    >{\raggedright\arraybackslash}p{2.0cm}|
+    >{\raggedright\arraybackslash}p{2.1cm}|
+    >{\raggedright\arraybackslash}p{2.4cm}|
+    >{\raggedright\arraybackslash}X|}
+    \hline
     \textbf{Teilmenge} & \textbf{Lager} & \textbf{Zielklasse} &
     \textbf{Schadensentstehung} \\
-    \midrule
+    \toprule
+    \toprule
     Training & K001, K002 & fehlerfrei & fehlerfreier Referenzzustand \\
+    \hline
     Training & KA05, KA06 & Außenring & künstlich eingebracht \\
+    \hline
     Training & KI05, KI07 & Innenring & künstlich eingebracht \\
-    \midrule
+    \hline
     Evaluation & K003, K004 & fehlerfrei & fehlerfreier Referenzzustand \\
+    \hline
     Evaluation & KA04, KA16 & Außenring & real entstanden \\
+    \hline
     Evaluation & KI16, KI17 & Innenring & real entstanden \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -283,7 +296,6 @@ Lüfterseite durch die Lager abgestützt
 Die CWRU-Dokumentation gibt für die Antriebsseite ein Rillenkugellager
 des Typs SKF 6205-2RS JEM und für die Lüfterseite eines des Typs
 SKF 6203-2RS JEM an \cite{BearingInformationCase}.
-
 Die Beschleunigungsaufnehmer wurden mit Magnetfüßen in der
 12-Uhr-Position an den Gehäusen befestigt. Die Beschleunigung wurde in
 vertikaler Richtung gemessen und bei allen Versuchen am
@@ -292,12 +304,10 @@ standen zusätzlich Signale vom lüfterseitigen Lagergehäuse und von der
 Grundplatte des Motors zur Verfügung
 \cite[S.~103, Abschn.~3.1]{smithRollingElementBearing2015}
 \cite{ApparatusProceduresCase}.
-
 Die Signale wurden mit einem 16-Kanal-DAT-Rekorder aufgezeichnet. Die
 veröffentlichten Dateien liegen im MAT-Format vor. Je nach Messreihe
 betrug die Abtastrate 12~kHz oder 48~kHz
 \cite{ApparatusProceduresCase}.
-
 In den Variablennamen kennzeichnen \texttt{DE}, \texttt{FE} und
 \texttt{BA} die Beschleunigungssignale der Antriebsseite, der
 Lüfterseite und der Grundplatte. \texttt{time} bezeichnet eine
@@ -305,70 +315,56 @@ Zeitreihe und \texttt{RPM} die während des Versuchs erfasste Drehzahl
 \cite{DownloadDataFile}.
 
 \paragraphheading{Messreihen}
-
 Für die Fehlermessungen wurden mittels Funkenerosion Schäden am Innenring,
 am Außenring oder an einem Wälzkörper eingebracht. Jedes geschädigte Lager
 wurde separat wieder in den Prüfstand eingebaut. Innerhalb des jeweiligen
 Versuchs wurde der Prüfstand bei konstanter Drehzahl betrieben
 \cite[S.~102--103, Abschn.~3.1]{smithRollingElementBearing2015}.
-
 Die Messreihen unterscheiden vier als Motorlast bezeichnete Stufen.
 Umgerechnet entsprechen diese ungefähr 0; 1,01; 2,03 und 3,04~PS
 \cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}.
-
-Die als Motorlast bezeichneten Stufen beschreiben die vom Dynamometer
-aufgebrachte Drehmomentbelastung und keine gezielt abgestufte radiale
-Belastung der Prüflager. Sie gehen vor allem mit unterschiedlichen
+Die Motorlast bezeichnet hier die vom Dynamometer aufgebrachte
+Drehmomentbelastung und keine gezielt abgestufte radiale Belastung der
+Prüflager. Die Laststufen gehen vor allem mit unterschiedlichen
 Wellendrehzahlen einher
 \cite[S.~104, Abschn.~4]{smithRollingElementBearing2015}.
-
 Den vier Laststufen sind in den 12-kHz-Daten der Antriebsseite ungefähre
 Drehzahlen von 1797, 1772, 1750 und
 1730~min\textsuperscript{-1} zugeordnet
 \cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}
 \cite{12kDriveEnd}.
-
 Für Innenring- und Wälzkörperschäden sind vier Schadensdurchmesser
 dokumentiert: 0,007~Zoll (0,18~mm), 0,014~Zoll (0,36~mm),
 0,021~Zoll (0,53~mm) und 0,028~Zoll (0,71~mm)
 \cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}
 \cite{12kDriveEnd}.
-
 Außenringschäden mit einem Durchmesser von 0,007~Zoll (0,18~mm) und
 0,021~Zoll (0,53~mm) wurden an den drei Positionen 6, 3 und 12~Uhr
 untersucht. Für 0,014~Zoll (0,36~mm) sind in dieser Messreihe nur
 Aufzeichnungen bei 6~Uhr veröffentlicht
 \cite[S.~126, Tab.~A2]{smithRollingElementBearing2015}
 \cite{12kDriveEnd}.
-
 In der Evaluation bilden die drei Positionen keine eigenen Zustandsklassen,
 sondern werden gemeinsam der Klasse Außenringschaden zugeordnet.
-
-Die CWRU-Datentabellen verwenden systematische Bezeichnungen für die
-Messungen. Der Eintrag \texttt{IR007\_0} bezeichnet einen Innenringschaden
-mit einem Durchmesser von 0,007~Zoll (0,18~mm) bei der Laststufe 0.
-Der Eintrag \texttt{OR021@6\_3} bezeichnet einen Außenringschaden mit
-einem Durchmesser von 0,021~Zoll (0,53~mm) bei 6~Uhr und der Laststufe 3
+Die CWRU-Datentabellen kennzeichnen die Messungen systematisch.
+So steht \texttt{IR007\_0} für einen Innenringschaden mit einem Durchmesser
+von 0,007~Zoll (0,18~mm) bei Laststufe~0. Die Bezeichnung
+\texttt{OR021@6\_3} steht für einen Außenringschaden mit einem Durchmesser
+von 0,021~Zoll (0,53~mm) bei 6~Uhr und Laststufe~3
 \cite{12kDriveEnd}. Die vier fehlerfreien Referenzmessungen werden in der
 Datentabelle als \texttt{Normal\_0} bis \texttt{Normal\_3} bezeichnet
 \cite{NormalBaselineData}.
 
 \paragraphheading{Auswahl für die zusätzliche Evaluation}
-
 Die zusätzliche CWRU-Evaluation umfasst 40 Messdateien; aus jeder Datei wird
 der DE-Kanal geladen. Ausgewählt werden vier fehlerfreie Referenzmessungen,
-zwölf Innenringmessungen und 24 Außenringmessungen. Die Innenringschäden
-besitzen Durchmesser von 0,007, 0,014 oder 0,021~Zoll, entsprechend etwa
-$0{,}18~\mathrm{mm}$, $0{,}36~\mathrm{mm}$ oder
-$0{,}53~\mathrm{mm}$, und liegen jeweils für
-alle vier Laststufen vor. Bei den Außenringschäden werden die Durchmesser
-0,007 und 0,021~Zoll, entsprechend etwa $0{,}18~\mathrm{mm}$ und
-$0{,}53~\mathrm{mm}$, an den Positionen 6, 3 und 12~Uhr sowie ebenfalls
-bei allen vier Laststufen berücksichtigt
-\cite[S.~126, Tab.~A1--A2]{smithRollingElementBearing2015}
-\cite{12kDriveEnd,NormalBaselineData}.
-Tabelle~\ref{tab:cwru_evaluationsauswahl} führt die tatsächlich verwendeten
-Dateigruppen zusammen.
+zwölf Innenringmessungen und 24 Außenringmessungen.
+Tabelle~\ref{tab:cwru_evaluationsauswahl} zeigt die ausgewählten Dateigruppen
+mit ihren Schadensgrößen und Positionen. Jede Gruppe umfasst alle vier
+Laststufen. Die fehlerfreien Referenzmessungen gehören zur 48-kHz-Gruppe,
+während die ausgewählten Fehlermessungen mit 12~kHz erfasst wurden
+\cite[S.~103, Abschn.~3.2; S.~126, Tab.~A1--A2]
+{smithRollingElementBearing2015}.
 
 \begin{table}[H]
   \centering
@@ -376,17 +372,22 @@ Dateigruppen zusammen.
   \cite[S.~126, Tab.~A1--A2]{smithRollingElementBearing2015}
   \cite{12kDriveEnd,NormalBaselineData}}
   \label{tab:cwru_evaluationsauswahl}
-  \scriptsize
+  \small
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\doublerulesep}{0pt}
+  \renewcommand{\arraystretch}{1.25}
   \begin{tabularx}{\textwidth}{|
     >{\raggedright\arraybackslash}p{1.8cm}|
     >{\raggedright\arraybackslash}X|
     >{\raggedright\arraybackslash}p{2.7cm}|
-    >{\centering\arraybackslash}p{2.1cm}|
-    >{\raggedleft\arraybackslash}p{1.0cm}|}
+    >{\centering\arraybackslash}p{1.8cm}|
+    >{\raggedleft\arraybackslash}p{1.2cm}|}
     \hline
     \textbf{Zielklasse} & \textbf{Dateikennzeichnungen} &
     \textbf{Schadensgröße} & \textbf{Position} & \textbf{Anzahl} \\
-    \hline
+    \toprule
+    \toprule
     fehlerfrei & \texttt{Normal\_0} bis \texttt{Normal\_3} & -- & -- & 4 \\
     \hline
     Innenring & \texttt{IR007\_0} bis \texttt{IR007\_3} &
@@ -413,35 +414,35 @@ Dateigruppen zusammen.
   \end{tabularx}
 \end{table}
 
-Die CWRU-Aufzeichnungen werden ausschließlich mit den Parametern ausgewertet,
-die zuvor anhand der Paderborner Trainingsmenge bestimmt wurden. Die
-CWRU-Daten werden nicht zur Parameterwahl verwendet.
-
+Für diese Auswahl gilt die in Abschnitt~\ref{sec:untersuchungsrahmen}
+festgelegte Trennung von Parametrierung und Evaluation.
 Nicht berücksichtigt werden Wälzkörperschäden, antriebsseitige
 Fehlermessungen mit 48~kHz, lüfterseitige Fehlermessungen,
 Innenringschäden mit 0,028~Zoll (etwa $0{,}71~\mathrm{mm}$) sowie
 zentrierte Außenringschäden mit 0,014~Zoll (etwa
 $0{,}36~\mathrm{mm}$). Die Ergebnisse beziehen sich daher ausschließlich
 auf die ausgewählten 40 Messdateien.
-
-Smith und Randall berichten, dass der überwiegende Teil der vier zentrierten
-Außenringmessreihen mit 0,014~Zoll von den durch sie angewandten Verfahren
-nicht diagnostiziert werden konnte; nur für Datensatz 197 wurde eine teilweise
-Diagnose erreicht
-\cite[S.~110, Abschn.~6.3.3; S.~128, Tab.~B2]
-{smithRollingElementBearing2015}. Aufgrund dieser überwiegend fehlenden
-Diagnostizierbarkeit mit den angewandten Referenzverfahren werden die vier
-Aufzeichnungen in der vorliegenden Arbeit nicht als Bestandteil der primären
-CWRU-Evaluation verwendet. Smith und Randall bewerten nicht diagnostizierbare
-Aufzeichnungen jedoch als möglichen robusten Test für neue Diagnoseverfahren
-\cite[S.~124, Abschn.~6.7]{smithRollingElementBearing2015}. Die vier
-ausgeschlossenen Dateien bleiben deshalb für eine gesonderte spätere
-Stresstest-Auswertung vorgesehen.
-
-Die vier fehlerfreien Referenzmessungen gehören zur 48-kHz-Gruppe, während
-die ausgewählten Fehlermessungen mit 12~kHz erfasst wurden
-\cite[S.~103, Abschn.~3.2; S.~126, Tab.~A1--A2]
+Die vier Dateien mit Innenringschäden von 0,028~Zoll enthalten ein
+DE-Schwingungssignal, jedoch kein Drehzahlfeld (\texttt{RPM})
+\cite{12kDriveEnd}. Für ihre Verarbeitung wäre daher eine zusätzliche
+Zuordnung der Drehzahl erforderlich.
+Die Referenzergebnisse von Smith und Randall für die vier zentrierten
+Außenringmessungen mit 0,014~Zoll fallen unterschiedlich aus. Für den hier
+verwendeten DE-Kanal weist ihre Ergebnistabelle bei Datensatz~197 eine
+erfolgreiche Diagnose mit dem Benchmarkverfahren aus. Bei den
+Datensätzen~198 und~199 gelingt mit der Hüllkurvenanalyse des Rohsignals
+jeweils eine teilweise Diagnose; Datensatz~200 wird mit keinem der drei
+angewandten Verfahren diagnostiziert
+\cite[S.~107, Tab.~4; S.~128, Tab.~B2]
 {smithRollingElementBearing2015}.
+Der Ausschluss dieser vier Messungen ist eine eigene Festlegung des
+Untersuchungsumfangs und bedeutet nicht, dass sie grundsätzlich nicht
+diagnostizierbar sind.
+Smith und Randall bewerten nicht diagnostizierbare Aufzeichnungen als
+möglichen robusten Test für neue Diagnoseverfahren
+\cite[S.~124, Abschn.~6.7]{smithRollingElementBearing2015}.
+Eine gesonderte Auswertung der vier ausgeschlossenen Dateien kommt daher
+als Erweiterung der Untersuchung infrage.
 
 \section{Vergleich und Eignung der Datengrundlage}
 \label{sec:eignung_datengrundlage}
