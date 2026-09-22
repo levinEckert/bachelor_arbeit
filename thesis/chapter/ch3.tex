@@ -457,19 +457,26 @@ Eigenschaften sind in Tabelle~\ref{tab:vergleich_datensaetze} gegenübergestellt
 {smithRollingElementBearing2015}
 \cite[S.~5--9, Abschn.~3--5, Abb.~4--5 und Tab.~4--7]
 {lessmeierConditionMonitoringBearing2016}.
+Die in der Tabelle aufgeführte Verwendung der Daten folgt der Festlegung in
+Abschnitt~\ref{sec:untersuchungsrahmen}.
 
 \begin{table}[H]
   \centering
   \caption{Vergleich der verwendeten CWRU- und Paderborn-Datengrundlagen}
   \label{tab:vergleich_datensaetze}
   \small
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\doublerulesep}{0pt}
+  \renewcommand{\arraystretch}{1.25}
   \begin{tabularx}{\textwidth}{|l|
     >{\raggedright\arraybackslash}X|
     >{\raggedright\arraybackslash}X|}
     \hline
     \textbf{Merkmal} & \textbf{CWRU-Evaluationsdaten} &
     \textbf{Paderborn-Trainings- und Evaluationsdaten} \\
-    \hline
+    \toprule
+    \toprule
     Prüflager & SKF 6205-2RS JEM (DE) & 6203 im Prüfmodul \\
     \hline
     Schwingungskanal & DE-Gehäuse, vertikal & Prüfmodul-Gehäuse
@@ -477,7 +484,8 @@ Eigenschaften sind in Tabelle~\ref{tab:vergleich_datensaetze} gegenübergestellt
     \hline
     Abtastrate & Fehler: 12~kHz; Referenz: 48~kHz & 64~kHz \\
     \hline
-    Drehzahl & 1730--1797~$\mathrm{min^{-1}}$ &
+    Drehzahl & ungefähre Angaben der Laststufen:
+    1730--1797~$\mathrm{min^{-1}}$ &
     900/1500~$\mathrm{min^{-1}}$ \\
     \hline
     Betriebsbedingungen & 0--3~hp; keine gezielte Radiallastvariation &
@@ -498,77 +506,59 @@ Eigenschaften sind in Tabelle~\ref{tab:vergleich_datensaetze} gegenübergestellt
   \end{tabularx}
 \end{table}
 
+\begin{samepage}
 Durch die übereinstimmenden Zielklassen kann für beide Datensätze dieselbe
 Zuordnungs- und Bewertungslogik verwendet werden. Die Unterschiede in
 Prüfstand, Lagerbauart und Messkonfiguration schließen jedoch eine unmittelbare
 Gleichsetzung der Messdaten aus.
 
+\end{samepage}
+
 \paragraphheading{Eignung für die Untersuchung}
 
-Bevor aus der Datengrundlage Anforderungen an die Pipeline und ihre Evaluation
-abgeleitet werden, muss geklärt werden, wofür sich die ausgewählten Messdaten
-in dieser Untersuchung eignen. Dazu werden im Folgenden die Aufgaben der
-Paderborner und der CWRU-Daten bei Parametrierung und Evaluation betrachtet.
+Für die Bewertung der Fehlerindikation werden Schwingungsmessungen benötigt,
+deren Lagerzustand dokumentiert ist. Beide Datensätze enthalten fehlerfreie
+Referenzzustände sowie gekennzeichnete Innen- und Außenringschäden
+(Abschnitt~\ref{sec:untersuchungsrahmen}). Dadurch lässt sich die Ausgabe der
+Pipeline mit dem bekannten Lagerzustand vergleichen und beurteilen, ob ein
+Schaden erkannt und dem richtigen Ring zugeordnet wird.
 
-Für die Parametrierung werden aus den Paderborner Trainingslagern Messungen
-aller drei Zielklassen und aller vier Betriebsbedingungen verwendet
-\cite[S.~5, Tab.~4; S.~8--9, Abschn.~4.2--5 und Tab.~6--7]
-{lessmeierConditionMonitoringBearing2016}. Die Parameterwahl ist damit nicht
-auf einen einzelnen Betriebspunkt beschränkt.
+Der Paderborner Datensatz ermöglicht eine Parametrierung unter mehreren
+definierten Betriebsbedingungen. Die Trainingsauswahl umfasst Messungen aller
+drei Zielklassen unter allen vier Betriebsbedingungen, sodass die Parameterwahl
+nicht auf einen einzelnen Betriebspunkt beschränkt ist
+(Abschnitt~\ref{sec:datensatz_paderborn}). Da die geschädigten Trainingslager künstliche
+Schäden und die geschädigten Evaluationslager real entstandene Ermüdungsschäden
+aufweisen, lässt sich zugleich gezielt untersuchen, wie die anhand künstlicher
+Schäden festgelegte Parametrierung bei real entstandenen Schäden funktioniert
+(Abschnitt~\ref{sec:untersuchungsrahmen}).
 
-Innerhalb des Paderborner Datensatzes unterscheiden sich die beiden
-Teilmengen außerdem in der Schadensentstehung: Die geschädigten Trainingslager
-weisen künstlich eingebrachte Innen- oder Außenringschäden auf, während die
-geschädigten Evaluationslager real entstandene Ermüdungsschäden aus
-beschleunigten Lebensdauerversuchen enthalten
-\cite[S.~5--6, Abschn.~3.1--3.2 und Tab.~4--5]
-{lessmeierConditionMonitoringBearing2016}.
-Die Paderborn-Evaluation prüft daher gezielt, wie die anhand künstlicher
-Schäden festgelegte Parametrierung bei real entstandenen Schäden funktioniert.
-Lessmeier et al. berichten in einer von der vorliegenden Pipeline unabhängigen
-ML-Klassifikation zusammenfassend geringere Klassifikationsgenauigkeiten beim
-Training mit künstlichen und Testen mit real entstandenen Schäden als beim
-Training und Test mit real entstandenen Schäden
-\cite[S.~10--14, Abschn.~7--7.5 und Tab.~9--11]
-{lessmeierConditionMonitoringBearing2016}. Daraus folgt keine Erwartung an die
-Leistungsfähigkeit der vorliegenden Pipeline. Der Befund zeigt jedoch, warum
-die Paderborn-Ergebnisse ausdrücklich als Übertragung von künstlich erzeugten
-auf real entstandene Schäden zu interpretieren sind.
-
-Die CWRU-Daten erfüllen eine andere Funktion: Mit ihnen wird geprüft, wie sich
-die anhand der Paderborner Trainingsdaten parametrierte Pipeline bei Messungen
-aus einem anderen Datensatz verhält. Der CWRU-Datensatz unterscheidet sich in
-Prüfstand, Lagerbauart und Messkonfiguration von den Paderborner Daten
-\cite[S.~102--103, Abschn.~3.1--3.2; S.~126, Tab.~A1--A2]
-{smithRollingElementBearing2015}
-\cite[S.~5 und S.~7--9, Abschn.~3--5]
-{lessmeierConditionMonitoringBearing2016}.
+Der CWRU-Datensatz ergänzt diese Prüfung, weil seine Messungen von einem
+anderen Prüfstand mit anderer Lagerbauart und Messkonfiguration stammen
+(Tabelle~\ref{tab:vergleich_datensaetze}). Mit den unverändert übernommenen
+Analyse- und Entscheidungsparametern lässt sich damit untersuchen, wie die
+Pipeline unter diesen abweichenden Messbedingungen arbeitet
+(Abschnitt~\ref{sec:untersuchungsrahmen}).
 
 \paragraphheading{Aussagegrenzen der Datengrundlage}
 
-Die Aussagekraft der späteren Evaluation wird durch die verwendeten Messdaten
-begrenzt. Da beide Datensätze an Prüfständen erhoben wurden, zeigen die
-Ergebnisse zunächst, wie sich die Pipeline unter den dort festgelegten
+Beide Datensätze wurden an Prüfständen erhoben. Die Ergebnisse zeigen deshalb
+zunächst, wie sich die Pipeline unter den dort festgelegten
 Versuchsbedingungen verhält
 \cite[S.~102--103, Abschn.~3.1--3.2]{smithRollingElementBearing2015}
 \cite[S.~7--8, Abschn.~4--4.2]
 {lessmeierConditionMonitoringBearing2016}.
 
-Smith und Randall berichten in ihrer CWRU-Benchmarkanalyse, dass in vielen
-Fällen die Prüfstandsmontage das Diagnoseergebnis stärker beeinflusste als der
-eingebrachte Schaden. Sie bewerten zudem einen großen Teil der CWRU-Daten als
-atypisch und beschreiben mehrere Datensätze als stark nichtstationär
+Smith und Randall berichten in ihrer CWRU-Benchmarkanalyse, dass die
+Prüfstandsmontage in vielen Fällen das Diagnoseergebnis stärker zu beeinflussen
+schien als der eingebrachte Schaden. Sie bewerten zudem einen großen Teil der
+CWRU-Daten als atypisch und beschreiben mehrere Datensätze als stark
+nichtstationär
 \cite[S.~124, Abschn.~7]{smithRollingElementBearing2015}.
 
-Auch die Autoren des Paderborner Datensatzes weisen auf Grenzen der
-industriellen Übertragung hin. Lessmeier et al. erwarten für industrielle
-Anwendungen mit anderen elektromechanischen Systemen geringere
-Erkennungsraten. Als offene Aufgaben nennen sie die Erkennung unter variablen
-Betriebsbedingungen, die Untersuchung weiterer mechanischer Fehler und
-Lagerschäden sowie die Erprobung der Implementierung in industriellen
-Anwendungen
-\cite[S.~14--15, Abschn.~7.5 und 8]
-{lessmeierConditionMonitoringBearing2016}.
+Auch Lessmeier et al. erwarten für industrielle Anwendungen mit anderen
+elektromechanischen Systemen geringere Erkennungsraten
+\cite[S.~14, Abschn.~7.5]{lessmeierConditionMonitoringBearing2016}.
 
 Die Ergebnisse sind deshalb auf die untersuchten Prüfstandsdaten zu beziehen.
 Eine Funktionsfähigkeit an einer konkreten Siemens-Energy-Maschine oder die
