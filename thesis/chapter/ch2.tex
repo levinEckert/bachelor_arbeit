@@ -516,7 +516,154 @@ Komponenten sind häufig auch bei fehlerfreien Zahnrädern ausgeprägt und könn
 Frequenzbereiche verunreinigen, in denen das Lagersignal ansonsten dominieren würde. Randall
 und Antoni empfehlen daher, die diskreten Komponenten vor der weiteren Lagerdiagnose zu
 entfernen \cite[S.~493, Abschn.~3]{randallRollingElementBearing2011a}. Die dafür
-verfügbaren Trennverfahren werden im folgenden Abschnitt betrachtet.
+verfügbaren Trennverfahren werden im Folgenden betrachtet.
+
+\paragraphheading{\emph{Discrete and Random Signal Separation}}
+Die \emph{\gls{DRS}} bestimmt den Trennfilter für stationäre Signale direkt im
+Frequenzbereich. Eine adaptive Anpassungsphase ist dabei nicht erforderlich.
+Stattdessen wird der Filter aus den Fourier-Transformationen
+mehrerer Datenblöcke geschätzt; durch die Verwendung der FFT kann diese
+Berechnung effizient durchgeführt werden
+\cites[S.~103--104, Abschn.~1--2]
+{antoniUnsupervisedNoiseCancellation2004}
+[S.~185--186, Abschn.~5.3.5]
+{randallVibrationbasedConditionMonitoring2022}.
+
+Für die Filterschätzung werden Paare gefensterter Blöcke der Länge $N$
+betrachtet. Gesucht wird ein Filter, der den aktuellen Block $x_k(n)$
+bestmöglich aus einem früheren Block $x_k^{(d)}(n)$ vorhersagt. Die beiden
+Blöcke werden durch
+\begin{equation}
+    \begin{aligned}
+        x_k(n) &= x(n+kT)\,w_N(n), \\
+        x_k^{(d)}(n) &= x(n+kT-N-\Delta)\,w_N(n),
+        \qquad 0 \leq n < N
+    \end{aligned}
+    \label{eq:drs_blocks}
+\end{equation}
+beschrieben. Dabei bezeichnet $k$ den Blockindex und $n$ den Abtastindex
+innerhalb eines Blocks. $T$ bezeichnet den Versatz aufeinanderfolgender Blockpaare
+und $w_N(n)$ das Gewichtungsfenster. Der frühere Block liegt insgesamt
+$N+\Delta$ Abtastwerte vor dem aktuellen Block; $\Delta$ bezeichnet die Lücke
+zwischen den beiden Blöcken.
+Deterministische Komponenten bleiben trotz der Fensterung vorhersagbar. Ist
+das breitbandige Rauschen zwischen den Blöcken unkorreliert, trägt es dagegen
+nicht zum vorhergesagten Signal bei
+\cite[S.~104, Abschn.~2 und Abb.~1]
+{antoniUnsupervisedNoiseCancellation2004}.
+
+Die Wahl von $\Delta$ richtet sich nach der Korrelationslänge des
+stochastischen Anteils. Für die Wälzlagerdiagnose empfiehlt Randall einen
+Abstand von mindestens dem Dreifachen der Korrelationslänge des Lagersignals.
+Bei einem angenommenen Schlupf von $1\,\%$ entspricht dies ungefähr
+300 Perioden der Mittenfrequenz des zu demodulierenden Bandes
+\cite[S.~277, Abschn.~7.3.2]
+{randallVibrationbasedConditionMonitoring2022}.
+
+Die Umrechnung der gewählten Zeitspanne in Abtastwerte erfolgt durch
+Multiplikation mit der Abtastfrequenz. Die konkrete Festlegung von $\Delta$
+für diese Arbeit folgt
+in Abschnitt~\ref{sec:parametrierungsstrategie}.
+
+Der Filter wird nach Randall wie die $H_1$-Frequenzgangfunktion in der
+Modalanalyse bestimmt: Das Kreuzspektrum von Eingang zu Ausgang wird durch
+das Autospektrum des Eingangs geteilt
+\cite[S.~186, Abschn.~5.3.5, Gl.~(5.27)]
+{randallVibrationbasedConditionMonitoring2022}.
+Für das Blockmodell in Gleichung~\ref{eq:drs_blocks} bezeichnet im Folgenden
+$G_a(f)$ das Spektrum des verzögerten Eingangsblocks und $G_b(f)$ das Spektrum
+des aktuellen Ausgangsblocks. Damit ergibt sich
+\begin{equation}
+    H_1(f)
+    = \frac{\mathrm{E}\!\left[G_b(f)G_a^*(f)\right]}
+           {\mathrm{E}\!\left[G_a(f)G_a^*(f)\right]}
+    = \frac{G_{ab}(f)}{G_{aa}(f)}.
+    \label{eq:drs_h1_estimator}
+\end{equation}
+Dabei bezeichnet $G_{ab}(f)$ das Kreuzspektrum und $G_{aa}(f)$ das
+Autospektrum des Eingangs.
+
+$\mathrm{E}[\cdot]$ bezeichnet den Erwartungswert;
+der Stern kennzeichnet die komplexe Konjugation
+\cite[S.~26, Abschn.~2.1; S.~82--83, Abschn.~3.2.6.5]
+{randallVibrationbasedConditionMonitoring2022}.
+Bei der praktischen Schätzung werden die Erwartungswerte angenähert, indem
+die Produkte im Zähler und Nenner über mehrere Blockpaare gemittelt werden
+\cite[S.~104--105, Abschn.~2, Gl.~(2)]
+{antoniUnsupervisedNoiseCancellation2004}.
+An Frequenzen diskreter Komponenten nimmt der Filter idealerweise Werte nahe
+eins an, während er in rauschdominierten Bereichen gegen null geht. Die
+tatsächlichen Werte hängen vom
+Signal-Rausch-Verhältnis ab
+\cite[S.~186, Abschn.~5.3.5, Gl.~(5.27)--(5.28)]
+{randallVibrationbasedConditionMonitoring2022}.
+Abbildung~\ref{fig:drs_filtercharakteristik} zeigt dazu einen Ausschnitt aus
+dem Eingangsspektrum und den zugehörigen Amplitudenverlauf des DRS-Filters.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{randall_2022_fig5_32_ab.pdf}
+  \caption{DRS-Filter für ein Schwingungssignal aus einem Hubschraubergetriebe:
+  (a) Ausschnitt aus dem Leistungsdichtespektrum des Eingangssignals und
+  (b) zugehöriger Amplitudenverlauf des Filters. Die horizontale Achse zeigt
+  jeweils die normierte Frequenz.}
+  \label{fig:drs_filtercharakteristik}
+  \caption*{\footnotesize Quelle: Teilbilder (a) und (b) unverändert übernommen
+  aus Randall~\cite[S.~187, Abb.~5.32]{randallVibrationbasedConditionMonitoring2022}.}
+\end{figure}
+
+Für die Anwendung des geschätzten Filters beschreiben Antoni und Randall
+eine Korrektur seiner Phase um die Verzögerung, bevor er auf das gemessene
+Signal angewandt wird
+\cite[S.~105, Abschn.~2, Absatz nach Gl.~(2)]
+{antoniUnsupervisedNoiseCancellation2004}.
+Eine andere Möglichkeit ist, nur den Betrag $\lvert H_1(f)\rvert$ zu
+verwenden. Dieser Filter verändert die Phase der durchgelassenen Komponenten
+nicht und ist nichtkausal
+\cite[S.~15, Abschn.~5]{randallComparisonMethodsSeparation2011}.
+
+Nach der Bestimmung im Frequenzbereich wird der Filter durch schnelle Faltung
+auf das Signal angewandt. Die Berechnung erfolgt ebenfalls mit FFTs und dem
+\emph{Overlap-Add}-Verfahren. Dieses ist aufgrund der zirkulären Faltung von FFT und
+DFT erforderlich
+\cite[S.~186, Abschn.~5.3.5]
+{randallVibrationbasedConditionMonitoring2022}.
+Das Residuum entsteht, indem der geschätzte deterministische Anteil vom
+gemessenen Signal abgezogen wird
+\cite[S.~16, Abschn.~5, Beschreibung von Abb.~8(d)]
+{randallComparisonMethodsSeparation2011}.
+
+Da der Filter zunächst aus den Daten bestimmt und anschließend auf dieselben
+Daten angewandt wird, müssen die diskreten Frequenzkomponenten während des
+ausgewerteten Zeitraums hinreichend stabil bleiben. Randall nennt deshalb
+\emph{Order Tracking} als gegebenenfalls erforderlichen Vorverarbeitungsschritt. Antoni
+und Randall berichten ebenfalls von besseren Ergebnissen, wenn der
+deterministische Anteil durch vorgelagertes \emph{Order Tracking} periodisch gemacht
+wird
+\cites[S.~115, Abschn.~5]{antoniUnsupervisedNoiseCancellation2004}
+[S.~186, Abschn.~5.3.5]
+{randallVibrationbasedConditionMonitoring2022}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]
+  {antoni_randall_2004_fig12.png}
+  \caption{DRS-Trennung am Beispiel eines Außenringschadens in einem
+  Getriebe: (a) gemessenes Schwingungssignal, (b) extrahierter periodischer
+  Anteil und (c) extrahierter nichtdeterministischer Anteil}
+  \label{fig:drs_aussenringschaden}
+  \caption*{\footnotesize Quelle: unverändert übernommen aus Antoni und
+  Randall~\cite[S.~115, Abb.~12]
+  {antoniUnsupervisedNoiseCancellation2004}.}
+\end{figure}
+
+In den Getriebeversuchen von Antoni und Randall wurden nach der Trennung im
+nichtdeterministischen Anteil zuvor maskierte Außenringimpulse sichtbar
+(Abbildung~\ref{fig:drs_aussenringschaden}). Im Versuch mit einem Innenringschaden zeigte das quadrierte Hüllkurvenspektrum
+nach der Trennung die Innenringüberrollfrequenz bei etwa $7{,}1$ Ordnungen,
+während die störenden periodischen Komponenten entfernt waren
+\cite[S.~115--117, Abschn.~5 und Abb.~12--14]
+{antoniUnsupervisedNoiseCancellation2004}.
 
 \paragraphheading{Alternative Verfahren zur Signaltrennung}
 Beim \emph{\gls{TSA}} werden mehrere Signalabschnitte gemittelt, die jeweils einer
@@ -599,131 +746,6 @@ Phase lassen sich ausgewählte Harmonischen- und Seitenbandfamilien aus dem
 Zeitsignal entfernen, während andere diskrete Komponenten erhalten bleiben
 \cite[S.~16--18, Abschn.~6--7]
 {randallComparisonMethodsSeparation2011}.
-
-\paragraphheading{\emph{Discrete and Random Signal Separation}}
-Die \emph{\gls{DRS}} bestimmt den Trennfilter für stationäre Signale direkt im
-Frequenzbereich. Im Unterschied zu SANC ist dazu keine Anpassungsphase
-erforderlich. Stattdessen wird der Filter aus den Fourier-Transformationen
-mehrerer Datenblöcke geschätzt; durch die Verwendung der FFT kann diese
-Berechnung effizient durchgeführt werden
-\cites[S.~103--104, Abschn.~1--2]
-{antoniUnsupervisedNoiseCancellation2004}
-[S.~185--186, Abschn.~5.3.5]
-{randallVibrationbasedConditionMonitoring2022}.
-
-Für die Filterschätzung werden Paare gefensterter Blöcke der Länge $N$
-betrachtet. Gesucht wird ein Filter, der den aktuellen Block $x_k(n)$
-bestmöglich aus einem früheren Block $x_k^{(d)}(n)$ vorhersagt. Die beiden
-Blöcke werden durch
-\begin{equation}
-    \begin{aligned}
-        x_k(n) &= x(n+kT)\,w_N(n), \\
-        x_k^{(d)}(n) &= x(n+kT-N-\Delta)\,w_N(n),
-        \qquad 0 \leq n < N
-    \end{aligned}
-    \label{eq:drs_blocks}
-\end{equation}
-beschrieben. Dabei zählt $k$ die Blockpaare und $n$ die Abtastwerte innerhalb
-eines Blocks. $T$ bezeichnet den Versatz aufeinanderfolgender Blockpaare
-und $w_N(n)$ das Gewichtungsfenster. Der frühere Block liegt insgesamt
-$N+\Delta$ Abtastwerte vor dem aktuellen Block; $\Delta$ bezeichnet die Lücke
-zwischen den beiden Blöcken.
-Deterministische Komponenten bleiben trotz der Fensterung vorhersagbar. Ist
-das breitbandige Rauschen zwischen den Blöcken unkorreliert, trägt es dagegen
-nicht zum vorhergesagten Signal bei
-\cite[S.~104, Abschn.~2 und Abb.~1]
-{antoniUnsupervisedNoiseCancellation2004}.
-
-Die Wahl von $\Delta$ richtet sich nach der Korrelationslänge des
-stochastischen Anteils. Für die Wälzlagerdiagnose empfiehlt Randall einen
-Abstand von mindestens dem Dreifachen der Korrelationslänge des Lagersignals.
-Bei einem angenommenen Schlupf von $1\,\%$ entspricht dies ungefähr
-300 Perioden der Mittenfrequenz des zu demodulierenden Bandes
-\cite[S.~277, Abschn.~7.3.2]
-{randallVibrationbasedConditionMonitoring2022}.
-Um $\Delta$ in Abtastwerten anzugeben, wird die gewählte Zeitspanne mit der
-Abtastfrequenz multipliziert. Die konkrete Festlegung für diese Arbeit folgt
-in Abschnitt~\ref{sec:parametrierungsstrategie}.
-
-Der Filter wird nach Randall wie die $H_1$-Frequenzgangfunktion in der
-Modalanalyse bestimmt: Das Kreuzspektrum von Eingang zu Ausgang wird durch
-das Autospektrum des Eingangs geteilt. Mit $G_a(f)$ als Spektrum des verzögerten Eingangsblocks
-und $G_b(f)$ als Spektrum des aktuellen Ausgangsblocks ergibt sich
-\begin{equation}
-    H_1(f)
-    = \frac{\mathrm{E}\!\left[G_b(f)G_a^*(f)\right]}
-           {\mathrm{E}\!\left[G_a(f)G_a^*(f)\right]}
-    = \frac{G_{ab}(f)}{G_{aa}(f)}.
-    \label{eq:drs_h1_estimator}
-\end{equation}
-Dabei bezeichnet $G_{ab}(f)$ das Kreuzspektrum und $G_{aa}(f)$ das
-Autospektrum des Eingangs; der Stern kennzeichnet die komplexe Konjugation
-und $\mathrm{E}[\cdot]$ den Erwartungswert
-\cite[S.~186, Abschn.~5.3.5, Gl.~(5.27)]
-{randallVibrationbasedConditionMonitoring2022}.
-Bei der praktischen Schätzung werden die Erwartungswerte durch eine Mittelung der Spektralprodukte
-über mehrere Blockpaare angenähert
-\cite[S.~104--105, Abschn.~2, Gl.~(2)]
-{antoniUnsupervisedNoiseCancellation2004}.
-An Frequenzen diskreter Komponenten nimmt der Filter idealerweise Werte nahe
-eins an, während er in rauschdominierten Bereichen gegen null geht. Die
-tatsächlichen Werte hängen vom
-Signal-Rausch-Verhältnis ab
-\cite[S.~186, Abschn.~5.3.5, Gl.~(5.27)--(5.28)]
-{randallVibrationbasedConditionMonitoring2022}.
-
-Für die Anwendung des geschätzten Filters beschreiben Antoni und Randall
-eine Korrektur seiner Phase um die Verzögerung, bevor er auf das gemessene
-Signal angewandt wird
-\cite[S.~105, Abschn.~2, Absatz nach Gl.~(2)]
-{antoniUnsupervisedNoiseCancellation2004}.
-Eine andere Möglichkeit ist, nur den Betrag $\lvert H_1(f)\rvert$ zu
-verwenden. Dieser Filter verändert die Phase der durchgelassenen Komponenten
-nicht und ist nichtkausal
-\cite[S.~15, Abschn.~5]{randallComparisonMethodsSeparation2011}.
-
-Nach der Bestimmung im Frequenzbereich wird der Filter durch schnelle Faltung
-auf das Signal angewandt. Die Berechnung erfolgt ebenfalls mit FFTs und dem
-\emph{Overlap-Add}-Verfahren. Dieses ist aufgrund der zirkulären Faltung von FFT und
-DFT erforderlich
-\cite[S.~186, Abschn.~5.3.5]
-{randallVibrationbasedConditionMonitoring2022}.
-Der verbleibende stochastische Anteil wird als Residuum gewonnen, indem der
-geschätzte deterministische Anteil vom gemessenen Signal abgezogen wird
-\cite[S.~16, Abschn.~5, Beschreibung von Abb.~8(d)]
-{randallComparisonMethodsSeparation2011}.
-
-Da der Filter zunächst aus den Daten bestimmt und anschließend auf dieselben
-Daten angewandt wird, müssen die diskreten Frequenzkomponenten während des
-ausgewerteten Zeitraums hinreichend stabil bleiben. Randall nennt deshalb
-\emph{Order Tracking} als gegebenenfalls erforderlichen Vorverarbeitungsschritt. Antoni
-und Randall berichten ebenfalls von besseren Ergebnissen, wenn der
-deterministische Anteil durch vorgelagertes \emph{Order Tracking} periodisch gemacht
-wird
-\cites[S.~115, Abschn.~5]{antoniUnsupervisedNoiseCancellation2004}
-[S.~186, Abschn.~5.3.5]
-{randallVibrationbasedConditionMonitoring2022}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]
-  {antoni_randall_2004_fig12.png}
-  \caption{DRS-Trennung am Beispiel eines Außenringschadens in einem
-  Getriebe: (a) gemessenes Schwingungssignal, (b) extrahierter periodischer
-  Anteil und (c) extrahierter nichtdeterministischer Anteil}
-  \label{fig:drs_aussenringschaden}
-  \caption*{\footnotesize Quelle: unverändert übernommen aus Antoni und
-  Randall~\cite[S.~115, Abb.~12]
-  {antoniUnsupervisedNoiseCancellation2004}.}
-\end{figure}
-
-In den Getriebeversuchen von Antoni und Randall wurden nach der Trennung im
-nichtdeterministischen Anteil zuvor maskierte Außenringimpulse sichtbar. Im
-Versuch mit einem Innenringschaden zeigte das quadrierte Hüllkurvenspektrum
-nach der Trennung die Innenringüberrollfrequenz bei etwa $7{,}1$ Ordnungen,
-während die störenden periodischen Komponenten entfernt waren
-\cite[S.~115--117, Abschn.~5 und Abb.~12--14]
-{antoniUnsupervisedNoiseCancellation2004}.
 
 \section{Impulsivitätsbasierte Auswahl des Analysebandes}
 \label{sec:bandauswahl}
