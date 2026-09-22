@@ -91,10 +91,13 @@ Auswahl, Parametrierung und spätere Bewertung bleiben damit klar getrennt.
 \paragraphheading{Auswahl der Signaltrennung}
 
 Ziel der Signaltrennung ist es, stabile deterministische Signalanteile vor der
-Hüllkurvenanalyse zu entfernen und die zufälligen beziehungsweise
+Hüllkurvenanalyse zu entfernen und die stochastischen beziehungsweise
 pseudo\-zyklo\-stationären Lageranteile für die nachfolgende Analyse zu
 erhalten. Für die Auswahl sind vor allem die benötigten Eingangssignale, der
 Umfang der Trennung, der Einstellungsaufwand und der Rechenaufwand relevant.
+
+Die Grundlagen der verglichenen Verfahren sind in
+Abschnitt~\ref{sec:signalseparation} erläutert.
 
 Die \gls{TSA} mittelt Signalabschnitte, die jeweils einer Periode der
 betrachteten periodischen Komponente entsprechen. Damit die Abschnitte trotz
@@ -228,6 +231,15 @@ Trennergebnis mit geringerem Rechenaufwand und ohne Divergenzrisiko
 Damit ist DRS für die gemeinsame Pipeline am besten geeignet. Das für die
 weitere Analyse verwendete Residuum entsteht, indem der ermittelte
 deterministische Anteil vom Eingangssignal abgezogen wird.
+
+Für die Offline-Auswertung wird die in Abschnitt~\ref{sec:signalseparation}
+erläuterte amplitudenbasierte Filterung mit $\lvert H_1(f)\rvert$ gewählt.
+Sie verändert die Phase der durchgelassenen Komponenten nicht und ist
+nichtkausal
+\cite[S.~15, Abschn.~5]{randallComparisonMethodsSeparation2011}.
+Da die Messreihen vor der Verarbeitung vollständig vorliegen, ist für diese
+Arbeit kein kausaler Filter erforderlich. Die Variante ermöglicht damit die
+Signaltrennung ohne eine zusätzliche Phasenkorrektur des komplexen Filters.
 
 Diese Auswahl setzt voraus, dass die deterministischen Signalanteile während
 einer Aufzeichnung hinreichend stabil bleiben. Bei stärkeren
