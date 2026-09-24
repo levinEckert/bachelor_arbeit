@@ -798,6 +798,7 @@ spektralen Kurtosis stark von der gewählten Frequenzauflösung des Schätzers a
 \cite[S.~109, Abschn.~1.2]{antoniFastComputationKurtogram2007}.
 
 \paragraphheading{Kurtogramm und \emph{Fast Kurtogram}}
+\label{par:kurtogramm_fast_kurtogram}
 
 Wie im vorherigen Absatz
 \hyperref[par:kurtosis_spektrale_kurtosis]{Kurtosis und spektrale Kurtosis}
@@ -868,6 +869,7 @@ Maximum in einem ähnlichen Frequenzbereich
 \end{figure}
 
 \paragraphheading{Bandauswahl und methodische Grenzen}
+\label{par:bandauswahl_methodische_grenzen}
 
 Für die Bandauswahl wird ein Kurtogrammmaximum als Paar aus Mittenfrequenz
 $f_c$ und Bandbreite $\Delta f$ ausgewählt. Dieses Paar beschreibt das für
@@ -899,8 +901,7 @@ Wälzlagerschaden stammt, lässt sich daraus nicht ableiten.
 
 \paragraphheading{Grundprinzip und Ablauf der Hüllkurvenanalyse}
 
-Bei der Hüllkurvenanalyse wird ein Frequenzband, in dem Schadensimpulse
-durch Strukturresonanzen verstärkt sind, bandpassgefiltert und anschließend
+Zur Hüllkurvenanalyse wird ein bandpassgefiltertes Signal
 amplitudendemoduliert. Das Spektrum der dabei gebildeten Hüllkurve enthält
 die diagnostische Information in Form von Wiederholungsfrequenzen sowie
 Modulationen durch das Durchlaufen der Lastzone oder die Bewegung der
@@ -908,11 +909,10 @@ Schadstelle relativ zum Messpunkt
 \cite[S.~506--507, Abschn.~5, Abb.~25]
 {randallRollingElementBearing2011a}.
 
-Die in diesem Abschnitt betrachtete Verarbeitungskette umfasst damit die
-Auswahl und Bandpassfilterung des zu demodulierenden Frequenzbandes, die
-Bildung der Hüllkurve durch Amplitudendemodulation und ihre spektrale
-Auswertung als \acrshort{SES}. Diese Schritte werden in den folgenden Absätzen
-erläutert.
+Die folgenden Absätze erläutern die Bandpassfilterung, die Bildung der
+Hüllkurve und deren anschließende Quadrierung. Darauf folgt die Berechnung
+des Spektrums der quadrierten Hüllkurve, des
+\emph{\textbf{S}quared \textbf{E}nvelope \textbf{S}pectrum}.
 
 \paragraphheading{Bandpassfilterung und Amplitudendemodulation}
 
@@ -927,62 +927,65 @@ Schadensimpulse durch Strukturresonanzen verstärkt sind
 {randallRollingElementBearing2011a}.
 
 Eine Möglichkeit zur Bestimmung dieses Bandes ist das in
-Abschnitt~\ref{sec:bandauswahl} erläuterte \emph{Fast Kurtogram}. Für die
+Abschnitt~\ref{sec:bandauswahl} erläuterte
+\hyperref[par:kurtogramm_fast_kurtogram]{\emph{Fast Kurtogram}}. Für die
 Wälzlagerdiagnose verwendet Antoni das so bestimmte Frequenzband zur
 Filterung und Demodulation des Signals
 \cite[S.~119, Abschn.~4.2, erster Absatz]
 {antoniFastComputationKurtogram2007}.
 Die am Ende von Abschnitt~\ref{sec:bandauswahl} beschriebenen Grenzen der
-impulsivitätsbasierten Bandauswahl bleiben dabei bestehen.
+\hyperref[sec:bandauswahl]
+{impulsivitätsbasierten Bandauswahl} bleiben dabei bestehen.
 
-Feldman beschreibt eine amplitudenmodulierte Schwingung durch
+Eine amplitudenmodulierte Schwingung hat die Form
 \begin{equation}
-    x(t) = A(t)\cos\!\bigl(\psi(t)\bigr).
+    x(t) = A(t)\cos\bigl(\psi(t)\bigr).
     \label{eq:amplitude_modulation}
 \end{equation}
-Dabei bezeichnet $A(t)$ die momentane Amplitude beziehungsweise Hüllkurve;
-$\cos\!\bigl(\psi(t)\bigr)$ ist der oszillierende Faktor
+Dabei bezeichnet $A(t)$ die momentane Amplitude beziehungsweise
+Hüllkurve und $\psi(t)$ die momentane Phase.
+Der Faktor $\cos\bigl(\psi(t)\bigr)$ beschreibt die Oszillation
 \cite[S.~741, Abschn.~3.1, Gl.~(5)--(7)]
 {feldmanHilbertTransformVibration2011}. Bei der Amplitudendemodulation wird
 die modulierende Hüllkurve $A(t)$ beibehalten und die Oszillation
-$\cos\!\bigl(\psi(t)\bigr)$ verworfen
+$\cos\bigl(\psi(t)\bigr)$ verworfen
 \cite[S.~746, Abschn.~5.1, erster Absatz]
 {feldmanHilbertTransformVibration2011}.
 
-Randall und Antoni bezeichnen das in Abbildung~25 dargestellte Intervall
-$[f_1,f_2]$ als auszuwählendes Demodulationsband. Die Hüllkurve wird als
+Die Hüllkurve wird als
 Betrag des analytischen Signals gebildet, das aus dem ausgewählten
 einseitigen Frequenzband gewonnen wird
 \cite[S.~507, Abschn.~5, Abb.~25 und letzter Absatz]
 {randallRollingElementBearing2011a}.
-Wie diese Bildung der Hüllkurve mithilfe der Hilbert-Transformation
-durchgeführt wird, wird im folgenden Abschnitt erläutert.
+Die Hilbert-Transformation bildet die Grundlage für dieses analytische Signal.
 
 \paragraphheading{Hilbert-Transformation}
 
-Für die Hüllkurvenbildung wird der zuvor bandpassgefilterte Signalanteil im Folgenden
-mit $x(t)$ bezeichnet. Die Hilbert-Transformation erzeugt dazu die Quadraturkomponente
-$\widetilde{x}(t)$. Feldman gibt den Frequenzgang der idealen Hilbert-Transformation als
+Der zuvor bandpassgefilterte Signalanteil wird im Folgenden mit $x(t)$
+bezeichnet. Die Hilbert-Transformation erzeugt dazu die
+\hypertarget{begriff:quadraturkomponente}{\gls{quadraturkomponente}}
+$\widetilde{x}(t)$. Der Frequenzgang der idealen Hilbert-Transformation lautet
 \begin{equation}
-    H(\omega) = -\mathrm{i}\operatorname{sgn}(\omega)
+    H(\jmath\omega) = -\jmath\operatorname{sgn}(\omega).
     \label{eq:hilbert_frequency_response}
 \end{equation}
-an. Dadurch werden positive Frequenzanteile um $-\pi/2$ und negative Frequenzanteile
+Positive Frequenzanteile werden dabei um $-\pi/2$ und negative Frequenzanteile
 um $+\pi/2$ in der Phase verschoben
 \cite[S.~747, Abschn.~6]{feldmanHilbertTransformVibration2011}.
 
 Aus dem ursprünglichen Signal und seiner Hilbert-Transformierten entsteht das komplexe
 analytische Signal
 \begin{equation}
-    X(t) = x(t) + \mathrm{i}\widetilde{x}(t)
+    X(t) = x(t) + \jmath\widetilde{x}(t)
     \label{eq:analytic_signal}
 \end{equation}
 mit $x(t)$ als Realteil und $\widetilde{x}(t)$ als Imaginärteil
 \cite[S.~740, Abschn.~3, Gl.~(4)]
 {feldmanHilbertTransformVibration2011}.
 
-Für eine amplitudenmodulierte Schwingung $x(t)=A(t)\cos\psi(t)$ besitzt die
-Quadraturkomponente die Form $\widetilde{x}(t)=A(t)\sin\psi(t)$. Aus beiden
+Für eine amplitudenmodulierte Schwingung
+$x(t)=A(t)\cos\bigl(\psi(t)\bigr)$ besitzt die Quadraturkomponente die Form
+$\widetilde{x}(t)=A(t)\sin\bigl(\psi(t)\bigr)$. Aus beiden
 Komponenten ergibt sich die Hüllkurve als Betrag des analytischen Signals:
 \begin{equation}
     A(t) = \lvert X(t) \rvert
@@ -993,10 +996,13 @@ Durch die Betragsbildung entfällt der oszillierende Anteil, während die zeitli
 veränderliche Amplitude $A(t)$ als Hüllkurve erhalten bleibt
 \cite[S.~741, Abschn.~3.1, Gl.~(5)--(6);
 S.~746, Abschn.~5.1]{feldmanHilbertTransformVibration2011}.
+Abbildung~\ref{fig:feldman_hilbert_huellkurve} veranschaulicht das Signal
+$x(t)$, seine Hilbert-Transformierte $\widetilde{x}(t)$ und die daraus
+gebildete Hüllkurve $A(t)$.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.82\textwidth]{feldman_2011_fig2a.pdf}
+  \includegraphics[width=\textwidth]{feldman_2011_fig2a.pdf}
   \caption{Quasiharmonisches Signal $x(t)$, Hilbert-Transformierte
   $\widetilde{x}(t)$ und Hüllkurve $A(t)$}
   \label{fig:feldman_hilbert_huellkurve}
@@ -1005,35 +1011,34 @@ S.~746, Abschn.~5.1]{feldmanHilbertTransformVibration2011}.
   {feldmanHilbertTransformVibration2011}.}
 \end{figure}
 
-Feldman weist darauf hin, dass die Hilbert-basierte Demodulation praktisch vor allem bei
-schmalbandigen Signalen langsam veränderliche Momentankenngrößen liefert
+Die Hilbert-basierte Demodulation liefert in der Praxis vor allem bei
+schmalbandigen Signalen langsam veränderliche Momentankenngrößen
 \cite[S.~746, Abschn.~5.1]{feldmanHilbertTransformVibration2011}.
-Wie die so gewonnene Hüllkurve anschließend spektral ausgewertet wird, zeigt der
-folgende Abschnitt.
+Für die anschließende spektrale Auswertung wird das Quadrat der Hüllkurve
+verwendet.
 
 \paragraphheading{SES}
 
-Aus dem analytischen Signal $X(t)$ wird die quadrierte Hüllkurve
+Aus dem analytischen Signal $X(t)$ ergibt sich die quadrierte Hüllkurve als
 \begin{equation}
     A^2(t)
     = \lvert X(t) \rvert^2
-    = X(t)X^*(t),
+    = X(t)\cdot X^*(t),
     \label{eq:squared_envelope}
 \end{equation}
 wobei $X^*(t)$ das komplex konjugierte analytische Signal bezeichnet
 \cite[S.~507--508, Abschn.~5, Gl.~(25)]
-{randallRollingElementBearing2011a}. Im Folgenden bezeichnet der Ausdruck
-\acrshort{SES} das Spektrum der quadrierten Hüllkurve.
-Mit der in dieser Arbeit verwendeten Notation wird es als
+{randallRollingElementBearing2011a}.
+Die Fourier-Transformation der quadrierten Hüllkurve liefert das
+\acrshort{SES}. In der hier verwendeten Notation lautet es
+\cite[S.~507--508, Abschn.~5, Gl.~(25)]
+{randallRollingElementBearing2011a}
 \begin{equation}
     S_{\mathrm{SE}}(f)
     =
     \mathcal{F}\left\{A^2(t)\right\}.
     \label{eq:squared_envelope_spectrum}
 \end{equation}
-geschrieben
-\cite[S.~507--508, Abschn.~5, Gl.~(25)]
-{randallRollingElementBearing2011a}.
 
 Randall und Antoni bevorzugen die Analyse der quadrierten Hüllkurve gegenüber
 der Analyse der Hüllkurve. Die Hüllkurve $A(t)=\sqrt{A^2(t)}$ entsteht durch
@@ -1045,8 +1050,8 @@ Information maskieren
 
 Das analytische Signal wird aus einem einseitigen Spektrum mit positiven
 Frequenzen gewonnen. Für dieses analytische Signal enthält das Spektrum der
-quadrierten Hüllkurve nur Differenzfrequenzen. Als Beispiel nennen Randall
-und Antoni Seitenbandabstände, die gewünschte Modulationsinformation enthalten
+quadrierten Hüllkurve nur Differenzfrequenzen. Dazu gehören beispielsweise
+Seitenbandabstände, die die gewünschte Modulationsinformation enthalten
 \cite[S.~507--508, Abschn.~5, Gl.~(25), Abb.~27(a)]
 {randallRollingElementBearing2011a}.
 
