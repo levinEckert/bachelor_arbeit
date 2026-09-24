@@ -599,81 +599,81 @@ konkreten Nachweis zu.
   \endhead
   \hline
   \endfoot
-  D-01: Signal und Abtastrate &
+  \hyperlink{req:D-01}{D-01}: Signal und Abtastrate &
   Kanalwahl beim Import und datensatzabhängige Übergabe der Abtastrate;
   CWRU-Zuordnungstest bestanden
   (Abs.~\ref{sec:softwarestruktur}, Tab.~\ref{tab:versuchsumfang_bestand}). &
   erfüllt \\
   \hline
-  D-02: Repräsentative Drehzahl &
+  \hyperlink{req:D-02}{D-02}: Repräsentative Drehzahl &
   Drehzahl aus den Messdateien; für zwei CWRU-Normalmessungen die
   zugeordneten Näherungswerte des Datenanbieters
   (Abs.~\ref{sec:softwarestruktur}, Tab.~\ref{tab:datenimport_impl}). &
   erfüllt \\
   \hline
-  D-03: Geometrieprofil &
+  \hyperlink{req:D-03}{D-03}: Geometrieprofil &
   Lagerabhängige Profilauswahl und Übergabe an die Frequenzberechnung
   (Abs.~\ref{sec:signalbewertung_impl}). &
   erfüllt \\
   \hline
-  D-04: Referenz und Quelldatei &
+  \hyperlink{req:D-04}{D-04}: Referenz und Quelldatei &
   Eindeutige Dateinamen und passende Referenzklassen in allen Einzelresultaten;
   Zuordnung nach Abs.~\ref{sec:versuchsautomatisierung}. &
   erfüllt \\
   \hline
-  F-01: Vollständige Verarbeitung &
+  \hyperlink{req:F-01}{F-01}: Vollständige Verarbeitung &
   Alle ausgewählten Messungen in beiden DRS-Varianten abgeschlossen
   (Tab.~\ref{tab:versuchsumfang_bestand}). &
   erfüllt \\
   \hline
-  F-02: Sollfrequenzen und Harmonische &
+  \hyperlink{req:F-02}{F-02}: Sollfrequenzen und Harmonische &
   Referenzrechnungen und Spektraltests für die feste Prüfung von $f$ und $2f$
   bestanden (Tab.~\ref{tab:komponentenvalidierung_ergebnisse}). &
   erfüllt \\
   \hline
-  F-03: Einzelne Prüfbarkeit &
+  \hyperlink{req:F-03}{F-03}: Einzelne Prüfbarkeit &
   Getrennt aufrufbare Verarbeitungsschritte; synthetische Prüfungen und
   MATLAB-Referenzvergleich (Abs.~\ref{sec:softwarestruktur}
   und~\ref{sec:komponentenvalidierung}). &
   erfüllt \\
   \hline
-  F-04: Ergebnis je Messung &
+  \hyperlink{req:F-04}{F-04}: Ergebnis je Messung &
   Pflichtfelder vollständig; beide Ringindikationen bleiben gespeichert
   (Abs.~\ref{sec:pipelineergebnisse} und~\ref{sec:fehleranalyse}). &
   erfüllt \\
   \hline
-  Q-01: Modularer Aufbau &
+  \hyperlink{req:Q-01}{Q-01}: Modularer Aufbau &
   Separat aufrufbare Komponenten für Import, Signalverarbeitung,
   Bandauswahl, Fehlerentscheidung und Evaluation
   (Abs.~\ref{sec:softwarestruktur}, Abb.~\ref{tab:modulorganisation_impl}). &
   erfüllt \\
   \hline
-  Q-02: Fehlerbehandlung &
+  \hyperlink{req:Q-02}{Q-02}: Fehlerbehandlung &
   Fehlerstatus und Ursache je fehlgeschlagener Messung; Ausschluss aus
   Kennzahlen. Test mit beschädigter MAT-Datei bestanden
   (Abs.~\ref{sec:versuchsautomatisierung}). &
   teilweise erfüllt \\
   \hline
-  E-01: Datentrennung und Parameterübernahme &
+  \hyperlink{req:E-01}{E-01}: Datentrennung und Parameterübernahme &
   Getrennte Lagergruppen und identische Auswahlparameter in Rangliste und
   vier Zusammenfassungen (Abs.~\ref{sec:versuchsaufbau},
   Tab.~\ref{tab:ergebnisse_suchumfang}). &
   erfüllt \\
   \hline
-  E-02: Laufdokumentation &
+  \hyperlink{req:E-02}{E-02}: Laufdokumentation &
   Umfang, Erfolgs- und Fehleranzahl sowie Parameter in allen vier
   Zusammenfassungen dokumentiert
   (Abs.~\ref{sec:versuchsautomatisierung} und~\ref{sec:pipelineergebnisse}). &
   teilweise erfüllt \\
   \hline
-  E-03: Getrennte Gütebewertung &
+  \hyperlink{req:E-03}{E-03}: Getrennte Gütebewertung &
   Schadenserkennung und Klassenzuordnung getrennt berechnet und ausgewiesen
   (Tab.~\ref{tab:pipeline_kennzahlen}). &
   erfüllt \\
 \end{longtable}
 \endgroup
 
-Q-02 und E-02 sind durch dieselbe funktionale Grenze eingeschränkt:
+\hyperlink{req:Q-02}{Q-02} und \hyperlink{req:E-02}{E-02} sind durch dieselbe funktionale Grenze eingeschränkt:
 Scheitern sämtliche Dateien eines Laufs, endet dieser vor dem Export der
 Fehlerzeilen und der Zusammenfassung
 (Abschnitt~\ref{sec:versuchsautomatisierung}). Die vier durchgeführten
