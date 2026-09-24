@@ -592,8 +592,8 @@ mit diesen Daten daher nicht bestimmen.
 Aus der Forschungsfrage in Abschnitt~\ref{sec:zielsetzung}, der
 Datensatzstrategie in Abschnitt~\ref{sec:untersuchungsrahmen} und den
 Aussagegrenzen der Datengrundlage in
-Abschnitt~\ref{sec:eignung_datengrundlage} werden im Folgenden Anforderungen
-an die Verarbeitungspipeline und deren Evaluation abgeleitet. Sie benennen
+Abschnitt~\ref{sec:eignung_datengrundlage} ergeben sich Anforderungen
+an die Verarbeitungspipeline und deren Evaluation. Sie benennen
 erforderliche Eingaben, Funktionen, Qualitätseigenschaften und Nachweise,
 ohne eine konkrete Auswahl der Signalverarbeitungsverfahren vorwegzunehmen.
 Diese Auswahl und ihre Begründung erfolgen in
@@ -610,34 +610,37 @@ Rahmen der Evaluation ermittelt.
 
 \paragraphheading{Datenanforderungen}
 
-Die Datenanforderungen beschreiben die Schnittstelle zwischen den Datensätzen
-und der Verarbeitungspipeline. Sie legen fest, welche Informationen beim
-Import einer Messung übernommen werden müssen, damit die nachfolgenden
-Verarbeitungsschritte vollständige und fachlich passende Eingaben erhalten.
-Da CWRU und Paderborn Signale und Begleitinformationen unterschiedlich
-organisieren, erfolgt ihre Übernahme zunächst datensatzspezifisch. Anschließend
-stehen der Pipeline ein Schwingungssignal mit Abtastrate, eine repräsentative
-Drehzahl, die passende Lagergeometrie sowie eine Referenzklasse zur Verfügung.
-Damit betreffen die Datenanforderungen die Eingangsseite der Pipeline; die
-darauffolgenden funktionalen Anforderungen beschreiben dagegen deren
-Verarbeitungsschritte. Tabelle~\ref{tab:anforderungen_daten} fasst die
-Festlegungen für die Datenübernahme zusammen.
+Für die Verarbeitung einer Messung benötigt die Pipeline ein Schwingungssignal
+mit Abtastrate, eine repräsentative Drehzahl und die passende Lagergeometrie.
+Da CWRU und Paderborn ihre Signale und Begleitinformationen unterschiedlich
+organisieren, werden diese Eingaben datensatzabhängig bereitgestellt.
+Für die Bewertung wird jeder Messung außerdem eine Referenzklasse zugeordnet.
+Sie dient dem Vergleich mit der Fehlerindikation und wird nicht an die Pipeline übergeben. Tabelle~\ref{tab:anforderungen_daten} fasst die
+Anforderungen an die Eingaben und die Kennzeichnung der Messungen zusammen.
 
+\begingroup
+\small
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\doublerulesep}{0pt}
+\renewcommand{\arraystretch}{1.2}
 \begin{longtable}{|
-    >{\footnotesize\raggedright\arraybackslash}p{1.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{7.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{5.2cm}|}
+    >{\raggedright\arraybackslash}p{1.0cm}|
+    >{\raggedright\arraybackslash}p{6.0cm}|
+    >{\raggedright\arraybackslash}p{\dimexpr\textwidth-7.0cm-6\tabcolsep-4\arrayrulewidth\relax}|}
   \caption{Datenanforderungen für die Übernahme in die Pipeline}
   \label{tab:anforderungen_daten} \\
     \hline
     \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
-    \hline
+    \toprule
+    \toprule
     \endfirsthead
     \hline
     \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
-    \hline
+    \toprule
+    \toprule
     \endhead
-    D-01 & Für jede Auswertung muss der festgelegte Schwingungskanal mit der
+    \leavevmode\hypertarget{req:D-01}{D-01} & Für jede Auswertung muss der festgelegte Schwingungskanal mit der
     für die jeweilige Dateigruppe gültigen Abtastrate an die Pipeline
     übergeben werden. &
     Verwendet werden der DE-Kanal der CWRU-Daten und der Kanal
@@ -646,24 +649,22 @@ Festlegungen für die Datenübernahme zusammen.
     oder 48~kHz bei CWRU beziehungsweise fest mit 64~kHz bei Paderborn
     konfiguriert. \\
     \hline
-    D-02 & Jeder ausgewerteten Zeitreihe muss eine repräsentative Drehzahl
+    \leavevmode\hypertarget{req:D-02}{D-02} & Jeder ausgewerteten Zeitreihe muss eine repräsentative Drehzahl
     zugeordnet sein. &
-    Der Import stellt der Pipeline in beiden Fällen einen skalaren
-    Drehzahlwert bereit. Bei CWRU wird der Wert aus der MAT-Datei verwendet.
-    Fehlt dort das RPM-Feld, wird für die beiden betroffenen Normalmessungen
-    die ungefähre Drehzahl aus der CWRU-Datentabelle übernommen
-    \cite{NormalBaselineData}. Bei Paderborn wird aus dem
-    zeitaufgelösten Kanal \texttt{speed} der Median gebildet. \\
+    Bei CWRU wird die Drehzahl aus der MAT-Datei verwendet; für die beiden
+    Normalmessungen ohne RPM-Feld gelten die ungefähren Werte der
+    CWRU-Datentabelle \cite{NormalBaselineData}. Bei Paderborn wird der Median
+    des Drehzahlkanals verwendet. Den Datenimport beschreibt
+    Abschnitt~\ref{sec:datenimport}. \\
     \hline
-    D-03 & Für jedes Prüflager muss das zugehörige Geometrieprofil für die
+    \leavevmode\hypertarget{req:D-03}{D-03} & Für jedes Prüflager muss das zugehörige Geometrieprofil für die
     Berechnung der Lagerfrequenzen ausgewählt werden. &
     Für CWRU wird das Profil des SKF~6205-2RS~JEM verwendet. Bei Paderborn
-    wird die Herstellerzuordnung einmalig anhand der Lagerdatenblätter
-    vorgenommen und in einer Zuordnungstabelle hinterlegt. Der Lagercode dient
-    im Programm lediglich als Schlüssel für die Auswahl des dort hinterlegten
-    FAG- beziehungsweise MTK/IBU-Profils. \\
+    wird das FAG- beziehungsweise MTK/IBU-Profil anhand der Herstellerangabe
+    im Lagerdatenblatt zugeordnet. Die programmseitige Auswahl beschreibt
+    Abschnitt~\ref{sec:softwarestruktur}. \\
     \hline
-    D-04 & Jede ausgewertete Messung muss einer der drei Referenzklassen
+    \leavevmode\hypertarget{req:D-04}{D-04} & Jede ausgewertete Messung muss einer der drei Referenzklassen
     \enquote{fehlerfrei}, \enquote{Innenringschaden} oder
     \enquote{Außenringschaden} zugeordnet und über ihre Quelldatei
     rückverfolgbar sein. &
@@ -675,89 +676,106 @@ Festlegungen für die Datenübernahme zusammen.
     den Quelldateinamen und die zugeordnete Referenzklasse. \\
     \hline
 \end{longtable}
+\endgroup
 
 \paragraphheading{Funktionale und qualitative Anforderungen}
 
-Die folgenden Anforderungen fassen die zuvor beschriebenen Ziele und
-Rahmenbedingungen für die Pipeline zusammen. Funktionale Anforderungen (F)
-beschreiben die erforderlichen Funktionen, qualitative Anforderungen (Q) die
-gewünschten Eigenschaften der Umsetzung. Die Auswahl und Ausgestaltung der
-dafür eingesetzten Verfahren erfolgt in Kapitel~\ref{ch:konzept}.
+Die funktionalen Anforderungen (F) legen fest, welche Verarbeitungsschritte
+und Ausgaben die Pipeline bereitstellen muss. Die qualitativen Anforderungen
+(Q) betreffen ihren modularen Aufbau und den Umgang mit Verarbeitungsfehlern.
+Tabelle~\ref{tab:anforderungen_funktional} nennt jeweils auch die vorgesehene
+Überprüfung.
 
+\begingroup
+\small
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\doublerulesep}{0pt}
+\renewcommand{\arraystretch}{1.2}
 \begin{longtable}{|
-    >{\footnotesize\raggedright\arraybackslash}p{1.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{8.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{4.2cm}|}
+    >{\raggedright\arraybackslash}p{1.0cm}|
+    >{\raggedright\arraybackslash}p{8.0cm}|
+    >{\raggedright\arraybackslash}p{\dimexpr\textwidth-9.0cm-6\tabcolsep-4\arrayrulewidth\relax}|}
   \caption{Funktionale und qualitative Anforderungen}
   \label{tab:anforderungen_funktional} \\
     \hline
     \textbf{ID} & \textbf{Anforderung} & \textbf{Überprüfung} \\
-    \hline
+    \toprule
+    \toprule
     \endfirsthead
     \hline
     \textbf{ID} & \textbf{Anforderung} & \textbf{Überprüfung} \\
-    \hline
+    \toprule
+    \toprule
     \endhead
-    F-01 & Eine ausgewählte Messdatei muss mit den zugehörigen Parametern
+    \leavevmode\hypertarget{req:F-01}{F-01} & Eine ausgewählte Messdatei muss mit den zugehörigen Parametern
     vollständig vom Einlesen bis zur Fehlererkennung verarbeitet werden
     können. & Ausführung der Pipeline für die ausgewählten Paderborner und
     CWRU-Messungen; Auswertung in Abschnitt~\ref{sec:pipelineergebnisse}. \\
     \hline
-    F-02 & Aus Drehzahl und Lagergeometrie müssen die Sollfrequenzen für Innen-
+    \leavevmode\hypertarget{req:F-02}{F-02} & Aus Drehzahl und Lagergeometrie müssen die Sollfrequenzen für Innen-
     und Außenringschäden berechnet werden. Für die Fehlererkennung müssen diese
     Frequenzen und ihre Harmonischen berücksichtigt werden. & Vergleich der
     berechneten Sollfrequenzen mit unabhängigen Referenzwerten; Test der
     Entscheidung anhand eines künstlichen Spektrums. \\
     \hline
-    F-03 & Die Verarbeitungsschritte zur Trennung von Signalanteilen, zur
+    \leavevmode\hypertarget{req:F-03}{F-03} & Die Verarbeitungsschritte zur Trennung von Signalanteilen, zur
     Auswahl des auszuwertenden Frequenzbandes und zur Fehlererkennung müssen
     voneinander getrennt und einzeln prüfbar sein. & Komponententests mit
     synthetischen Signalen oder unabhängigen Referenzergebnissen in
     Abschnitt~\ref{sec:komponentenvalidierung}. \\
     \hline
-    F-04 & Für jede ausgewertete Messung müssen Dateiname, Referenzklasse, alle
+    \leavevmode\hypertarget{req:F-04}{F-04} & Für jede ausgewertete Messung müssen Dateiname, Referenzklasse, alle
     erkannten Klassen, Drehzahl, ausgewähltes Frequenzband und
     Verarbeitungsstatus gespeichert werden. Werden Innen- und Außenringschaden
     gleichzeitig erkannt, müssen beide Angaben erhalten bleiben. & Kontrolle
     der erzeugten Ergebnisdateien in den
     Abschnitten~\ref{sec:pipelineergebnisse} und~\ref{sec:fehleranalyse}. \\
     \hline
-    Q-01 & Die Pipeline muss modular aufgebaut sein. Datenimport,
+    \leavevmode\hypertarget{req:Q-01}{Q-01} & Die Pipeline muss modular aufgebaut sein. Datenimport,
     Signalaufbereitung, Frequenzbandauswahl, Fehlererkennung und Evaluation
     müssen als getrennte Komponenten nutzbar sein. & Architektur- und
     Schnittstellenbeschreibung in Abschnitt~\ref{sec:softwarestruktur}. \\
     \hline
-    Q-02 & Kann eine Messdatei nicht verarbeitet werden, muss sie mit
+    \leavevmode\hypertarget{req:Q-02}{Q-02} & Kann eine Messdatei nicht verarbeitet werden, muss sie mit
     Fehlerstatus und Ursache protokolliert werden. Sie darf nicht als gültiges
     Evaluationsergebnis gezählt werden. & Automatisierter Test mit einer
     fehlerhaften MAT-Datei sowie Kontrolle der Fehleranzahl in den
     Ergebniszusammenfassungen. \\
     \hline
 \end{longtable}
+\endgroup
 
 \newpage
 \paragraphheading{Festlegungen für die Evaluation}
 \label{par:festlegungen_evaluation}
-
 Tabelle~\ref{tab:anforderungen_evaluation} fasst die für die Durchführung und
 Dokumentation der Evaluation festgelegten Anforderungen sowie deren
 vorgesehene Umsetzung zusammen.
 
+\begingroup
+\small
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\doublerulesep}{0pt}
+\renewcommand{\arraystretch}{1.2}
 \begin{longtable}{|
-    >{\footnotesize\raggedright\arraybackslash}p{1.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{8.0cm}|
-    >{\footnotesize\raggedright\arraybackslash}p{4.2cm}|}
+    >{\raggedright\arraybackslash}p{1.0cm}|
+    >{\raggedright\arraybackslash}p{8.0cm}|
+    >{\raggedright\arraybackslash}p{\dimexpr\textwidth-9.0cm-6\tabcolsep-4\arrayrulewidth\relax}|}
   \caption{Festlegungen und Umsetzung der Evaluation}
   \label{tab:anforderungen_evaluation} \\
     \hline
     \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
-    \hline
+    \toprule
+    \toprule
     \endfirsthead
     \hline
     \textbf{ID} & \textbf{Anforderung} & \textbf{Umsetzung} \\
-    \hline
+    \toprule
+    \toprule
     \endhead
-    E-01 & Die Daten zur Parameterfestlegung müssen von den Evaluationsdaten
+    \leavevmode\hypertarget{req:E-01}{E-01} & Die Daten zur Parameterfestlegung müssen von den Evaluationsdaten
     getrennt sein. Die anhand der Trainingsdaten festgelegten Analyse- und
     Entscheidungsparameter dürfen für die Paderborn- und CWRU-Evaluation nicht
     nachträglich verändert werden. &
@@ -765,13 +783,13 @@ vorgesehene Umsetzung zusammen.
     und eine Evaluationsgruppe. Einmalige Parameterfestlegung anhand der
     Trainingsgruppe und unveränderte Verwendung in beiden Evaluationsläufen. \\
     \hline
-    E-02 & Für jeden Evaluationslauf muss nachvollziehbar sein, wie viele
+    \leavevmode\hypertarget{req:E-02}{E-02} & Für jeden Evaluationslauf muss nachvollziehbar sein, wie viele
     Messungen vorgesehen, erfolgreich ausgewertet oder aufgrund eines Fehlers
     ausgeschlossen wurden und mit welchen Parametern die Auswertung erfolgte. &
     Erstellung einer Zusammenfassung mit dem Auswertungsumfang, der Anzahl
     fehlgeschlagener Messungen und den verwendeten Parameterwerten. \\
     \hline
-    E-03 & Die Evaluation muss getrennt bewerten, ob ein Schaden erkannt und
+    \leavevmode\hypertarget{req:E-03}{E-03} & Die Evaluation muss getrennt bewerten, ob ein Schaden erkannt und
     ob der Lagerzustand korrekt als fehlerfrei, Innenringschaden oder
     Außenringschaden zugeordnet wird. &
     Für die Schadenserkennung werden \gls{TP}, \gls{TN}, \gls{FP} und
@@ -781,3 +799,4 @@ vorgesehene Umsetzung zusammen.
     F1-Maß und dem Anteil exakt richtiger Zuordnungen bewertet. \\
     \hline
 \end{longtable}
+\endgroup
