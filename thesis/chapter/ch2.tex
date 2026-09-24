@@ -750,10 +750,13 @@ Zeitsignal entfernen, während andere diskrete Komponenten erhalten bleiben
 \section{Impulsivitätsbasierte Auswahl des Analysebandes}
 \label{sec:bandauswahl}
 
+Dieser Abschnitt erläutert, wie sich mithilfe der Kurtosis ein Frequenzband
+für die anschließende Hüllkurvenanalyse auswählen lässt und welche Grenzen
+diese Auswahl besitzt.
+
 \paragraphheading{Kurtosis und spektrale Kurtosis}
 \phantomsection
 \label{par:kurtosis_spektrale_kurtosis}
-
 DeCarlo definiert die Kurtosis als das standardisierte vierte zentrale Moment
 einer Zufallsvariablen $X$ um ihren Mittelwert $\mu$:
 \begin{equation}
@@ -778,8 +781,8 @@ Hinweis auf abnormale Transienten in einem Signal
 \cite[S.~117, Abschn.~4.2, Aufzählungspunkt~1]
 {antoniFastComputationKurtogram2007}.
 
-Antoni beschreibt die Grundidee der spektralen Kurtosis als Berechnung einer
-Kurtosis an jeder Frequenzlinie. Dadurch sollen verborgene
+Die Grundidee der spektralen Kurtosis besteht darin, eine Kurtosis an jeder
+Frequenzlinie zu berechnen. Dadurch sollen verborgene
 Nichtstationaritäten erkannt und den Frequenzbändern ihres Auftretens
 zugeordnet werden
 \cite[S.~108, Abschn.~1.1]{antoniFastComputationKurtogram2007}.
@@ -790,13 +793,11 @@ empfindlich auf transiente Muster und zeigt die Frequenzbereiche ihres
 Auftretens an
 \cite[S.~290--291, Abschn.~3.2.2]
 {antoniSpectralKurtosisUseful2006}.
-
-Antoni zeigt, dass die Werte der spektralen Kurtosis bei stark
-nichtstationären Prozessen wie Transienten stark von der gewählten
-Frequenzauflösung des Schätzers abhängen
+Bei stark nichtstationären Prozessen wie Transienten hängen die Werte der
+spektralen Kurtosis stark von der gewählten Frequenzauflösung des Schätzers ab
 \cite[S.~109, Abschn.~1.2]{antoniFastComputationKurtogram2007}.
 
-\paragraphheading{Kurtogramm und Fast Kurtogram}
+\paragraphheading{Kurtogramm und \emph{Fast Kurtogram}}
 
 Wie im vorherigen Absatz
 \hyperref[par:kurtosis_spektrale_kurtosis]{Kurtosis und spektrale Kurtosis}
@@ -808,52 +809,56 @@ $(f,\Delta f)$-Ebene bezeichnet Antoni als Kurtogramm
 \cite[S.~109, Abschn.~1.2]{antoniFastComputationKurtogram2007}.
 
 Eine vollständige Untersuchung der $(f,\Delta f)$-Ebene ist
-rechenaufwendig. Antoni führt die Berechnung des Kurtogramms auf die
-Kurtosis der Koeffizientenfolgen an den Ausgängen einer Filterbank
-zurück. Für die schnelle Berechnung wird diese Filterbank in einer
-pyramidenförmigen Baumstruktur aufgebaut
+rechenaufwendig. Die Berechnung des Kurtogramms lässt sich auf die
+Kurtosis der Koeffizientenfolgen an den Ausgängen einer
+\hypertarget{begriff:filterbank}{\gls{filterbank}} zurückführen.
+Für die schnelle Berechnung wird diese Filterbank in einer
+pyramidenförmigen Baumstruktur aufgebaut. Auf jeder binären Zerlegungsebene
+verdoppelt sich die Anzahl der Frequenzbänder, während sich deren Bandbreite
+halbiert. Die Bandbreite entspricht dabei der Frequenzauflösung $\Delta f$
 \cite[S.~109, Beginn Abschn.~2; S.~110--111, Abschn.~2.1--2.2]
 {antoniFastComputationKurtogram2007}.
 
-Für eine vollständige Zerlegung gibt Antoni die Komplexität mit
-$\mathcal{O}(LN\log N)$ an, wobei $L$ die Länge des
-FIR-Prototypfilters und $N$ die Signallänge bezeichnet. Er beschreibt
-diesen Aufwand als ähnlich zu dem der FFT und der
-Wavelet-Paket-Transformation
-\cite[S.~111, Abschn.~2.3]{antoniFastComputationKurtogram2007}.
-
-Das Fast Kurtogram tastet die $(f,\Delta f)$-Ebene zunächst auf einem
-dyadischen Raster ab. Dieses Raster kann bei der Detektion
+Das \emph{Fast Kurtogram} tastet die $(f,\Delta f)$-Ebene zunächst auf einem
+\hypertarget{begriff:dyadisches-raster}{\glslink{dyadisches-raster}{dyadischen Raster}}
+ab. Dieses Raster kann bei der Detektion
 schmalbandiger Transienten zu grob sein. Antoni erweitert den
-Algorithmus daher um einen 1/3-Binärbaum, der die
+Algorithmus daher um einen
+\hypertarget{begriff:drittel-binaerbaum}{\gls{drittel-binaerbaum}}, der die
 $(f,\Delta f)$-Ebene bei vernachlässigbaren zusätzlichen
 Rechenkosten feiner abtastet
 \cite[S.~114, Abschn.~2.5, Abb.~5]
 {antoniFastComputationKurtogram2007}.
 
 Die zusätzliche Rasterung zwischen den binären Ebenen ist in
-Abbildung~\ref{fig:antoni_one_third_binary_tree} dargestellt.
+Abbildung~\ref{fig:antoni_one_third_binary_tree} dargestellt. Die ganzzahligen
+Ebenen kennzeichnen die binäre Zerlegung, die Zwischenebenen die zusätzliche
+Dreiteilung. Frequenz $f$ und Bandbreite $\Delta f$ sind in dieser Abbildung
+auf die Abtastfrequenz normiert
+\cite[S.~110, Abschn.~2.2, Fußnote~2; S.~114, Abschn.~2.5, Abb.~5]
+{antoniFastComputationKurtogram2007}.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.60\textwidth]{antoni_2007_fig5.pdf}
+  \includegraphics[width=0.80\textwidth]{antoni_2007_fig5.pdf}
   \caption{Abtastung der $(f,\Delta f)$-Ebene durch den 1/3-Binärbaum des
-  Fast Kurtogramms}
+  \emph{Fast Kurtogramms}}
   \label{fig:antoni_one_third_binary_tree}
   \caption*{\footnotesize Quelle: Abbildung unverändert übernommen aus
   Antoni~\cite[S.~114, Abb.~5]{antoniFastComputationKurtogram2007}.}
 \end{figure}
 
 Abbildung~\ref{fig:antoni_fast_full_kurtogram} stellt die diskrete
-Darstellung des Fast Kurtogramms dem vollständigen STFT-basierten
-Kurtogramm für dasselbe Signal gegenüber; beide Verfahren lokalisieren das
+Darstellung des \emph{Fast Kurtogramms} dem vollständigen, auf der
+\hypertarget{begriff:stft}{\gls{stft}} (STFT) beruhenden Kurtogramm für
+dasselbe Signal gegenüber; beide Verfahren lokalisieren das
 Maximum in einem ähnlichen Frequenzbereich
 \cite[S.~117--118, Abb.~9]{antoniFastComputationKurtogram2007}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.88\textwidth]{antoni_2007_fig9.pdf}
-  \caption{Fast Kurtogram auf Grundlage eines 1/3-Binärbaums (a) und
+  \includegraphics[width=\textwidth,trim=38bp 0bp 25bp 0bp,clip]{antoni_2007_fig9.pdf}
+  \caption{\emph{Fast Kurtogram} auf Grundlage eines 1/3-Binärbaums (a) und
   vollständiges STFT-basiertes Kurtogramm (b) für dasselbe
   Schwingungssignal}
   \label{fig:antoni_fast_full_kurtogram}
@@ -871,10 +876,8 @@ die weitere Verarbeitung ausgewählte Frequenzband
 S.~117, Ende Abschn.~4.1]
 {antoniFastComputationKurtogram2007}.
 
-Das Fast Kurtogram wertet die Kurtosis an den Knoten seines
-Filterbankrasters aus. Antoni weist darauf hin, dass das dyadische Raster für
-schmalbandige Transienten zu grob sein kann, und erweitert es deshalb durch
-einen feineren 1/3-Binärbaum. Die Bandauswahl bleibt damit auf die im
+Das \emph{Fast Kurtogram} wertet die Kurtosis an den Knoten seines
+Filterbankrasters aus. Die Bandauswahl bleibt damit auf die im
 gewählten Raster enthaltenen Kombinationen aus Mittenfrequenz und Bandbreite
 beschränkt
 \cite[S.~111, Abschn.~2.2, Gl.~(5)--(7);
@@ -924,23 +927,13 @@ Schadensimpulse durch Strukturresonanzen verstärkt sind
 {randallRollingElementBearing2011a}.
 
 Eine Möglichkeit zur Bestimmung dieses Bandes ist das in
-Abschnitt~\ref{sec:bandauswahl} erläuterte Fast Kurtogram. Die spektrale
-Kurtosis reagiert auf transiente Muster und gibt die Frequenzen ihres
-Auftretens an
-\cite[S.~291, Abschn.~3.2.2, letzter Absatz]
-{antoniSpectralKurtosisUseful2006}. Dem Fast Kurtogram liegt die Annahme
-zugrunde, dass einem Transienten eine optimale Kombination aus Frequenz
-$f$ und Frequenzauflösung $\Delta f$ zugeordnet werden kann, welche die
-Kurtosis maximiert; der schnelle Algorithmus berechnet das Kurtogramm auf
-einem Raster der $(f,\Delta f)$-Ebene
-\cite[S.~108, Abstract]{antoniFastComputationKurtogram2007}. Für die
+Abschnitt~\ref{sec:bandauswahl} erläuterte \emph{Fast Kurtogram}. Für die
 Wälzlagerdiagnose verwendet Antoni das so bestimmte Frequenzband zur
 Filterung und Demodulation des Signals
 \cite[S.~119, Abschn.~4.2, erster Absatz]
 {antoniFastComputationKurtogram2007}.
-Das Fast Kurtogram liefert damit ein nach der Impulsivität ausgewähltes
-Kandidatenband; die am Ende von Abschnitt~\ref{sec:bandauswahl}
-beschriebenen Grenzen dieser Zuordnung bleiben bestehen.
+Die am Ende von Abschnitt~\ref{sec:bandauswahl} beschriebenen Grenzen der
+impulsivitätsbasierten Bandauswahl bleiben dabei bestehen.
 
 Feldman beschreibt eine amplitudenmodulierte Schwingung durch
 \begin{equation}
