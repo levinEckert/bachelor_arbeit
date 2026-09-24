@@ -610,13 +610,22 @@ Rahmen der Evaluation ermittelt.
 
 \paragraphheading{Datenanforderungen}
 
-Für die Verarbeitung einer Messung benötigt die Pipeline ein Schwingungssignal
-mit Abtastrate, eine repräsentative Drehzahl und die passende Lagergeometrie.
-Da CWRU und Paderborn ihre Signale und Begleitinformationen unterschiedlich
-organisieren, werden diese Eingaben datensatzabhängig bereitgestellt.
+Die Datenanforderungen beschreiben die Schnittstelle zwischen den Datensätzen
+und der Verarbeitungspipeline. Sie legen fest, welche Informationen für die
+Verarbeitung einer Messung bereitgestellt werden müssen, damit die nachfolgenden
+Verarbeitungsschritte vollständige und fachlich passende Eingaben erhalten.
+Da CWRU und Paderborn Signale und Begleitinformationen unterschiedlich
+organisieren, erfolgt die Bereitstellung datensatzspezifisch. Der Datenimport
+liefert das Schwingungssignal und eine repräsentative Drehzahl. Die zugehörige
+Abtastrate und die passende Lagergeometrie werden aus der Konfiguration ergänzt.
+
 Für die Bewertung wird jeder Messung außerdem eine Referenzklasse zugeordnet.
-Sie dient dem Vergleich mit der Fehlerindikation und wird nicht an die Pipeline übergeben. Tabelle~\ref{tab:anforderungen_daten} fasst die
-Anforderungen an die Eingaben und die Kennzeichnung der Messungen zusammen.
+Sie dient dem Vergleich mit der Fehlerindikation und wird nicht an die Pipeline
+übergeben. Die Datenanforderungen betreffen damit die Eingangsseite der Pipeline
+und die Kennzeichnung der Messungen für die Bewertung; die darauffolgenden
+funktionalen Anforderungen beschreiben dagegen die Verarbeitungsschritte.
+Tabelle~\ref{tab:anforderungen_daten} fasst die Festlegungen für die
+Datenübernahme und die Kennzeichnung der Messungen zusammen.
 
 \begingroup
 \small
