@@ -2,7 +2,7 @@
 \label{ch:implementierung}
 
 
-\section{Softwareumgebung}
+\section{Entwicklungsumgebung}
 \label{sec:softwareumgebung_impl}
 
 
@@ -11,11 +11,11 @@ Python ist eine interpretierte Programmiersprache, für die neben der
 Standardbibliothek zusätzliche Bibliotheken verfügbar sind
 \cite{zotero-item-95}.
 
-Die am 4.~September~2026 erfasste Umgebung verwendet CPython~3.14.5
+Die Entwicklungsumgebung verwendet CPython~3.14.5
 unter macOS~26.5.1 auf der Prozessorarchitektur arm64.
-Die Python-Version ist in \path{.python-version} festgehalten. Die Datei
-\path{requirements.txt} legt die nachfolgend genannten Versionen der vier
-direkt verwendeten Bibliotheken fest. Ergänzend enthält
+Die Python-Version ist in \path{.python-version} festgehalten.
+Die Versionen der vier direkt verwendeten Bibliotheken sind in
+\path{requirements.txt} festgelegt. Ergänzend enthält
 \path{requirements-lock.txt} den mit \texttt{pip freeze} erfassten
 Paketbestand der lokalen virtuellen Umgebung einschließlich indirekter
 Abhängigkeiten.
@@ -27,7 +27,7 @@ diesen Arrays sowie Funktionen für Fouriertransformationen und statistische
 Berechnungen \cite{numpydevelopersWhatNumPy}.
 Im Prototyp liegen Zeitsignale, Frequenzachsen und Spektren als NumPy-Arrays
 vor. Die Verarbeitung nutzt unter anderem elementweise Rechenoperationen,
-die schnelle Fouriertransformation und die Bestimmung von Mittelwerten und
+die \textit{Fast Fourier Transformation} und die Bestimmung von Mittelwerten und
 Medianen.
 
 Für den Datenimport und weitere Signaloperationen kommt SciPy~1.17.1 hinzu.
@@ -54,13 +54,14 @@ Pandas~3.0.3 verwendet. Mit dem \texttt{DataFrame} stellt die Bibliothek eine
 zweidimensionale Datenstruktur mit Zeilen und Spalten bereit. Sie unterstützt
 das Sortieren solcher Tabellen und den Datenaustausch über CSV-Dateien
 \cite{pandas10MinutesPandas}.
-Die Parametersuche führt damit die geprüften Konfigurationen und ihre
-Bewertungskennzahlen in einer Rangliste zusammen. Die Evaluationsskripte
-lesen diese Liste wieder ein und übernehmen die an erster Stelle stehende
-Konfiguration. Außerdem überführen sie die Resultate der einzelnen Messungen
-und die zusammenfassenden Kennzahlen in Tabellen und speichern sie als
-CSV-Dateien. Die Zuordnung dieser Aufgaben zu den konkreten Programmmodulen
-beschreibt Abschnitt~\ref{sec:softwarestruktur}.
+Im Projekt dient Pandas zur tabellarischen Verarbeitung der Suchrangliste,
+der Resultate einzelner Messungen und der zusammenfassenden Kennzahlen
+sowie zum Lesen und Schreiben der zugehörigen CSV-Dateien.
+
+Für die Referenzerzeugung zum Fast Kurtogram steht zusätzlich MATLAB~R2026a
+Update~3 (Version~26.1.0.3276743) mit der Signal Processing Toolbox~26.1
+in der lokalen Umgebung zur Verfügung. Die Umsetzung des
+Referenzvergleichs beschreibt Abschnitt~\ref{sec:signalverarbeitung_impl}.
 
 \section{Programmaufbau}
 \label{sec:softwarestruktur}
