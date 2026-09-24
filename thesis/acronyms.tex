@@ -17,3 +17,39 @@
 \newacronym{TN}{TN}{True Negative}
 \newacronym{FP}{FP}{False Positive}
 \newacronym{FN}{FN}{False Negative}
+
+\newglossaryentry{filterbank}{
+    name={Filterbank},
+    description={Anordnung mehrerer Filter, die ein Signal in verschiedene
+    Frequenzbänder zerlegen
+    \cite[S.~110, Abschn.~2.1--2.2]{antoniFastComputationKurtogram2007}.
+    \hyperlink{begriff:filterbank}{Zur Textstelle in Abschnitt~\ref*{sec:bandauswahl}}.}
+}
+\newglossaryentry{dyadisches-raster}{
+    name={Dyadisches Raster},
+    text={dyadisches Raster},
+    description={Raster aus Frequenzbändern, deren Anzahl sich bei jedem
+    Zerlegungsschritt verdoppelt, während sich ihre Bandbreite halbiert
+    \cite[S.~110--111, Abschn.~2.2]{antoniFastComputationKurtogram2007}.
+    \hyperlink{begriff:dyadisches-raster}{Zur Textstelle in Abschnitt~\ref*{sec:bandauswahl}}.}
+}
+\newglossaryentry{drittel-binaerbaum}{
+    name={1/3-Binärbaum},
+    sort={Drittel-Binaerbaum},
+    description={Filterbankstruktur des \emph{Fast Kurtogram}, die die binäre
+    Zerlegung um eine Dreiteilung der Teilbänder ergänzt. Dadurch entstehen
+    zusätzliche Zwischenebenen im Raster aus Frequenz und Bandbreite
+    \cite[S.~114, Abschn.~2.5, Abb.~5]{antoniFastComputationKurtogram2007}.
+    \hyperlink{begriff:drittel-binaerbaum}{Zur Textstelle in Abschnitt~\ref*{sec:bandauswahl}}.}
+}
+\newglossaryentry{stft}{
+    name={Kurzzeit-Fourier-Transformation (STFT)},
+    text={Kurzzeit-Fourier-Transformation},
+    sort={Kurzzeit-Fourier-Transformation},
+    description={Die \emph{Short-Time Fourier Transform} berechnet die
+    Fourier-Transformation eines Signals in zeitlich verschobenen
+    Analysefenstern. Sie beschreibt damit den Frequenzinhalt in Abhängigkeit
+    von der Zeitposition des Fensters
+    \cite[S.~294, Abschn.~5.1, Gl.~(36)]{antoniSpectralKurtosisUseful2006}.
+    \hyperlink{begriff:stft}{Zur Textstelle in Abschnitt~\ref*{sec:bandauswahl}}.}
+}
