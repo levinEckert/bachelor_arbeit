@@ -73,10 +73,8 @@ automatisierte Evaluation verwendet.
 
 \paragraphheading{Module und Konfiguration}
 \label{subsec:module_konfiguration_impl}
-
 \begingroup
 \setlength{\emergencystretch}{2em}
-
 Die Software ist überwiegend funktionsbasiert aufgebaut. Die
 Verarbeitungskomponenten erhalten Signale und Parameter als Argumente und
 geben ihre Ergebnisse an die aufrufende Funktion zurück.
@@ -101,91 +99,59 @@ Ergänzend enthält \texttt{tests/} die automatisierten Prüfungen mit
 Komponenten beschrieben.
 
 Die zentrale Schnittstelle \texttt{run\_pipeline} in
-\texttt{core/pipeline.py} erwartet den Pfad einer Messdatei, die Abtastrate,
-ein Dictionary mit der Lagergeometrie sowie die DRS-Parameter und die
-Zerlegungstiefe des Fast Kurtogram. Hinzu kommen benannte Argumente für
-die Grenzen der Bandauswahl und die Konfiguration der Fehlerindikation.
-Über \texttt{signal\_loader} lässt sich die Importfunktion übergeben; sie
-liefert das Signal und die Drehzahl.
-Der Schalter \texttt{use\_drs} bestimmt, ob die Signaltrennung verwendet
-wird. Die Aufrufsignatur ist in
-Listing~\ref{lst:pipeline-run-pipeline-schnittstelle} dokumentiert.
+\texttt{core/pipeline.py} erhält den Pfad einer Messdatei, Abtastrate und
+Lagergeometrie sowie die Parameter für DRS,
+\hyperref[par:kurtogramm_fast_kurtogram]{Fast Kurtogram}, Bandauswahl und
+Fehlerindikation. Über \texttt{signal\_loader} lässt sich die Importfunktion
+übergeben, die Signal und Drehzahl liefert; \texttt{use\_drs} schaltet die
+Signaltrennung ein oder aus. Die Aufrufsignatur zeigt
+Listing~\ref{lst:pipeline-run-pipeline-schnittstelle}.
 
-Die Rückgabe ist in der mit \texttt{@dataclass} definierten Datenklasse
-\texttt{PipelineResult} gebündelt.
-Sie stellt die Drehzahl, das Eingangssignal und die Ergebnisse der
-Signaltrennung bereit. Hinzu kommen das Kurtogramm mit seinen Achsen,
-Mittenfrequenz und Bandbreite des ausgewählten Bandes, das SES mit
-Frequenzachse sowie die berechneten Lagerfrequenzen und die Fehlerindikation.
-Aufrufende Funktionen können diese Werte über benannte Felder wie
-\texttt{result.ses} abrufen. Auch innerhalb der Verarbeitung bündeln
-Datenklassen zusammengehörige Ausgaben: \texttt{KurtogramResult} enthält
-das Kurtogramm und Angaben zu dessen globalem Optimum;
-\texttt{KurtogramBand} beschreibt das unter den vorgegebenen Grenzen
-ausgewählte Band. Diese Dataclasses dienen als Datencontainer für
-zusammengehörige Ergebnisse, während die Berechnungen in Funktionen liegen.
+Die Datenklasse \texttt{PipelineResult} bündelt die Rückgabe: Eingangssignal
+und Drehzahl, Zwischenergebnisse der Signalverarbeitung sowie Lagerfrequenzen
+und Fehlerindikation. Dazu gehören auch das ausgewählte Frequenzband und
+das SES mit seiner Frequenzachse. Aufrufende Funktionen greifen über
+benannte Felder auf diese Werte zu. Innerhalb der Verarbeitung enthält
+\texttt{KurtogramResult} das Kurtogramm mit seinem globalen Optimum;
+\texttt{KurtogramBand} beschreibt das unter den vorgegebenen Grenzen ausgewählte Band.
+Diese Datenklassen bündeln Ergebnisse; die Berechnungen liegen in Funktionen.
 
-Feste Einstellungen stehen in \texttt{config/settings.py}, Lagergeometrien
-in \texttt{config/bearings.py}. Die Einstellungen umfassen unter anderem
+Die Konfiguration verbindet feste Einstellungen mit den Ergebnissen der
+Parametersuche. In \texttt{config/settings.py} stehen unter anderem
 Abtastraten, Grenzen der Bandauswahl, Vorgaben für DRS und Kurtogramm sowie
-die Auswahl der Paderborner Messungen. Die Geometrieprofile bündeln
-Wälzkörperzahl, Wälzkörper- und Teilkreisdurchmesser sowie Druckwinkel.
-Für Paderborn ordnet \texttt{get\_paderborn\_geometry} der jeweiligen
-Lagerkennung das hinterlegte Profil zu. \texttt{run\_pipeline} selbst
-importiert diese Konfigurationsmodule nicht. Beispielsweise liest
-\path{evaluate_paderborn.py} die Abtastrate und die Grenzen der Bandauswahl
-aus \texttt{settings.py}, wählt das Geometrieprofil der Messung und
-übergibt diese Werte an die Pipeline. Dort berechnet
-\path{compute_bearing_fault_frequencies} aus der übergebenen Geometrie
-und der eingelesenen Drehzahl die charakteristischen Lagerfrequenzen.
+die Auswahl der Paderborner Messungen. \texttt{config/bearings.py} enthält
+die Lagergeometrien, deren Zuordnung Absatz
+\hyperref[subsec:lagerfrequenzen_impl]{Lagerfrequenzen} beschreibt.
+Die Workflows wählen Abtastrate, Lagergeometrie und Bandgrenzen passend zum
+Datensatz und übergeben sie an \texttt{run\_pipeline}.
+Das Paderborn-Beispiel in
+Listing~\ref{lst:evaluate-paderborn-evaluate-file-parameteruebergabe}
+zeigt diesen Aufruf. Die festgelegten Frequenzordnungen übernimmt das
+Pipelinemodul dagegen direkt aus \texttt{settings.py}.
 
-Für die manuelle Untersuchung einer einzelnen Messung dient
-\texttt{workflows/show\_example.py}. Das Skript lädt die gespeicherten
-Parameter der Parametersuche und verarbeitet die über den eingetragenen
-Dateipfad ausgewählte Messung. Im aktuellen Stand ist dafür eine
-CWRU-Messung mit Innenringschaden samt passender Abtastrate und
-Lagergeometrie hinterlegt.
-Anschließend übergibt das Skript die benötigten Ergebnisfelder an die
-Grafikfunktionen für Zeitsignale, Spektren, Kurtogramm und SES.
+Die grafische Einzeluntersuchung und die Evaluation laden ihre
+Verarbeitungsparameter mit \texttt{load\_trained\_parameters} aus
+\texttt{utils/io.py}. Die Funktion wählt die bestplatzierte Konfiguration
+aus der von \texttt{tune\_paderborn.py} erzeugten Suchrangliste
+\path{data/results/paderborn_param_search.csv}. Sie übernimmt daraus die
+Zerlegungstiefe, die DRS-Parameter und die Parameter der Fehlerindikation
+und ergänzt die festen DRS-Vorgaben
+(Listing~\ref{lst:evaluate-paderborn-load-trained-parameters-konfiguration}).
+Die fachliche Bedeutung und Auswahl der Parameter behandelt
+Abschnitt~\ref{sec:parametrierungsstrategie}; ihre Verwendung erläutern die
+Abschnitte~\ref{sec:signalverarbeitung_impl} und~\ref{sec:signalbewertung_impl}.
 
-Die Parameter für diese Einzeluntersuchung und die automatisierte Evaluation
-werden aus derselben Ergebnisdatei geladen. \texttt{tune\_paderborn.py}
-schreibt die Suchrangliste nach
-\path{data/results/paderborn_param_search.csv}.
-\path{load_trained_parameters} in \texttt{utils/io.py} übernimmt aus der
-bestplatzierten Zeile die Zerlegungstiefe, die DRS-Parameter
-sowie die Parameter der Fehlerindikation und ergänzt die weiteren festen
-DRS-Vorgaben.
-Listing~\ref{lst:evaluate-paderborn-load-trained-parameters-konfiguration}
-zeigt die Zusammenstellung dieser Laufparameter.
-Abtastrate, Lagergeometrie und Grenzen der Bandauswahl bestimmen die
-Aufrufstellen weiterhin datensatzabhängig.
-
-Die fachliche Bedeutung und Auswahl der Verarbeitungsparameter behandelt
-Abschnitt~\ref{sec:parametrierungsstrategie}. Ihre Verwendung innerhalb
-der Komponenten erläutern die Abschnitte~\ref{sec:signalverarbeitung_impl}
-und~\ref{sec:signalbewertung_impl}.
-
-Der Haupteinstiegspunkt \texttt{main.py} lädt die ausgewählte Konfiguration
-und startet damit die Paderborn- und die CWRU-Evaluation, ohne die
-Parametersuche erneut auszuführen. Für jeden Datensatz ruft er die
-Evaluation mit \texttt{use\_drs=True} und \texttt{use\_drs=False} auf
-(Listing~\ref{lst:main-main-einzelaufruf}) und speichert die Ergebnisse
-in getrennten CSV-Dateien.
-Die Evaluationsfunktionen übergeben die geladenen Parameter der
-Fehlerindikation direkt an \texttt{run\_pipeline}.
-Listing~\ref{lst:evaluate-paderborn-evaluate-file-parameteruebergabe} zeigt
-diese Parameterübergabe über \texttt{**detection\_params} am
-Paderborn-Aufruf.
-
-\path{workflows/run_complete_evaluation.py} bietet zusätzlich einen Ablauf
-einschließlich neuer Parametersuche. Das Skript führt die Suche aus und
-wertet anschließend die Paderborn- und CWRU-Messungen mit DRS aus.
+Für die grafische Untersuchung einer einzelnen Messung dient
+\texttt{workflows/show\_example.py}. Das Skript verarbeitet eine hinterlegte
+Messung und stellt Zeitsignale, Spektren, Kurtogramm und SES dar.
+\texttt{main.py} startet die Evaluation beider Datensätze mit gespeicherten
+Parametern; \path{workflows/run_complete_evaluation.py} führt zuvor eine neue
+Parametersuche aus. Die automatisierten Abläufe beschreibt
+Absatz~\hyperref[subsec:evaluationslaeufe_impl]{Evaluationsläufe}.
 \par\endgroup
 
 \paragraphheading{Datenimport}
 \label{sec:datenimport}
-
 Die beiden Importfunktionen in \texttt{utils/io.py} führen die
 unterschiedlichen MAT-Strukturen auf dieselbe Schnittstelle zurück. Sie
 liefern jeweils ein eindimensionales Schwingungssignal und einen einzelnen
@@ -195,6 +161,10 @@ Zuordnung dieser beiden Größen.
 \begin{table}[htbp]
   \centering
   \small
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\doublerulesep}{0pt}
+  \renewcommand{\arraystretch}{1.15}
   \caption{Datensatzabhängige Zuordnung beim Datenimport}
   \label{tab:datenimport_impl}
   \begin{tabularx}{\textwidth}{|
@@ -205,7 +175,7 @@ Zuordnung dieser beiden Größen.
     \hline
     \textbf{Datensatz} & \textbf{Schwingungssignal} &
     \textbf{Drehzahl} & \textbf{Rückgabe} \\
-    \hline
+    \toprule\toprule
     CWRU & Variable mit der Endung \texttt{\_DE\_time}, zu einem
     eindimensionalen Array abgeflacht & Wert aus dem RPM-Feld; fehlt dieses,
     ein ausdrücklich übergebener Ersatzwert &
@@ -226,18 +196,17 @@ des Imports; sie wird weder an die Importfunktion noch an die für die
 Fehlerentscheidung zuständige Funktion \texttt{evaluate\_spectrum} übergeben.
 
 Für \texttt{normal\_1.mat} und \texttt{normal\_2.mat} fehlen die RPM-Felder.
-Der CWRU-Workflow übergibt deshalb die vom Datenanbieter angegebenen
+Der CWRU-Workflow übergibt deshalb die von der CWRU angegebenen
 ungefähren Drehzahlen von $1772$ beziehungsweise $1750\,\mathrm{min}^{-1}$
 \cite{NormalBaselineData}. Diese Werte sind lokal hinterlegt; der Import
 ruft die Website nicht ab. Ein vorhandenes RPM-Feld hat stets Vorrang.
 
 Fehlt bei CWRU das Drive-End-Signal oder sowohl das RPM-Feld als auch ein
-Ersatzwert, bricht der Loader mit einem Fehler ab. Entsprechend führt ein
-fehlender erforderlicher Paderborn-Kanal zu einem Importfehler. Der
-Evaluationsworkflow fängt solche Fehler pro Datei ab und kennzeichnet den Lauf
-als fehlerhaft. Der vorhandene Test mit einer beschädigten Paderborn-Datei
-prüft ausschließlich diese Fehlerbehandlung des Workflows; er weist nicht die
-fachliche Richtigkeit des Datenimports nach.
+Ersatzwert, bricht der Loader mit einem Fehler ab. Ebenso führt ein fehlender
+erforderlicher Paderborn-Kanal zu einem Importfehler. Die
+Evaluationsfunktionen kennzeichnen die betroffene Messdatei als fehlerhaft
+und verarbeiten die übrigen Dateien weiter. Den Umgang mit diesen Fehlern
+beschreibt Absatz~\hyperref[subsec:evaluationslaeufe_impl]{Evaluationsläufe}.
 
 \section{Signalverarbeitung}
 \label{sec:signalverarbeitung_impl}
@@ -1069,15 +1038,18 @@ CWRU-Abtastraten und den Fehlerstatus einer beschädigten Paderborner Datei.
 Sie decken damit ausgewählte Zuordnungen und Fehlerfälle ab, jedoch keinen
 vollständigen Evaluationslauf vom Dateiimport bis zum CSV-Export.
 
-Über den Schalter \texttt{use\_drs} unterstützen die Evaluationsfunktionen
-auch eine Verarbeitung ohne DRS. Die direkten Starts der beiden
-Evaluationsskripte verwenden jedoch den Standardwert \texttt{True}.
-Der im Evaluationskonzept vorgesehene Vergleich beider Varianten ist somit
-nicht Teil dieser direkten Abläufe.
+Der Haupteinstiegspunkt \texttt{main.py} lädt die gespeicherte Konfiguration
+und startet für jeden Datensatz die Evaluation mit und ohne DRS. Er übergibt
+dazu dieselbe Dateiauswahl und dieselben Parameter mit
+\texttt{use\_drs=True} beziehungsweise \texttt{use\_drs=False}
+(Listing~\ref{lst:main-main-einzelaufruf}). Die Ergebnisse und Kennzahlen
+beider Varianten werden in getrennten CSV-Dateien gespeichert; eine neue
+Parametersuche findet dabei nicht statt.
 
-Für den Gesamtablauf startet
-\path{workflows/run_complete_evaluation.py} nacheinander die Parametersuche,
-die Paderborner Evaluation und die CWRU-Evaluation in getrennten
-Python-Prozessen. Das Skript wartet jeweils auf den Abschluss einer Stufe,
-bevor es die nächste startet. Bricht ein Prozess mit einem Fehler ab,
-endet die Aufrufkette.
+Die direkten Starts der Evaluationsskripte verwenden dagegen den
+Standardwert \texttt{use\_drs=True}.
+\path{workflows/run_complete_evaluation.py} startet nacheinander die
+Parametersuche und diese beiden Evaluationsskripte, führt die Evaluation
+also jeweils mit DRS aus. Jede Stufe läuft in einem eigenen Python-Prozess.
+Das Skript wartet auf dessen Abschluss, bevor es die nächste Stufe startet;
+bei einem Fehler endet die Aufrufkette.
